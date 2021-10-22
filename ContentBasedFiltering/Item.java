@@ -2,8 +2,7 @@ package com.company;
 
 public class Item {
     int ID;
-    //vector
-    tags;
+    String[] tags;
     public Item() {
         ID = 0;
         tags = null;
@@ -15,13 +14,19 @@ public class Item {
     public int getID() {
         return this.ID;
     }
-    public //vector//
-    getTags() {
+    public String[] getTags() {
         return this.tags;
     }
+
     public void addTag(String tag1) {
-        tags = //add tag1 to tags;
+        int n = tags.length;
+        String[] new_tags = new String[n+1];
+        int i;
+        for (i = 0; i < n; i++) new_tags[i] = tags[i];
+        new_tags[n] = tag1;
+        tags = new_tags;
     }
+
     public void setID(int id) {
         ID = id;
     }
