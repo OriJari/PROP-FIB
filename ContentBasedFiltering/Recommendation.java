@@ -1,13 +1,12 @@
-package com.company;
 import java.util.*;
 import java.io.*;
 import Item;
 
-public class Recomendation {
+public class Recommendation {
     Item[] conjunt;
     int ID_perfil;
     //Constructoras
-    public Recomendation() {
+    public Recommendation() {
         ID_perfil = 0;
         conjunt = null;
     }
@@ -37,20 +36,9 @@ public class Recomendation {
         conjunt = new_conj;
     }
     //Other
-    public int similarity_items(Item item1, Item item2) {
-        int n1 = item1.getNumTags();
-        int n2 = item2.getNumTags();
-        String[] tags1 = item1.getTags();
-        String[] tags2 = item2.getTags();
-        int i, j;
-        int result = 0;
-        for (i = 0; i < n1; i++) {
-            for (j = 0; j < n2; j++) {
-                if (tags1[i] == tags2[j]) ++result;
-            }
-        }
-        return result;
-    }
+    //Quan rebem el data_set, podem calcular en el mateix moment la taula de distàncies
+    //entre items, i quan es demani fer una recomendació, només buscar els k-NN.
+
     public Item[] kNN(Item item1) {
         int n = //nombre d'items al dataset
         int k = //nombre d'items veïns a calcular
@@ -58,14 +46,7 @@ public class Recomendation {
         int [] dist_vec;
         int [] k_closest;
         int current_max_dist;
-        for (i = 0; i < n; ++i) {
-            dist = similarity_items(item1, dataset[i]);
-            dist_vec[i] = dist;
-            //incrementar la mida de dist_vec (still to check)
-        }
-        for (i = 0; i < n; ++i) {
 
-        }
     }
 
 
