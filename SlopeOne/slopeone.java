@@ -22,7 +22,7 @@ public class SlopeOne {
 
     Map<User,Map<Item,Float>> map_data;
     Map<Item,Map<Item,Float>> map_des_mitj;
-    Map<Item,Map<Item,Integer>> mFreqMatrix;
+    Map<Item,Map<Item,Integer>> map_freq;
 
     //pre: true
     //post: creadora
@@ -36,43 +36,53 @@ public class SlopeOne {
     }
     */
     //pre:
+  //  Based on the available data, calculate the relationships between the
+    // items and number of occurence
+     //existing user data and their items' ratings
     //post:  The preprocessing phase, in which is calculated the difference between all item-item preference values
+
+    /*
+  1.  for every item i
+2.  for every other item j
+3.   for every user u expressing preference for both i and j
+4.     add the difference in u’s preference for i and j to an average
+*/
     private static void desviacio_mitjana(Map<User, Map<Item,Float>> dades){
-        /*
-             private static void buildDifferencesMatrix(Map<User, HashMap<Item, Double>> data) {
-        for (HashMap<Item, Double> user : data.values()) {
-            for (Entry<Item, Double> e : user.entrySet()) {
-                if (!diff.containsKey(e.getKey())) {
-                    diff.put(e.getKey(), new HashMap<Item, Double>());
-                    freq.put(e.getKey(), new HashMap<Item, Integer>());
+
+        for (Map<Item, Float> users : dades.values()) { // first iterate through users
+            for (Map.Entry<Item, Float> u_data : users.entrySet()) { // then iterate through user data
+
+                if (!map_des_mitj.containsKey(u_data.getKey())) {
+                    map_des_mitj.put(u_data.getKey(), new Map<Item, Float>());
+                    map_freq.put(u_data.getKey(), new Map<Item, Integer>());
                 }
-                for (Entry<Item, Double> e2 : user.entrySet()) {
-                    int oldCount = 0;
-                    if (freq.get(e.getKey()).containsKey(e2.getKey())) {
-                        oldCount = freq.get(e.getKey()).get(e2.getKey()).intValue();
+                for (Map.Entry<Item, Float> u2_data : user.entrySet()) {
+                    int cont1 = 0;
+                    if (map_freq.get(u_data.getKey()).containsKey(u2_datya.getKey())) {
+                        cont1 = freq.get(u_data.getKey()).get(u2_data.getKey()).intValue();
                     }
-                    double oldDiff = 0.0;
-                    if (diff.get(e.getKey()).containsKey(e2.getKey())) {
-                        oldDiff = diff.get(e.getKey()).get(e2.getKey()).doubleValue();
+                    float desv_ini = 0.0f;
+                    if (map_des_mitj.get(u_data.getKey()).containsKey(u2_data.getKey())) {
+                        desv_ini = map_des_mitj.get(u_data.getKey()).get(u2_data.getKey()).doubleValue();
                     }
-                    double observedDiff = e.getValue() - e2.getValue();
-                    freq.get(e.getKey()).put(e2.getKey(), oldCount + 1);
-                    diff.get(e.getKey()).put(e2.getKey(), oldDiff + observedDiff);
+                    float desv_result = u_data.getValue() - u2_data.getValue();
+                    map_freq.get(u_data.getKey()).put(u2_data.getKey(), cont1 + 1);
+                    map_des_mitj.get(u_data.getKey()).put(u2_data.getKey(), desv_ini + desv_result);
                 }
             }
         }
-        for (Item j : diff.keySet()) {
-            for (Item i : diff.get(j).keySet()) {
-                double oldValue = diff.get(j).get(i).doubleValue();
-                int count = freq.get(j).get(i).intValue();
-                diff.get(j).put(i, oldValue / count);
+        for (Item j : map_desv_mitj.keySet()) {
+            for (Item i : map_desv_mitj(j).keySet()) {
+                float desviacio = map_desv_mitj.get(j).get(i).doubleValue();
+                int cardinalitat = map_freq.get(j).get(i).intValue();
+                map_desv_mitj.get(j).put(i, desviacio / cardinalitat);
             }
         }
-        printData(data);
+
     }
 
 
-         */
+
 
 
     }
