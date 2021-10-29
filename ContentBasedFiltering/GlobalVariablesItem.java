@@ -27,26 +27,19 @@ public class GlobalVariablesItem {
 
     public void addTag_Item(Item item, String tag) {
         item.addTag(tag);
-        actualitza_llista(item);
+        actualitza_map(item);
         actualitza_taula(item);
     }
 
     public void removeTag_item(Item item, String tag) {
         item.delTag(tag);
-        actualitza_llista(item);
+        actualitza_map(item);
         actualitza_taula(item);
     }
 
-    public void actualitza_llista(Item item) {
-        int id = item.getID();
-
-    }
 
     public void actualitza_taula(Item item) {
 
     }
 
-    public static void main (String[] args) {
-
-    }
 }
