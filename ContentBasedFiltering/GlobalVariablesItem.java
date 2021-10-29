@@ -1,11 +1,12 @@
 import java.util.Map;
-import Item
+import Item;
+
 public class GlobalVariablesItem {
     int[][] distanceTable;
 
     public GlobalVariablesItem() {}
 
-    public void init_DistanceTable(Map<int, String[]> mapa) {
+    public void init_DistanceTable(Map<Integer, String[]> mapa) {
         //given a Map<int, String[]> with int = id and String[] = tags
         int n = mapa.size();
         Item aux1, aux2;
