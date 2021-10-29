@@ -4,7 +4,7 @@ import java.io.*;
 
 public class Item {
     int ID;
-    String[] tags; //TO DO: change to List
+    String[] tags; //TODO: change to List
     //Constructoras
     public Item() {
         ID = 0;
