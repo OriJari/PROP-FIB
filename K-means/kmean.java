@@ -23,10 +23,10 @@ public class kmean {
                 return (float) (Math.pow(u1Multu2, 2)/(u1Squared*u2Squared));
         }
 
-        public boolean equalClusters(Vector<Vector<Integer>> newClusters, Vector<Vector<Integer>> clusters){
+        public boolean equalClusters(Vector<Vector<Integer>> nuevoClusters, Vector<Vector<Integer>> clusters){
                 for(int i = 0; i < clusters.size(); ++i){
                         Vector<Integer> rowVectorc = clusters.get(i);
-                        Vector<Integer> rowVectornew = clusters.get(i);
+                        Vector<Integer> rowVectornew = nuevoClusters.get(i);
                         if(rowVectorc.size() != rowVectornew.size()){
                                 return false;
                         }
@@ -47,8 +47,22 @@ public class kmean {
         public Vector<Vector<Integer>> k_means(int k, Map<Integer, Map<Integer, Float>> opinions){ // k <= opinions.size()
                 Vector<Vector<Integer>> clusters = new Vector<Vector<Integer>> (k);
                 Vector<Map<Integer, Float>> means = new Vector<Map<Integer, Float>>(k);
-                //initialize vectors, dont know how to do it yet, i think that dividing all the users in k groups and computing their mean
-                
+                //initialize vectors
+                {
+                        int i = 0;
+                        for (Map.Entry<Integer, Map<Integer, Float>> entry : opinions.entrySet()) {
+                                clusters.get(i%k).add(entry.getKey());
+                                for(Map.Entry<Integer, Float> entry2 : entry.getValue().entrySet()){
+                                        if(means.get(i%k).containsKey(entry2.getKey())){
+                                                means.get(i%k).put(entry2.getKey(), means.get(i%k).get(entry2.getKey()) + entry2.getValue());
+                                        }
+                                        else{
+                                                means.get(i%k).put(entry2.getKey(), entry2.getValue())
+                                        }
+                                }
+                                ++i;
+                        }
+                }
                 boolean cont = true;
 
                 while(cont){
