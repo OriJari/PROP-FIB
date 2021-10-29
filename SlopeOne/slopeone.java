@@ -4,7 +4,7 @@ import Item;
 import User;
 
 
-public class SlopeOne {
+public class slopeone {
     /*
     TENIM:
         private vector u_val(); //valoracions del usurari u
@@ -25,7 +25,7 @@ public class SlopeOne {
 
     //pre: true
     //post: creadora
-    public static void SlopeOne(){}
+    public static void slopeone(){}
 
 
     public static void slopeOne(Map<User,Map<Item,Float>> map_data) {
@@ -88,11 +88,11 @@ public class SlopeOne {
             u_freq.put(j, 0);
             u_pred.put(j, 0.0f);
         }
-        for (Map.Entry<User, Map<Item, Float>> u2_data : data.entrySet()) {
-            for (Item j : u2_data.getValue().keySet()) {
+        for (Map.Entry<User, Map<Item, Float>> u_data : data.entrySet()) {
+            for (Item j : u_data.getValue().keySet()) {
                 for (Item i : map_des_mitj.keySet()) {
 
-                    float predictedValue = map_des_mitj.get(i).get(j).floatValue() + u2_data.getValue().get(j).floatValue();
+                    float predictedValue = map_des_mitj.get(i).get(j).floatValue() + u_data.getValue().get(j).floatValue();
                     float finalValue = predictedValue * map_freq.get(i).get(j).intValue();
                     u_predPred.put(i, u_pred.get(i) + finalValue);
                     u_freq.put(i, u_freq.get(i) + map_freq.get(i).get(j).intValue());
@@ -103,6 +103,13 @@ public class SlopeOne {
             for (Item j : u_pred.keySet()) {
                 if (u_freq.get(j) > 0) {
                     clean.put(j, u_pred.get(j).floatValue() / u_freq.get(j).intValue());
+                }
+            }
+            for (Item j : InputData.items) {
+                if (u_data.getValue().containsKey(j)) {
+                    clean.put(j, u_data.getValue().get(j));
+                } else if (!clean.containsKey(j)) {
+                    clean.put(j, -1.0f);
                 }
             }
 
