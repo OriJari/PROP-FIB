@@ -23,11 +23,11 @@ public class Item {
     }
 
     public int getNumTags() {
-        return tags.length();
+        return tags.length;
     }
     //Modificadoras
     public void addTag(String tag1) {
-        int n = tags.length();
+        int n = tags.length;
         String[] new_tags = new String[n+1];
         int i;
         for (i = 0; i < n; i++) new_tags[i] = tags[i];
