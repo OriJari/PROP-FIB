@@ -1,6 +1,5 @@
 import java.util.*;
 import java.io.*;
-import Item;
 
 public class Recommendation {
     Item[] conjunt;
@@ -28,8 +27,8 @@ public class Recommendation {
     }
 
     public void add_Item(Item new_item) {
-        int n = conjunt.length();
-        String[] new_conj = new String[n+1];
+        int n = conjunt.length;
+        Item[] new_conj = new Item[n+1];
         int i;
         for (i = 0; i < n; i++) new_conj[i] = conjunt[i];
         new_conj[n] = new_item;
@@ -48,6 +47,5 @@ public class Recommendation {
         int current_max_dist;
 
     }
-
 
 }
