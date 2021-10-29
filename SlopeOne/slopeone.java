@@ -20,13 +20,19 @@ public class SlopeOne {
     */
 
 
-    Map<User,Map<Item,Float>> map_data;
-    Map<Item,Map<Item,Float>> map_des_mitj;
-    Map<Item,Map<Item,Integer>> map_freq;
+    Map<User,Map<Item,Float>> map_data; //mapa de dades
+    Map<Item,Map<Item,Float>> map_des_mitj; //mapa de la desviacio dun item amb un altre
+    Map<Item,Map<Item,Integer>> map_freq; //ni puta idea la veritat
 
     //pre: true
     //post: creadora
     public static void SlopeOne(){}
+
+
+    public static void slopeOne(Map<User,Map<Item,Float>> map_data) {
+        desviacio_mitjana(map_data);
+        prediccio(map_data);
+    }
 
     /* dudable metode
     //pre: cardinal del Map<Item, Map<Item, Integer>>, el lengh
@@ -49,8 +55,8 @@ public class SlopeOne {
 */
     private static void desviacio_mitjana(Map<User, Map<Item,Float>> dades){
 
-        for (Map<Item, Float> users : dades.values()) { // first iterate through users
-            for (Map.Entry<Item, Float> u_data : users.entrySet()) { // then iterate through user data
+        for (Map<Item, Float> users : dades.values()) { // first iterate through users, per tots els usuaris
+            for (Map.Entry<Item, Float> u_data : users.entrySet()) { // then iterate through user data,
 
                 if (!map_des_mitj.containsKey(u_data.getKey())) {
                     map_des_mitj.put(u_data.getKey(), new Map<Item, Float>());
@@ -71,24 +77,45 @@ public class SlopeOne {
                 }
             }
         }
-        for (Item j : map_desv_mitj.keySet()) {
+        for (Item j : map_des_mitj.keySet()) {
             for (Item i : map_desv_mitj(j).keySet()) {
-                float desviacio = map_desv_mitj.get(j).get(i).doubleValue();
+                float desviacio = map_des_mitj.get(j).get(i).doubleValue();
                 int cardinalitat = map_freq.get(j).get(i).intValue();
-                map_desv_mitj.get(j).put(i, desviacio / cardinalitat);
+                map_des_mitj.get(j).put(i, desviacio / cardinalitat);
             }
         }
 
     }
 
+    private static void prediccio(Map<User, Map<Item,Float>> dades) {
+        Map<Item, Float> u_pred = new Map<Item, Float>();
+        Map<Item, Integer> u_freq = new Map<Item, Integer>();
+        for (Item j : map_des_mitj.keySet()) {
+            u_freq.put(j, 0);
+            u_pred.put(j, 0.0f);
+        }
+        for (Map.Entry<User, Map<Item, Float>> u2_data : data.entrySet()) {
+            for (Item j : u2_data.getValue().keySet()) {
+                for (Item i : map_des_mitj.keySet()) {
+
+                        float predictedValue = map_des_mitj.get(i).get(j).floatValue() + u2_data.getValue().get(j).floatValue();
+                        float finalValue = predictedValue * map_freq.get(i).get(j).intValue();
+                        u_predPred.put(i, u_pred.get(i) + finalValue);
+                        u_freq.put(i, u_freq.get(i) + map_freq.get(i).get(j).intValue());
+
+                }
+            }
+            Map<Item, Float> clean = new Map<Item, Float>();
+            for (Item j : u_pred.keySet()) {
+                if (u_freq.get(j) > 0) {
+                    clean.put(j, u_pred.get(j).floatValue() / u_freq.get(j).intValue());
+                }
+            }
 
 
+        }
 
 
-
-
-
-
-
+    }
 
 }
