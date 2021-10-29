@@ -1,9 +1,8 @@
 package com.company;
 import java.util.*;
-import java.io.*;
 import Item;
 import User;
-import java.util.Map;
+
 
 public class SlopeOne {
     /*
@@ -34,13 +33,8 @@ public class SlopeOne {
         prediccio(map_data);
     }
 
-    /* dudable metode
-    //pre: cardinal del Map<Item, Map<Item, Integer>>, el lengh
-    //post: retorna la desviació mitjana de la valoració de dos items
-    private double desviacio_mitjana(static int card_){
+    /*
 
-    }
-    */
     //pre:
   //  Based on the available data, calculate the relationships between the
     // items and number of occurence
@@ -59,8 +53,8 @@ public class SlopeOne {
             for (Map.Entry<Item, Float> u_data : users.entrySet()) { // then iterate through user data,
 
                 if (!map_des_mitj.containsKey(u_data.getKey())) {
-                    map_des_mitj.put(u_data.getKey(), new Map<Item, Float>());
-                    map_freq.put(u_data.getKey(), new Map<Item, Integer>());
+                    map_des_mitj.put(u_data.getKey(), new HashMap<Item, Float>());
+                    map_freq.put(u_data.getKey(), new HashMap<Item, Integer>());
                 }
                 for (Map.Entry<Item, Float> u2_data : user.entrySet()) {
                     int cont1 = 0;
@@ -88,8 +82,8 @@ public class SlopeOne {
     }
 
     private static void prediccio(Map<User, Map<Item,Float>> dades) {
-        Map<Item, Float> u_pred = new Map<Item, Float>();
-        Map<Item, Integer> u_freq = new Map<Item, Integer>();
+        Map<Item, Float> u_pred = new HashMap<Item, Float>();
+        Map<Item, Integer> u_freq = new HashMap<Item, Integer>();
         for (Item j : map_des_mitj.keySet()) {
             u_freq.put(j, 0);
             u_pred.put(j, 0.0f);
@@ -98,14 +92,14 @@ public class SlopeOne {
             for (Item j : u2_data.getValue().keySet()) {
                 for (Item i : map_des_mitj.keySet()) {
 
-                        float predictedValue = map_des_mitj.get(i).get(j).floatValue() + u2_data.getValue().get(j).floatValue();
-                        float finalValue = predictedValue * map_freq.get(i).get(j).intValue();
-                        u_predPred.put(i, u_pred.get(i) + finalValue);
-                        u_freq.put(i, u_freq.get(i) + map_freq.get(i).get(j).intValue());
+                    float predictedValue = map_des_mitj.get(i).get(j).floatValue() + u2_data.getValue().get(j).floatValue();
+                    float finalValue = predictedValue * map_freq.get(i).get(j).intValue();
+                    u_predPred.put(i, u_pred.get(i) + finalValue);
+                    u_freq.put(i, u_freq.get(i) + map_freq.get(i).get(j).intValue());
 
                 }
             }
-            Map<Item, Float> clean = new Map<Item, Float>();
+            Map<Item, Float> clean = new HashMap<Item, Float>();
             for (Item j : u_pred.keySet()) {
                 if (u_freq.get(j) > 0) {
                     clean.put(j, u_pred.get(j).floatValue() / u_freq.get(j).intValue());
