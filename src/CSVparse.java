@@ -14,7 +14,7 @@ public class CSVparser {
 
     /**
      * Default builder.
-     * @param path camino donde se ubica el documento csv
+     * @param path where is located the csv document
      */
     public CSVparser(String path){
         this.path = path;
@@ -26,10 +26,10 @@ public class CSVparser {
     }
 
     /**
-     * Read the content into memory.
+     * Read the content of the item csv into memory.
      */
     public void readLoadItem(){
-        FileInputStream fis= null;
+        FileInputStream fis;
         try {
             fis = new FileInputStream(this.path);
             Scanner sc = new Scanner(fis);
@@ -37,9 +37,6 @@ public class CSVparser {
             //For each line
             while(sc.hasNextLine()){
                 String line = sc.nextLine();
-                //,(?=(?:[^\"]\"[^\"]\")[^\"]$) //con punto y coma
-                //String[] tokens = line.split("[,|;](?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                //Arrays.asList(line.split(",(?=(?:[^\"]\"[^\"]\")[^\"]$)"));
                 List<String> splitContent = new ArrayList<>(Arrays.asList(line.split("[,|;](?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1)));
                 content.add(splitContent);
                 //Update cols&rows
@@ -52,8 +49,11 @@ public class CSVparser {
         }
     }
 
+    /**
+     * Read the content of the rates csvs into memory.
+     */
     public void readLoadRate(){
-        FileInputStream fis= null;
+        FileInputStream fis;
         try {
             fis = new FileInputStream(this.path);
             Scanner sc = new Scanner(fis);
@@ -73,16 +73,25 @@ public class CSVparser {
         }
     }
 
+    /**
+     * Change a String value to an Integer one
+     * @param s String to obtain the corresponding value
+     */
     public static Integer String_to_Int(String s){
         return Integer.parseInt(s);
     }
+
+    /**
+     * Change a String value to a Float one
+     * @param s String to obtain the corresponding value
+     */
     public static Float String_to_Float(String s){
         return Float.parseFloat(s);
     }
 
     /**
-     * Cambio de estructura de List a Map
-     * @param rate_content contenido del documento csv
+     * Change List<List<String>> to a Map<Integer, Map<Integer,Float>> structure
+     * @param rate_content content of the csv document
      */
     public void LoadRate(List<List<String>> rate_content){
         //for each line take UserID, ItemID and Rate and add to the mapRate
@@ -101,40 +110,48 @@ public class CSVparser {
         }
     }
 
-
-    public void LoadItem(List<List<String>> rate_conent){
-        List<String> aux = new ArrayList<>();
-        for (int i = 0; i < rate_conent.size(); ++i){
+    /**
+     * Change List<List<String>> to a Map<Integer, List<String>> structure
+     * @param rate_content content of the csv document
+     */
+    public void LoadItem(List<List<String>> rate_content){
+        for (int i = 0; i < rate_content.size(); ++i){
             Integer itemID = i;
-            mapItem.put(itemID, rate_conent.get(i));
+            mapItem.put(itemID, rate_content.get(i));
         }
     }
 
+    /**
+     * Lecture of the List<List<String>> rows
+     * @param i number of the row to obtain
+     */
     public String getRow(int i) {
         return String.valueOf(this.content.get(i));
     }
 
     public static void main(String[] args) {
-        CSVparser instance = new CSVparser("/home/miguel/PROP/Project/Amazon/items.csv");
+        CSVparser instance = new CSVparser("/subgrup-prop2-3/src/items.csv");
         instance.readLoadItem();
         instance.LoadItem(instance.content);
 
-        CSVparser instance1 = new CSVparser("/home/miguel/PROP/Project/Amazon/ratings.db.csv");
+        CSVparser instance1 = new CSVparser("/subgrup-prop2-3/src/ratings.db.csv");
         instance1.readLoadRate();
         instance1.LoadRate(instance1.content);
 
-        CSVparser instance2 = new CSVparser("/home/miguel/PROP/Project/Amazon/ratings.test.known.csv");
+        CSVparser instance2 = new CSVparser("/subgrup-prop2-3/src/ratings.test.known.csv");
         instance2.readLoadRate();
         instance2.LoadRate(instance2.content);
 
-        CSVparser instance3 = new CSVparser("/home/miguel/PROP/Project/Amazon/ratings.test.unknown.csv");
+        CSVparser instance3 = new CSVparser("/subgrup-prop2-3/src/ratings.test.unknown.csv");
         instance3.readLoadRate();
         instance3.LoadRate(instance3.content);
 
+        /*
+        //Testing:
         System.out.println(instance.getRow(0));
         System.out.println(instance.getRow(7));
         System.out.println(instance1.getRow(1));
         System.out.println(instance1.getRow(2));
-        System.out.println(instance1.getRow(3));
+        System.out.println(instance1.getRow(3));*/
     }
 }
