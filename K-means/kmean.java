@@ -57,7 +57,7 @@ public class kmean {
                                                 means.get(i%k).put(entry2.getKey(), means.get(i%k).get(entry2.getKey()) + entry2.getValue());
                                         }
                                         else{
-                                                means.get(i%k).put(entry2.getKey(), entry2.getValue())
+                                                means.get(i%k).put(entry2.getKey(), entry2.getValue());
                                         }
                                 }
                                 ++i;
