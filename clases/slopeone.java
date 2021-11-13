@@ -1,37 +1,25 @@
 package com.company;
-import java.util.*;
-import Item;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import clases.Item;
 import User;
 
 
+
 public class slopeone {
-    /*
-    TENIM:
-        private vector u_val(); //valoracions del usurari u
-
-        private  float u_mean; //mitjana valoracions usuari u
-
-        private vector p_u_val(); // prediccions de valoracions del usuari u
-
-        map map [] []
 
 
-    */
 
-
-    Map<User,Map<Item,Float>> map_data; //mapa de dades
-    Map<Item,Map<Item,Float>> map_des_mitj; //mapa de la desviacio dun item amb un altre
-    Map<Item,Map<Item,Integer>> map_freq; //ni puta idea la veritat
+    Map<Integer,Map<Integer,Float>> map_data; //mapa de dades
+    Map<Integer,Map<Integer,Float>> map_des_mitj = new HashMap<>(); //mapa de la desviacio dun item amb un altre
+    Map<Integer,Map<Integer,Integer>> map_freq  = new HashMap<>(); //ni puta idea la veritat
 
     //pre: true
     //post: creadora
-    public static void slopeone(){}
+    public slopeone(){}
 
-
-    public static void slopeOne(Map<User,Map<Item,Float>> map_data) {
-        desviacio_mitjana(map_data);
-        prediccio(map_data);
-    }
 
     /*
 
@@ -47,19 +35,20 @@ public class slopeone {
 3.   for every user u expressing preference for both i and j
 4.     add the difference in u’s preference for i and j to an average
 */
-    private static void desviacio_mitjana(Map<User, Map<Item,Float>> dades){
 
-        for (Map<Item, Float> users : dades.values()) { // first iterate through users, per tots els usuaris
-            for (Map.Entry<Item, Float> u_data : users.entrySet()) { // then iterate through user data,
+    private  void desviacio_mitjana(Map<Integer, Map<Integer, Float>> dades){
+
+        for (Map<Integer, Float> users : dades.values()) { //  per tots els usuaris
+            for (Map.Entry<Integer, Float> u_data : users.entrySet()) { // itera a traves de les dades dels usuaris
 
                 if (!map_des_mitj.containsKey(u_data.getKey())) {
-                    map_des_mitj.put(u_data.getKey(), new HashMap<Item, Float>());
-                    map_freq.put(u_data.getKey(), new HashMap<Item, Integer>());
+                    map_des_mitj.put(u_data.getKey(), new HashMap<Integer, Float>());
+                    map_freq.put(u_data.getKey(), new HashMap<Integer, Integer>());
                 }
-                for (Map.Entry<Item, Float> u2_data : user.entrySet()) {
+                for (Map.Entry<Item, Float> u2_data : User.entrySet()) {
                     int cont1 = 0;
-                    if (map_freq.get(u_data.getKey()).containsKey(u2_datya.getKey())) {
-                        cont1 = freq.get(u_data.getKey()).get(u2_data.getKey()).intValue();
+                    if (map_freq.get(u_data.getKey()).containsKey(u2_data.getKey())) {
+                        cont1 = map_freq.get(u_data.getKey()).get(u2_data.getKey()).intValue();
                     }
                     float desv_ini = 0.0f;
                     if (map_des_mitj.get(u_data.getKey()).containsKey(u2_data.getKey())) {
@@ -71,17 +60,16 @@ public class slopeone {
                 }
             }
         }
-        for (Item j : map_des_mitj.keySet()) {
-            for (Item i : map_desv_mitj(j).keySet()) {
-                float desviacio = map_des_mitj.get(j).get(i).doubleValue();
+        for (Integer j : map_des_mitj.keySet()) {
+            for (Integer i : map_des_mitj(j).keySet()) {
+                float desviacio = (float)map_des_mitj.get(j).get(i).doubleValue();
                 int cardinalitat = map_freq.get(j).get(i).intValue();
                 map_des_mitj.get(j).put(i, desviacio / cardinalitat);
             }
         }
 
     }
-
-    private static void prediccio(Map<User, Map<Item,Float>> dades) {
+    private  void prediccio(Map<Integer, Map<Integer, Float>> dades) {
         Map<Item, Float> u_pred = new HashMap<Item, Float>();
         Map<Item, Integer> u_freq = new HashMap<Item, Integer>();
         for (Item j : map_des_mitj.keySet()) {
@@ -116,6 +104,17 @@ public class slopeone {
 
         }
 
+
+    }
+
+    public void slopeOne(Map<Integer, Map<Integer, Float>> map_data) {
+        new slopeone();
+        desviacio_mitjana(map_data);
+        prediccio(map_data);
+    }
+    public void main(String[] args){
+        Map<Integer, Map<Integer, Float>> map_data = this.map_data;
+        slopeOne(map_data);
 
     }
 
