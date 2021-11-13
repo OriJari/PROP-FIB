@@ -1,5 +1,6 @@
-import java.util.*;
-import java.io.*;
+package algorithm.contentbasedflitering;
+
+import algorithm.contentbasedflitering.Item;
 
 public class Recommendation {
     Item[] conjunt;

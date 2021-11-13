@@ -1,5 +1,6 @@
+package algorithm.contentbasedflitering;
+
 import java.util.*;
-import java.io.*;
 
 //one-hot -> pasar a bits (interseccion y union en java mas facil)
 

@@ -1,5 +1,6 @@
+package algorithm.contentbasedflitering;
+
 import java.util.Map;
-import Item;
 
 public class GlobalVariablesItem {
     int[][] distanceTable;

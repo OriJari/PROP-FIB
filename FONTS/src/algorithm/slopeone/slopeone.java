@@ -1,10 +1,8 @@
-
+package algorithm.slopeone;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import clases.Item;
-import User;
 
 
 

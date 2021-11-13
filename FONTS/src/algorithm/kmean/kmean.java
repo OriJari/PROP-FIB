@@ -1,3 +1,4 @@
+package algorithm.kmean;
 
 import java.util.*;
 
