@@ -1,7 +1,12 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.TreeMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Arrays;
 
-//import java.util.Arrays;
-import java.util.*;
-import java.io.*;
 
 
 public class CSVparser {
@@ -24,6 +29,36 @@ public class CSVparser {
         mapItem = new TreeMap<>();
         mapRate = new TreeMap<>();
     }
+    /**
+     * Getter of the class, gets the mapItem
+     */
+    public Map<Integer, List<String>> getMapItem() {
+        return mapItem;
+    }
+
+    /**
+     * Getter of the class, gets the mapRate
+     */
+    public Map<Integer, Map<Integer, Float>> getMapRate() {
+        return mapRate;
+    }
+
+    /**
+     * Setter of the class, sets a new mapItem
+     * @param mapItem , map to redefine the new one
+     */
+    public void setMapItem(Map<Integer, List<String>> mapItem) {
+        this.mapItem = mapItem;
+    }
+
+    /**
+     * Setter of the class, sets a new mapRate
+     * @param mapRate , map to redefine the new one
+     */
+    public void setMapRate(Map<Integer, Map<Integer, Float>> mapRate) {
+        this.mapRate = mapRate;
+    }
+
 
     /**
      * Read the content of the item csv into memory.

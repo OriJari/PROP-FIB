@@ -1,31 +1,55 @@
 import java.util.*;
 import java.io.*;
 
+//one-hot -> pasar a bits (interseccion y union en java mas facil)
 
 public class Item {
     int ID;
-    String[] tags; //TODO: change to List
-    //Constructoras
+    List<String> tags;
+
+    /**
+     * Default builder
+     */
     public Item() {
         ID = 0;
-        tags = null;
+        tags = new ArrayList<>();
     }
+    /**
+     * Default builder including the item id.
+     * @param id , id which item is identified
+     */
     public Item(int id) {
         ID = id;
-        tags = null;
-    }
-    //Consultoras
-    public int getID() {
-        return this.ID;
-    }
-    public String[] getTags() {
-        return this.tags;
+        tags = new ArrayList<>();
     }
 
-    public int getNumTags() {
-        return tags.length;
+    /**
+     * Getter of the item id
+     */
+    public Integer getID() {
+        return this.ID;
     }
-    //Modificadoras
+
+    /**
+     * Get the tag of the list in a determinate position
+     * @param i , position of the tag in the List
+     */
+    public List<String> getTags(int i) {
+        return Collections.singletonList(this.tags.get(i));
+    }
+
+    /**
+     * Get the number of tags that an item has.
+     */
+    public Integer getNumTags() {
+        return tags.size();
+    }
+
+
+    /**
+     * Add a tag to the set of tags
+     * @param tag1 , element to insert to the set
+     */
     public void addTag(String tag1) {
         int n = tags.length;
         String[] new_tags = new String[n+1];
@@ -34,6 +58,11 @@ public class Item {
         new_tags[n] = tag1;
         tags = new_tags;
     }
+
+    public Boolean exsistTag (String tag, List<String>){
+
+    }
+
     public void delTag(String tag1) {
         //...
     }
