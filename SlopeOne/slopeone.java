@@ -3,20 +3,8 @@ import java.util.*;
 import Item;
 import User;
 
-
 public class slopeone {
-    /*
-    TENIM:
-        private vector u_val(); //valoracions del usurari u
 
-        private  float u_mean; //mitjana valoracions usuari u
-
-        private vector p_u_val(); // prediccions de valoracions del usuari u
-
-        map map [] []
-
-
-    */
 
 
     Map<User,Map<Item,Float>> map_data; //mapa de dades
@@ -25,7 +13,7 @@ public class slopeone {
 
     //pre: true
     //post: creadora
-    public static void slopeone(){}
+    public void slopeone(){}
 
 
     public static void slopeOne(Map<User,Map<Item,Float>> map_data) {
@@ -47,7 +35,7 @@ public class slopeone {
 3.   for every user u expressing preference for both i and j
 4.     add the difference in u’s preference for i and j to an average
 */
-    private static void desviacio_mitjana(Map<User, Map<Item,Float>> dades){
+    private  void desviacio_mitjana(Map<User, Map<Item,Float>> dades){
 
         for (Map<Item, Float> users : dades.values()) { // first iterate through users, per tots els usuaris
             for (Map.Entry<Item, Float> u_data : users.entrySet()) { // then iterate through user data,
@@ -81,7 +69,7 @@ public class slopeone {
 
     }
 
-    private static void prediccio(Map<User, Map<Item,Float>> dades) {
+    private  void prediccio(Map<User, Map<Item,Float>> dades) {
         Map<Item, Float> u_pred = new HashMap<Item, Float>();
         Map<Item, Integer> u_freq = new HashMap<Item, Integer>();
         for (Item j : map_des_mitj.keySet()) {
