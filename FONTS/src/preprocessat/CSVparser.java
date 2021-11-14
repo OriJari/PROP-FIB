@@ -1,4 +1,4 @@
-package Preprocessat;
+package preprocessat;
 
 
 import java.io.FileInputStream;
