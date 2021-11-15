@@ -1,5 +1,8 @@
 package algorithm.contentbasedflitering;
 
+import tipus.Tipus;
+
+import java.util.List;
 import java.util.Map;
 
 public class GlobalVariablesItem {
@@ -7,8 +10,8 @@ public class GlobalVariablesItem {
 
     public GlobalVariablesItem() {}
 
-    public void init_DistanceTable(Map<Integer, String[]> mapa) {
-        //given a Map<int, String[]> with int = id and String[] = tags
+    public void init_DistanceTable(Map<Integer, List<Tipus>> mapa) {
+        //given a Map<int, List<Tipus>> with int = id and List<Tipus> = tags converted to bool/int/double
         int n = mapa.size();
         Item aux1, aux2;
         int distance;

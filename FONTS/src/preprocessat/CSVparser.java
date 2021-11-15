@@ -190,12 +190,12 @@ public class CSVparser {
             for (String s : aux) {
                 Tipus t = new Tipus();
                 if (s.equals("False")) {
-                    t.setTag(s);
+                    t.setTag("b");
                     t.setTag_numi(-1);
                     t.setTag_numf(-1.0);
                 }
                 if (s.equals("True")) {
-                    t.setTag(s);
+                    t.setTag("b");
                     t.setTag_numi(1);
                     t.setTag_numf(-1.0);
                 }
@@ -214,12 +214,12 @@ public class CSVparser {
                     b1 = false;
                 }
                 if (b) {
-                    t.setTag(s);
+                    t.setTag("i");
                     t.setTag_numi(valI);
                     t.setTag_numf(valD);
                 }
                 if (b1) {
-                    t.setTag(s);
+                    t.setTag("d");
                     t.setTag_numi(valI);
                     t.setTag_numf(valD);
                 }
