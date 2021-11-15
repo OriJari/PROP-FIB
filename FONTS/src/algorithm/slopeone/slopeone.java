@@ -1,22 +1,33 @@
 package algorithm.slopeone;
 
-import java.util.HashMap;
+
 import java.util.Map;
+import java.util.TreeMap;
 
-
+import preprocessat.CSVparser;
 
 
 public class slopeone {
 
 
 
-    Map<Integer,Map<Integer,Float>> map_data; //mapa de dades
-    Map<Integer,Map<Integer,Float>> map_des_mitj = new HashMap<>(); //mapa de la desviacio dun item amb un altre
-    Map<Integer,Map<Integer,Integer>> map_freq  = new HashMap<>(); //ni puta idea la veritat
+    Map<Integer,Map<Integer,Float>> map_data; //mapa de dades rating <userid<itemid,rate>>
+    Map<Integer,Map<Integer,Float>> map_des; //mapa de la desviacio dun item amb un altre <userid<itemid,rate>>
+    Map<Integer,Map<Integer,Integer>> map_freq; //mapa dels cops que hem computat la desviacio rating per un parell d items <userid<item1,item2>>
+    Map<Integer,Float> map_pred; //mapa de prediccio <itemid,predict_rate>
 
-    //pre: true
-    //post: creadora
-    public slopeone(){}
+
+
+    public void SlopeOne() {
+        map_data = CSVparser.getMapRate();
+        desviacio_mitjana();
+        prediccio();
+
+        Map<Integer,Float> user_pred = new TreeMap<Integer,Float>();
+        map_pred = prediccio(user_pred);
+    }
+
+
 
 
     /*
@@ -33,87 +44,103 @@ public class slopeone {
 3.   for every user u expressing preference for both i and j
 4.     add the difference in u’s preference for i and j to an average
 */
-
-    private  void desviacio_mitjana(Map<Integer, Map<Integer, Float>> dades){
-
-        for (Map<Integer, Float> users : dades.values()) { //  per tots els usuaris
+    public void desviacio_mitjana(){
+        map_des = new TreeMap<Integer,Map<Integer,Float>>();
+        map_freq = new TreeMap<Integer,Map<Integer,Integer>>();
+        for (Map<Integer, Float> users : map_data.values()) { //  per tots els usuaris
             for (Map.Entry<Integer, Float> u_data : users.entrySet()) { // itera a traves de les dades dels usuaris
 
-                if (!map_des_mitj.containsKey(u_data.getKey())) {
-                    map_des_mitj.put(u_data.getKey(), new HashMap<Integer, Float>());
-                    map_freq.put(u_data.getKey(), new HashMap<Integer, Integer>());
+                if (!map_des.containsKey(u_data.getKey())) {
+                    map_des.put(u_data.getKey(), new TreeMap<Integer, Float>());
+                    map_freq.put(u_data.getKey(), new TreeMap<Integer, Integer>());
                 }
-                for (Map.Entry<Item, Float> u2_data : User.entrySet()) {
+                for (Map.Entry<Integer, Float> u2_data : users.entrySet()) {
                     int cont1 = 0;
                     if (map_freq.get(u_data.getKey()).containsKey(u2_data.getKey())) {
-                        cont1 = map_freq.get(u_data.getKey()).get(u2_data.getKey()).intValue();
+                        cont1 = map_freq.get(u_data.getKey()).get(u2_data.getKey());
                     }
                     float desv_ini = 0.0f;
-                    if (map_des_mitj.get(u_data.getKey()).containsKey(u2_data.getKey())) {
-                        desv_ini = map_des_mitj.get(u_data.getKey()).get(u2_data.getKey()).doubleValue();
-                    }
+                    if (map_des.get(u_data.getKey()).containsKey(u2_data.getKey()))
+                        desv_ini = map_des.get(u_data.getKey()).get(u2_data.getKey());
                     float desv_result = u_data.getValue() - u2_data.getValue();
                     map_freq.get(u_data.getKey()).put(u2_data.getKey(), cont1 + 1);
-                    map_des_mitj.get(u_data.getKey()).put(u2_data.getKey(), desv_ini + desv_result);
+                    map_des.get(u_data.getKey()).put(u2_data.getKey(), desv_ini + desv_result);
                 }
             }
         }
-        for (Integer j : map_des_mitj.keySet()) {
-            for (Integer i : map_des_mitj(j).keySet()) {
-                float desviacio = (float)map_des_mitj.get(j).get(i).doubleValue();
-                int cardinalitat = map_freq.get(j).get(i).intValue();
-                map_des_mitj.get(j).put(i, desviacio / cardinalitat);
+        for (Integer j : map_des.keySet()) {
+            for (Integer i : map_des.get(j).keySet()) {
+                float desviacio = (float) map_des.get(j).get(i);
+                int cardinalitat = map_freq.get(j).get(i);
+                map_des.get(j).put(i, desviacio / cardinalitat);
             }
         }
 
     }
-    private  void prediccio(Map<Integer, Map<Integer, Float>> dades) {
-        Map<Item, Float> u_pred = new HashMap<Item, Float>();
-        Map<Item, Integer> u_freq = new HashMap<Item, Integer>();
-        for (Item j : map_des_mitj.keySet()) {
-            u_freq.put(j, 0);
-            u_pred.put(j, 0.0f);
-        }
-        for (Map.Entry<User, Map<Item, Float>> u_data : data.entrySet()) {
-            for (Item j : u_data.getValue().keySet()) {
-                for (Item i : map_des_mitj.keySet()) {
-
-                    float predictedValue = map_des_mitj.get(i).get(j).floatValue() + u_data.getValue().get(j).floatValue();
-                    float finalValue = predictedValue * map_freq.get(i).get(j).intValue();
-                    u_predPred.put(i, u_pred.get(i) + finalValue);
-                    u_freq.put(i, u_freq.get(i) + map_freq.get(i).get(j).intValue());
-
-                }
-            }
-            Map<Item, Float> clean = new HashMap<Item, Float>();
-            for (Item j : u_pred.keySet()) {
-                if (u_freq.get(j) > 0) {
-                    clean.put(j, u_pred.get(j).floatValue() / u_freq.get(j).intValue());
-                }
-            }
-            for (Item j : InputData.items) {
-                if (u_data.getValue().containsKey(j)) {
-                    clean.put(j, u_data.getValue().get(j));
-                } else if (!clean.containsKey(j)) {
-                    clean.put(j, -1.0f);
-                }
-            }
 
 
+    /*
+    1. for every item i the user u expresses no preference for
+    2.  for every item j that user u expresses a preference for
+    3.   find the average preference difference between j and i
+    4.   add this diff to u’s preference value for j
+    5.   add this to a running average
+    6. return the top items, ranked by these averages
+     */
+    public  void prediccio() {
+        map_pred = new TreeMap<Integer,Float>();
+        TreeMap<Integer,Integer> freq = new TreeMap<Integer,Integer>();
+        for (int j : map_des.keySet()) {
+            freq.put(j, 0);
+            map_pred.put(j, 0.0f);
         }
 
+        for (Map.Entry<Integer, Map<Integer, Float>> u_data : map_data.entrySet()) {
+            for (int j : u_data.getValue().keySet()) {
+                for (int i : map_des.keySet()) {
+
+                    float predictedValue = map_des.get(i).get(j) + u_data.getValue().get(j);
+                    float finalValue = predictedValue * map_freq.get(i).get(j);
+                    map_pred.put(i, map_pred.get(i) + finalValue);
+                    freq.put(i, freq.get(i) + map_freq.get(i).get(j));
+
+                }
+            }
+
+            for (Integer j : map_pred.keySet()) {
+                if (freq.get(j) > 0) {
+                   map_pred.put(j, map_pred.get(j) / freq.get(j));
+                }
+            }
+
+        }
 
     }
+    /*
+    prediccio passant map per param
 
-    public void slopeOne(Map<Integer, Map<Integer, Float>> map_data) {
-        new slopeone();
-        desviacio_mitjana(map_data);
-        prediccio(map_data);
-    }
-    public void main(String[] args){
-        Map<Integer, Map<Integer, Float>> map_data = this.map_data;
-        slopeOne(map_data);
+     */
 
+    public Map<Integer,Float> prediccio(Map<Integer,Float> user_pred) {
+        Map<Integer,Float> predict = new TreeMap<Integer,Float>(); //item id, rate
+        Map<Integer,Integer> frequen = new TreeMap<Integer,Integer>();//item id1, item id 2
+        for (int j : map_des.keySet()) {
+            predict.put(j,0.0f);
+            frequen.put(j,0);
+        }
+        for (Integer j : user_pred.keySet()) {
+            for (Integer i : map_des.keySet()) {
+                float newval = ( map_des.get(i).get(j) + user_pred.get(j));
+                predict.put(i, predict.get(i)+newval);
+            }
+        }
+        predict.replaceAll((j, v) -> v / user_pred.size());
+        for (Integer j : user_pred.keySet()) {
+            predict.put(j,user_pred.get(j));
+        }
+        return predict;
     }
+
+
 
 }
