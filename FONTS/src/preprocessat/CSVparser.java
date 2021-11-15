@@ -50,6 +50,13 @@ public class CSVparser {
     }
 
     /**
+     * Getter of the class, gets the mapRatedata
+     */
+    public Map<Integer, List<Tipus>> getMapRatedata() {
+        return mapRatedata;
+    }
+
+    /**
      * Setter of the class, sets a new mapItem
      * @param mapItem , map to redefine the new one
      */
@@ -65,6 +72,12 @@ public class CSVparser {
         this.mapRate = mapRate;
     }
 
+    /**
+     * Setter of the class, gets the mapRatedata
+     */
+    public void setMapRatedata(Map<Integer, List<Tipus>> mapRatedata) {
+        this.mapRatedata = mapRatedata;
+    }
 
     /**
      * Read the content of the item csv into memory.
@@ -191,7 +204,7 @@ public class CSVparser {
                 Tipus t = new Tipus();
                 if (s.equals("False")) {
                     t.setTag(s);
-                    t.setTag_numi(-1);
+                    t.setTag_numi(0);
                     t.setTag_numf(-1.0);
                 }
                 if (s.equals("True")) {
