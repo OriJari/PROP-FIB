@@ -200,14 +200,14 @@ public class CSVparser {
                     t.setTag_numf(-1.0);
                 }
                 boolean b = true;
-                Integer valI = null;
+                Integer valI = -1;
                 try {
                     valI = String_to_Int(s);
                 } catch (NumberFormatException e) {
                     b = false;
                 }
                 boolean b1 = true;
-                Double valD = null;
+                Double valD = -1.0;
                 try {
                     valD = String_to_Double(s);
                 } catch (NumberFormatException e) {
