@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Arrays;
 
-import tipus.Tipus;
+import content.Content;
 
 
 
@@ -21,7 +21,7 @@ public class CSVparser {
     List<List<String>> content;
     Map<Integer, List<String>> mapItem;
     static Map<Integer, Map<Integer, Float>> mapRate;
-    Map<Integer, List<Tipus>> mapRatedata;
+    Map<Integer, List<Content>> mapRatedata;
 
     /**
      * Default builder.
@@ -34,9 +34,11 @@ public class CSVparser {
         content = new ArrayList<>();
         mapItem = new TreeMap<>();
         mapRate = new TreeMap<>();
+        mapRatedata = new TreeMap<>();
     }
     /**
      * Getter of the class, gets the mapItem
+     * @return set of data of the item content
      */
     public Map<Integer, List<String>> getMapItem() {
         return mapItem;
@@ -44,21 +46,23 @@ public class CSVparser {
 
     /**
      * Getter of the class, gets the mapRate
+     * @return set of data of the ratings content
      */
-    public static Map<Integer, Map<Integer, Float>> getMapRate() {
+    public  Map<Integer, Map<Integer, Float>> getMapRate() {
         return this.mapRate;
     }
 
     /**
      * Getter of the class, gets the mapRatedata
+     * @return set of data structured
      */
-    public Map<Integer, List<Tipus>> getMapRatedata() {
+    public Map<Integer, List<Content>> getMapRatedata() {
         return mapRatedata;
     }
 
     /**
      * Setter of the class, sets a new mapItem
-     * @param mapItem , map to redefine the new one
+     * @param mapItem , map to redefine a previous one
      */
     public void setMapItem(Map<Integer, List<String>> mapItem) {
         this.mapItem = mapItem;
@@ -66,7 +70,7 @@ public class CSVparser {
 
     /**
      * Setter of the class, sets a new mapRate
-     * @param mapRate , map to redefine the new one
+     * @param mapRate , map to redefine a previous one
      */
     public void setMapRate(Map<Integer, Map<Integer, Float>> mapRate) {
         this.mapRate = mapRate;
@@ -74,8 +78,9 @@ public class CSVparser {
 
     /**
      * Setter of the class, gets the mapRatedata
+     * @param mapRatedata, set of data to redefine a previous one
      */
-    public void setMapRatedata(Map<Integer, List<Tipus>> mapRatedata) {
+    public void setMapRatedata(Map<Integer, List<Content>> mapRatedata) {
         this.mapRatedata = mapRatedata;
     }
 
@@ -130,16 +135,18 @@ public class CSVparser {
     /**
      * Change a String value to an Integer one
      * @param s String to obtain the corresponding value
+     * @return string s converted to integer
      */
-    public static Integer String_to_Int(String s){
+    public  Integer String_to_Int(String s){
         return Integer.parseInt(s);
     }
 
     /**
      * Change a String value to a Float one
      * @param s String to obtain the corresponding value
+     * @return string s converted to float
      */
-    public static Float String_to_Float(String s){
+    public  Float String_to_Float(String s){
         return Float.parseFloat(s);
     }
 
@@ -187,6 +194,7 @@ public class CSVparser {
     /**
      * Lecture of the List<List<String>> rows
      * @param i number of the row to obtain
+     * @return the corresponding row of the List<String>
      */
     public String getRow(int i) {
         return String.valueOf(this.content.get(i));
@@ -199,9 +207,9 @@ public class CSVparser {
     public void MapItemData(List<List<String>> rate_content){
         for (List<String> aux : rate_content) {
             int index = 0;
-            List<Tipus> newtagform = new ArrayList<>();
+            List<Content> newtagform = new ArrayList<>();
             for (String s : aux) {
-                Tipus t = new Tipus();
+                Content t = new Content();
                 if (s.equals("False")) {
                     t.setTag("b");
                     t.setTag_numi(0);
