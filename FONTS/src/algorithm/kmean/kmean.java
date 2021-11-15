@@ -6,7 +6,7 @@ public class kmean {
 
         int k;
         Map<Integer, Map<Integer, Float>> opinions;
-
+//aaa
         /**
          * Default builder
          * @param k , number of clusters we want
