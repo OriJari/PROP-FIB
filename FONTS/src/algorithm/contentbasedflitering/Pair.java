@@ -1,16 +1,26 @@
 package algorithm.contentbasedflitering;
+import java.util.*;
 
-public class Pair<I extends Number, D extends Number> implements Comparable<Pair<Number, Number>> {
-        Integer key;
-        Double value;
+public class Pair implements Comparable<Pair> {
+    int id;
+    double similarity;
 
-    public Pair(Integer key, Double value) {
-            this.key = key;
-            this.value = value;
-        }
-
-        @Override
-        public int compareTo(Pair<Number, Number> o) {
-            return (int)(value - o.value);
-        }
+    public Pair(int id, double similarity) {
+        this.id = id;
+        this.similarity = similarity;
     }
+
+    public double getSimilarity() {
+        return this.similarity;
+    }
+    public int getId() {
+        return this.id;
+    }
+
+    @Override
+    public int compareTo(Pair p) {
+        if (similarity < p.similarity) return -1;
+        else if (similarity > p.similarity) return 1;
+        else return 0;
+    }
+}
