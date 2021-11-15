@@ -1,21 +1,11 @@
 package tipus;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Tipus {
     String tag;
     Integer tag_numi;
     Double tag_numd;
-
-    /**
-     * Default builder.
-     */
-    public Tipus(){
-        this.tag = null;
-        this.tag_numi = null;
-        this.tag_numd = null;
-    }
 
     /**
      * Getter of the tag

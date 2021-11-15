@@ -34,7 +34,6 @@ public class CSVparser {
         content = new ArrayList<>();
         mapItem = new TreeMap<>();
         mapRate = new TreeMap<>();
-        mapRatedata = new TreeMap<>();
     }
     /**
      * Getter of the class, gets the mapItem
@@ -46,7 +45,7 @@ public class CSVparser {
     /**
      * Getter of the class, gets the mapRate
      */
-    public  Map<Integer, Map<Integer, Float>> getMapRate() {
+    public static Map<Integer, Map<Integer, Float>> getMapRate() {
         return this.mapRate;
     }
 
@@ -227,12 +226,12 @@ public class CSVparser {
                 } catch (NumberFormatException e) {
                     b1 = false;
                 }
-                if (b1) {
+                if (b) {
                     t.setTag("i");
                     t.setTag_numi(valI);
                     t.setTag_numf(valD);
                 }
-                if (b) {
+                if (b1) {
                     t.setTag("d");
                     t.setTag_numi(valI);
                     t.setTag_numf(valD);
