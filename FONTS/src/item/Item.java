@@ -1,35 +1,58 @@
 package item;
 
 import java.util.*;
-import java.io.*;
 
+//one-hot -> pasar a bits (interseccion y union en java mas facil)
 
 public class Item {
     int ID;
-    String[] tags;
-    //Constructoras
+    List<String> tags;
+
+    /**
+     * Default builder
+     */
     public Item() {
         ID = 0;
-        tags = null;
+        tags = new ArrayList<>();
     }
+    /**
+     * Default builder including the item id.
+     * @param id , id which item is identified
+     */
     public Item(int id) {
         ID = id;
-        tags = null;
-    }
-    //Consultoras
-    public int getID() {
-        return this.ID;
-    }
-    public String[] getTags() {
-        return this.tags;
+        tags = new ArrayList<>();
     }
 
-    public int getNumTags() {
-        return tags.length();
+    /**
+     * Getter of the item id
+     */
+    public Integer getID() {
+        return this.ID;
     }
-    //Modificadoras
+
+    /**
+     * Get the tag of the list in a determinate position
+     * @param i , position of the tag in the List
+     */
+    public List<String> getTags(int i) {
+        return Collections.singletonList(this.tags.get(i));
+    }
+
+    /**
+     * Get the number of tags that an item has.
+     */
+    public Integer getNumTags() {
+        return tags.size();
+    }
+
+
+    /**
+     * Add a tag to the set of tags
+     * @param tag1 , element to insert to the set
+     */
     public void addTag(String tag1) {
-        int n = tags.length();
+        int n = tags.length;
         String[] new_tags = new String[n+1];
         int i;
         for (i = 0; i < n; i++) new_tags[i] = tags[i];
@@ -37,7 +60,32 @@ public class Item {
         tags = new_tags;
     }
 
+    public Boolean exsistTag (String tag, List<String>){
+
+    }
+
+    public void delTag(String tag1) {
+        //...
+    }
     public void setID(int id) {
         this.ID = id;
+    }
+
+    public void setTags(String[] tags) {
+        this.tags = tags;
+    }
+
+    public int similarity_with(Item item2) {
+        int n1 = this.getNumTags();
+        int n2 = item2.getNumTags();
+        String[] tags1 = this.getTags();
+        String[] tags2 = item2.getTags();
+        int result = 0;
+        for (int i = 0; i < n1; i++) {
+            for (int j = 0; j < n2; j++) {
+                if (tags1[i] == tags2[j]) ++result;
+            }
+        }
+        return result;
     }
 }

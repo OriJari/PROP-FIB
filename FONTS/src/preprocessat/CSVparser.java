@@ -20,7 +20,7 @@ public class CSVparser {
     String path;
     List<List<String>> content;
     Map<Integer, List<String>> mapItem;
-    Map<Integer, Map<Integer, Float>> mapRate;
+    static Map<Integer, Map<Integer, Float>> mapRate;
     Map<Integer, List<Tipus>> mapRatedata;
 
     /**
@@ -45,8 +45,15 @@ public class CSVparser {
     /**
      * Getter of the class, gets the mapRate
      */
-    public Map<Integer, Map<Integer, Float>> getMapRate() {
+    public static Map<Integer, Map<Integer, Float>> getMapRate() {
         return this.mapRate;
+    }
+
+    /**
+     * Getter of the class, gets the mapRatedata
+     */
+    public Map<Integer, List<Tipus>> getMapRatedata() {
+        return mapRatedata;
     }
 
     /**
@@ -65,6 +72,12 @@ public class CSVparser {
         this.mapRate = mapRate;
     }
 
+    /**
+     * Setter of the class, gets the mapRatedata
+     */
+    public void setMapRatedata(Map<Integer, List<Tipus>> mapRatedata) {
+        this.mapRatedata = mapRatedata;
+    }
 
     /**
      * Read the content of the item csv into memory.
@@ -190,36 +203,36 @@ public class CSVparser {
             for (String s : aux) {
                 Tipus t = new Tipus();
                 if (s.equals("False")) {
-                    t.setTag("b");
-                    t.setTag_numi(-1);
+                    t.setTag(s);
+                    t.setTag_numi(0);
                     t.setTag_numf(-1.0);
                 }
                 if (s.equals("True")) {
-                    t.setTag("b");
+                    t.setTag(s);
                     t.setTag_numi(1);
                     t.setTag_numf(-1.0);
                 }
                 boolean b = true;
-                Integer valI = -1;
+                Integer valI = null;
                 try {
                     valI = String_to_Int(s);
                 } catch (NumberFormatException e) {
                     b = false;
                 }
                 boolean b1 = true;
-                Double valD = -1.0;
+                Double valD = null;
                 try {
                     valD = String_to_Double(s);
                 } catch (NumberFormatException e) {
                     b1 = false;
                 }
                 if (b) {
-                    t.setTag("i");
+                    t.setTag(s);
                     t.setTag_numi(valI);
                     t.setTag_numf(valD);
                 }
                 if (b1) {
-                    t.setTag("d");
+                    t.setTag(s);
                     t.setTag_numi(valI);
                     t.setTag_numf(valD);
                 }
