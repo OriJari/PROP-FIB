@@ -1,56 +1,37 @@
 package tipus;
 
-import java.util.*;
-
 public class Tipus {
-    String tag;
-    Integer tag_numi;
-    Double tag_numd;
+    String tipus;
+
 
     /**
-     * Getter of the tag
+     * Default builder
      */
-    public String getTag() {
-        return tag;
+    public Tipus(){
+        this.tipus = null;
     }
 
     /**
-     * Getter of the tag_numi
+     * Default builder with parameter
+     * @param type of the element
      */
-    public Integer getTag_numi() {
-        return tag_numi;
+    public Tipus(String type){
+        this.tipus = type;
     }
 
     /**
-     * Getter of the tag_numd
+     * Getter of the type
+     * @return the type of the element
      */
-    public Double getTag_numd() {
-        return tag_numd;
+    public String getTipus() {
+        return tipus;
     }
 
     /**
-     * Setter of the tag
+     * Setter of the type
+     * @param tipus, new type to define
      */
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    /**
-     * Setter of the tag_numi
-     */
-    public void setTag_numi(Integer tag_numi) {
-        this.tag_numi = tag_numi;
-    }
-
-    /**
-     * Setter of the tag_numf
-     */
-    public void setTag_numf(Double tag_numd) {
-        this.tag_numd = tag_numd;
-    }
-
-
-    public static void main(String[] args) {
-
+    public void setTipus(String tipus) {
+        this.tipus = tipus;
     }
 }

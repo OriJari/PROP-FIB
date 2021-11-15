@@ -1,7 +1,7 @@
 package algorithm.contentbasedflitering;
 
 import item.Item;
-import tipus.Tipus;
+import content.Content;
 
 import java.util.List;
 import java.util.Map;
@@ -12,11 +12,11 @@ public class GlobalVariablesItem {
 
     public GlobalVariablesItem() {}
 
-    public void init_DistanceTable(Map<Integer, List<Tipus>> mapa) {
+    public void init_DistanceTable(Map<Integer, List<Content>> mapa) {
         //given a Map<int, List<Tipus>> with int = id and List<Tipus> = tags converted to bool/int/double
         int n = mapa.size();
         double similarity;
-        List<Tipus> list1, list2;
+        List<Content> list1, list2;
         for (int i = 0; i < n; ++i) {
             list1 = mapa.get(i);
             for (int j = i; j < n; ++j) {
@@ -45,7 +45,7 @@ public class GlobalVariablesItem {
 
     //}
 
-    public double calculate_similarity(List<Tipus> list1, List<Tipus> list2) {
+    public double calculate_similarity(List<Content> list1, List<Content> list2) {
         int size1 = list1.size();
         int size2 = list2.size();
 
