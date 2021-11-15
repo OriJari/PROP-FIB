@@ -4,7 +4,7 @@ package algorithm.slopeone;
 import java.util.Map;
 import java.util.TreeMap;
 
-import preprocessat.CSVparser;
+import preprocessat.*;
 
 
 public class slopeone {
@@ -12,8 +12,8 @@ public class slopeone {
 
 
     Map<Integer,Map<Integer,Float>> map_data; //mapa de dades rating <userid<itemid,rate>>
-    Map<Integer,Map<Integer,Float>> map_des; //mapa de la desviacio dun item amb un altre <userid<itemid,rate>>
-    Map<Integer,Map<Integer,Integer>> map_freq; //mapa dels cops que hem computat la desviacio rating per un parell d items <userid<item1,item2>>
+    TreeMap<Integer, TreeMap<Integer, Float>> map_des; //mapa de la desviacio dun item amb un altre <userid<itemid,rate>>
+    TreeMap<Integer, TreeMap<Integer, Integer>> map_freq; //mapa dels cops que hem computat la desviacio rating per un parell d items <userid<item1,item2>>
     Map<Integer,Float> map_pred; //mapa de prediccio <itemid,predict_rate>
 
 
@@ -45,8 +45,8 @@ public class slopeone {
 4.     add the difference in u’s preference for i and j to an average
 */
     public void desviacio_mitjana(){
-        map_des = new TreeMap<Integer,Map<Integer,Float>>();
-        map_freq = new TreeMap<Integer,Map<Integer,Integer>>();
+        map_des = new TreeMap<Integer,TreeMap<Integer,Float>>();
+        map_freq = new TreeMap<Integer,TreeMap<Integer,Integer>>();
         for (Map<Integer, Float> users : map_data.values()) { //  per tots els usuaris
             for (Map.Entry<Integer, Float> u_data : users.entrySet()) { // itera a traves de les dades dels usuaris
 

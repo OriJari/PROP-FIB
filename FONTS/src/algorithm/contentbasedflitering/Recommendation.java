@@ -1,6 +1,6 @@
 package algorithm.contentbasedflitering;
 
-import algorithm.contentbasedflitering.Item;
+import item.Item;
 
 public class Recommendation {
     Item[] conjunt;

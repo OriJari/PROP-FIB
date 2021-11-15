@@ -20,7 +20,7 @@ public class CSVparser {
     String path;
     List<List<String>> content;
     Map<Integer, List<String>> mapItem;
-    Map<Integer, Map<Integer, Float>> mapRate;
+    static Map<Integer, Map<Integer, Float>> mapRate;
     Map<Integer, List<Tipus>> mapRatedata;
 
     /**
@@ -45,7 +45,7 @@ public class CSVparser {
     /**
      * Getter of the class, gets the mapRate
      */
-    public Map<Integer, Map<Integer, Float>> getMapRate() {
+    public static Map<Integer, Map<Integer, Float>> getMapRate() {
         return this.mapRate;
     }
 

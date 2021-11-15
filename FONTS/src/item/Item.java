@@ -1,4 +1,4 @@
-package algorithm.contentbasedflitering;
+package item;
 
 import java.util.*;
 
