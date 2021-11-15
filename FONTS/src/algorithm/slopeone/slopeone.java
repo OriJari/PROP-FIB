@@ -6,6 +6,10 @@ import java.util.TreeMap;
 
 import preprocessat.*;
 
+/**
+ *
+ * @author Oriol Martí Jariod
+ */
 
 public class slopeone {
 
@@ -19,7 +23,7 @@ public class slopeone {
 
 
     public void SlopeOne() {
-        map_data = CSVparser.getMapRate();
+        preporcessat();
         desviacio_mitjana();
         prediccio();
 
@@ -27,6 +31,10 @@ public class slopeone {
         map_pred = prediccio(user_pred);
     }
 
+
+    public void preporcessat(){
+        map_data = CSVparser.getMapRate();
+    }
 
 
 
