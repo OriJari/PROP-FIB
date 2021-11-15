@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Arrays;
 
+import tipus.Tipus;
+
 
 
 public class CSVparser {
@@ -19,6 +21,7 @@ public class CSVparser {
     List<List<String>> content;
     Map<Integer, List<String>> mapItem;
     Map<Integer, Map<Integer, Float>> mapRate;
+    Map<Integer, List<Tipus>> mapRatedata;
 
     /**
      * Default builder.
@@ -43,7 +46,7 @@ public class CSVparser {
      * Getter of the class, gets the mapRate
      */
     public Map<Integer, Map<Integer, Float>> getMapRate() {
-        return mapRate;
+        return this.mapRate;
     }
 
     /**
@@ -128,6 +131,15 @@ public class CSVparser {
     }
 
     /**
+     * Change a String value to a Double one
+     * @param s String to obtain the corresponding value
+     * @return string s converted to double
+     */
+    public Double String_to_Double(String s){
+        return Double.parseDouble(s);
+    }
+
+    /**
      * Change List<List<String>> to a Map<Integer, Map<Integer,Float>> structure
      * @param rate_content content of the csv document
      */
@@ -167,10 +179,62 @@ public class CSVparser {
         return String.valueOf(this.content.get(i));
     }
 
+    /**
+     * Obtains the appropriate preprocess of data set for the kk-neight algorithm
+     * @param rate_content data set read from the csv
+     */
+    public void MapItemData(List<List<String>> rate_content){
+        for (List<String> aux : rate_content) {
+            int index = 0;
+            List<Tipus> newtagform = new ArrayList<>();
+            for (String s : aux) {
+                Tipus t = new Tipus();
+                if (s.equals("False")) {
+                    t.setTag(s);
+                    t.setTag_numi(-1);
+                    t.setTag_numf(-1.0);
+                }
+                if (s.equals("True")) {
+                    t.setTag(s);
+                    t.setTag_numi(1);
+                    t.setTag_numf(-1.0);
+                }
+                boolean b = true;
+                Integer valI = null;
+                try {
+                    valI = String_to_Int(s);
+                } catch (NumberFormatException e) {
+                    b = false;
+                }
+                boolean b1 = true;
+                Double valD = null;
+                try {
+                    valD = String_to_Double(s);
+                } catch (NumberFormatException e) {
+                    b1 = false;
+                }
+                if (b) {
+                    t.setTag(s);
+                    t.setTag_numi(valI);
+                    t.setTag_numf(valD);
+                }
+                if (b1) {
+                    t.setTag(s);
+                    t.setTag_numi(valI);
+                    t.setTag_numf(valD);
+                }
+                newtagform.add(t);
+                ++index;
+            }
+            mapRatedata.put(index, newtagform);
+        }
+    }
+
     public static void main(String[] args) {
         CSVparser instance = new CSVparser("/subgrup-prop2-3/src/items.csv");
         instance.readLoadItem();
         instance.LoadItem(instance.content);
+        instance.MapItemData(instance.content);
 
         CSVparser instance1 = new CSVparser("/subgrup-prop2-3/src/ratings.db.csv");
         instance1.readLoadRate();
