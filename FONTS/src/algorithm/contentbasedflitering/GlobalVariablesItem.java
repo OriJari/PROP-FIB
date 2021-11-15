@@ -5,9 +5,10 @@ import tipus.Tipus;
 
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 public class GlobalVariablesItem {
-    double[][] distanceTable;
+    double[][] SimilarityTable;
 
     public GlobalVariablesItem() {}
 
@@ -21,8 +22,8 @@ public class GlobalVariablesItem {
             for (int j = i; j < n; ++j) {
                 list2 = mapa.get(i);
                 similarity = calculate_similarity(list1, list2);
-                distanceTable[i][j] = similarity;
-                distanceTable[j][i] = similarity;
+                SimilarityTable[i][j] = similarity;
+                SimilarityTable[j][i] = similarity;
             }
         }
     }
@@ -105,4 +106,19 @@ public class GlobalVariablesItem {
         double variance = (bigger - other)/bigger;
         return (1-variance) * max_val;
     }
+
+    public List<Item> kNN(Item item1) {
+        int id = item1.getID();
+        int k = 5; //number of items to recommend
+        PriorityQueue<Double> min_distances
+        double current_min_similarity = -1.0;
+
+        for (int i = 0; i < SimilarityTable[id].length; ++i) {
+            double aux = SimilarityTable[id][i];
+            if (aux > current_min_similarity) {
+                current_min_similarity = aux;
+            }
+        }
+    }
+
 }
