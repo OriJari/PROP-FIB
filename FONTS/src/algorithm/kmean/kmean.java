@@ -2,13 +2,23 @@ package algorithm.kmean;
 
 import java.util.*;
 
-
 public class kmean {
 
-        public static void kmean(){}
+        int k;
+        Map<Integer, Map<Integer, Float>> opinions;
+
+        /**
+         * Default builder
+         * @param k , number of clusters we want
+         * @param opinions , valorations of all users
+         */
+        public void kmean(int k, Map<Integer, Map<Integer, Float>> opinions){
+                this.k = k;
+                this.opinions = opinions;
+        }
 
         //0-1
-        public float cosineSquaredSimil(Map<Integer, Float> u1, Map<Integer, Float> u2){
+        public static float cosineSquaredSimil(Map<Integer, Float> u1, Map<Integer, Float> u2){
                 float u1Squared = 0.0f;
                 float u2Squared = 0.0f;
                 float u1Multu2 = 0.0f;
@@ -24,7 +34,7 @@ public class kmean {
                 return (float) (Math.pow(u1Multu2, 2)/(u1Squared*u2Squared));
         }
 
-        public boolean equalClusters(Vector<Vector<Integer>> nuevoClusters, Vector<Vector<Integer>> clusters){
+        public static boolean equalClusters(Vector<Vector<Integer>> nuevoClusters, Vector<Vector<Integer>> clusters){
                 for(int i = 0; i < clusters.size(); ++i){
                         Vector<Integer> rowVectorc = clusters.get(i);
                         Vector<Integer> rowVectornew = nuevoClusters.get(i);
@@ -45,9 +55,16 @@ public class kmean {
                 return true;
         }
 
-        public Vector<Vector<Integer>> k_means(int k, Map<Integer, Map<Integer, Float>> opinions){ // k <= opinions.size()
-                Vector<Vector<Integer>> clusters = new Vector<Vector<Integer>> (k);
+        public Vector<Vector<Integer>> k_means(){ // k <= opinions.size()
+                Vector<Vector<Integer>> clusters = new Vector<>();
+                for(int i = 0; i < k; ++i){
+                        clusters.add(new Vector<Integer>(0));
+                }
                 Vector<Map<Integer, Float>> means = new Vector<Map<Integer, Float>>(k);
+                for(int i = 0; i < k; ++i){
+                        means.add(new TreeMap<Integer, Float>());
+                }
+
                 //initialize vectors
                 {
                         int i = 0;
@@ -63,11 +80,21 @@ public class kmean {
                                 }
                                 ++i;
                         }
+                        for(int j = 0; j < means.size(); ++j){
+                                for(Map.Entry<Integer, Float> entry: means.get(j).entrySet()){
+                                        means.get(j).put(entry.getKey(), entry.getValue()/clusters.get(j).size());
+                                }
+                        }
                 }
+
                 boolean cont = true;
 
                 while(cont){
-                        Vector<Vector<Integer>> newClusters = new Vector<Vector<Integer>> (k);
+                        Vector<Vector<Integer>> newClusters = new Vector<>();
+                        for(int i = 0; i < k; ++i){
+                                newClusters.add(new Vector<Integer>(0));
+                        }
+
                         for(int i = 0; i < clusters.size(); ++i){
                                 Vector<Integer> rowVector = clusters.get(i);
                                 for(int j = 0; j < rowVector.size(); ++j){
@@ -80,9 +107,10 @@ public class kmean {
                                                         max_mean = p;
                                                 }
                                         }
-                                        newClusters.get(max_mean).add(rowVector.get(j));// no se si es correcte +
+                                        newClusters.get(max_mean).add(rowVector.get(j));
                                 }
                         }
+
 
                         if(equalClusters(clusters, newClusters)){
                                 cont = false;
