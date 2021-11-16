@@ -15,7 +15,7 @@ public class kmean {
         }
 
         //0-1
-        public static float cosineSquaredSimil(Map<Integer, Float> u1, Map<Integer, Float> u2){
+        private float cosineSquaredSimil(Map<Integer, Float> u1, Map<Integer, Float> u2){
                 float u1Squared = 0.0f;
                 float u2Squared = 0.0f;
                 float u1Multu2 = 0.0f;
@@ -31,7 +31,7 @@ public class kmean {
                 return (float) (Math.pow(u1Multu2, 2)/(u1Squared*u2Squared));
         }
 
-        public static boolean equalClusters(Vector<Vector<Integer>> nuevoClusters, Vector<Vector<Integer>> clusters){
+        private boolean equalClusters(Vector<Vector<Integer>> nuevoClusters, Vector<Vector<Integer>> clusters){
                 for(int i = 0; i < clusters.size(); ++i){
                         Vector<Integer> rowVectorc = clusters.get(i);
                         Vector<Integer> rowVectornew = nuevoClusters.get(i);
