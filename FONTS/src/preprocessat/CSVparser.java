@@ -3,12 +3,7 @@ package preprocessat;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.TreeMap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Arrays;
+import java.util.*;
 
 import content.Content;
 
@@ -206,8 +201,8 @@ public class CSVparser {
      * @param rate_content data set read from the csv
      */
     public void MapItemData(List<List<String>> rate_content){
+        int index = 0;
         for (List<String> aux : rate_content) {
-            int index = 0;
             List<Content> newtagform = new ArrayList<>();
             for (String s : aux) {
                 Content t = new Content();
@@ -255,13 +250,13 @@ public class CSVparser {
                     t.setTag_numi(valI);
                     t.setTag_numd(valD);
                     List<String> orderlist = Arrays.asList(s.split(";"));
-                    //System.out.println(orderlist);
-                    orderlist.stream().sorted();
+                    Collections.sort(orderlist);
+                    t.setCategorics(orderlist);
                 }
                 newtagform.add(t);
-                ++index;
             }
             mapRatedata.put(index, newtagform);
+            ++index;
         }
     }
 
