@@ -3,16 +3,16 @@ package algorithm.contentbasedflitering;
 import content.Content;
 import item.Item;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 
 public class DriverContent {
     public static void main(String[] args) throws IOException {
         Map<Integer,List<Content>> map = new TreeMap<>();
         System.out.println("Welcome to Driver Content Based Filtering");
-        BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader buffer = new BufferedReader(new FileReader("Input.txt"));
         String line;
         System.out.println("How many items will you state?");
         System.out.println("int:");
