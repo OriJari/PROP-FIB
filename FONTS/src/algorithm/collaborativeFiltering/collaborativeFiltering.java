@@ -3,21 +3,21 @@ package algorithm.collaborativeFiltering;
 import java.util.*;
 
 import algorithm.kmean.kmean;
+import algorithm.slopeone.slopeone;
 
 public class collaborativeFiltering {
 
     private Map<Integer, TreeMap<Integer, Float>> opinions;
-    private Integer userID;
+    private Vector<Vector<Integer>> clusters;
 
-    public collaborativeFiltering(Map<Integer, TreeMap<Integer, Float>> opinions, Integer ID){
+    public collaborativeFiltering(Map<Integer, TreeMap<Integer, Float>> opinions, Integer k){
         this.opinions = opinions;
-        this.userID = ID;
+        kmean Kmean = new kmean(opinions);
+        this.clusters = Kmean.k_means(k);
     }
 
 
-    public Map<Integer, Float> recommend(int k){
-        kmean Kmean = new kmean(opinions);
-        Vector<Vector<Integer>> clusters = Kmean.k_means(k);
+    public Map<Integer, Float> recommend(Integer userID){
         boolean cont = true;
         Integer clusterUser = 0;
         for(int i = 0; i < clusters.size() && cont; ++i){
@@ -28,10 +28,12 @@ public class collaborativeFiltering {
                 }
             }
         }
+
         TreeMap<Integer, TreeMap<Integer, Float>> valCluster = new TreeMap<Integer, TreeMap<Integer, Float>>();
         for(int i = 0; i < clusters.get(clusterUser).size(); ++i){
             valCluster.put(clusters.get(clusterUser).get(i), opinions.get(clusters.get(clusterUser).get(i)));
         }
-        slopeone Slopeone = new SlopeOne(valCluster);
+        slopeone Slopeone = new slopeone();
+        return slopeone.SlopeOne(valCluster);
     }
 }

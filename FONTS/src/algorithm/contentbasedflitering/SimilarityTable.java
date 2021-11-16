@@ -3,10 +3,7 @@ package algorithm.contentbasedflitering;
 import item.Item;
 import content.Content;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class SimilarityTable {
     double[][] similarityTable;
@@ -16,6 +13,7 @@ public class SimilarityTable {
     public void initSimilarityTable(Map<Integer, List<Content>> map) {
         //given a Map<int, List<Content>> with int = id and List<Content> = tags converted to bool/int/double/string
         int n = map.size();
+        similarityTable = new double[n][n];
         double similarity;
         List<Content> list1, list2;
         for (int i = 0; i < n; ++i) {
@@ -46,7 +44,7 @@ public class SimilarityTable {
 
     //}
 
-    public double calculate_similarity(List<Content> list1, List<Content> list2) {
+    private double calculate_similarity(List<Content> list1, List<Content> list2) {
         int size1 = list1.size();
         int size2 = list2.size();
 
@@ -87,8 +85,8 @@ public class SimilarityTable {
                         }
                     }
                     case "c" -> {
-                        List<String> sublist1 = list1.get(i).getList();
-                        List<String> sublist2 = list2.get(i).getList();
+                        List<String> sublist1 = list1.get(i).getCategorics();
+                        List<String> sublist2 = list2.get(i).getCategorics();
                         for (String s : sublist1) {
                             if (sublist2.contains(s)) simil = simil + categoric_base_coincidence;
                         }
@@ -101,7 +99,7 @@ public class SimilarityTable {
     }
 
 
-    public double calculate_deviance(double double1, double double2, double max_val) {
+    private double calculate_deviance(double double1, double double2, double max_val) {
         double bigger, other;
         if (double1 > double2) {
             bigger = double1;
@@ -115,10 +113,7 @@ public class SimilarityTable {
         return (1-variance) * max_val;
     }
 
-    public ArrayList<Item> kNN(Item item1) {
-        int id = item1.getID();
-        int k = 5; //number of items to recommend
-
+    public ArrayList<Item> kNN(int id, int k) {
         PriorityQueue<Pair> queue = new PriorityQueue<>();
         double min_similarity = -1.0;
         int n = similarityTable[id].length;
@@ -136,16 +131,27 @@ public class SimilarityTable {
                 if (similarity_aux > min_similarity) {
                     queue.poll();
                     queue.add(new Pair(j, similarity_aux));
+                    assert queue.peek() != null;
                     min_similarity = queue.peek().getSimilarity();
                 }
             }
         }
-        ArrayList<Item> result = new ArrayList<Item>();
+        ArrayList<Item> result = new ArrayList<>();
         for (int j = 0; j < k; ++j) {
-            Item item = new Item(queue.poll().getId());
+            Item item = new Item(Objects.requireNonNull(queue.poll()).getId());
             result.add(item);
         }
         return result;
     }
-
+    public void print_similarity_matrix() {
+        int n = similarityTable.length;
+        for (double[] similarities : similarityTable) {
+            int j;
+            for (j = 0; j < n - 1; ++j) {
+                System.out.print(similarities[j]);
+                System.out.print(' ');
+            }
+            System.out.println(similarities[j]);
+        }
+    }
 }

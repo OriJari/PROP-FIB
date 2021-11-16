@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 /**
@@ -14,59 +15,63 @@ import java.util.TreeMap;
 
 public class Driverslopeone {
 
-    private load_data(){
-        Map<Integer,Map<Integer,Float>> data = new TreeMap<Integer,Map<Integer,Float>>();
-        // items
-        int item1 = new ItemId("0001");
-        int item2 = new ItemId("0001");
-        int item3 = new ItemId("0001");
-        int item4 = new ItemId("0001");
-        int item5 = new ItemId("0001");
-        int item6 = new ItemId("0001");
-        int item7 = new ItemId("0001");
-        int item8 = new ItemId("0001");
-        int item9 = new ItemId("0001");
-        int item10 = new ItemId("0001");
 
-        mAllItems = new ItemId[]{item1, item2, item3, item4, item5};
 
-        //I'm going to fill it in
-        HashMap<ItemId,Float> user1 = new HashMap<ItemId,Float>();
-        HashMap<ItemId,Float> user2 = new HashMap<ItemId,Float>();
-        HashMap<ItemId,Float> user3 = new HashMap<ItemId,Float>();
-        HashMap<ItemId,Float> user4 = new HashMap<ItemId,Float>();
+    private TreeMap<Integer, TreeMap<Integer, Float>> leeropinions(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Numero de users, como maximo 10: ");
+        int Nusers = sc.nextInt();
+        TreeMap<Integer, TreeMap<Integer, Float>> opinions = new TreeMap<Integer, TreeMap<Integer, Float>>();
+        for(int i = 0; i < Nusers; ++i){
+            System.out.println("ID de user num " + i+1 + " : ");
+            int userID = sc.nextInt();
+            opinions.put(userID, new TreeMap<Integer, Float>());
+            System.out.println("Numero de items valorados por usuario " + userID + " : ");
+            int numItems = sc.nextInt();
+            for(int j = 0; j < numItems; ++j){
+                System.out.println("ID item numero " + j+1 + " : ");
+                int itemID = sc.nextInt();
+                System.out.println("Valoracion de l'item " + j+1 + " : ");
+                float itemVal = sc.nextFloat();
+                opinions.get(userID).put(itemID, itemVal);
+            }
+        }
+        return opinions;
     }
-}
 
-    public void testSlopeOne(){
+
+    public void testSlopeOne() {
         System.out.print("Test SlopeOne");
 
     }
 
-    public void testdesviacio_mitjana(){
-        System.out.print("testdesviacio mitjana");
-        System.out.print("10 casos");
+    public void testdesviacio_mitjana() {
+        System.out.println("testdesviacio mitjana");
+        System.out.println("10 casos");
+        System.out.print("insertar fixero con datos -> ");
+        leeropinions();
+
+
     }
 
 
-
-    public void testprediccio(){
+    public void testprediccio() {
 
     }
 
     public void printData() {
-        for(Integer user : map_data.keySet()) {
+        for (Integer user : map_data.keySet()) {
             System.out.println(user);
             print(map_data.get(user));
         }
-        for (int i=0; i<mAllItems.length; i++) {
+        for (int i = 0; i < mAllItems.length; i++) {
             System.out.print("\n" + mAllItems[i] + ":");
             printMatrixes(mDiffMatrix.get(mAllItems[i]), mFreqMatrix.get(mAllItems[i]));
         }
     }
 
-    private void printMatrixes(Map<Integer,Float> ratings,Map<Integer,Integer> frequencies) {
-        for (int j=0; j<mAllItems.length; j++) {
+    private void printMatrixes(Map<Integer, Float> ratings, Map<Integer, Integer> frequencies) {
+        for (int j = 0; j < mAllItems.length; j++) {
             System.out.format("%10.3f", ratings.get(mAllItems[j]));
             System.out.print(" ");
             System.out.format("%10d", frequencies.get(mAllItems[j]));
@@ -74,9 +79,9 @@ public class Driverslopeone {
         System.out.println();
     }
 
-    private void print_pred(Map<Integer,Float> user) {
+    private void print_pred(Map<Integer, Float> user) {
         for (Integer j : user.keySet()) {
-            System.out.println(" "+ j+ " --> "+user.get(j));
+            System.out.println(" " + j + " --> " + user.get(j));
         }
     }
 
@@ -139,3 +144,5 @@ public class Driverslopeone {
                 System.out.println(e.getMessage());
             }
         }
+    }
+}
