@@ -1,11 +1,14 @@
 package tag;
 
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Tag {
 
     Integer tagID;
     List<String> tags;
+    Map<Integer, List<String>> conjunt = new TreeMap<>();
 
     /**
      * Default builder

@@ -1,37 +1,78 @@
 package tipus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tipus {
-    String tipus;
+    String tag;
+    Integer tag_numi;
+    Double tag_numd;
+    List<String> categorics;
 
-
-    /**
-     * Default builder
-     */
     public Tipus(){
-        this.tipus = null;
+        this.tag = null;
+        this.tag_numi = null;
+        this.tag_numd = null;
+        this.categorics = new ArrayList<>();
     }
 
     /**
-     * Default builder with parameter
-     * @param type of the element
+     * Getter of the tag
      */
-    public Tipus(String type){
-        this.tipus = type;
+    public String getTag() {
+        return tag;
     }
 
     /**
-     * Getter of the type
-     * @return the type of the element
+     * Getter of the tag_numi
      */
-    public String getTipus() {
-        return tipus;
+    public Integer getTag_numi() {
+        return tag_numi;
     }
 
     /**
-     * Setter of the type
-     * @param tipus, new type to define
+     * Getter of the tag_numd
      */
-    public void setTipus(String tipus) {
-        this.tipus = tipus;
+    public Double getTag_numd() {
+        return tag_numd;
+    }
+
+    /**
+     * Getter of categorics
+     */
+    public List<String> getCategorics() {
+        return categorics;
+    }
+
+    /**
+     * Setter of the tag
+     */
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    /**
+     * Setter of the tag_numi
+     */
+    public void setTag_numi(Integer tag_numi) {
+        this.tag_numi = tag_numi;
+    }
+
+    /**
+     * Setter of the tag_numf
+     */
+    public void setTag_numd(Double tag_numd) {
+        this.tag_numd = tag_numd;
+    }
+
+    /**
+     * Setter of categorics
+     */
+    public void setCategorics(List<String> categorics) {
+        this.categorics = categorics;
+    }
+
+    public static void main(String[] args) {
+
     }
 }

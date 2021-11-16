@@ -1,19 +1,16 @@
 package algorithm.kmean;
 
 import java.util.*;
-
+//Coses a fer: fica q nomes es pot un
 public class kmean {
 
-        int k;
-        Map<Integer, Map<Integer, Float>> opinions;
-//aaa
+        private static Map<Integer, TreeMap<Integer, Float>> opinions;
+
         /**
          * Default builder
-         * @param k , number of clusters we want
          * @param opinions , valorations of all users
          */
-        public void kmean(int k, Map<Integer, Map<Integer, Float>> opinions){
-                this.k = k;
+        public  kmean(Map<Integer, TreeMap<Integer, Float>> opinions){
                 this.opinions = opinions;
         }
 
@@ -55,7 +52,7 @@ public class kmean {
                 return true;
         }
 
-        public Vector<Vector<Integer>> k_means(){ // k <= opinions.size()
+        public Vector<Vector<Integer>> k_means(Integer k){ // k <= opinions.size()
                 Vector<Vector<Integer>> clusters = new Vector<>();
                 for(int i = 0; i < k; ++i){
                         clusters.add(new Vector<Integer>(0));
@@ -68,7 +65,7 @@ public class kmean {
                 //initialize vectors
                 {
                         int i = 0;
-                        for (Map.Entry<Integer, Map<Integer, Float>> entry : opinions.entrySet()) {
+                        for (Map.Entry<Integer, TreeMap<Integer, Float>> entry : opinions.entrySet()) {
                                 clusters.get(i%k).add(entry.getKey());
                                 for(Map.Entry<Integer, Float> entry2 : entry.getValue().entrySet()){
                                         if(means.get(i%k).containsKey(entry2.getKey())){
