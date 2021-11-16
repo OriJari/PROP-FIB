@@ -10,12 +10,16 @@ public class kmean {
          * Default builder
          * @param opinions , valorations of all users
          */
+        public kmean(){
+
+        }
+
         public  kmean(Map<Integer, TreeMap<Integer, Float>> opinions){
                 this.opinions = opinions;
         }
 
         //0-1
-        private float cosineSquaredSimil(Map<Integer, Float> u1, Map<Integer, Float> u2){
+        public float cosineSquaredSimil(Map<Integer, Float> u1, Map<Integer, Float> u2){
                 float u1Squared = 0.0f;
                 float u2Squared = 0.0f;
                 float u1Multu2 = 0.0f;
@@ -31,7 +35,7 @@ public class kmean {
                 return (float) (Math.pow(u1Multu2, 2)/(u1Squared*u2Squared));
         }
 
-        private boolean equalClusters(Vector<Vector<Integer>> nuevoClusters, Vector<Vector<Integer>> clusters){
+        public boolean equalClusters(Vector<Vector<Integer>> nuevoClusters, Vector<Vector<Integer>> clusters){
                 for(int i = 0; i < clusters.size(); ++i){
                         Vector<Integer> rowVectorc = clusters.get(i);
                         Vector<Integer> rowVectornew = nuevoClusters.get(i);
