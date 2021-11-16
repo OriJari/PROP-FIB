@@ -36,6 +36,7 @@ public class CSVparser {
         mapRate = new TreeMap<>();
         mapRatedata = new TreeMap<>();
     }
+
     /**
      * Getter of the class, gets the mapItem
      * @return set of data of the item content
@@ -96,7 +97,7 @@ public class CSVparser {
             //For each line
             while(sc.hasNextLine()){
                 String line = sc.nextLine();
-                List<String> splitContent = new ArrayList<>(Arrays.asList(line.split("[,|;](?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1)));
+                List<String> splitContent = new ArrayList<>(Arrays.asList(line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1)));
                 content.add(splitContent);
                 //Update cols&rows
                 this.numRows += 1;
