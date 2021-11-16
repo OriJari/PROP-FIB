@@ -35,18 +35,4 @@ public class Recommendation {
         new_conj[n] = new_item;
         conjunt = new_conj;
     }
-    //Other
-    //Quan rebem el data_set, podem calcular en el mateix moment la taula de distàncies
-    //entre items, i quan es demani fer una recomendació, només buscar els k-NN.
-
-    public Item[] kNN(Item item1) {
-        int n = //nombre d'items al dataset
-        int k = //nombre d'items veïns a calcular
-        int i, dist;
-        int [] dist_vec;
-        int [] k_closest;
-        int current_max_dist;
-
-    }
-
 }
