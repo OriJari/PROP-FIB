@@ -1,0 +1,54 @@
+
+        int item1 = 1;
+        int item2 = 2;
+        int item3 = 3;
+        int item4 = 4;
+        int item5 = 5;
+        int item6 = 6;
+        int item7 = 7;
+        int item8 = 8;
+        int item9 = 9;
+        int item10 = 10;
+        int[] ItemId =  {item1, item2, item3, item4, item5, item6, item7, item8, item9, item10};
+
+        TreeMap<Integer, TreeMap<Integer, Float>> mdata = new TreeMap<Integer,TreeMap<Integer,Float>>();
+        Map<Integer,Float> user1 = new TreeMap<Integer,Float>();
+        Map<Integer,Float> user2 = new TreeMap<Integer,Float>();
+        Map<Integer,Float> user3 = new TreeMap<Integer,Float>();
+        Map<Integer,Float> user4 = new TreeMap<Integer,Float>();
+        Map<Integer,Float> user5 = new TreeMap<Integer,Float>();
+        Map<Integer,Float> user6 = new TreeMap<Integer,Float>();
+        Map<Integer,Float> user7 = new TreeMap<Integer,Float>();
+        Map<Integer,Float> user8 = new TreeMap<Integer,Float>();
+        Map<Integer,Float> user9 = new TreeMap<Integer,Float>();
+        Map<Integer,Float> user10 = new TreeMap<Integer,Float>();
+
+
+        for(int i = 0; i < 10; ++i){
+            user1.put(ItemId[i],i%5f);
+        }
+
+
+        HashMap<ItemId,Float> user1 = new HashMap<ItemId,Float>();
+        HashMap<ItemId,Float> user2 = new HashMap<ItemId,Float>();
+        HashMap<ItemId,Float> user3 = new HashMap<ItemId,Float>();
+        HashMap<ItemId,Float> user4 = new HashMap<ItemId,Float>();
+        user1.put(item1,1.0f);
+        user1.put(item2,0.5f);
+        user1.put(item4,0.1f);
+        data.put(new UserId("Bob"),user1);
+        user2.put(item1,1.0f);
+        user2.put(item3,0.5f);
+        user2.put(item4,0.2f);
+        data.put(new UserId("Jane"),user2);
+        user3.put(item1,0.9f);
+        user3.put(item2,0.4f);
+        user3.put(item3,0.5f);
+        user3.put(item4,0.1f);
+        data.put(new UserId("Jo"),user3);
+        user4.put(item1,0.1f);
+        //user4.put(item2,0.4f);
+        //user4.put(item3,0.5f);
+        user4.put(item4,1.0f);
+        user4.put(item5,0.4f);
+        data.put(new UserId("StrangeJo"),user4);
