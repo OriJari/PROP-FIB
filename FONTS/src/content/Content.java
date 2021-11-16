@@ -1,9 +1,9 @@
 package content;
 
 public class Content {
-    String tag;
-    Integer tag_numi;
-    Double tag_numd;
+    private String tag;
+    private Integer tag_numi;
+    private Double tag_numd;
 
     /**
      * Default builder
