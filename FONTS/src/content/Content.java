@@ -1,9 +1,12 @@
 package content;
 
+import java.util.List;
+
 public class Content {
     private String tag;
     private Integer tag_numi;
     private Double tag_numd;
+    private List<String> categorics;
 
     /**
      * Default builder
@@ -12,6 +15,7 @@ public class Content {
         this.tag = null;
         this.tag_numi = null;
         this.tag_numd = null;
+        this.categorics = null;
 
     }
 
@@ -20,12 +24,13 @@ public class Content {
      * @param s type of the tag
      * @param i integer number associated
      * @param d double number associated
+     * @param categorics list of the categorics elements
      */
-    public Content(String s, Integer i, Double d){
+    public Content(String s, Integer i, Double d, List<String> categorics){
         this.tag = s;
         this.tag_numi = i;
         this.tag_numd = d;
-
+        this.categorics = categorics;
     }
 
     /**
@@ -53,6 +58,14 @@ public class Content {
     }
 
     /**
+     * Getter of categorics
+     * @return list of the categorics elements
+     */
+    public List<String> getCategorics() {
+        return categorics;
+    }
+
+    /**
      * Setter of the tag
      * @param tag, attributes the new tag
      */
@@ -72,12 +85,15 @@ public class Content {
      * Setter of the tag_numf
      * @param tag_numd , attributes the double corresponded
      */
-    public void setTag_numf(Double tag_numd) {
+    public void setTag_numd(Double tag_numd) {
         this.tag_numd = tag_numd;
     }
 
-
-    public static void main(String[] args) {
-
+    /**
+     * Setter of categorics
+     * @param  categorics list of the elements categorics
+     */
+    public void setCategorics(List<String> categorics) {
+        this.categorics = categorics;
     }
 }

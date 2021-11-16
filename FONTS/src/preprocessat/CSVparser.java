@@ -213,36 +213,49 @@ public class CSVparser {
                 if (s.equals("False")) {
                     t.setTag("b");
                     t.setTag_numi(0);
-                    t.setTag_numf(-1.0);
+                    t.setTag_numd(-1.0);
+                    t.setCategorics(null);
                 }
                 if (s.equals("True")) {
                     t.setTag("b");
                     t.setTag_numi(1);
-                    t.setTag_numf(-1.0);
+                    t.setTag_numd(-1.0);
+                    t.setCategorics(null);
                 }
-                boolean b = true;
+                Double valD = -1.0;
+                boolean bd = true;
+                boolean bi = true;
+                try {
+                    valD = String_to_Double(s);
+                } catch (NumberFormatException e) {
+                    bd = false;
+                    bi = false;
+                }
                 Integer valI = -1;
                 try {
                     valI = String_to_Int(s);
                 } catch (NumberFormatException e) {
-                    b = false;
+                    bi = false;
                 }
-                boolean b1 = true;
-                Double valD = -1.0;
-                try {
-                    valD = String_to_Double(s);
-                } catch (NumberFormatException e) {
-                    b1 = false;
-                }
-                if (b) {
-                    t.setTag("i");
-                    t.setTag_numi(valI);
-                    t.setTag_numf(valD);
-                }
-                if (b1) {
+                if (bd) {
                     t.setTag("d");
                     t.setTag_numi(valI);
-                    t.setTag_numf(valD);
+                    t.setTag_numd(valD);
+                    t.setCategorics(null);
+                }
+                if (bi) {
+                    t.setTag("i");
+                    t.setTag_numi(valI);
+                    t.setTag_numd(valD);
+                    t.setCategorics(null);
+                }
+                if (s.contains(";")){
+                    t.setTag("c");
+                    t.setTag_numi(valI);
+                    t.setTag_numd(valD);
+                    List<String> orderlist = Arrays.asList(s.split(";"));
+                    //System.out.println(orderlist);
+                    orderlist.stream().sorted();
                 }
                 newtagform.add(t);
                 ++index;

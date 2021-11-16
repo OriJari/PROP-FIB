@@ -4,75 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tipus {
-    String tag;
-    Integer tag_numi;
-    Double tag_numd;
-    List<String> categorics;
 
+     private List<String> tipus;
+
+    /**
+     * Default builder
+     */
     public Tipus(){
-        this.tag = null;
-        this.tag_numi = null;
-        this.tag_numd = null;
-        this.categorics = new ArrayList<>();
+        this.tipus = new ArrayList<>();
     }
 
     /**
-     * Getter of the tag
+     * Default builder with parameters
+     * @param type set of tipus that contains the tag identifier
      */
-    public String getTag() {
-        return tag;
+    public Tipus(List<String> type){
+        this.tipus = type;
     }
 
     /**
-     * Getter of the tag_numi
+     * Getter of the set of tags
+     * @return the List of tags from the tag identifier
      */
-    public Integer getTag_numi() {
-        return tag_numi;
+    public List<String> getTipus(){
+        return tipus;
     }
+
 
     /**
-     * Getter of the tag_numd
+     * Setter of the set of tipus
+     * @param tags set of tipus to attribute to the tag identifier
      */
-    public Double getTag_numd() {
-        return tag_numd;
-    }
-
-    /**
-     * Getter of categorics
-     */
-    public List<String> getCategorics() {
-        return categorics;
-    }
-
-    /**
-     * Setter of the tag
-     */
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    /**
-     * Setter of the tag_numi
-     */
-    public void setTag_numi(Integer tag_numi) {
-        this.tag_numi = tag_numi;
-    }
-
-    /**
-     * Setter of the tag_numf
-     */
-    public void setTag_numd(Double tag_numd) {
-        this.tag_numd = tag_numd;
-    }
-
-    /**
-     * Setter of categorics
-     */
-    public void setCategorics(List<String> categorics) {
-        this.categorics = categorics;
-    }
-
-    public static void main(String[] args) {
-
+    public void setTipus(List<String> tags) {
+        this.tipus = tags;
     }
 }
