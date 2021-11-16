@@ -25,10 +25,36 @@ public class Driverslopeone {
 
     }
 
-    public static void main(String[] args) {
+    public void printData() {
+        for(Integer user : map_data.keySet()) {
+            System.out.println(user);
+            print(map_data.get(user));
+        }
+        for (int i=0; i<mAllItems.length; i++) {
+            System.out.print("\n" + mAllItems[i] + ":");
+            printMatrixes(mDiffMatrix.get(mAllItems[i]), mFreqMatrix.get(mAllItems[i]));
+        }
+    }
+
+    private void printMatrixes(Map<ItemId,Float> ratings,
+                               Map<ItemId,Integer> frequencies) {
+        for (int j=0; j<mAllItems.length; j++) {
+            System.out.format("%10.3f", ratings.get(mAllItems[j]));
+            System.out.print(" ");
+            System.out.format("%10d", frequencies.get(mAllItems[j]));
+        }
+        System.out.println();
+    }
+
+    public static void print(Map<ItemId,Float> user) {
+        for (ItemId j : user.keySet()) {
+            System.out.println(" "+ j+ " --> "+user.get(j).floatValue());
+        }
+    }
+
+    public void main(String[] args) {
         System.out.print("Driver Slope One");
         slopeone so = null;
-        slopeone.map_data = null;
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
         String linea;
         boolean salir = false;
@@ -36,13 +62,13 @@ public class Driverslopeone {
         while (linea != null && !salir) {
             try {
                 System.out.println("Escoja una opción:");
-                System.out.println("\t 1) preprocessat()`");
+                System.out.println("\t 1) desviacio_mitjana()");
                 System.out.println("\t\t input: 1");
-                System.out.println("\t 2) desviacio_mitjana()");
+                System.out.println("\t 2) prediccio()");
                 System.out.println("\t\t input: 2 ");
-                System.out.println("\t 3) prediccio()");
+                System.out.println("\t 3) prediccio(Map<Integer,Float>)");
                 System.out.println("\t\t input: 3 ");
-                System.out.println("\t 4) prediccio(Map<Integer,Float>)");
+                System.out.println("\t 4) SlopeOne()");
                 System.out.println("\t\t 4 ");
                 System.out.println("\t 0) Salir");
 
@@ -52,7 +78,8 @@ public class Driverslopeone {
                 switch (line[0]) {
                     case "1":
                         try {
-
+                            testdesviacio_mitjana();
+                            System.out.println();
                         } catch (Exception E) {
                             System.out.println(E.getMessage());
                         }
