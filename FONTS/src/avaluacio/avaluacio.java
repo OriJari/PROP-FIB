@@ -2,12 +2,12 @@ package avaluacio;
 
 import java.util.*;
 
-
+// Coses a fer: valoracio publica a tots
 public class avaluacio {
     List<valoracio> recomanacio; //recomanacio a un usuari ordenada de forma decreixent per el valor de la valoracio(float)
     Map<Integer, Float> known; //valorcions de lusuari reals
 
-    public class valoracio{
+    private class valoracio{
         int id;
         float valor;
 
@@ -17,7 +17,7 @@ public class avaluacio {
         }
     }
 
-    class SortByVal implements Comparator<valoracio>{
+    private class SortByVal implements Comparator<valoracio>{
         public int compare(valoracio a, valoracio b){
             if(a.valor > b.valor){
                 return -1;
