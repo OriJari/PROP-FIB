@@ -12,7 +12,7 @@ import java.util.TreeMap;
 public class slopeone {
 
 
-
+//s
     static TreeMap<Integer,TreeMap<Integer,Float>> map_data; //mapa de dades rating <userid<itemid,rate>>
     static TreeMap<Integer, TreeMap<Integer, Float>> map_des; //mapa de la desviacio dun item amb un altre <userid<itemid,rate>>
     static TreeMap<Integer, TreeMap<Integer, Integer>> map_freq; //mapa dels cops que hem computat la desviacio rating per un parell d items <userid<item1,item2>>
