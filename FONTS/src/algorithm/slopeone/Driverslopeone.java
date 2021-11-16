@@ -3,6 +3,8 @@ package algorithm.slopeone;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
@@ -12,14 +14,41 @@ import java.io.InputStreamReader;
 
 public class Driverslopeone {
 
+    private load_data(){
+        Map<Integer,Map<Integer,Float>> data = new TreeMap<Integer,Map<Integer,Float>>();
+        // items
+        int item1 = new ItemId("0001");
+        int item2 = new ItemId("0001");
+        int item3 = new ItemId("0001");
+        int item4 = new ItemId("0001");
+        int item5 = new ItemId("0001");
+        int item6 = new ItemId("0001");
+        int item7 = new ItemId("0001");
+        int item8 = new ItemId("0001");
+        int item9 = new ItemId("0001");
+        int item10 = new ItemId("0001");
+
+        mAllItems = new ItemId[]{item1, item2, item3, item4, item5};
+
+        //I'm going to fill it in
+        HashMap<ItemId,Float> user1 = new HashMap<ItemId,Float>();
+        HashMap<ItemId,Float> user2 = new HashMap<ItemId,Float>();
+        HashMap<ItemId,Float> user3 = new HashMap<ItemId,Float>();
+        HashMap<ItemId,Float> user4 = new HashMap<ItemId,Float>();
+    }
+}
+
     public void testSlopeOne(){
         System.out.print("Test SlopeOne");
 
     }
 
     public void testdesviacio_mitjana(){
-
+        System.out.print("testdesviacio mitjana");
+        System.out.print("10 casos");
     }
+
+
 
     public void testprediccio(){
 
@@ -36,8 +65,7 @@ public class Driverslopeone {
         }
     }
 
-    private void printMatrixes(Map<ItemId,Float> ratings,
-                               Map<ItemId,Integer> frequencies) {
+    private void printMatrixes(Map<Integer,Float> ratings,Map<Integer,Integer> frequencies) {
         for (int j=0; j<mAllItems.length; j++) {
             System.out.format("%10.3f", ratings.get(mAllItems[j]));
             System.out.print(" ");
@@ -46,9 +74,9 @@ public class Driverslopeone {
         System.out.println();
     }
 
-    public static void print(Map<ItemId,Float> user) {
-        for (ItemId j : user.keySet()) {
-            System.out.println(" "+ j+ " --> "+user.get(j).floatValue());
+    private void print_pred(Map<Integer,Float> user) {
+        for (Integer j : user.keySet()) {
+            System.out.println(" "+ j+ " --> "+user.get(j));
         }
     }
 
@@ -68,7 +96,7 @@ public class Driverslopeone {
                 System.out.println("\t\t input: 2 ");
                 System.out.println("\t 3) prediccio(Map<Integer,Float>)");
                 System.out.println("\t\t input: 3 ");
-                System.out.println("\t 4) SlopeOne()");
+                System.out.println("\t 4) SlopeOne(Map<Integer,Map<Integer,Float>> data)");
                 System.out.println("\t\t 4 ");
                 System.out.println("\t 0) Salir");
 

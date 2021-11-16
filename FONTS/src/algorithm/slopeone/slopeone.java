@@ -20,21 +20,28 @@ public class slopeone {
     TreeMap<Integer, TreeMap<Integer, Integer>> map_freq; //mapa dels cops que hem computat la desviacio rating per un parell d items <userid<item1,item2>>
     Map<Integer,Float> map_pred; //mapa de prediccio <itemid,predict_rate>
 
+    public slopeone(){
+    }
 
+    public slopeone(Map<Integer,Map<Integer,Float>> map_data, TreeMap<Integer, TreeMap<Integer, Float>> map_des,
+                    TreeMap<Integer, TreeMap<Integer, Integer>> map_freq , Map<Integer,Float> map_pred){
+        this.map_data = map_data;
+        this.map_des = map_des;
+        this.map_freq = map_freq;
+        this.map_pred = map_pred;
+    }
 
-    public void SlopeOne() {
-        preporcessat();
+    public Map<Integer,Float> SlopeOne(Map<Integer,Map<Integer,Float>> data) {
+        map_data = data;
         desviacio_mitjana();
         prediccio();
 
         Map<Integer,Float> user_pred = new TreeMap<Integer,Float>();
-        map_pred = prediccio(user_pred);
+        return map_pred = prediccio(user_pred);
     }
 
 
-    public void preporcessat(){
-        map_data = CSVparser.getMapRate();
-    }
+
 
 
 
