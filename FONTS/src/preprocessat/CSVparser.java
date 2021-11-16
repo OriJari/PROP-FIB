@@ -20,7 +20,7 @@ public class CSVparser {
     String path;
     List<List<String>> content;
     Map<Integer, List<String>> mapItem;
-    static Map<Integer, Map<Integer, Float>> mapRate;
+    Map<Integer, Map<Integer, Float>> mapRate;
     Map<Integer, List<Content>> mapRatedata;
 
     /**
