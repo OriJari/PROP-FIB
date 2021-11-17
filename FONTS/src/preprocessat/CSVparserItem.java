@@ -9,10 +9,11 @@ import java.util.*;
 
 public class CSVparserItem {
 
-    Integer numCols, numRows;
-    String path;
-    List<List<String>> content;
-    Map<Integer, List<Content>> mapRatedata;
+    private Integer numCols, numRows;
+    private String path;
+    private List<List<String>> content;
+    private List<String> header;
+    private Map<Integer, List<Content>> mapRatedata;
 
     /**
      * Default builder.
@@ -22,8 +23,41 @@ public class CSVparserItem {
         this.path = path;
         this.numCols = 0;
         this.numRows = 0;
-        content = new ArrayList<>();
-        mapRatedata = new TreeMap<>();
+        this.content = new ArrayList<>();
+        this.mapRatedata = new TreeMap<>();
+        this.header = new ArrayList<>();
+    }
+
+    /**
+     * Getter of the num rows
+     * @return the number of rows of the csv
+     */
+    public Integer getNumRows() {
+        return numRows;
+    }
+
+    /**
+     * Getter of the num columns
+     * @return the number of columns of the csv
+     */
+    public Integer getNumCols() {
+        return numCols;
+    }
+
+    /**
+     * Getter of the header
+     * @return the header of the csv as a List
+     */
+    public List<String> getHeader() {
+        return header;
+    }
+
+    /**
+     * Getter of the path of the location of the csv
+     * @return the path as String
+     */
+    public String getPath() {
+        return path;
     }
 
     /**
@@ -44,6 +78,38 @@ public class CSVparserItem {
 
 
     /**
+     * Setter of the class, modified the number of rows
+     * @param numRows, new size of the number of rows
+     */
+    public void setNumRows(Integer numRows) {
+        this.numRows = numRows;
+    }
+
+    /**
+     * Setter of the class, modified the number of columns
+     * @param numCols, new size of the number of columns
+     */
+    public void setNumCols(Integer numCols) {
+        this.numCols = numCols;
+    }
+
+    /**
+     * Setter of the class, modified the elements of the header
+     * @param header, header of the csv as a list
+     */
+    public void setHeader(List<String> header) {
+        this.header = header;
+    }
+
+    /**
+     * Setter of the class, modified the path where is located ths csv
+     * @param path, where the document is located, as string
+     */
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    /**
      * Setter of the class, gets the conent
      * @param content, lecture of the csv document to attribute
      */
@@ -60,6 +126,22 @@ public class CSVparserItem {
     }
 
     /**
+     * Get the header of the csv.
+     * @param path where the document csv is located
+     */
+    public void obtainHeader(String path){
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream(this.path);
+            Scanner sc = new Scanner(fis);
+            String h = sc.nextLine();
+            header = Arrays.asList(h.split(","));
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Read the content of the item csv into memory.
      */
     public void readLoadItem(){
@@ -67,7 +149,8 @@ public class CSVparserItem {
         try {
             fis = new FileInputStream(this.path);
             Scanner sc = new Scanner(fis);
-            sc.nextLine();
+            obtainHeader(this.path);
+            sc.nextLine(); //without header
             //For each line
             while(sc.hasNextLine()){
                 String line = sc.nextLine();
@@ -87,7 +170,7 @@ public class CSVparserItem {
      * Change a String value to an Integer one
      * @param s String to obtain the corresponding value
      */
-    public Integer String_to_Int(String s){
+    public static Integer String_to_Int(String s){
         return Integer.parseInt(s);
     }
 
@@ -183,9 +266,9 @@ public class CSVparserItem {
 
 
     public static void main(String[] args) {
-        CSVparserItem instance = new CSVparserItem("/subgrup-prop2-3/src/items.csv");
+        /*CSVparserItem instance = new CSVparserItem("/home/miguel/PROP/Project/Amazon/items.csv");
         instance.readLoadItem();
         instance.MapItemData(instance.content);
-        System.out.println("hello");
+        System.out.println("hello");*/
     }
 }

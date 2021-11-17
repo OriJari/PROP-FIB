@@ -11,10 +11,11 @@ import java.util.TreeMap;
 
 public class CSVparserRate {
 
-    Integer numCols, numRows;
-    String path;
-    List<List<String>> content;
-    Map<Integer, Map<Integer, Float>> mapRate;
+    private Integer numCols, numRows;
+    private String path;
+    private List<List<String>> content;
+    private List<String> header;
+    private Map<Integer, Map<Integer, Float>> mapRate;
 
     /**
      * Default builder.
@@ -26,6 +27,39 @@ public class CSVparserRate {
         this.numRows = 0;
         this.content = new ArrayList<>();
         this.mapRate = new TreeMap<>();
+        this.header = new ArrayList<>();
+    }
+
+    /**
+     * Getter of the num rows
+     * @return the number of rows of the csv
+     */
+    public Integer getNumRows() {
+        return numRows;
+    }
+
+    /**
+     * Getter of the num columns
+     * @return the number of columns of the csv
+     */
+    public Integer getNumCols() {
+        return numCols;
+    }
+
+    /**
+     * Getter of the header
+     * @return the header of the csv as a List
+     */
+    public List<String> getHeader() {
+        return header;
+    }
+
+    /**
+     * Getter of the path of the location of the csv
+     * @return the path as String
+     */
+    public String getPath() {
+        return path;
     }
 
     /**
@@ -42,6 +76,38 @@ public class CSVparserRate {
      */
     public Map<Integer, Map<Integer, Float>> getMapRate() {
         return mapRate;
+    }
+
+    /**
+     * Setter of the class, modified the number of rows
+     * @param numRows, new size of the number of rows
+     */
+    public void setNumRows(Integer numRows) {
+        this.numRows = numRows;
+    }
+
+    /**
+     * Setter of the class, modified the number of columns
+     * @param numCols, new size of the number of columns
+     */
+    public void setNumCols(Integer numCols) {
+        this.numCols = numCols;
+    }
+
+    /**
+     * Setter of the class, modified the elements of the header
+     * @param header, header of the csv as a list
+     */
+    public void setHeader(List<String> header) {
+        this.header = header;
+    }
+
+    /**
+     * Setter of the class, modified the path where is located ths csv
+     * @param path, where the document is located, as string
+     */
+    public void setPath(String path) {
+        this.path = path;
     }
 
     /**
@@ -62,6 +128,22 @@ public class CSVparserRate {
 
 
     /**
+     * Get the header of the csv.
+     * @param path where the document csv is located
+     */
+    public void obtainHeader(String path){
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream(this.path);
+            Scanner sc = new Scanner(fis);
+            String h = sc.nextLine();
+            header = Arrays.asList(h.split(","));
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Read the content of the rates csvs into memory.
      */
     public void readLoadRate(){
@@ -69,6 +151,7 @@ public class CSVparserRate {
         try {
             fis = new FileInputStream(this.path);
             Scanner sc = new Scanner(fis);
+            obtainHeader(this.path);
             sc.nextLine();  // without header
             //For each line
             while(sc.hasNextLine()) {
@@ -108,15 +191,15 @@ public class CSVparserRate {
     public void LoadRate(List<List<String>> rate_content){
         //for each line take UserID, ItemID and Rate and add to the mapRate
         for (List<String> strings : rate_content) {
-            Integer userID = String_to_Int(strings.get(0));
-            Integer itemID = String_to_Int(strings.get(1));
-            Float rate = String_to_Float(strings.get(2));
+            Integer userID = String_to_Int(strings.get(header.indexOf("userId")));
+            Integer itemID = String_to_Int(strings.get(header.indexOf("itemId")));
+            Float rateID = String_to_Float(strings.get(header.indexOf("rating")));
             if(mapRate.containsKey(userID)){
-                mapRate.get(userID).put(itemID,rate);
+                mapRate.get(userID).put(itemID,rateID);
             }
             else{
                 Map<Integer, Float> map = new TreeMap<>();
-                map.put(itemID, rate);
+                map.put(itemID, rateID);
                 mapRate.put(userID, map);
             }
         }
@@ -134,17 +217,17 @@ public class CSVparserRate {
 
     public static void main(String[] args) {
 
-        CSVparserRate instance1 = new CSVparserRate("/subgrup-prop2-3/src/ratings.db.csv");
+        /*CSVparserRate instance1 = new CSVparserRate("/home/miguel/PROP/Project/Amazon/puebas/series.public/250/ratings.db.csv");
         instance1.readLoadRate();
         instance1.LoadRate(instance1.content);
 
-        CSVparserRate instance2 = new CSVparserRate("/subgrup-prop2-3/src/ratings.test.known.csv");
+        CSVparserRate instance2 = new CSVparserRate("/home/miguel/PROP/Project/Amazon/puebas/series.public/250/ratings.test.known.csv");
         instance2.readLoadRate();
         instance2.LoadRate(instance2.content);
 
-        CSVparserRate instance3 = new CSVparserRate("/subgrup-prop2-3/src/ratings.test.unknown.csv");
+        CSVparserRate instance3 = new CSVparserRate("/home/miguel/PROP/Project/Amazon/puebas/series.public/250/ratings.test.unknown.csv");
         instance3.readLoadRate();
         instance3.LoadRate(instance3.content);
-        System.out.println("hello");
+        System.out.println("hello");*/
     }
 }
