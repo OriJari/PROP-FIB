@@ -27,7 +27,7 @@ public class DriverContent {
     }
 
     public static void main(String[] args) {
-        System.out.println("Driver CSVparserRate class:");
+        System.out.println("Driver Content class:");
         Content cont = null;
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
