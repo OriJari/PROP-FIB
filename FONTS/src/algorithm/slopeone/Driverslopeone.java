@@ -40,7 +40,7 @@ public class Driverslopeone {
 
 
     public static void testSlopeOne() {
-        System.out.print("Test SlopeOne");
+        System.out.println("Test SlopeOne");
         slopeone.map_data = leeropinions();
         System.out.println("esta base de datos");
         print_map_completo(slopeone.map_data);
@@ -119,21 +119,21 @@ public class Driverslopeone {
 
     private static void print_map_freq(TreeMap<Integer, TreeMap<Integer, Integer>> mappa){
         for(int j : mappa.keySet()){
-            System.out.println(" " + j + "-->" + mappa.get(j));
+            System.out.println("\t " + j + "-->" + mappa.get(j));
 
         }
     }
 
     private static void print_map_completo(TreeMap<Integer, TreeMap<Integer, Float>> mappa){
         for(int j : mappa.keySet()){
-            System.out.println(" " + j + "-->" + mappa.get(j));
+            System.out.println("\t " + j + "-->" + mappa.get(j));
 
         }
     }
 
     private static void print_pred(TreeMap<Integer, Float> user) {
         for (Integer j : user.keySet()) {
-            System.out.println(" " + j + " --> " + user.get(j));
+            System.out.println("\t " + j + " --> " + user.get(j));
         }
     }
 
