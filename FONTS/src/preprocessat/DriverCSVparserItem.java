@@ -112,7 +112,7 @@ public class DriverCSVparserItem {
                             System.out.println("Number of columns changed");
                             break;
                         case "10" :
-                            System.out.println("Define num of elements to insert: ");
+                            System.out.println("Define num of elements to insert and the elements: ");
                             BufferedReader br1 = new BufferedReader(new InputStreamReader(System.in));
                             String line1;
                             String[] param1;
