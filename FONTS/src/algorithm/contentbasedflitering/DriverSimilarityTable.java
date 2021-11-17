@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.util.*;
 import java.io.BufferedReader;
 
-public class DriverContent {
+public class DriverSimilarityTable {
     public static void main(String[] args) throws IOException {
-        Map<Integer,List<Content>> map = new TreeMap<>();
+        Map<Integer,ArrayList<Content>> map = new TreeMap<>();
         System.out.println("Welcome to Driver Content Based Filtering");
-        BufferedReader buffer = new BufferedReader(new FileReader("Input.txt"));
+        BufferedReader buffer = new BufferedReader(new FileReader("C:\\Users\\marcd\\IdeaProjects\\PROP Local\\src\\Input.txt"));
         String line;
         System.out.println("How many items will you state?");
         System.out.println("int:");
@@ -40,12 +40,13 @@ public class DriverContent {
                 String tag = values[0];
                 int integer = Integer.parseInt(values[1]);
                 double decimal = Double.parseDouble(values[2]);
-                ArrayList<String> sublist = new ArrayList<>(Arrays.asList(values).subList(3, mida));
+                ArrayList<String> sublist = null;
+                if (mida > 3) sublist = new ArrayList<>(Arrays.asList(values).subList(3, mida));
 
                 Content content = new Content(tag, integer,decimal, sublist);
                 lista.add(content);
             }
-        map.put(i,lista);
+            map.put(i,lista);
         }
         System.out.println("RESULTS:");
         SimilarityTable taula = new SimilarityTable();
@@ -66,8 +67,8 @@ public class DriverContent {
             if (line == null || line.equals("end")) break;
             int k = Integer.parseInt(line);
             ArrayList<Item> result = taula.kNN(item_id,k);
+            System.out.println("Recommendation:");
             for (int i = 0; i < k; ++i) {
-                System.out.println("Recommendation:");
                 System.out.print(result.get(i).getID() + " ");
             }
             System.out.println(" ");

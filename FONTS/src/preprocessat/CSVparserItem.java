@@ -251,7 +251,7 @@ public class CSVparserItem {
                     t.setTag("c");
                     t.setTag_numi(valI);
                     t.setTag_numd(valD);
-                    List<String> orderlist = Arrays.asList(s.split(";"));
+                    ArrayList<String> orderlist = (ArrayList<String>) Arrays.asList(s.split(";"));
                     Collections.sort(orderlist);
                     t.setCategorics(orderlist);
                     act = false;
