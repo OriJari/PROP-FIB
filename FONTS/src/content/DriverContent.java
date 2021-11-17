@@ -15,7 +15,7 @@ public class DriverContent {
         System.out.println("\t 0) exit");
         System.out.println("\t 1) Content()");
         System.out.println("\t 2) Content(String s, Integer i, Double d, List<String> categorics)");
-        System.out.println("\t 3) getTag");
+        System.out.println("\t 3) getTag()");
         System.out.println("\t 4) getTag_numi()");
         System.out.println("\t 5) getTag_numd()");
         System.out.println("\t 6) getCategorics()");
