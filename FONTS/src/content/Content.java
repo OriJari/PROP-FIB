@@ -1,17 +1,17 @@
 package content;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Content {
     private String tag;
     private Integer tag_numi;
     private Double tag_numd;
-    private List<String> categorics;
+    private ArrayList<String> categorics;
 
     /**
      * Default builder
      */
-    public Content(){
+    public Content() {
         this.tag = null;
         this.tag_numi = null;
         this.tag_numd = null;
@@ -21,12 +21,13 @@ public class Content {
 
     /**
      * Default builder with initializers
-     * @param s type of the tag
-     * @param i integer number associated
-     * @param d double number associated
-     * @param categorics list of the categorics elements
+     *
+     * @param s          type of the tag
+     * @param i          integer number associated
+     * @param d          double number associated
+     * @param categorics list of the categoric elements
      */
-    public Content(String s, Integer i, Double d, List<String> categorics){
+    public Content(String s, Integer i, Double d, ArrayList<String> categorics) {
         this.tag = s;
         this.tag_numi = i;
         this.tag_numd = d;
@@ -35,6 +36,7 @@ public class Content {
 
     /**
      * Getter of the tag
+     *
      * @return the content tag
      */
     public String getTag() {
@@ -43,6 +45,7 @@ public class Content {
 
     /**
      * Getter of the tag_numi
+     *
      * @return the integer associated to the tag
      */
     public Integer getTag_numi() {
@@ -51,6 +54,7 @@ public class Content {
 
     /**
      * Getter of the tag_numd
+     *
      * @return the double associated to the tag
      */
     public Double getTag_numd() {
@@ -59,14 +63,16 @@ public class Content {
 
     /**
      * Getter of categorics
+     *
      * @return list of the categorics elements
      */
-    public List<String> getCategorics() {
+    public ArrayList<String> getCategorics() {
         return categorics;
     }
 
     /**
      * Setter of the tag
+     *
      * @param tag, attributes the new tag
      */
     public void setTag(String tag) {
@@ -75,6 +81,7 @@ public class Content {
 
     /**
      * Setter of the tag_numi
+     *
      * @param tag_numi , attributes the integer corresponded
      */
     public void setTag_numi(Integer tag_numi) {
@@ -83,6 +90,7 @@ public class Content {
 
     /**
      * Setter of the tag_numf
+     *
      * @param tag_numd , attributes the double corresponded
      */
     public void setTag_numd(Double tag_numd) {
@@ -91,9 +99,10 @@ public class Content {
 
     /**
      * Setter of categorics
-     * @param  categorics list of the elements categorics
+     *
+     * @param categorics list of the elements categorics
      */
-    public void setCategorics(List<String> categorics) {
+    public void setCategorics(ArrayList<String> categorics) {
         this.categorics = categorics;
     }
 }

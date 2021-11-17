@@ -4,6 +4,7 @@ import content.Content;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.Double.parseDouble;
@@ -62,10 +63,7 @@ public class DriverContent {
                             line1 = br1.readLine();
                             param1 = line1.split(" ");
                             int lim = parseInt(param1[0]);
-                            List<String> aux = new ArrayList<>();
-                            for (int j = 1; j <= lim; ++j){
-                                aux.add(param1[j]);
-                            }
+                            ArrayList<String> aux = new ArrayList<>(Arrays.asList(param1).subList(1, lim + 1));
                             cont = new Content(s, i, d, aux);
                             System.out.println("Content Created");
                             break;
@@ -104,10 +102,7 @@ public class DriverContent {
                             line2 = br2.readLine();
                             param2 = line2.split(" ");
                             int limt2 = parseInt(param2[0]);
-                            List<String> aux2 = new ArrayList<>();
-                            for (int j = 1; j <= limt2; ++j){
-                                aux2.add(param2[j]);
-                            }
+                            ArrayList<String> aux2 = new ArrayList<>(Arrays.asList(param2).subList(1, limt2 + 1));
                             cont.setCategorics(aux2);
                             System.out.println("Categorics changed");
                             break;
