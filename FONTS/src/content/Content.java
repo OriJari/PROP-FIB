@@ -25,7 +25,7 @@ public class Content {
      * @param s          type of the tag
      * @param i          integer number associated
      * @param d          double number associated
-     * @param categorics list of the categorics elements
+     * @param categorics list of the categoric elements
      */
     public Content(String s, Integer i, Double d, ArrayList<String> categorics) {
         this.tag = s;
