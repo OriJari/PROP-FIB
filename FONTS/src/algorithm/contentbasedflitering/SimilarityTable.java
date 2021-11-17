@@ -61,12 +61,13 @@ public class SimilarityTable {
             String type2 = list2.get(i).getTag();
             if (type1.equals(type2)) {
                 switch (type1) {
-                    case "b" -> {
+                    case "b":
                         int bool1 = list1.get(i).getTag_numi();
                         int bool2 = list2.get(i).getTag_numi();
                         if (bool1 == bool2) simil = simil + bool_base_coincidence;
-                    }
-                    case "i" -> {
+                        break;
+
+                    case "i":
                         int int1 = list1.get(i).getTag_numi();
                         int int2 = list2.get(i).getTag_numi();
                         if (int1 == int2) simil = simil + int_base_coincidence;
@@ -74,8 +75,8 @@ public class SimilarityTable {
                             double new_sum = calculate_deviance(int1, int2, int_base_coincidence);
                             simil = simil + new_sum;
                         }
-                    }
-                    case "d" -> {
+                        break;
+                    case "d":
                         double double1 = list1.get(i).getTag_numd();
                         double double2 = list2.get(i).getTag_numd();
                         if (double1 == double2) simil = simil + double_base_coincidence;
@@ -83,15 +84,16 @@ public class SimilarityTable {
                             double new_sum = calculate_deviance(double1, double2, double_base_coincidence);
                             simil = simil + new_sum;
                         }
-                    }
-                    case "c" -> {
+                        break;
+                    case "c":
                         List<String> sublist1 = list1.get(i).getCategorics();
                         List<String> sublist2 = list2.get(i).getCategorics();
                         for (String s : sublist1) {
                             if (sublist2.contains(s)) simil = simil + categoric_base_coincidence;
                         }
-                    }
-                    default -> simil = simil + string_base_coincidence;
+                        break;
+                    default : simil += string_base_coincidence;
+                        break;
                 }
             }
         }

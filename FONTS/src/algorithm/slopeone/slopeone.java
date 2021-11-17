@@ -32,10 +32,10 @@ public class slopeone {
     public static TreeMap<Integer,Float> SlopeOne(TreeMap<Integer, TreeMap<Integer, Float>> data) {
         map_data = data;
         desviacio_mitjana();
-        prediccio();
-
+        //prediccio();
         TreeMap<Integer,Float> user_pred = new TreeMap<Integer,Float>();
-        return map_pred = prediccio(user_pred);
+        map_pred = prediccio(user_pred);
+        return map_pred;
     }
 
 
