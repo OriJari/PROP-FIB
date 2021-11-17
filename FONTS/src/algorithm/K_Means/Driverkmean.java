@@ -1,4 +1,4 @@
-package algorithm.kmean;
+package algorithm.K_Means;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -9,7 +9,7 @@ public class Driverkmean {
     private static Scanner sc;
 
     public static void testcosineSquaredSimil(){
-        kmean Kmean = new kmean();
+        K_Means Kmean = new K_Means();
         Map<Integer, Float> user1 = leerUsuario();
         Map<Integer, Float> user2 = leerUsuario();
         System.out.println("Resultado: " + Kmean.cosineSquaredSimil(user1, user2));
@@ -21,7 +21,7 @@ public class Driverkmean {
         System.out.println("Cluster 2:");
         Vector<Vector<Integer>> clusters2 = leerclusters();
 
-        kmean Kmean = new kmean();
+        K_Means Kmean = new K_Means();
         boolean equal = Kmean.equalClusters(clusters1, clusters2);
         if(equal){
             System.out.println("Son iguales.");
@@ -35,7 +35,7 @@ public class Driverkmean {
         System.out.println("Escoja una k:");
         Scanner sc = new Scanner(System.in);
         int k = sc.nextInt();
-        kmean Kmean = new kmean(leeropinions());
+        K_Means Kmean = new K_Means(leeropinions());
         Vector<Vector<Integer>> clusters = Kmean.k_means(k);
         System.out.println("Resultado:");
         for(int i = 0; i < clusters.size(); ++i){

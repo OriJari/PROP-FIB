@@ -2,8 +2,8 @@ package algorithm.collaborativeFiltering;
 
 import java.util.*;
 
-import algorithm.kmean.kmean;
-import algorithm.slopeone.slopeone;
+import algorithm.K_Means.K_Means;
+import algorithm.slopeone.SlopeOne;
 
 public class collaborativeFiltering {
 
@@ -12,7 +12,7 @@ public class collaborativeFiltering {
 
     public collaborativeFiltering(Map<Integer, TreeMap<Integer, Float>> opinions, Integer k){
         this.opinions = opinions;
-        kmean Kmean = new kmean(opinions);
+        K_Means Kmean = new K_Means(opinions);
         this.clusters = Kmean.k_means(k);
     }
 
@@ -33,7 +33,7 @@ public class collaborativeFiltering {
         for(int i = 0; i < clusters.get(clusterUser).size(); ++i){
             valCluster.put(clusters.get(clusterUser).get(i), opinions.get(clusters.get(clusterUser).get(i)));
         }
-        slopeone Slopeone = new slopeone();
-        return slopeone.SlopeOne(valCluster);
+        SlopeOne Slopeone = new SlopeOne();
+        return SlopeOne.SlopeOne(valCluster);
     }
 }

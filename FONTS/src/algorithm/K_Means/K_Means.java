@@ -1,24 +1,45 @@
-package algorithm.kmean;
+package algorithm.K_Means;
 
 import java.util.*;
-//Coses a fer: fica q nomes es pot un
-public class kmean {
+
+/** @class K_Means
+ * @brief Implements K-means algorithm.
+ */
+public class K_Means {
 
         private static Map<Integer, TreeMap<Integer, Float>> opinions;
-
-        /**
-         * Default builder
-         * @param opinions , valorations of all users
+        /** @brief opinions represents the valorations, float in the nested Map, that users, the first Integer is their ID, have given about items, their ID is the integer in the nested Map.
          */
-        public kmean(){
 
+        //Builders
+
+        /** @brief Default builder.
+         *
+         * \pre <em>true</em>
+         * \post It creates a <em>K_Means</em> object with its attribute <em>opinions</em> empty.
+         */
+        public K_Means(){
+                this.opinions = new TreeMap<>();
         }
 
-        public  kmean(Map<Integer, TreeMap<Integer, Float>> opinions){
+        /** @brief Builder with defined <em>opinions</em>.
+         *
+         * @param opinions Map that represents the ratings that users have given about some items.
+         *
+         * \post It creates a <em>K_Means</em> object with the parameter opinions as its attribute <em>opinions</em>.
+         */
+        public K_Means(Map<Integer, TreeMap<Integer, Float>> opinions){
                 this.opinions = opinions;
         }
 
-        //0-1
+
+        /** @brief Given two users item ratings it calculates the similarity between both users using the cosine squared simil.
+         *
+         * @param u1 Ratings of the first user about some items. All ratings must be greater or equal than 0.
+         * @param u2 Ratings of the second user about some items. All ratings must be greater or equal than 0.
+         *
+         * @return It returns the similarity between user <em>u1</em> and user <em>u2</em>. A value between 0 and 1.
+         */
         public float cosineSquaredSimil(Map<Integer, Float> u1, Map<Integer, Float> u2){
                 float u1Squared = 0.0f;
                 float u2Squared = 0.0f;
@@ -35,6 +56,12 @@ public class kmean {
                 return (float) (Math.pow(u1Multu2, 2)/(u1Squared*u2Squared));
         }
 
+        /** @brief Given two groups of clusters it determines whether they are the same two groups of clusters. They must be the same clusters and its elements in the same order.
+         *
+         * @param nuevoClusters Vector that represents the first, the "new" group of clusters.
+         * @param clusters Vector that represents the second, the "old" group of clusters.
+         * @return It returns a boolean. <em>true</em> if the two groups of clusters are the same and in the same order, <em>false</em> for all the other cases.
+         */
         public boolean equalClusters(Vector<Vector<Integer>> nuevoClusters, Vector<Vector<Integer>> clusters){
                 for(int i = 0; i < clusters.size(); ++i){
                         Vector<Integer> rowVectorc = clusters.get(i);
@@ -56,6 +83,12 @@ public class kmean {
                 return true;
         }
 
+        /** @brief Given a positive non-zero integer k, it groups the users in k different clusters based on their similarities.
+         *
+         * @param k Number of clusters. k > 0.
+         *
+         * @return It returns a vector with size k of vectors of integers that represents the k different clusters, with the integers being the ID's of the users belonging to that cluster.
+         */
         public Vector<Vector<Integer>> k_means(Integer k){ // k <= opinions.size()
                 Vector<Vector<Integer>> clusters = new Vector<>();
                 for(int i = 0; i < k; ++i){
