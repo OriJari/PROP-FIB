@@ -33,9 +33,9 @@ public class slopeone {
         map_data = data;
         desviacio_mitjana();
         prediccio();
-
-        TreeMap<Integer,Float> user_pred = new TreeMap<Integer,Float>();
-        return map_pred = prediccio(user_pred);
+        //TreeMap<Integer,Float> user_pred = new TreeMap<Integer,Float>();
+        //map_pred = prediccio(user_pred);
+        return map_pred;
     }
 
 
