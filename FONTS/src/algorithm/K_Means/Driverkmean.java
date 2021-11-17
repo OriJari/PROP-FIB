@@ -33,13 +33,12 @@ public class Driverkmean {
 
     public static void testk_means(){
         System.out.println("Escoja una k:");
-        Scanner sc = new Scanner(System.in);
         int k = sc.nextInt();
         K_Means Kmean = new K_Means(leeropinions());
         Vector<Vector<Integer>> clusters = Kmean.k_means(k);
         System.out.println("Resultado:");
         for(int i = 0; i < clusters.size(); ++i){
-            System.out.println("Cluster " + i + " :");
+            System.out.println("Cluster " + i + ":");
             for(int j = 0; j < clusters.get(i).size(); ++j){
                 System.out.println(clusters.get(i).get(j));
             }
@@ -51,9 +50,9 @@ public class Driverkmean {
         System.out.println("Numero de items valorados por usuario: ");
         int numItems = sc.nextInt();
         for(int j = 0; j < numItems; ++j){
-            System.out.println("ID item numero " + (j+1) + " : ");
+            System.out.println("ID item numero " + (j+1) + ":");
             int itemID = sc.nextInt();
-            System.out.println("Valoracion de l'item " + (j+1) + " : ");
+            System.out.println("Valoracion de l'item " + (j+1) + ":");
             float itemVal = sc.nextFloat();
             user.put(itemID, itemVal);
         }
@@ -82,15 +81,15 @@ public class Driverkmean {
         int Nusers = sc.nextInt();
         TreeMap<Integer, TreeMap<Integer, Float>> opinions = new TreeMap<Integer, TreeMap<Integer, Float>>();
         for(int i = 0; i < Nusers; ++i){
-            System.out.println("ID de user num " + (i+1) + " : ");
+            System.out.println("ID de user num " + (i+1) + ":");
             int userID = sc.nextInt();
             opinions.put(userID, new TreeMap<Integer, Float>());
-            System.out.println("Numero de items valorados por usuario " + userID + " : ");
+            System.out.println("Numero de items valorados por usuario " + userID + ":");
             int numItems = sc.nextInt();
             for(int j = 0; j < numItems; ++j){
-                System.out.println("ID item numero " + (j+1) + " : ");
+                System.out.println("ID item numero " + (j+1) + ":");
                 int itemID = sc.nextInt();
-                System.out.println("Valoracion de l'item " + (j+1) + " : ");
+                System.out.println("Valoracion de l'item " + (j+1) + ":");
                 float itemVal = sc.nextFloat();
                 opinions.get(userID).put(itemID, itemVal);
             }
