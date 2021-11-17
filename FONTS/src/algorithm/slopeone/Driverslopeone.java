@@ -1,9 +1,5 @@
 package algorithm.slopeone;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -41,28 +37,28 @@ public class Driverslopeone {
 
     public static void testSlopeOne() {
         System.out.println("Test SlopeOne");
-        slopeone.map_data = leeropinions();
+        SlopeOne.map_data = leeropinions();
         System.out.println("esta base de datos");
-        print_map_completo(slopeone.map_data);
-        slopeone.map_pred = slopeone.SlopeOne( slopeone.map_data);
+        print_map_completo(SlopeOne.map_data);
+        SlopeOne.map_pred = SlopeOne.SlopeOne( SlopeOne.map_data);
         System.out.println("\n Resultado:");
         System.out.println("\n\t esta prediccio");
-        print_pred(slopeone.map_pred);
+        print_pred(SlopeOne.map_pred);
         System.out.println("Terminado");
 
     }
 
     public static void testdesviacio_mitjana() {
         System.out.println("testdesviacio mitjana");
-        slopeone.map_data = leeropinions();
+        SlopeOne.map_data = leeropinions();
         System.out.println("esta base de datos");
-        print_map_completo(slopeone.map_data);
-        slopeone.desviacio_mitjana();
+        print_map_completo(SlopeOne.map_data);
+        SlopeOne.desviacio_mitjana();
         System.out.println("\n Resultado:");
         System.out.println("\n\t esta desviacion");
-        print_map_completo(slopeone.map_des);
+        print_map_completo(SlopeOne.map_des);
         System.out.println("\n\t esta fequencia");
-        print_map_freq(slopeone.map_freq);
+        print_map_freq(SlopeOne.map_freq);
         System.out.println("\n test terminado");
 
     }
@@ -70,50 +66,17 @@ public class Driverslopeone {
 
     public static void testprediccio() {
         System.out.println("Test preddicio");
-        System.out.println("\t 1) Directe");
-        System.out.println("\t 2) Per parametre el mapa de prediccio");
-        int option = sc.nextInt();
-        switch (option) {
-            case 1:
-                try {
-                    slopeone.map_des = leeropinions();
-                    System.out.println("esta desviacion");
-                    print_map_completo(slopeone.map_des);
-                    slopeone.prediccio();
-                    System.out.println("\n Resultado:");
-                    System.out.println("\n\t esta prediccio");
-                    print_pred(slopeone.map_pred);
-                    System.out.println("\n\t esta fequencia");
-                    print_map_freq(slopeone.map_freq);
-                    System.out.println("\n test terminado");
-                } catch (Exception E) {
-                    System.out.println(E.getMessage());
-                }
-                break;
-            case 2:
-                try {
-                    slopeone.map_des = leeropinions();
-                    System.out.println("esta desviacion");
-                    print_map_completo(slopeone.map_des);
-                    slopeone.map_pred = slopeone.prediccio(slopeone.map_pred);
-                    System.out.println("\n Resultado:");
-                    System.out.println("\n\t esta prediccio");
-                    print_pred(slopeone.map_pred);
-                    System.out.println("\n\t esta fequencia");
-                    print_map_freq(slopeone.map_freq);
-                    System.out.println("\n test terminado");
-                } catch (Exception E) {
-                    System.out.println(E.getMessage());
-                }
-                break;
-            case 0:
-                break;
-            default:
-                System.out.println(option);
-                break;
-
-        }
-
+        SlopeOne.map_data = leeropinions();
+        System.out.println("esta desviacion");
+        SlopeOne.desviacio_mitjana();
+        print_map_completo(SlopeOne.map_des);
+        SlopeOne.prediccio();
+        System.out.println("\n Resultado:");
+        System.out.println("\n\t esta prediccio");
+        print_pred(SlopeOne.map_pred);
+        System.out.println("\n\t esta fequencia");
+        print_map_freq(SlopeOne.map_freq);
+        System.out.println("\n test terminado");
 
     }
 

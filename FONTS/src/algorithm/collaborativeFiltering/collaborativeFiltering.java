@@ -3,7 +3,7 @@ package algorithm.collaborativeFiltering;
 import java.util.*;
 
 import algorithm.kmean.kmean;
-import algorithm.slopeone.slopeone;
+import algorithm.slopeone.SlopeOne;
 
 public class collaborativeFiltering {
 
@@ -33,7 +33,7 @@ public class collaborativeFiltering {
         for(int i = 0; i < clusters.get(clusterUser).size(); ++i){
             valCluster.put(clusters.get(clusterUser).get(i), opinions.get(clusters.get(clusterUser).get(i)));
         }
-        slopeone Slopeone = new slopeone();
-        return slopeone.SlopeOne(valCluster);
+        SlopeOne Slopeone = new SlopeOne();
+        return SlopeOne.SlopeOne(valCluster);
     }
 }
