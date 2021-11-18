@@ -1,38 +1,43 @@
 package atribut;
 
 import java.util.List;
+/**
+ * @class Atribut
+ * @brief Structure of the Atribut (needed in a near future)
+ * @author Miguel
+ */
 
 public class Atribut {
-    String atribut;
+    List<String> atribut;
 
     /**
-     * Default builder
+     * @brief Default builder
      */
     public Atribut(){
         this.atribut = null;
     }
 
     /**
-     * Default builder with parameters
+     * @brief Default builder with parameters
      * @param atr attribute to attribute
      */
-    public Atribut(String atr){
+    public Atribut(List<String> atr){
         this.atribut = atr;
     }
 
     /**
-     * Getter of the attribute
+     * @brief Getter of the attribute
      * @return the attribute
      */
-    public String getAtribut() {
+    public List<String> getAtribut() {
         return atribut;
     }
 
     /**
-     * Setter of the attribute
+     * @brief Setter of the attribute
      * @param atribut , new attribute to define to a previous one
      */
-    public void setAtribut(String atribut) {
+    public void setAtribut(List<String> atribut) {
         this.atribut = atribut;
     }
 }
