@@ -15,7 +15,6 @@ public class testmain {
         CSVparserItem CSVItem = new CSVparserItem("FONTS/src/preprocessat/items.csv");
         CSVItem.readLoadItem();
         CSVItem.MapItemData(CSVItem.getContent());
-        System.out.println("Hola");
         CSVparserRate CSVRate_known = new CSVparserRate("FONTS/src/preprocessat/ratings.test.known.csv");
         CSVRate_known.readLoadRate();
         CSVRate_known.LoadRate(CSVRate_known.getContent());
@@ -60,8 +59,8 @@ public class testmain {
                 break;
             case 2:
                 try {
-                    Map<Integer, Float> similarities = taula.recommend(userID, 10);
                     List<Integer> id_reals = CSVItem.getId_Items();
+                    Map<Integer, Float> similarities = taula.recommend(userID, 10, id_reals);
                     for (Map.Entry<Integer, Float> entry : similarities.entrySet()) {
                         System.out.println("ID item: " + id_reals.get(entry.getKey()) + " with similarity " + entry.getValue());
                         recommendation.put(id_reals.get(entry.getKey()),entry.getValue());

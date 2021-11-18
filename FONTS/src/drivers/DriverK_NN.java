@@ -2,6 +2,7 @@ package drivers;
 
 import algorithm.contentbasedflitering.*;
 import content.Content;
+import preprocessat.CSVparserItem;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -44,6 +45,7 @@ public class DriverK_NN {
     }
     public static void main(String[] args) throws IOException {
         Map<Integer,List<Content>> map = new TreeMap<>();
+        CSVparserItem parser = new CSVparserItem("hola");
         System.out.println("Welcome to Driver Content Based Filtering");
         buffer = new BufferedReader(new FileReader("FONTS/src/algorithm/contentbasedflitering/Prova.txt"));
         String line;
@@ -100,7 +102,7 @@ public class DriverK_NN {
             line = buffer.readLine();
             if (line == null || line.equals("end")) break;
             int k = Integer.parseInt(line);
-            Map<Integer,Float> result = taula.recommend(user_id,k);
+            Map<Integer,Float> result = taula.recommend(user_id,k,parser.getId_Items());
             System.out.println("Recommendation:");
             for (Map.Entry<Integer,Float> entry : result.entrySet()) {
                 System.out.println(entry.getKey() + " " + entry.getValue());

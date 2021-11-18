@@ -83,11 +83,11 @@ public class K_NN {
         int size1 = list1.size();
         int size2 = list2.size();
 
-        double bool_base_coincidence = 30.0;
-        double int_base_coincidence = 5.0;
-        double double_base_coincidence = 5.0;
-        double categoric_base_coincidence = 20.0;
-        double string_base_coincidence = 2.0;
+        double bool_base_coincidence = 6.0;
+        double int_base_coincidence = 1.0;
+        double double_base_coincidence = 1.0;
+        double categoric_base_coincidence = 5.0;
+        double string_base_coincidence = 5.0;
 
         double simil = 0;
 
@@ -198,17 +198,17 @@ public class K_NN {
         return result;
     }
 
-    public Map<Integer,Float> recommend(int id_usuari, int k) {
+    public Map<Integer,Float> recommend(int id_usuari, int k, List<Integer> id_reals) {
         Map<Integer,Float> valoracions = mapa_usuarios.get(id_usuari);
         Map<Integer,Float> resultat = new TreeMap<>();
 
         List<Pair> k_nn;
-        Iterator<Integer> it = valoracions.keySet().iterator();
 
-        while (it.hasNext()) {
-            int id_item = it.next();
-            float val = valoracions.get(id_item);
-            k_nn = kNN(id_item, k, id_usuari);
+        for (Map.Entry<Integer,Float> entry : valoracions.entrySet()) {
+            int id_item = entry.getKey();
+            float val = entry.getValue();
+            int id_fals = id_reals.indexOf(id_item);
+            k_nn = kNN(id_fals, k, id_usuari);
             for (int i = 0; i < k_nn.size(); ++i) {
                 int id_item_knn = k_nn.get(i).getId();
                 if (resultat.containsKey(id_item_knn)) {
