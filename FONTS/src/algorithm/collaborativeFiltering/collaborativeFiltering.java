@@ -61,6 +61,6 @@ public class collaborativeFiltering {
             valCluster.put(clusters.get(clusterUser).get(i), opinions.get(clusters.get(clusterUser).get(i)));
         }
         SlopeOne Slopeone = new SlopeOne();
-        return SlopeOne.SlopeOne(valCluster);
+        return SlopeOne.SlopeOne(valCluster, opinions.get(userID));
     }
 }
