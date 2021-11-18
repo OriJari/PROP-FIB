@@ -14,8 +14,10 @@ public class SlopeOne {
     //buena noche
 
     static TreeMap<Integer,TreeMap<Integer,Float>> map_data; //mapa de dades rating <userid<itemid,rate>>
-    static TreeMap<Integer, TreeMap<Integer, Float>> map_des; //mapa de la desviacio dun item amb un altre <itemid <itemid,rate>>
-    static TreeMap<Integer, TreeMap<Integer, Integer>> map_freq; //mapa dels cops que hem computat la desviacio rating per un parell d items <itemid<itemidx,cops>>
+    static TreeMap<Integer, TreeMap<Integer, Float>> map_des;
+    //mapa de la desviacio dun item amb un altre <itemid <itemid,rate>>
+    static TreeMap<Integer, TreeMap<Integer, Integer>> map_freq;
+    //mapa dels cops que hem computat la desviacio rating per un parell d items <itemid<itemidx,cops>>
     static TreeMap<Integer,Float> map_pred; //mapa de prediccio <itemid,predict_rate>
 
     public SlopeOne(){
@@ -34,6 +36,10 @@ public class SlopeOne {
         desviacio_mitjana();
 
         prediccio(user);
+        for(Map.Entry<Integer,Float> entry : user.entrySet()){
+            map_pred.remove(entry.getKey());
+
+        }
         return map_pred;
     }
 
@@ -78,9 +84,9 @@ public class SlopeOne {
         }
         for (Integer j : map_des.keySet()) {
             for (Integer i : map_des.get(j).keySet()) {
-                float desviacio = (float) map_des.get(j).get(i);
+                float rate = (float) map_des.get(j).get(i);
                 int cardinalitat = map_freq.get(j).get(i);
-                map_des.get(j).put(i, desviacio / cardinalitat);
+                map_des.get(j).put(i, rate / cardinalitat);
             }
         }
 
@@ -106,12 +112,21 @@ public class SlopeOne {
 
         for (int j : u_data.keySet()) {
             for (int i : map_des.keySet()) {
+                if(map_freq.containsKey(i) && map_freq.get(i).containsKey(j)) {
+                    System.out.println(i + " " + j);
+                    float mitjana = 0.0f;
+                    int k = 0;
+                    for(Map.Entry<Integer,Float> entry : u_data.entrySet()){
+                        ++k;
+                        mitjana += entry.getValue();
+                    }
+                    mitjana /= (float)k;
 
-                float predictedValue = map_des.get(i).get(j) + u_data.get(j);
-                float finalValue = predictedValue * map_freq.get(i).get(j);
-                map_pred.put(i, map_pred.get(i) + finalValue);
-                freq.put(i, freq.get(i) + map_freq.get(i).get(j));
-
+                    float predictedValue = map_des.get(i).get(j) + mitjana;
+                    float finalValue = predictedValue * map_freq.get(i).get(j);
+                    map_pred.put(i, map_pred.get(i) + finalValue);
+                    freq.put(i, freq.get(i) + map_freq.get(i).get(j));
+                }
             }
         }
 

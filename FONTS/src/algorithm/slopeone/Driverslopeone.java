@@ -54,9 +54,11 @@ public class Driverslopeone {
         SlopeOne.map_data = leeropinions();
         TreeMap<Integer,Float> user = leerusuariopredi();
         System.out.println("esta base de datos");
-        print_map_completo(SlopeOne.map_data);
         SlopeOne.map_pred = SlopeOne.SlopeOne( SlopeOne.map_data,user);
         System.out.println("\n Resultado:");
+        print_map_completo(SlopeOne.map_data);
+        System.out.println("esta desviacion");
+        print_map_completo(SlopeOne.map_des);
         System.out.println("\n\t esta prediccio");
         print_pred(SlopeOne.map_pred);
         System.out.println("Terminado");
@@ -85,14 +87,14 @@ public class Driverslopeone {
         System.out.println("esta desviacion");
         SlopeOne.desviacio_mitjana();
         print_map_completo(SlopeOne.map_des);
+        System.out.println("\n\t esta fequencia");
+        print_map_freq(SlopeOne.map_freq);
         TreeMap<Integer,Float> user = leerusuariopredi();
         SlopeOne.prediccio(user);
 
         System.out.println("\n Resultado:");
         System.out.println("\n\t esta prediccio");
         print_pred(SlopeOne.map_pred);
-        System.out.println("\n\t esta fequencia");
-        print_map_freq(SlopeOne.map_freq);
         System.out.println("\n test terminado");
     }
 
