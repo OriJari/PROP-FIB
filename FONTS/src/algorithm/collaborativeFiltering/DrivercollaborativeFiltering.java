@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-import static algorithm.collaborativeFiltering.DrivercollaborativeFiltering.testrecommend;
 
 public class DrivercollaborativeFiltering {
     private static Scanner sc;
@@ -32,7 +31,8 @@ public class DrivercollaborativeFiltering {
 
     public static void testrecommend(){
         TreeMap<Integer, TreeMap<Integer, Float>> opinions = leeropinions();
-        collaborativeFiltering CF = new collaborativeFiltering(opinions, opinions.size()/3);
+        collaborativeFiltering CF = new collaborativeFiltering(opinions, 1);
+        System.out.println("UserID del user que queremos la recomendacion:");
         int userID = sc.nextInt();
         Map<Integer, Float> recommendation = CF.recommend(userID);
         for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
@@ -53,7 +53,7 @@ public class DrivercollaborativeFiltering {
             switch (option) {
                 case 1:
                     try {
-                            testrecommend();
+                        testrecommend();
                     } catch (Exception E) {
                         System.out.println(E.getMessage());
                     }
