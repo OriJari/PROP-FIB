@@ -1,6 +1,7 @@
 package content;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @class Content
@@ -12,7 +13,7 @@ public class Content {
     private String tag;
     private Integer tag_numi;
     private Double tag_numd;
-    private ArrayList<String> categorics;
+    private List<String> categorics;
 
     /**
      * @brief Default builder
@@ -33,7 +34,7 @@ public class Content {
      * @param d double number associated
      * @param categorics list of the categoric elements
      */
-    public Content(String s, Integer i, Double d, ArrayList<String> categorics) {
+    public Content(String s, Integer i, Double d, List<String> categorics) {
         this.tag = s;
         this.tag_numi = i;
         this.tag_numd = d;
@@ -72,7 +73,7 @@ public class Content {
      *
      * @return list of the categorics elements
      */
-    public ArrayList<String> getCategorics() {
+    public List<String> getCategorics() {
         return categorics;
     }
 
@@ -108,7 +109,7 @@ public class Content {
      *
      * @param categorics list of the elements categorics
      */
-    public void setCategorics(ArrayList<String> categorics) {
+    public void setCategorics(List<String> categorics) {
         this.categorics = categorics;
     }
 }

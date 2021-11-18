@@ -19,8 +19,8 @@ public class CSVparserItem {
     private String path;
     private List<List<String>> content;
     private List<String> header;
-    private Map<Integer, ArrayList<Content>> mapRatedata;
-    private ArrayList<Integer> id_Items;
+    private Map<Integer, List<Content>> mapRatedata;
+    private List<Integer> id_Items;
 
     /**
      * @brief Default builder.
@@ -80,7 +80,7 @@ public class CSVparserItem {
      * @brief Getter of the class, gets the mapRatedata
      * @return set of data structured
      */
-    public Map<Integer, ArrayList<Content>> getMapRatedata() {
+    public Map<Integer, List<Content>> getMapRatedata() {
         return mapRatedata;
     }
 
@@ -88,7 +88,7 @@ public class CSVparserItem {
      * @brief Getter of the class, gets the set of id items
      * @return the array list of ths different items of the csv
      */
-    public ArrayList<Integer> getId_Items() {
+    public List<Integer> getId_Items() {
         return id_Items;
     }
 
@@ -136,7 +136,7 @@ public class CSVparserItem {
      * @brief Setter of the class, gets the mapRatedata
      * @param mapRatedata, set of data to redefine a previous one
      */
-    public void setMapRatedata(Map<Integer, ArrayList<Content>> mapRatedata) {
+    public void setMapRatedata(Map<Integer, List<Content>> mapRatedata) {
         this.mapRatedata = mapRatedata;
     }
 
@@ -144,7 +144,7 @@ public class CSVparserItem {
      * @brief Setter of the class, set the id of the items
      * @param id_Items, set of data to redefine a previous one
      */
-    public void setId_Items(ArrayList<Integer> id_Items) {
+    public void setId_Items(List<Integer> id_Items) {
         this.id_Items = id_Items;
     }
 
@@ -236,7 +236,7 @@ public class CSVparserItem {
         int id_pos = obten_id_header(this.header);
         for (List<String> aux : rate_content) {
             int pos = 0;
-            ArrayList<Content> newtagform = new ArrayList<>();
+            List<Content> newtagform = new ArrayList<>();
             for (String s : aux) {
                 if (pos == id_pos){
                     id_Items.add(String_to_Int(s));
@@ -292,7 +292,7 @@ public class CSVparserItem {
                     t.setTag_numd(valD);
                     List<String> orderlist = Arrays.asList(s.split(";"));
                     Collections.sort(orderlist);
-                    t.setCategorics((ArrayList<String>) orderlist);
+                    t.setCategorics(orderlist);
                     act = false;
                 }
                 if (act) t.setTag(s);

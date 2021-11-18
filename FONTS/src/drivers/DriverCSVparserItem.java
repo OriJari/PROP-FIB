@@ -91,7 +91,7 @@ public class DriverCSVparserItem {
                             break;
                         case "7" :
                             csv.MapItemData(csv.getContent());
-                            Map<Integer, ArrayList<Content>> mapContent = csv.getMapRatedata();
+                            Map<Integer, List<Content>> mapContent = csv.getMapRatedata();
                             List<Content> aux2;
                             for (int fila : mapContent.keySet()) {
                                 System.out.println("Fila: " + fila);

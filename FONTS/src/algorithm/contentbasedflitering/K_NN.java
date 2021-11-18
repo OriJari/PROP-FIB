@@ -29,12 +29,12 @@ public class K_NN {
      * Similarity table is normalized; similarities range between 0 and 1 (1 if items are identical).
      * @param map       integer is the ID of the item, ArrayList is a list of its tags
      */
-    public void initSimilarityTable(Map<Integer, ArrayList<Content>> map) {
+    public void initSimilarityTable(Map<Integer, List<Content>> map) {
         //given a Map<int, List<Content>> with int = id and List<Content> = tags converted to bool/int/double/string
         int n = map.size();
         similarityTable = new double[n][n];
         double similarity;
-        ArrayList<Content> list1, list2;
+        List<Content> list1, list2;
         for (int i = 0; i < n; ++i) {
             list1 = map.get(i);
             for (int j = 0; j < n; ++j) {
@@ -79,7 +79,7 @@ public class K_NN {
      * @param list2     tags of the second item to compare
      * @return          the similarity between these two items
      */
-    private double calculate_similarity(ArrayList<Content> list1, ArrayList<Content> list2) {
+    private double calculate_similarity(List<Content> list1, List<Content> list2) {
         int size1 = list1.size();
         int size2 = list2.size();
 
@@ -123,8 +123,8 @@ public class K_NN {
                         break;
                     }
                     case "c" : {
-                        ArrayList<String> sublist1 = list1.get(i).getCategorics();
-                        ArrayList<String> sublist2 = list2.get(i).getCategorics();
+                        List<String> sublist1 = list1.get(i).getCategorics();
+                        List<String> sublist2 = list2.get(i).getCategorics();
                         for (String s : sublist1) {
                             if (sublist2.contains(s)) simil = simil + categoric_base_coincidence;
                         }
@@ -164,7 +164,7 @@ public class K_NN {
      * @param k     number of items we want to get recommended
      * @return      the k most similar items to the id_item item
      */
-    public ArrayList<Pair> kNN(int id_item, int k, int id_usuari) {
+    public List<Pair> kNN(int id_item, int k, int id_usuari) {
         PriorityQueue<Pair> queue = new PriorityQueue<>();
         Map<Integer,Float> valorats = mapa_usuarios.get(id_usuari);
         double min_similarity = -1.0;
@@ -190,7 +190,7 @@ public class K_NN {
                 }
             }
         }
-        ArrayList<Pair> result = new ArrayList<>();
+        List<Pair> result = new ArrayList<>();
         for (int j = 0; j < k; ++j) {
             Pair aux = queue.poll();
             result.add(aux);
@@ -202,7 +202,7 @@ public class K_NN {
         Map<Integer,Float> valoracions = mapa_usuarios.get(id_usuari);
         Map<Integer,Float> resultat = new TreeMap<>();
 
-        ArrayList<Pair> k_nn;
+        List<Pair> k_nn;
         Iterator<Integer> it = valoracions.keySet().iterator();
 
         while (it.hasNext()) {

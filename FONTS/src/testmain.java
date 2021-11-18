@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.*;
 
 import algorithm.collaborativefiltering.CollaborativeFiltering;
 import algorithm.contentbasedflitering.K_NN;
@@ -15,19 +12,17 @@ public class testmain {
     private static Scanner sc;
 
     public static void makerecommendation(){
-        System.out.println("This might take a while...");
-
         CSVparserItem CSVItem = new CSVparserItem("FONTS/src/preprocessat/items.csv");
         CSVItem.readLoadItem();
         CSVItem.MapItemData(CSVItem.getContent());
-
+        System.out.println("Hola");
         CSVparserRate CSVRate_known = new CSVparserRate("FONTS/src/preprocessat/ratings.test.known.csv");
         CSVRate_known.readLoadRate();
         CSVRate_known.LoadRate(CSVRate_known.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_known = CSVRate_known.getMapRate();
         CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, max(1, map_rate_known.size() / 3));
 
-        Map<Integer, ArrayList<Content>> map_rate_item = CSVItem.getMapRatedata();
+        Map<Integer, List<Content>> map_rate_item = CSVItem.getMapRatedata();
         K_NN taula = new K_NN(map_rate_known);
         taula.initSimilarityTable(map_rate_item);
 
@@ -66,7 +61,7 @@ public class testmain {
             case 2:
                 try {
                     Map<Integer, Float> similarities = taula.recommend(userID, 10);
-                    ArrayList<Integer> id_reals = CSVItem.getId_Items();
+                    List<Integer> id_reals = CSVItem.getId_Items();
                     for (Map.Entry<Integer, Float> entry : similarities.entrySet()) {
                         System.out.println("ID item: " + id_reals.get(entry.getKey()) + " with similarity " + entry.getValue());
                         recommendation.put(id_reals.get(entry.getKey()),entry.getValue());

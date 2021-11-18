@@ -43,7 +43,7 @@ public class DriverK_NN {
         return opinions;
     }
     public static void main(String[] args) throws IOException {
-        Map<Integer,ArrayList<Content>> map = new TreeMap<>();
+        Map<Integer,List<Content>> map = new TreeMap<>();
         System.out.println("Welcome to Driver Content Based Filtering");
         buffer = new BufferedReader(new FileReader("FONTS/src/algorithm/contentbasedflitering/Prova.txt"));
         String line;
@@ -63,7 +63,7 @@ public class DriverK_NN {
             System.out.println("Integer: <Integer> if integer, 0 if false, 1 if true, -1 elsewhere");
             System.out.println("Double: <Double> if double, -1.0 elsewhere ");
             System.out.println("List of Strings: <List of Strings> if categoric, empty elsewhere");
-            ArrayList<Content> lista = new ArrayList<>(m);
+            List<Content> lista = new ArrayList<>(m);
             for (int j = 0; j < m; ++j) {
                 System.out.println("State a tag:");
                 line = buffer.readLine();
@@ -73,7 +73,7 @@ public class DriverK_NN {
                 String tag = values[0];
                 int integer = Integer.parseInt(values[1]);
                 double decimal = Double.parseDouble(values[2]);
-                ArrayList<String> sublist = null;
+                List<String> sublist = null;
                 if (mida > 3) sublist = new ArrayList<>(Arrays.asList(values).subList(3, mida));
 
                 Content content = new Content(tag, integer,decimal, sublist);
