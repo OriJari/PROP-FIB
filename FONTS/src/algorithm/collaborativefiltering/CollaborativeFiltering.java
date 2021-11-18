@@ -2,8 +2,8 @@ package algorithm.collaborativefiltering;
 
 import java.util.*;
 
-import algorithm.k_means.K_Means;
-import algorithm.slopeone.SlopeOne;
+import algorithm.k_means.*;
+import algorithm.slopeone.*;
 
 /**
  * @author Manel Piera Garrigosa
