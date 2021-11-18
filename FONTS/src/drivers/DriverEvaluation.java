@@ -1,6 +1,6 @@
-package Drivers;
+package drivers;
 
-import Evaluation.Evaluation;
+import evaluation.Evaluation;
 
 import java.util.Map;
 import java.util.Scanner;

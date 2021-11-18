@@ -1,6 +1,6 @@
-package Drivers;
+package drivers;
 
-import algorithm.K_Means.K_Means;
+import algorithm.k_means.K_Means;
 
 import java.util.Map;
 import java.util.Scanner;

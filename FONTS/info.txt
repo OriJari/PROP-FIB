@@ -1,4 +1,4 @@
 Classes implementades per l’equip fins al moment (incloent-hi stubs i 
-Drivers). Els subdirectoris han de seguir l’estructura de packages, perquè el codi
+drivers). Els subdirectoris han de seguir l’estructura de packages, perquè el codi
 sigui recompilable directament. S’ha d’incloure un fitxer de comandes (.bat, .sh o 
-makefile) amb les opcions per compilar els Drivers.
+makefile) amb les opcions per compilar els drivers.

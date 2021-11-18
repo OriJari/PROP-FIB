@@ -1,4 +1,4 @@
-package algorithm.K_Means;
+package algorithm.k_means;
 
 import java.util.*;
 

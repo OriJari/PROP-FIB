@@ -1,11 +1,11 @@
-package algorithm.collaborativeFiltering;
+package algorithm.collaborativefiltering;
 
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
 
-public class DrivercollaborativeFiltering {
+public class DriverCollaborativeFiltering {
     private static Scanner sc;
 
     public static Map<Integer, Map<Integer, Float>> leeropinions(){
@@ -31,7 +31,7 @@ public class DrivercollaborativeFiltering {
 
     public static void testrecommend(){
         Map<Integer, Map<Integer, Float>> opinions = leeropinions();
-        collaborativeFiltering CF = new collaborativeFiltering(opinions, 1);
+        CollaborativeFiltering CF = new CollaborativeFiltering(opinions, 1);
         System.out.println("UserID del user que queremos la recomendacion:");
         int userID = sc.nextInt();
         Map<Integer, Float> recommendation = CF.recommend(userID);

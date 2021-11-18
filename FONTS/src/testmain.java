@@ -1,8 +1,8 @@
 import java.util.Map;
 import java.util.Scanner;
 
-import algorithm.collaborativeFiltering.collaborativeFiltering;
-import Evaluation.Evaluation;
+import algorithm.collaborativefiltering.CollaborativeFiltering;
+import evaluation.Evaluation;
 import preprocessat.*;
 
 import static java.lang.Math.max;
@@ -25,7 +25,7 @@ public class testmain {
         CSVRate_known.readLoadRate();
         CSVRate_known.LoadRate(CSVRate_known.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_known = CSVRate_known.getMapRate();
-        collaborativeFiltering CF = new collaborativeFiltering(map_rate_known, max(1, map_rate_known.size() / 3));
+        CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, max(1, map_rate_known.size() / 3));
 
         CSVparserRate CSVRate_unknown = new CSVparserRate("FONTS/src/evaluation/ratings.test.unknown.csv");
         CSVRate_unknown.readLoadRate();

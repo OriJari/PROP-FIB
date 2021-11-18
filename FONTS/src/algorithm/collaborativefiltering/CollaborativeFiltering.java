@@ -1,14 +1,14 @@
-package algorithm.collaborativeFiltering;
+package algorithm.collaborativefiltering;
 
 import java.util.*;
 
-import algorithm.K_Means.K_Means;
+import algorithm.k_means.K_Means;
 import algorithm.slopeone.SlopeOne;
 
 /** @class collaborativeFiltering
  * @brief Implements recommendation using K-means and Slope One algorithm.
  */
-public class collaborativeFiltering {
+public class CollaborativeFiltering {
 
     private Map<Integer, Map<Integer, Float>> opinions;
     private Vector<Vector<Integer>> clusters;
@@ -22,7 +22,7 @@ public class collaborativeFiltering {
      * \pre <em>true</em>
      * \post Creates a <em>collaborativeFiltering</em> object with <em>opinions</em> and <em>clusters</em> empty.
      */
-    public collaborativeFiltering(){
+    public CollaborativeFiltering(){
         opinions = new TreeMap<>();
         clusters = new Vector<>();
     }
@@ -33,7 +33,7 @@ public class collaborativeFiltering {
      *
      * \post Creates <em>collaborativeFiltering</em> object with <em>opinions</em> set to opinions and computes the k clusters of users.
      */
-    public collaborativeFiltering(Map<Integer, Map<Integer, Float>> opinions, Integer k){
+    public CollaborativeFiltering(Map<Integer, Map<Integer, Float>> opinions, Integer k){
         this.opinions = opinions;
         K_Means Kmean = new K_Means(opinions);
         this.clusters = Kmean.k_means(k);
