@@ -113,7 +113,6 @@ public class SlopeOne {
         for (int j : u_data.keySet()) {
             for (int i : map_des.keySet()) {
                 if(map_freq.containsKey(i) && map_freq.get(i).containsKey(j)) {
-                    System.out.println(i + " " + j);
                     float mitjana = 0.0f;
                     int k = 0;
                     for(Map.Entry<Integer,Float> entry : u_data.entrySet()){
