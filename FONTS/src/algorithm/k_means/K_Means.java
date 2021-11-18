@@ -1,6 +1,9 @@
 package algorithm.k_means;
 
 import java.util.*;
+/**
+ * @author Manel Piera Garrigosa
+ */
 
 /** @class K_Means
  * @brief Implements K-means algorithm.
