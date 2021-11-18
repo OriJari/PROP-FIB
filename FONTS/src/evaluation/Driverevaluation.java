@@ -9,11 +9,12 @@ public class Driverevaluation {
 
     public static Map<Integer, Float> leerknown(){
         Map<Integer, Float> known = new TreeMap<Integer, Float>();
-        System.out.println("Numero de items que sabemos la valoracion del usuario por usuario :");
+        System.out.println("Numero de valores reales de la valoracion:");
         int numit = sc.nextInt();
         for(int i = 0; i < numit; ++i){
             System.out.println("ID item" + (i+1) +" :");
             int ID = sc.nextInt();
+            System.out.println("Rating item " + (i+1) +" :");
             Float rating = sc.nextFloat();
             known.put(ID, rating);
         }
@@ -22,11 +23,12 @@ public class Driverevaluation {
 
     public static Map<Integer, Float> leerrecommendation(){
         Map<Integer, Float> recommendation = new TreeMap<Integer, Float>();
-        System.out.println("Numero de items que sabemos la valoracion del usuario por usuario :");
+        System.out.println("Numero de items en la recomendacion:");
         int numit = sc.nextInt();
         for(int i = 0; i < numit; ++i){
-            System.out.println("ID item" + (i+1) +" :");
+            System.out.println("ID item " + (i+1) +" :");
             int ID = sc.nextInt();
+            System.out.println("Rating item " + (i+1) +" :");
             Float rating = sc.nextFloat();
             recommendation.put(ID, rating);
         }
