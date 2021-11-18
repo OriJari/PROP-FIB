@@ -10,7 +10,7 @@ import algorithm.slopeone.SlopeOne;
  */
 public class collaborativeFiltering {
 
-    private Map<Integer, TreeMap<Integer, Float>> opinions;
+    private Map<Integer, Map<Integer, Float>> opinions;
     private Vector<Vector<Integer>> clusters;
 
     /** @brief <em>opinions</em> represents the ratings, float in the nested Map, that users, the first Integer is their ID, have given about items, their ID is the integer in the nested Map.
@@ -33,7 +33,7 @@ public class collaborativeFiltering {
      *
      * \post Creates <em>collaborativeFiltering</em> object with <em>opinions</em> set to opinions and computes the k clusters of users.
      */
-    public collaborativeFiltering(Map<Integer, TreeMap<Integer, Float>> opinions, Integer k){
+    public collaborativeFiltering(Map<Integer, Map<Integer, Float>> opinions, Integer k){
         this.opinions = opinions;
         K_Means Kmean = new K_Means(opinions);
         this.clusters = Kmean.k_means(k);
@@ -56,7 +56,7 @@ public class collaborativeFiltering {
             }
         }
 
-        TreeMap<Integer, TreeMap<Integer, Float>> valCluster = new TreeMap<Integer, TreeMap<Integer, Float>>();
+        Map<Integer, Map<Integer, Float>> valCluster = new TreeMap<Integer, Map<Integer, Float>>();
         for(int i = 0; i < clusters.get(clusterUser).size(); ++i){
             valCluster.put(clusters.get(clusterUser).get(i), opinions.get(clusters.get(clusterUser).get(i)));
         }

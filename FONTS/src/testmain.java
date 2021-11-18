@@ -1,26 +1,38 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import algorithm.collaborativeFiltering.collaborativeFiltering;
+import algorithm.contentbasedflitering.K_NN;
 import content.Content;
 import preprocessat.*;
+
+import static java.lang.Math.max;
 
 public class testmain {
     private static Scanner sc;
 
     public void makerecommendation(){
-        System.out.println("ID del user que quiere la recomendacion:");
-        sc.nextInt();
+        System.out.println("This might take a while...");
+
         CSVparserItem CSVItem = new CSVparserItem("FONTS/src/preprocessat/items.csv");
         CSVItem.readLoadItem();
         CSVItem.MapItemData(CSVItem.getContent());
 
-        Map<Integer, List<Content>> map_rate_item = CSVItem.getMapRatedata();
+        Map<Integer, ArrayList<Content>> map_rate_item = CSVItem.getMapRatedata();
+        K_NN taula = new K_NN();
+        taula.initSimilarityTable(map_rate_item);
 
         CSVparserRate CSVRate = new CSVparserRate("FONTS/src/preprocessat/ratings.db.csv");
         CSVRate.readLoadRate();
         CSVRate.LoadRate(CSVRate.getContent());
-        Map<Integer, Map<Integer, Float>>
+        Map<Integer, Map<Integer, Float>> map_rate = CSVRate.getMapRate();
+        collaborativeFiltering CF = new collaborativeFiltering(map_rate, max(1, map_rate.size() / 3));
+
+        System.out.println("ID del user que quiere la recomendacion:");
+        int userID = sc.nextInt();
+        Map<Integer, Flaot>
     }
 
     public static void main(String[] args) {

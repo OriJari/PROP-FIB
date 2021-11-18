@@ -8,10 +8,10 @@ import java.util.TreeMap;
 public class DrivercollaborativeFiltering {
     private static Scanner sc;
 
-    public static TreeMap<Integer, TreeMap<Integer, Float>> leeropinions(){
+    public static Map<Integer, Map<Integer, Float>> leeropinions(){
         System.out.println("Numero de users: ");
         int Nusers = sc.nextInt();
-        TreeMap<Integer, TreeMap<Integer, Float>> opinions = new TreeMap<Integer, TreeMap<Integer, Float>>();
+        Map<Integer, Map<Integer, Float>> opinions = new TreeMap<Integer, Map<Integer, Float>>();
         for(int i = 0; i < Nusers; ++i){
             System.out.println("ID de user num " + (i+1) + ":");
             int userID = sc.nextInt();
@@ -30,7 +30,7 @@ public class DrivercollaborativeFiltering {
     }
 
     public static void testrecommend(){
-        TreeMap<Integer, TreeMap<Integer, Float>> opinions = leeropinions();
+        Map<Integer, Map<Integer, Float>> opinions = leeropinions();
         collaborativeFiltering CF = new collaborativeFiltering(opinions, 1);
         System.out.println("UserID del user que queremos la recomendacion:");
         int userID = sc.nextInt();
