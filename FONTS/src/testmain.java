@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 import algorithm.collaborativefiltering.CollaborativeFiltering;
 import algorithm.contentbasedflitering.K_NN;
@@ -49,14 +50,13 @@ public class testmain {
         System.out.println("\t 1) Collaborative filtering (k-means + slope-one)");
         System.out.println("\t 2) Content based filtering (k-nn)");
 
-        Map<Integer, Float> recommendation;
-
+        Map<Integer, Float> recommendation = new TreeMap<>();
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
                 try {
                     recommendation = CF.recommend(userID);
-                    for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
+                    for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
                         System.out.println("ID item: " + entry.getKey() + " with expected rating " + entry.getValue());
                     }
                 } catch (Exception E) {
@@ -64,10 +64,12 @@ public class testmain {
                 }
                 break;
             case 2:
-                try{
-                    recommendation = taula.recommend(userID,10);
-                    for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
-                        System.out.println("ID item: " + entry.getKey() + " with similarity " + entry.getValue());
+                try {
+                    Map<Integer, Float> similarities = taula.recommend(userID, 10);
+                    ArrayList<Integer> id_reals = CSVItem.getId_Items();
+                    for (Map.Entry<Integer, Float> entry : similarities.entrySet()) {
+                        System.out.println("ID item: " + id_reals.get(entry.getKey()) + " with similarity " + entry.getValue());
+                        recommendation.put(id_reals.get(entry.getKey()),entry.getValue());
                     }
                 } catch (Exception E) {
                     System.out.println(E.getMessage());
@@ -77,7 +79,6 @@ public class testmain {
                 System.out.println(choice);
                 break;
         }
-
         if(choice != 1 && choice != 2){
             System.out.println("No has elegido una opcion valida.");
         }
