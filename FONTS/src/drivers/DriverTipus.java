@@ -1,4 +1,7 @@
-package tipus;
+package drivers;
+
+
+import tipus.Tipus;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,14 +14,14 @@ public class DriverTipus {
     public static void options() {
         System.out.println("Choose an option with the necessary parameters needed:");
         System.out.println("\t 0) exit");
-        System.out.println("\t 1) Tipus()");
-        System.out.println("\t 2) Tipus(List<String> tipus)");
-        System.out.println("\t 3) getTipus()");
-        System.out.println("\t 4) setTipus(List<String> tipus)");
+        System.out.println("\t 1) Tag()");
+        System.out.println("\t 2) Tag(List<String> ntags)");
+        System.out.println("\t 3) getTag()");
+        System.out.println("\t 4) setTag(List<String> tags)");
     }
 
     public static void main(String[] args) {
-        System.out.println("Driver Tipus class:");
+        System.out.println("Driver CSVparserRate class:");
         Tipus tipus = null;
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
