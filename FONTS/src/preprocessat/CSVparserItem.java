@@ -6,11 +6,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+
 /**
  * @class CSVparserItem
  * @brief Implements the lecture and the proces of data of the csv
  * @author Miguel
  */
+
 public class CSVparserItem {
 
     private Integer numCols, numRows;
@@ -18,6 +20,7 @@ public class CSVparserItem {
     private List<List<String>> content;
     private List<String> header;
     private Map<Integer, ArrayList<Content>> mapRatedata;
+    private ArrayList<Integer> id_Items;
 
     /**
      * @brief Default builder.
@@ -30,6 +33,7 @@ public class CSVparserItem {
         this.content = new ArrayList<>();
         this.mapRatedata = new TreeMap<>();
         this.header = new ArrayList<>();
+        this.id_Items = new ArrayList<>();
     }
 
     /**
@@ -80,6 +84,13 @@ public class CSVparserItem {
         return mapRatedata;
     }
 
+    /**
+     * @brief Getter of the class, gets the set of id items
+     * @return the array list of ths different items of the csv
+     */
+    public ArrayList<Integer> getId_Items() {
+        return id_Items;
+    }
 
     /**
      * @brief Setter of the class, modified the number of rows
@@ -130,6 +141,14 @@ public class CSVparserItem {
     }
 
     /**
+     * @brief Setter of the class, set the id of the items
+     * @param id_Items, set of data to redefine a previous one
+     */
+    public void setId_Items(ArrayList<Integer> id_Items) {
+        this.id_Items = id_Items;
+    }
+
+    /**
      * @brief Get the header of the csv.
      * @param path where the document csv is located
      */
@@ -143,6 +162,17 @@ public class CSVparserItem {
         }catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+    /**
+     * @brief obtains the position where is located the id in csv
+     * @param header of the csv
+     * @return the position where are located the id in the header
+     */
+    public Integer obten_id_header(List<String> header){
+        if (header.contains("id")){
+            return header.indexOf("id");
+        }
+        return -1;
     }
 
     /**
@@ -174,7 +204,7 @@ public class CSVparserItem {
      * @brief Change a String value to an Integer one
      * @param s String to obtain the corresponding value
      */
-    public static Integer String_to_Int(String s){
+    public  Integer String_to_Int(String s){
         return Integer.parseInt(s);
     }
 
@@ -203,9 +233,14 @@ public class CSVparserItem {
      */
     public void MapItemData(List<List<String>> rate_content){
         int index = 0;
+        int id_pos = obten_id_header(this.header);
         for (List<String> aux : rate_content) {
+            int pos = 0;
             ArrayList<Content> newtagform = new ArrayList<>();
             for (String s : aux) {
+                if (pos == id_pos){
+                    id_Items.add(String_to_Int(s));
+                }
                 boolean act = true;
                 Content t = new Content();
                 if (s.equals("False")) {
@@ -255,24 +290,17 @@ public class CSVparserItem {
                     t.setTag("c");
                     t.setTag_numi(valI);
                     t.setTag_numd(valD);
-                    ArrayList<String> orderlist = (ArrayList<String>) Arrays.asList(s.split(";"));
+                    List<String> orderlist = Arrays.asList(s.split(";"));
                     Collections.sort(orderlist);
-                    t.setCategorics(orderlist);
+                    t.setCategorics((ArrayList<String>) orderlist);
                     act = false;
                 }
                 if (act) t.setTag(s);
                 newtagform.add(t);
+                ++pos;
             }
             mapRatedata.put(index, newtagform);
             ++index;
         }
-    }
-
-
-    public static void main(String[] args) {
-        /*CSVparserItem instance = new CSVparserItem("/home/miguel/PROP/Project/Amazon/items.csv");
-        instance.readLoadItem();
-        instance.MapItemData(instance.content);
-        System.out.println("hello");*/
     }
 }
