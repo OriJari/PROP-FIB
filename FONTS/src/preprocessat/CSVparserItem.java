@@ -13,7 +13,7 @@ public class CSVparserItem {
     private String path;
     private List<List<String>> content;
     private List<String> header;
-    private Map<Integer, List<Content>> mapRatedata;
+    private Map<Integer, ArrayList<Content>> mapRatedata;
 
     /**
      * Default builder.
@@ -72,7 +72,7 @@ public class CSVparserItem {
      * Getter of the class, gets the mapRatedata
      * @return set of data structured
      */
-    public Map<Integer, List<Content>> getMapRatedata() {
+    public Map<Integer, ArrayList<Content>> getMapRatedata() {
         return mapRatedata;
     }
 
@@ -121,7 +121,7 @@ public class CSVparserItem {
      * Setter of the class, gets the mapRatedata
      * @param mapRatedata, set of data to redefine a previous one
      */
-    public void setMapRatedata(Map<Integer, List<Content>> mapRatedata) {
+    public void setMapRatedata(Map<Integer, ArrayList<Content>> mapRatedata) {
         this.mapRatedata = mapRatedata;
     }
 
@@ -200,7 +200,7 @@ public class CSVparserItem {
     public void MapItemData(List<List<String>> rate_content){
         int index = 0;
         for (List<String> aux : rate_content) {
-            List<Content> newtagform = new ArrayList<>();
+            ArrayList<Content> newtagform = new ArrayList<>();
             for (String s : aux) {
                 boolean act = true;
                 Content t = new Content();
