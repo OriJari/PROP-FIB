@@ -16,16 +16,16 @@ import java.util.TreeMap;
 public class SlopeOne {
 
 
-    static Map<Integer,Map<Integer,Float>> map_data;
+    public static Map<Integer,Map<Integer,Float>> map_data;
     /** @brief matrix data <userid<itemid,rate>>
      * */
-    static Map<Integer, Map<Integer, Float>> map_des;
+    public static Map<Integer, Map<Integer, Float>> map_des;
     /** @brief matrix with differential between two items <itemid_1<itemid_2,diff>>
      * */
-    static Map<Integer, Map<Integer, Integer>> map_freq;
+    public static Map<Integer, Map<Integer, Integer>> map_freq;
     /** @brief matrix with number of times we’ve computed a differential rating for each pair of items <itemid_1<itemid_2<times>>
      * */
-    static Map<Integer,Float> map_pred;
+    public static Map<Integer,Float> map_pred;
     /** @brief map with rates' predictions of the items for one user <itemid,predict_rate>
      * */
 
@@ -46,8 +46,8 @@ public class SlopeOne {
     /** @brief Builder with defined attributes.
      *
      * @param map_data Matrix that represents the data.
-     * @param map_des  Matrix that represents the difference
-     * @param map_freq Matrix that represents the ratings that users have given about some items
+     * @param map_des  Matrix that represents the difference between two items.
+     * @param map_freq Matrix that represents times we've computed a diff rating for each pair
      * @param map_pred Map that represents the ratings that users have given about some items
      *
      * \post It creates a <em>K_Means</em> object with the parameter opinions as its attribute <em>opinions</em>.
