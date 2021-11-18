@@ -67,7 +67,7 @@ public class DriverCSVparserItem {
                         case "0" : finish = true;
                             break;
                         case "1" :
-                            csv = new CSVparserItem(resp);
+                            csv = new CSVparserItem(param[1]);
                             csv.readLoadItem();
                             System.out.println("CSV created");
                             break;
@@ -110,6 +110,7 @@ public class DriverCSVparserItem {
                             }
                             break;
                         case "8" :
+                            csv.MapItemData(csv.getContent());
                             System.out.println(csv.getId_Items());
                             break;
                         case "9" :

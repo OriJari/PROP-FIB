@@ -219,21 +219,4 @@ public class CSVparserRate {
         return String.valueOf(this.content.get(i));
     }
 
-
-
-    public static void main(String[] args) {
-
-        /*CSVparserRate instance1 = new CSVparserRate("/home/miguel/PROP/Project/Amazon/puebas/series.public/250/ratings.db.csv");
-        instance1.readLoadRate();
-        instance1.LoadRate(instance1.content);
-
-        CSVparserRate instance2 = new CSVparserRate("/home/miguel/PROP/Project/Amazon/puebas/series.public/250/ratings.test.known.csv");
-        instance2.readLoadRate();
-        instance2.LoadRate(instance2.content);
-
-        CSVparserRate instance3 = new CSVparserRate("/home/miguel/PROP/Project/Amazon/puebas/series.public/250/ratings.test.unknown.csv");
-        instance3.readLoadRate();
-        instance3.LoadRate(instance3.content);
-        System.out.println("hello");*/
-    }
 }
