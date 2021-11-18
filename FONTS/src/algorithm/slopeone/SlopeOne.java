@@ -153,8 +153,8 @@ public class SlopeOne {
                     mitjana /= (float)k;
 
                     float predictedValue = map_des.get(i).get(j) + mitjana;
-                    float finalValue = predictedValue * map_freq.get(i).get(j);
-                    map_pred.put(i, map_pred.get(i) + finalValue);
+                    float finalValue = predictedValue * map_freq.get(i).get(j);//aqui pq multipliques per la frequencia????
+                    map_pred.put(i, map_pred.get(i) + finalValue);//aqui pq ho sumes?? has de fer la suma de les desviacions i despres sumarho a la mitjana
                     freq.put(i, freq.get(i) + map_freq.get(i).get(j));
                 }
             }

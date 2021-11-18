@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class evaluation {
     private List<rating> recommendation;
-    private Map<Integer, Float> known;
+    private Map<Integer, Float> unknown;
 
     /** @brief <em>recommendation</em> represents the recommendation to a user ordered decreasingly by the expected rating.
      *  <em>known</em> represents the actual ratings from users of some items.
@@ -52,11 +52,11 @@ public class evaluation {
 
     /** @brief Builder.
      *
-     * @param known Sets <em>known</em> to known.
+     * @param unknown Sets <em>known</em> to known.
      * @param recommendation Sets <em>recomanacio</em> to recomanacio but sorted decreasingly.
      */
-    public evaluation(Map<Integer, Float> known, Map<Integer, Float> recommendation) {
-        this.known = known;
+    public evaluation(Map<Integer, Float> unknown, Map<Integer, Float> recommendation) {
+        this.unknown = unknown;
         this.recommendation = new ArrayList<>();
 
         for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
@@ -70,12 +70,12 @@ public class evaluation {
      *
      * @return It returns a number. The higher it is the better recommendation we have.
      */
-    float DCG(){
+    public float DCG(){
         int j = 1;
         float result = 0.0f;
         for(int i = 0; i < recommendation.size(); ++i){
-            if(known.containsKey(recommendation.get(i).id)){
-                result += (Math.pow(2, known.get(recommendation.get(i).id))-1)/(Math.log(j + 1)/Math.log(2));
+            if(unknown.containsKey(recommendation.get(i).id)){
+                result += (Math.pow(2, unknown.get(recommendation.get(i).id))-1)/(Math.log(j + 1)/Math.log(2));
             }
             if(i == 0 || recommendation.get(i).valor != recommendation.get(i-1).valor){
                 ++j;
