@@ -1,4 +1,6 @@
-package algorithm.collaborativefiltering;
+package drivers;
+
+import algorithm.collaborativefiltering.CollaborativeFiltering;
 
 import java.util.Map;
 import java.util.Scanner;

@@ -1,7 +1,7 @@
 package algorithm.contentbasedflitering;
 
-import item.Item;
 import content.Content;
+import user.User;
 
 import java.util.*;
 
@@ -15,11 +15,14 @@ public class K_NN {
      * Table used to store similarities between all items
      */
     private double[][] similarityTable;
+    private Map<Integer,Map<Integer,Float>> mapa_usuarios;
 
     /**
      * Default builder
      */
-    public K_NN() {}
+    public K_NN(Map<Integer,Map<Integer,Float>> mapa) {
+        this.mapa_usuarios = mapa;
+    }
 
     /**
      * Initialize the similarity table between the items present in the map.
@@ -157,17 +160,18 @@ public class K_NN {
 
     /**
      * Finds the k most similar items to the given one
-     * @param id    id of the item we want to find a recommendation for
+     * @param id_item    id_item of the item we want to find a recommendation for
      * @param k     number of items we want to get recommended
-     * @return      the k most similar items to the id item
+     * @return      the k most similar items to the id_item item
      */
-    public ArrayList<Item> kNN(int id, int k) {
+    public ArrayList<Pair> kNN(int id_item, int k, int id_usuari) {
         PriorityQueue<Pair> queue = new PriorityQueue<>();
+        Map<Integer,Float> valorats = mapa_usuarios.get(id_usuari);
         double min_similarity = -1.0;
-        int n = similarityTable[id].length;
+        int n = similarityTable[id_item].length;
         for (int j = 0; j < n; ++j) {
-            if (id != j) {
-                double similarity_aux = similarityTable[id][j];
+            if (id_item != j && !valorats.containsKey(j)) {
+                double similarity_aux = similarityTable[id_item][j];
                 if (queue.size() == 0) {
                     queue.add(new Pair(j,similarity_aux));
                     min_similarity = similarity_aux;
@@ -186,12 +190,37 @@ public class K_NN {
                 }
             }
         }
-        ArrayList<Item> result = new ArrayList<>();
+        ArrayList<Pair> result = new ArrayList<>();
         for (int j = 0; j < k; ++j) {
-            Item item = new Item(Objects.requireNonNull(queue.poll()).getId());
-            result.add(item);
+            Pair aux = queue.poll();
+            result.add(aux);
         }
         return result;
+    }
+
+    public Map<Integer,Float> recommend(int id_usuari, int k) {
+        Map<Integer,Float> valoracions = mapa_usuarios.get(id_usuari);
+        Map<Integer,Float> resultat = new TreeMap<>();
+
+        ArrayList<Pair> k_nn;
+        Iterator<Integer> it = valoracions.keySet().iterator();
+
+        while (it.hasNext()) {
+            int id_item = it.next();
+            float val = valoracions.get(id_item);
+            k_nn = kNN(id_item, k, id_usuari);
+            for (int i = 0; i < k_nn.size(); ++i) {
+                int id_item_knn = k_nn.get(i).getId();
+                if (resultat.containsKey(id_item_knn)) {
+                    resultat.replace(id_item_knn,(float)(resultat.get(id_item_knn) + k_nn.get(i).getSimilarity()*val));
+                }
+                else {
+                    resultat.put(id_item_knn, (float)(k_nn.get(i).getSimilarity()*val));
+                }
+            }
+        }
+        return resultat;
+
     }
 
     /**

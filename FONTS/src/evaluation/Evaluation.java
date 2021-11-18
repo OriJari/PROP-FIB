@@ -2,6 +2,10 @@ package evaluation;
 
 import java.util.*;
 
+/**
+ * @author Manel Piera Garrigosa
+ */
+
 /** @class evaluation
  * @brief Evaluates the quality of a recommendation.
  */

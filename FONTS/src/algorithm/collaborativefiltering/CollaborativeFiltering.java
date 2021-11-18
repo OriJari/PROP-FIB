@@ -5,6 +5,10 @@ import java.util.*;
 import algorithm.k_means.K_Means;
 import algorithm.slopeone.SlopeOne;
 
+/**
+ * @author Manel Piera Garrigosa
+ */
+
 /** @class collaborativeFiltering
  * @brief Implements recommendation using K-means and Slope One algorithm.
  */

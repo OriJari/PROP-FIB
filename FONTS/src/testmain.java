@@ -1,7 +1,10 @@
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
 import algorithm.collaborativefiltering.CollaborativeFiltering;
+import algorithm.contentbasedflitering.K_NN;
+import content.Content;
 import evaluation.Evaluation;
 import preprocessat.*;
 
@@ -13,21 +16,21 @@ public class testmain {
     public static void makerecommendation(){
         System.out.println("This might take a while...");
 
-        /*CSVparserItem CSVItem = new CSVparserItem("FONTS/src/preprocessat/items.csv");
+        CSVparserItem CSVItem = new CSVparserItem("FONTS/src/preprocessat/items.csv");
         CSVItem.readLoadItem();
-        CSVItem.MapItemData(CSVItem.getContent());*/
+        CSVItem.MapItemData(CSVItem.getContent());
 
-        /*Map<Integer, ArrayList<Content>> map_rate_item = CSVItem.getMapRatedata();
-        K_NN taula = new K_NN();
-        taula.initSimilarityTable(map_rate_item);*/
-
-        CSVparserRate CSVRate_known = new CSVparserRate("FONTS/src/evaluation/ratings.test.known.csv");
+        CSVparserRate CSVRate_known = new CSVparserRate("FONTS/src/preprocessat/ratings.test.known.csv");
         CSVRate_known.readLoadRate();
         CSVRate_known.LoadRate(CSVRate_known.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_known = CSVRate_known.getMapRate();
         CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, max(1, map_rate_known.size() / 3));
 
-        CSVparserRate CSVRate_unknown = new CSVparserRate("FONTS/src/evaluation/ratings.test.unknown.csv");
+        Map<Integer, ArrayList<Content>> map_rate_item = CSVItem.getMapRatedata();
+        K_NN taula = new K_NN(map_rate_known);
+        taula.initSimilarityTable(map_rate_item);
+
+        CSVparserRate CSVRate_unknown = new CSVparserRate("FONTS/src/preprocessat/ratings.test.unknown.csv");
         CSVRate_unknown.readLoadRate();
         CSVRate_unknown.LoadRate(CSVRate_unknown.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_unknown = CSVRate_unknown.getMapRate();
@@ -41,11 +44,23 @@ public class testmain {
             userID = sc.nextInt();
             existinguser = map_rate_known.containsKey(userID);
         }
+        System.out.println("Qué algoritmo de recomendación desea usar?");
+        System.out.println("1: Collaborative filtering (k-means + slope-one)");
+        System.out.println("2: Content based filtering (k-nn)");
 
-        Map<Integer, Float> recommendation  = CF.recommend(userID);
-
-        for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
-            System.out.println("ID item: " + entry.getKey() + " with expected rating " + entry.getValue());
+        int choice = sc.nextInt();
+        Map<Integer, Float> recommendation;
+        if (choice == 1)   {
+            recommendation = CF.recommend(userID);
+            for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
+                System.out.println("ID item: " + entry.getKey() + " with expected rating " + entry.getValue());
+            }
+        }
+        else {
+            recommendation = taula.recommend(userID,10);
+            for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
+                System.out.println("ID item: " + entry.getKey() + " with similarity " + entry.getValue());
+            }
         }
 
         Evaluation eval = new Evaluation(map_rate_unknown.get(userID) , recommendation);
