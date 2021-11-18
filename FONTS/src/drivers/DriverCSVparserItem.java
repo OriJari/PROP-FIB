@@ -5,7 +5,10 @@ import preprocessat.CSVparserItem;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 
@@ -21,17 +24,19 @@ public class DriverCSVparserItem {
         System.out.println("\t 5) getPath()");
         System.out.println("\t 6) getContent()");
         System.out.println("\t 7) getMapRatedata()");
-        System.out.println("\t 8) setNumRows(Integer numRows)");
-        System.out.println("\t 9) setNumCols(Integer numCols)");
-        System.out.println("\t 10) setHeader(List<String> header)");
-        System.out.println("\t 11) setPath(String path)");
-        System.out.println("\t 12) setContent()");
-        System.out.println("\t 13) setMapRatedata(Map<Integer, List<Content>> mapRatedata)");
-        System.out.println("\t 14) readLoadItem()");
-        System.out.println("\t 15) String_to_Int(String s)");
-        System.out.println("\t 16) String_to_Double(String s)");
-        System.out.println("\t 17) MapItemData(List<List<String>> rate_content)");
-        System.out.println("\t 18) getRow(int i) (rango: 0 - (tamaño filas del csv)-1) ");
+        System.out.println("\t 8) getId_Items()");
+        System.out.println("\t 9) setNumRows(Integer numRows)");
+        System.out.println("\t 10) setNumCols(Integer numCols)");
+        System.out.println("\t 11) setHeader(List<String> header)");
+        System.out.println("\t 12) setPath(String path)");
+        System.out.println("\t 13) setContent()");
+        System.out.println("\t 14) setMapRatedata(Map<Integer, List<Content>> mapRatedata)");
+        System.out.println("\t 15) setId_Items(ArrayList<Integer> id_Items) ");
+        System.out.println("\t 16) readLoadItem()");
+        System.out.println("\t 17) String_to_Int(String s)");
+        System.out.println("\t 18) String_to_Double(String s)");
+        System.out.println("\t 19) MapItemData(List<List<String>> rate_content)");
+        System.out.println("\t 20) getRow(int i) (rango: 0 - (tamaño filas del csv)-1) ");
     }
 
     public static void main(String[] args) {
@@ -63,6 +68,7 @@ public class DriverCSVparserItem {
                             break;
                         case "1" :
                             csv = new CSVparserItem(resp);
+                            csv.readLoadItem();
                             System.out.println("CSV created");
                             break;
                         case "2" :
@@ -104,14 +110,17 @@ public class DriverCSVparserItem {
                             }
                             break;
                         case "8" :
+                            System.out.println(csv.getId_Items());
+                            break;
+                        case "9" :
                             csv.setNumRows(parseInt(param[1]));
                             System.out.println("Number of rows changed");
                             break;
-                        case "9" :
+                        case "10" :
                             csv.setNumCols(parseInt(param[1]));
                             System.out.println("Number of columns changed");
                             break;
-                        case "10" :
+                        case "11" :
                             System.out.println("Define num of elements to insert and the elements: ");
                             BufferedReader br1 = new BufferedReader(new InputStreamReader(System.in));
                             String line1;
@@ -126,7 +135,7 @@ public class DriverCSVparserItem {
                             csv.setHeader(aux3);
                             System.out.println("Header changed");
                             break;
-                        case "11" :
+                        case "12" :
                             System.out.println("!!you will change the document!! ");
                             System.out.println("Introduce path : ");
                             BufferedReader br4 = new BufferedReader(new InputStreamReader(System.in));
@@ -137,30 +146,45 @@ public class DriverCSVparserItem {
                             csv.readLoadItem();
                             System.out.println("Path changed");
                             break;
-                        case "12" :
+                        case "13" :
                             csv.setContent(csv.getContent());
                             System.out.println("Done, attributed new content");
                             break;
-                        case "13" :
+                        case "14" :
                             csv.setMapRatedata(csv.getMapRatedata());
                             System.out.println("Done, attributed new mapRatedata");
                             break;
-                        case "14" :
+                        case "15" :
+                            System.out.println("Define num of elements to insert and the elements: ");
+                            BufferedReader br2 = new BufferedReader(new InputStreamReader(System.in));
+                            String line2;
+                            String[] param2;
+                            line1 = br2.readLine();
+                            param1 = line1.split(" ");
+                            int limt2 = parseInt(param1[0]);
+                            List<Integer> aux4 = new ArrayList<>();
+                            for (int j = 1; j <= limt2; ++j){
+                                aux4.add(parseInt(param1[j]));
+                            }
+                            csv.setId_Items(aux4);
+                            System.out.println("Ids header changed");
+                            break;
+                        case "16" :
                             csv.readLoadItem();
                             System.out.println("Done, csv parsered");
                             System.out.println("Execute case 6 to see results");
                             break;
-                        case "15" :
+                        case "17" :
                             System.out.println(csv.String_to_Int(param[1]));
                             break;
-                        case "16" :
+                        case "18" :
                             System.out.println(csv.String_to_Double(param[1]));
                             break;
-                        case "17" :
+                        case "19" :
                             csv.MapItemData(csv.getContent());
                             System.out.println("Datos Preprocesados, ejecute el caso 7 para ver los resultados");
                             break;
-                        case "18" :
+                        case "20" :
                             System.out.println("Inserte numero fila a conusltar: ");
                             BufferedReader br5 = new BufferedReader(new InputStreamReader(System.in));
                             String res2 = br5.readLine();
