@@ -1,7 +1,6 @@
-package drivers;
+package Drivers;
 
 import preprocessat.CSVparserRate;
-import tipus.Tipus;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -1,11 +1,13 @@
-package algorithm.K_Means;
+package Drivers;
+
+import algorithm.K_Means.K_Means;
 
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.Vector;
 
-public class Driverkmean {
+public class DriverK_Means {
     private static Scanner sc;
 
     public static void testcosineSquaredSimil(){

@@ -1,11 +1,11 @@
-package evaluation;
+package Evaluation;
 
 import java.util.*;
 
 /** @class evaluation
  * @brief Evaluates the quality of a recommendation.
  */
-public class evaluation {
+public class Evaluation {
     private List<rating> recommendation;
     private Map<Integer, Float> unknown;
 
@@ -55,7 +55,7 @@ public class evaluation {
      * @param unknown Sets <em>known</em> to known.
      * @param recommendation Sets <em>recomanacio</em> to recomanacio but sorted decreasingly.
      */
-    public evaluation(Map<Integer, Float> unknown, Map<Integer, Float> recommendation) {
+    public Evaluation(Map<Integer, Float> unknown, Map<Integer, Float> recommendation) {
         this.unknown = unknown;
         this.recommendation = new ArrayList<>();
 

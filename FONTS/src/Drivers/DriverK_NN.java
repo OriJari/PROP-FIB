@@ -1,4 +1,4 @@
-package drivers;
+package Drivers;
 
 import algorithm.contentbasedflitering.*;
 import content.Content;

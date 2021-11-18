@@ -1,10 +1,12 @@
-package evaluation;
+package Drivers;
+
+import Evaluation.Evaluation;
 
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-public class Driverevaluation {
+public class DriverEvaluation {
     private static Scanner sc;
 
     public static Map<Integer, Float> leerknown(){
@@ -36,7 +38,7 @@ public class Driverevaluation {
     }
 
     public static void testDCG(){
-        evaluation eval = new evaluation(leerknown(), leerrecommendation());
+        Evaluation eval = new Evaluation(leerknown(), leerrecommendation());
         System.out.println("El valor DCG de la recomendacio es: " + eval.DCG());
     }
 

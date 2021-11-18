@@ -1,12 +1,8 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 import algorithm.collaborativeFiltering.collaborativeFiltering;
-import algorithm.contentbasedflitering.K_NN;
-import content.Content;
-import evaluation.evaluation;
+import Evaluation.Evaluation;
 import preprocessat.*;
 
 import static java.lang.Math.max;
@@ -52,7 +48,7 @@ public class testmain {
             System.out.println("ID item: " + entry.getKey() + " with expected rating " + entry.getValue());
         }
 
-        evaluation eval = new evaluation(map_rate_unknown.get(userID) , recommendation);
+        Evaluation eval = new Evaluation(map_rate_unknown.get(userID) , recommendation);
         System.out.println("Calidad de la recomendacion: " + eval.DCG());
     }
 
