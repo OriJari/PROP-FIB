@@ -9,29 +9,60 @@ import java.util.TreeMap;
  * @author Oriol Martí Jariod
  */
 
+/** @class SlopeOne
+ * @brief Implements Slope One algorithm.
+ */
+
 public class SlopeOne {
 
-    //buena noche
 
-    static TreeMap<Integer,TreeMap<Integer,Float>> map_data; //mapa de dades rating <userid<itemid,rate>>
-    static TreeMap<Integer, TreeMap<Integer, Float>> map_des;
-    //mapa de la desviacio dun item amb un altre <itemid <itemid,rate>>
-    static TreeMap<Integer, TreeMap<Integer, Integer>> map_freq;
-    //mapa dels cops que hem computat la desviacio rating per un parell d items <itemid<itemidx,cops>>
-    static TreeMap<Integer,Float> map_pred; //mapa de prediccio <itemid,predict_rate>
+    static Map<Integer,Map<Integer,Float>> map_data;
+    /** @brief matrix data <userid<itemid,rate>>
+     * */
+    static Map<Integer, Map<Integer, Float>> map_des;
+    /** @brief matrix with differential between two items <itemid_1<itemid_2,diff>>
+     * */
+    static Map<Integer, Map<Integer, Integer>> map_freq;
+    /** @brief matrix with number of times we’ve computed a differential rating for each pair of items <itemid_1<itemid_2<times>>
+     * */
+    static Map<Integer,Float> map_pred;
+    /** @brief map with rates' predictions of the items for one user <itemid,predict_rate>
+     * */
 
+    //Builders
+
+    /** @brief Default builder.
+     *
+     * \pre <em>true</em>
+     * \post It creates a <em>SlopeOne</em> object with its attribute <em>map_data</em>, <em>map_des</em>, <em>map_freq</em> and <em>map_pred</em> empty.
+     */
     public SlopeOne(){
+        SlopeOne.map_data = new TreeMap<>();
+        SlopeOne.map_des = new TreeMap<>();
+        SlopeOne.map_freq = new TreeMap<>();
+        SlopeOne.map_pred = new TreeMap<>();
     }
 
-    public SlopeOne(TreeMap<Integer,TreeMap<Integer,Float>> map_data, TreeMap<Integer, TreeMap<Integer, Float>> map_des,
-                    TreeMap<Integer, TreeMap<Integer, Integer>> map_freq , TreeMap<Integer,Float> map_pred){
+    /** @brief Builder with defined attributes.
+     *
+     * @param map_data Matrix that represents the data.
+     * @param map_des  Matrix that represents the difference
+     * @param map_freq Matrix that represents the ratings that users have given about some items
+     * @param map_pred Map that represents the ratings that users have given about some items
+     *
+     * \post It creates a <em>K_Means</em> object with the parameter opinions as its attribute <em>opinions</em>.
+     */
+    public SlopeOne(Map<Integer,Map<Integer,Float>> map_data, Map<Integer, Map<Integer, Float>> map_des,
+                    Map<Integer, Map<Integer, Integer>> map_freq , Map<Integer,Float> map_pred){
         SlopeOne.map_data = map_data;
         SlopeOne.map_des = map_des;
         SlopeOne.map_freq = map_freq;
         SlopeOne.map_pred = map_pred;
     }
 
-    public static TreeMap<Integer,Float> SlopeOne(TreeMap<Integer, TreeMap<Integer, Float>> data, TreeMap<Integer,Float> user) {
+
+
+    public static Map<Integer,Float> slopeone(Map<Integer, Map<Integer, Float>> data, Map<Integer,Float> user) {
         map_data = data;
         desviacio_mitjana();
 
@@ -59,9 +90,9 @@ public class SlopeOne {
 4.     add the difference in u’s preference for i and j to an average
 */
     public static void desviacio_mitjana(){
-        map_des = new TreeMap<Integer,TreeMap<Integer,Float>>();
-        map_freq = new TreeMap<Integer,TreeMap<Integer,Integer>>();
-        for (TreeMap<Integer, Float> users : map_data.values()) { //  per tots els usuaris
+        map_des = new TreeMap<Integer,Map<Integer,Float>>();
+        map_freq = new TreeMap<Integer,Map<Integer,Integer>>();
+        for (Map<Integer, Float> users : map_data.values()) { //  per tots els usuaris
             for (Map.Entry<Integer, Float> u_data : users.entrySet()) { // itera a traves de les dades dels usuaris
 
                 if (!map_des.containsKey(u_data.getKey())) {
@@ -101,9 +132,9 @@ public class SlopeOne {
     5.   add this to a running average
     6. return the top items, ranked by these averages
      */
-    public static void prediccio(TreeMap<Integer, Float> u_data) {
+    public static void prediccio(Map<Integer, Float> u_data) {
         map_pred = new TreeMap<Integer,Float>();
-        TreeMap<Integer,Integer> freq = new TreeMap<Integer,Integer>();
+        Map<Integer,Integer> freq = new TreeMap<Integer,Integer>();
         for (int j : map_des.keySet()) {
             freq.put(j, 0);
             map_pred.put(j, 0.0f);
