@@ -61,7 +61,19 @@ public class testmain {
                 try {
                     List<Integer> id_reals = CSVItem.getId_Items();
                     Map<Integer, Float> similarities = taula.recommend(userID, 10, id_reals);
-                    for (Map.Entry<Integer, Float> entry : similarities.entrySet()) {
+                    Map<Integer, Float> aux = new TreeMap<>();
+                    for(int i = 0; i < 10; ++i){
+                        Iterator<Integer> it = similarities.keySet().iterator();
+                        int maxitemID = it.next();
+                        for(Map.Entry<Integer, Float> entry: similarities.entrySet()){
+                            if(entry.getValue() > similarities.get(maxitemID)){
+                                maxitemID = entry.getKey();
+                            }
+                        }
+                        aux.put(maxitemID, similarities.get(maxitemID));
+                        similarities.remove(maxitemID);
+                    }
+                    for (Map.Entry<Integer, Float> entry : aux.entrySet()) {
                         System.out.println("ID item: " + id_reals.get(entry.getKey()) + " with similarity " + entry.getValue());
                         recommendation.put(id_reals.get(entry.getKey()),entry.getValue());
                     }
