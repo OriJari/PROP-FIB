@@ -8,7 +8,7 @@ import java.util.*;
 public class K_Means {
 
         private static Map<Integer, TreeMap<Integer, Float>> opinions;
-        /** @brief opinions represents the valorations, float in the nested Map, that users, the first Integer is their ID, have given about items, their ID is the integer in the nested Map.
+        /** @brief opinions represents the ratings, float in the nested Map, that users, the first Integer is their ID, have given about items, their ID is the integer in the nested Map.
          */
 
         //Builders
