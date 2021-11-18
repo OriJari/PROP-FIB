@@ -13,6 +13,7 @@ public class Driverslopeone {
     private static Scanner sc;
 
 
+
     public static TreeMap<Integer, TreeMap<Integer, Float>> leeropinions(){
         System.out.println("Numero de users: ");
         int Nusers = sc.nextInt();
@@ -34,13 +35,27 @@ public class Driverslopeone {
         return opinions;
     }
 
+    public static TreeMap<Integer,Float> leerusuariopredi(){
+        System.out.println("Items valorado por el usuario que queremos predecir");
+        int Nitem = sc.nextInt();
+        TreeMap<Integer,Float> user = new TreeMap<Integer,Float>();
+        for(int i = 0; i < Nitem; i++){
+            System.out.println("ID item numero " + (i+1) + " : ");
+            int itemID = sc.nextInt();
+            System.out.println("Valoracion de l'item " + (i+1) + " : ");
+            float itemVal = sc.nextFloat();
+            user.put(itemID,itemVal);
+        }
+        return user;
+    }
 
     public static void testSlopeOne() {
         System.out.println("Test SlopeOne");
         SlopeOne.map_data = leeropinions();
+        TreeMap<Integer,Float> user = leerusuariopredi();
         System.out.println("esta base de datos");
         print_map_completo(SlopeOne.map_data);
-        SlopeOne.map_pred = SlopeOne.SlopeOne( SlopeOne.map_data);
+        SlopeOne.map_pred = SlopeOne.SlopeOne( SlopeOne.map_data,user);
         System.out.println("\n Resultado:");
         System.out.println("\n\t esta prediccio");
         print_pred(SlopeOne.map_pred);
@@ -70,14 +85,15 @@ public class Driverslopeone {
         System.out.println("esta desviacion");
         SlopeOne.desviacio_mitjana();
         print_map_completo(SlopeOne.map_des);
-        SlopeOne.prediccio();
+        TreeMap<Integer,Float> user = leerusuariopredi();
+        SlopeOne.prediccio(user);
+
         System.out.println("\n Resultado:");
         System.out.println("\n\t esta prediccio");
         print_pred(SlopeOne.map_pred);
         System.out.println("\n\t esta fequencia");
         print_map_freq(SlopeOne.map_freq);
         System.out.println("\n test terminado");
-
     }
 
     private static void print_map_freq(TreeMap<Integer, TreeMap<Integer, Integer>> mappa){

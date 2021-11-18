@@ -29,16 +29,13 @@ public class SlopeOne {
         SlopeOne.map_pred = map_pred;
     }
 
-    public static TreeMap<Integer,Float> SlopeOne(TreeMap<Integer, TreeMap<Integer, Float>> data) {
+    public static TreeMap<Integer,Float> SlopeOne(TreeMap<Integer, TreeMap<Integer, Float>> data, TreeMap<Integer,Float> user) {
         map_data = data;
         desviacio_mitjana();
-        prediccio();
+
+        prediccio(user);
         return map_pred;
     }
-
-
-
-
 
 
     /*
@@ -98,7 +95,7 @@ public class SlopeOne {
     5.   add this to a running average
     6. return the top items, ranked by these averages
      */
-    public static void prediccio() {
+    public static void prediccio(TreeMap<Integer, Float> u_data) {
         map_pred = new TreeMap<Integer,Float>();
         TreeMap<Integer,Integer> freq = new TreeMap<Integer,Integer>();
         for (int j : map_des.keySet()) {
@@ -106,26 +103,23 @@ public class SlopeOne {
             map_pred.put(j, 0.0f);
         }
 
-        for (Map.Entry<Integer, TreeMap<Integer, Float>> u_data : map_data.entrySet()) {
-            for (int j : u_data.getValue().keySet()) {
-                for (int i : map_des.keySet()) {
 
-                    float predictedValue = map_des.get(i).get(j) + u_data.getValue().get(j);
-                    float finalValue = predictedValue * map_freq.get(i).get(j);
-                    map_pred.put(i, map_pred.get(i) + finalValue);
-                    freq.put(i, freq.get(i) + map_freq.get(i).get(j));
+        for (int j : u_data.keySet()) {
+            for (int i : map_des.keySet()) {
 
-                }
+                float predictedValue = map_des.get(i).get(j) + u_data.get(j);
+                float finalValue = predictedValue * map_freq.get(i).get(j);
+                map_pred.put(i, map_pred.get(i) + finalValue);
+                freq.put(i, freq.get(i) + map_freq.get(i).get(j));
+
             }
-
-            for (Integer j : map_pred.keySet()) {
-                if (freq.get(j) > 0) {
-                   map_pred.put(j, map_pred.get(j) / freq.get(j));
-                }
-            }
-
         }
 
+        for (Integer j : map_pred.keySet()) {
+            if (freq.get(j) > 0) {
+               map_pred.put(j, map_pred.get(j) / freq.get(j));
+            }
+        }
     }
 
 }
