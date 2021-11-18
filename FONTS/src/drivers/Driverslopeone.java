@@ -1,6 +1,6 @@
 package drivers;
 
-import algorithm.slopeone.SlopeOne;
+import algorithm.slopeone.*;
 
 import java.util.Map;
 import java.util.Scanner;
