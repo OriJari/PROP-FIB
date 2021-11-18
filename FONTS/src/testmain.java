@@ -44,27 +44,47 @@ public class testmain {
             userID = sc.nextInt();
             existinguser = map_rate_known.containsKey(userID);
         }
+
         System.out.println("Qué algoritmo de recomendación desea usar?");
-        System.out.println("1: Collaborative filtering (k-means + slope-one)");
-        System.out.println("2: Content based filtering (k-nn)");
+        System.out.println("\t 1) Collaborative filtering (k-means + slope-one)");
+        System.out.println("\t 2) Content based filtering (k-nn)");
+
+        Map<Integer, Float> recommendation;
 
         int choice = sc.nextInt();
-        Map<Integer, Float> recommendation;
-        if (choice == 1)   {
-            recommendation = CF.recommend(userID);
-            for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
-                System.out.println("ID item: " + entry.getKey() + " with expected rating " + entry.getValue());
-            }
-        }
-        else {
-            recommendation = taula.recommend(userID,10);
-            for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
-                System.out.println("ID item: " + entry.getKey() + " with similarity " + entry.getValue());
-            }
+        switch (choice) {
+            case 1:
+                try {
+                    recommendation = CF.recommend(userID);
+                    for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
+                        System.out.println("ID item: " + entry.getKey() + " with expected rating " + entry.getValue());
+                    }
+                } catch (Exception E) {
+                    System.out.println(E.getMessage());
+                }
+                break;
+            case 2:
+                try{
+                    recommendation = taula.recommend(userID,10);
+                    for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
+                        System.out.println("ID item: " + entry.getKey() + " with similarity " + entry.getValue());
+                    }
+                } catch (Exception E) {
+                    System.out.println(E.getMessage());
+                }
+                break;
+            default:
+                System.out.println(choice);
+                break;
         }
 
-        Evaluation eval = new Evaluation(map_rate_unknown.get(userID) , recommendation);
-        System.out.println("Calidad de la recomendacion: " + eval.DCG());
+        if(choice != 1 && choice != 2){
+            System.out.println("No has elegido una opcion valida.");
+        }
+        else{
+            Evaluation eval = new Evaluation(map_rate_unknown.get(userID) , recommendation);
+            System.out.println("Calidad de la recomendacion: " + eval.DCG());
+        }
     }
 
     public static void main(String[] args) {
