@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class K_Means {
 
-        private static Map<Integer, TreeMap<Integer, Float>> opinions;
+        private static Map<Integer, Map<Integer, Float>> opinions;
         /** @brief opinions represents the ratings, float in the nested Map, that users, the first Integer is their ID, have given about items, their ID is the integer in the nested Map.
          */
 
@@ -28,7 +28,7 @@ public class K_Means {
          *
          * \post It creates a <em>K_Means</em> object with the parameter opinions as its attribute <em>opinions</em>.
          */
-        public K_Means(Map<Integer, TreeMap<Integer, Float>> opinions){
+        public K_Means(Map<Integer, Map<Integer, Float>> opinions){
                 this.opinions = opinions;
         }
 
@@ -102,7 +102,7 @@ public class K_Means {
                 //initialize vectors
                 {
                         int i = 0;
-                        for (Map.Entry<Integer, TreeMap<Integer, Float>> entry : opinions.entrySet()) {
+                        for (Map.Entry<Integer, Map<Integer, Float>> entry : opinions.entrySet()) {
                                 clusters.get(i%k).add(entry.getKey());
                                 for(Map.Entry<Integer, Float> entry2 : entry.getValue().entrySet()){
                                         if(means.get(i%k).containsKey(entry2.getKey())){

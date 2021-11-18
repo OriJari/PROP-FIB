@@ -1,5 +1,8 @@
-package algorithm.slopeone;
+package drivers;
 
+import algorithm.slopeone.SlopeOne;
+
+import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -12,12 +15,12 @@ import java.util.TreeMap;
 public class Driverslopeone {
     private static Scanner sc;
 
-    //buena noche
 
-    public static TreeMap<Integer, TreeMap<Integer, Float>> leeropinions(){
+
+    public static Map<Integer, Map<Integer, Float>> leeropinions(){
         System.out.println("Numero de users: ");
         int Nusers = sc.nextInt();
-        TreeMap<Integer, TreeMap<Integer, Float>> opinions = new TreeMap<Integer, TreeMap<Integer, Float>>();
+        Map<Integer, Map<Integer, Float>> opinions = new TreeMap<Integer, Map<Integer, Float>>();
         for(int i = 0; i < Nusers; ++i){
             System.out.println("ID de user num " + (i+1) + " : ");
             int userID = sc.nextInt();
@@ -35,10 +38,10 @@ public class Driverslopeone {
         return opinions;
     }
 
-    public static TreeMap<Integer,Float> leerusuariopredi(){
+    public static Map<Integer,Float> leerusuariopredi(){
         System.out.println("Items valorado por el usuario que queremos predecir");
         int Nitem = sc.nextInt();
-        TreeMap<Integer,Float> user = new TreeMap<Integer,Float>();
+        Map<Integer,Float> user = new TreeMap<Integer,Float>();
         for(int i = 0; i < Nitem; i++){
             System.out.println("ID item numero " + (i+1) + " : ");
             int itemID = sc.nextInt();
@@ -52,9 +55,9 @@ public class Driverslopeone {
     public static void testSlopeOne() {
         System.out.println("Test SlopeOne");
         SlopeOne.map_data = leeropinions();
-        TreeMap<Integer,Float> user = leerusuariopredi();
+        Map<Integer,Float> user = leerusuariopredi();
         System.out.println("esta base de datos");
-        SlopeOne.map_pred = SlopeOne.SlopeOne( SlopeOne.map_data,user);
+        SlopeOne.map_pred = SlopeOne.slopeone( SlopeOne.map_data,user);
         System.out.println("\n Resultado:");
         print_map_completo(SlopeOne.map_data);
         System.out.println("esta desviacion");
@@ -89,7 +92,7 @@ public class Driverslopeone {
         print_map_completo(SlopeOne.map_des);
         System.out.println("\n\t esta fequencia");
         print_map_freq(SlopeOne.map_freq);
-        TreeMap<Integer,Float> user = leerusuariopredi();
+        Map<Integer,Float> user = leerusuariopredi();
         SlopeOne.prediccio(user);
 
         System.out.println("\n Resultado:");
@@ -98,21 +101,21 @@ public class Driverslopeone {
         System.out.println("\n test terminado");
     }
 
-    private static void print_map_freq(TreeMap<Integer, TreeMap<Integer, Integer>> mappa){
+    private static void print_map_freq(Map<Integer, Map<Integer, Integer>> mappa){
         for(int j : mappa.keySet()){
             System.out.println("\t " + j + "-->" + mappa.get(j));
 
         }
     }
 
-    private static void print_map_completo(TreeMap<Integer, TreeMap<Integer, Float>> mappa){
+    private static void print_map_completo(Map<Integer, Map<Integer, Float>> mappa){
         for(int j : mappa.keySet()){
             System.out.println("\t " + j + "-->" + mappa.get(j));
 
         }
     }
 
-    private static void print_pred(TreeMap<Integer, Float> user) {
+    private static void print_pred(Map<Integer, Float> user) {
         for (Integer j : user.keySet()) {
             System.out.println("\t " + j + " --> " + user.get(j));
         }

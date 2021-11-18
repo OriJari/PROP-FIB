@@ -76,10 +76,10 @@ public class Driverkmean {
         return clusters1;
     }
 
-    public static TreeMap<Integer, TreeMap<Integer, Float>> leeropinions(){
+    public static Map<Integer, Map<Integer, Float>> leeropinions(){
         System.out.println("Numero de users: ");
         int Nusers = sc.nextInt();
-        TreeMap<Integer, TreeMap<Integer, Float>> opinions = new TreeMap<Integer, TreeMap<Integer, Float>>();
+        Map<Integer, Map<Integer, Float>> opinions = new TreeMap<Integer, Map<Integer, Float>>();
         for(int i = 0; i < Nusers; ++i){
             System.out.println("ID de user num " + (i+1) + ":");
             int userID = sc.nextInt();
