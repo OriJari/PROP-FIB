@@ -2,6 +2,12 @@ package content;
 
 import java.util.ArrayList;
 
+/**
+ * @class Content
+ * @brief  Type nedded to make a efficient proces of data sets for kk-neightbours
+ * @author Miguel
+ */
+
 public class Content {
     private String tag;
     private Integer tag_numi;
@@ -9,7 +15,7 @@ public class Content {
     private ArrayList<String> categorics;
 
     /**
-     * Default builder
+     * @brief Default builder
      */
     public Content() {
         this.tag = null;
@@ -20,11 +26,11 @@ public class Content {
     }
 
     /**
-     * Default builder with initializers
+     * @brief Default builder with initializers
      *
-     * @param s          type of the tag
-     * @param i          integer number associated
-     * @param d          double number associated
+     * @param s type of the tag
+     * @param i integer number associated
+     * @param d double number associated
      * @param categorics list of the categoric elements
      */
     public Content(String s, Integer i, Double d, ArrayList<String> categorics) {
@@ -35,7 +41,7 @@ public class Content {
     }
 
     /**
-     * Getter of the tag
+     * @brief Getter of the tag
      *
      * @return the content tag
      */
@@ -44,7 +50,7 @@ public class Content {
     }
 
     /**
-     * Getter of the tag_numi
+     * @brief Getter of the tag_numi
      *
      * @return the integer associated to the tag
      */
@@ -53,7 +59,7 @@ public class Content {
     }
 
     /**
-     * Getter of the tag_numd
+     * @brief Getter of the tag_numd
      *
      * @return the double associated to the tag
      */
@@ -62,7 +68,7 @@ public class Content {
     }
 
     /**
-     * Getter of categorics
+     * @brief Getter of categorics
      *
      * @return list of the categorics elements
      */
@@ -71,7 +77,7 @@ public class Content {
     }
 
     /**
-     * Setter of the tag
+     * @brief Setter of the tag
      *
      * @param tag, attributes the new tag
      */
@@ -80,7 +86,7 @@ public class Content {
     }
 
     /**
-     * Setter of the tag_numi
+     * @brief Setter of the tag_numi
      *
      * @param tag_numi , attributes the integer corresponded
      */
@@ -89,7 +95,7 @@ public class Content {
     }
 
     /**
-     * Setter of the tag_numf
+     * @brief Setter of the tag_numf
      *
      * @param tag_numd , attributes the double corresponded
      */
@@ -98,7 +104,7 @@ public class Content {
     }
 
     /**
-     * Setter of categorics
+     * @brief Setter of categorics
      *
      * @param categorics list of the elements categorics
      */

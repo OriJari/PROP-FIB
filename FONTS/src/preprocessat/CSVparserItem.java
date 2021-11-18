@@ -6,7 +6,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-
+/**
+ * @class CSVparserItem
+ * @brief Implements the lecture and the proces of data of the csv
+ * @author Miguel
+ */
 public class CSVparserItem {
 
     private Integer numCols, numRows;
@@ -16,7 +20,7 @@ public class CSVparserItem {
     private Map<Integer, ArrayList<Content>> mapRatedata;
 
     /**
-     * Default builder.
+     * @brief Default builder.
      * @param path where is located the csv document
      */
     public CSVparserItem(String path){
@@ -29,7 +33,7 @@ public class CSVparserItem {
     }
 
     /**
-     * Getter of the num rows
+     * @brief Getter of the num rows
      * @return the number of rows of the csv
      */
     public Integer getNumRows() {
@@ -37,7 +41,7 @@ public class CSVparserItem {
     }
 
     /**
-     * Getter of the num columns
+     * @brief Getter of the num columns
      * @return the number of columns of the csv
      */
     public Integer getNumCols() {
@@ -45,7 +49,7 @@ public class CSVparserItem {
     }
 
     /**
-     * Getter of the header
+     * @brief Getter of the header
      * @return the header of the csv as a List
      */
     public List<String> getHeader() {
@@ -53,7 +57,7 @@ public class CSVparserItem {
     }
 
     /**
-     * Getter of the path of the location of the csv
+     * @brief Getter of the path of the location of the csv
      * @return the path as String
      */
     public String getPath() {
@@ -61,7 +65,7 @@ public class CSVparserItem {
     }
 
     /**
-     * Getter of the class, gets the content
+     * @brief Getter of the class, gets the content
      * @return the lecture of the document csv
      */
     public List<List<String>> getContent() {
@@ -69,7 +73,7 @@ public class CSVparserItem {
     }
 
     /**
-     * Getter of the class, gets the mapRatedata
+     * @brief Getter of the class, gets the mapRatedata
      * @return set of data structured
      */
     public Map<Integer, ArrayList<Content>> getMapRatedata() {
@@ -78,7 +82,7 @@ public class CSVparserItem {
 
 
     /**
-     * Setter of the class, modified the number of rows
+     * @brief Setter of the class, modified the number of rows
      * @param numRows, new size of the number of rows
      */
     public void setNumRows(Integer numRows) {
@@ -86,7 +90,7 @@ public class CSVparserItem {
     }
 
     /**
-     * Setter of the class, modified the number of columns
+     * @brief Setter of the class, modified the number of columns
      * @param numCols, new size of the number of columns
      */
     public void setNumCols(Integer numCols) {
@@ -94,7 +98,7 @@ public class CSVparserItem {
     }
 
     /**
-     * Setter of the class, modified the elements of the header
+     * @brief Setter of the class, modified the elements of the header
      * @param header, header of the csv as a list
      */
     public void setHeader(List<String> header) {
@@ -102,7 +106,7 @@ public class CSVparserItem {
     }
 
     /**
-     * Setter of the class, modified the path where is located ths csv
+     * @brief Setter of the class, modified the path where is located ths csv
      * @param path, where the document is located, as string
      */
     public void setPath(String path) {
@@ -110,7 +114,7 @@ public class CSVparserItem {
     }
 
     /**
-     * Setter of the class, gets the conent
+     * @brief Setter of the class, gets the conent
      * @param content, lecture of the csv document to attribute
      */
     public void setContent(List<List<String>> content) {
@@ -118,7 +122,7 @@ public class CSVparserItem {
     }
 
     /**
-     * Setter of the class, gets the mapRatedata
+     * @brief Setter of the class, gets the mapRatedata
      * @param mapRatedata, set of data to redefine a previous one
      */
     public void setMapRatedata(Map<Integer, ArrayList<Content>> mapRatedata) {
@@ -126,7 +130,7 @@ public class CSVparserItem {
     }
 
     /**
-     * Get the header of the csv.
+     * @brief Get the header of the csv.
      * @param path where the document csv is located
      */
     public void obtainHeader(String path){
@@ -142,7 +146,7 @@ public class CSVparserItem {
     }
 
     /**
-     * Read the content of the item csv into memory.
+     * @brief Read the content of the item csv into memory.
      */
     public void readLoadItem(){
         FileInputStream fis;
@@ -167,7 +171,7 @@ public class CSVparserItem {
     }
 
     /**
-     * Change a String value to an Integer one
+     * @brief Change a String value to an Integer one
      * @param s String to obtain the corresponding value
      */
     public static Integer String_to_Int(String s){
@@ -176,7 +180,7 @@ public class CSVparserItem {
 
 
     /**
-     * Change a String value to a Double one
+     * @brief Change a String value to a Double one
      * @param s String to obtain the corresponding value
      * @return string s converted to double
      */
@@ -186,7 +190,7 @@ public class CSVparserItem {
 
 
     /**
-     * Lecture of the List<List<String>> rows
+     * @brief Lecture of the List<List<String>> rows
      * @param i number of the row to obtain
      */
     public String getRow(int i) {
@@ -194,7 +198,7 @@ public class CSVparserItem {
     }
 
     /**
-     * Obtains the appropriate preprocess of data set for the kk-neight algorithm
+     * @brief Obtains the appropriate preprocess of data set for the kk-neight algorithm
      * @param rate_content data set read from the csv
      */
     public void MapItemData(List<List<String>> rate_content){

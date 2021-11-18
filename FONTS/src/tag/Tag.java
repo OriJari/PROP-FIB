@@ -4,20 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+/**
+ * @class Tag
+ * @brief Structure of the tags (needed in a near future)
+ * @author Miguel
+ */
 
 public class Tag {
 
     private List<String> tags;
 
     /**
-     * Default builder
+     * @brief Default builder
      */
     public Tag(){
         this.tags = new ArrayList<>();
     }
 
     /**
-     * Default builder with parameters
+     * @brief Default builder with parameters
      * @param ntags set of tags that contains the tag identifier
      */
     public Tag(List<String> ntags){
@@ -25,7 +30,7 @@ public class Tag {
     }
 
     /**
-     * Getter of the set of tags
+     * @brief Getter of the set of tags
      * @return the List of tags from the tag identifier
      */
     public List<String> getEtiquetas(){
@@ -34,7 +39,7 @@ public class Tag {
 
 
     /**
-     * Setter of the set of tags from the tag identifier
+     * @brief Setter of the set of tags from the tag identifier
      * @param tags set of tags to attribute to the tag identifier
      */
     public void setEtiquetas(List<String> tags) {
