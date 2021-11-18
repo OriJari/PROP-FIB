@@ -55,9 +55,14 @@ public class evaluation {
      * @param known Sets <em>known</em> to known.
      * @param recommendation Sets <em>recomanacio</em> to recomanacio but sorted decreasingly.
      */
-    public evaluation(Map<Integer, Float> known, List<rating> recommendation) {
+    public evaluation(Map<Integer, Float> known, Map<Integer, Float> recommendation) {
         this.known = known;
-        this.recommendation = recommendation;
+        this.recommendation = new ArrayList<>();
+
+        for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
+            this.recommendation.add(new rating(entry.getKey(), entry.getValue()));
+        }
+
         Collections.sort(this.recommendation, new SortByVal());
     }
 

@@ -156,7 +156,7 @@ public class K_Means {
                         if(cont){
                                 for(int i = 0; i < clusters.size(); ++i){
                                         Vector<Integer> rowVector = clusters.get(i);
-                                        Map<Integer, Float> mean = new HashMap<Integer, Float>();
+                                        Map<Integer, Float> mean = new TreeMap<Integer, Float>();
                                         for(int j = 0; j < rowVector.size(); ++j){ //iterate through all users
                                                 Map<Integer, Float> user = opinions.get(rowVector.get(j));
                                                 for(Map.Entry<Integer, Float> entry : user.entrySet()){ //iterate through opinions of user

@@ -1,6 +1,11 @@
 package algorithm.contentbasedflitering;
 import java.util.*;
 
+/**
+ *
+ * @author Marc Delgado Sánchez
+ */
+
 public class Pair implements Comparable<Pair> {
     int id;
     double similarity;

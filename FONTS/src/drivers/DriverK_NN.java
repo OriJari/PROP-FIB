@@ -1,5 +1,6 @@
-package algorithm.contentbasedflitering;
+package drivers;
 
+import algorithm.contentbasedflitering.*;
 import content.Content;
 import item.Item;
 
@@ -8,7 +9,12 @@ import java.io.IOException;
 import java.util.*;
 import java.io.BufferedReader;
 
-public class DriverSimilarityTable {
+/**
+ *
+ * @author Marc Delgado Sánchez
+ */
+
+public class DriverK_NN {
     public static void main(String[] args) throws IOException {
         Map<Integer,ArrayList<Content>> map = new TreeMap<>();
         System.out.println("Welcome to Driver Content Based Filtering");
@@ -49,7 +55,7 @@ public class DriverSimilarityTable {
             map.put(i,lista);
         }
         System.out.println("RESULTS:");
-        SimilarityTable taula = new SimilarityTable();
+        K_NN taula = new K_NN();
         taula.initSimilarityTable(map);
         System.out.println("Similarity Table:");
         taula.print_similarity_matrix();

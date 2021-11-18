@@ -5,16 +5,21 @@ import content.Content;
 
 import java.util.*;
 
-public class SimilarityTable {
+/**
+ *
+ * @author Marc Delgado Sánchez
+ */
+
+public class K_NN {
     /**
      * Table used to store similarities between all items
      */
-    double[][] similarityTable;
+    private double[][] similarityTable;
 
     /**
      * Default builder
      */
-    public SimilarityTable() {}
+    public K_NN() {}
 
     /**
      * Initialize the similarity table between the items present in the map.
