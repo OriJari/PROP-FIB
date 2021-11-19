@@ -16,12 +16,14 @@ public class K_NN {
      */
     private double[][] similarityTable;
     private Map<Integer,Map<Integer,Float>> mapa_usuarios;
+    List<Integer> id_reals;
 
     /**
      * Default builder
      */
-    public K_NN(Map<Integer,Map<Integer,Float>> mapa) {
+    public K_NN(Map<Integer,Map<Integer,Float>> mapa, List<Integer> ids) {
         this.mapa_usuarios = mapa;
+        this.id_reals = ids;
     }
 
     /**
@@ -198,7 +200,7 @@ public class K_NN {
         return result;
     }
 
-    public Map<Integer,Float> recommend(int id_usuari, int k, List<Integer> id_reals) {
+    public Map<Integer,Float> recommend(int id_usuari, int k) {
         Map<Integer,Float> valoracions = mapa_usuarios.get(id_usuari);
         Map<Integer,Float> resultat = new TreeMap<>();
 

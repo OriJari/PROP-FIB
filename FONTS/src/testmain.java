@@ -12,20 +12,21 @@ public class testmain {
     private static Scanner sc;
 
     public static void makerecommendation(){
-        CSVparserItem CSVItem = new CSVparserItem("src/preprocessat/items.csv");
+        CSVparserItem CSVItem = new CSVparserItem("FONTS/src/preprocessat/items.csv");
+        List<Integer> id_reals = CSVItem.getId_Items();
         CSVItem.readLoadItem();
         CSVItem.MapItemData(CSVItem.getContent());
-        CSVparserRate CSVRate_known = new CSVparserRate("src/preprocessat/ratings.test.known.csv");
+        CSVparserRate CSVRate_known = new CSVparserRate("FONTS/src/preprocessat/ratings.test.known.csv");
         CSVRate_known.readLoadRate();
         CSVRate_known.LoadRate(CSVRate_known.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_known = CSVRate_known.getMapRate();
         CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, max(1, map_rate_known.size() / 3));
 
         Map<Integer, List<Content>> map_rate_item = CSVItem.getMapRatedata();
-        K_NN taula = new K_NN(map_rate_known);
+        K_NN taula = new K_NN(map_rate_known, id_reals);
         taula.initSimilarityTable(map_rate_item);
 
-        CSVparserRate CSVRate_unknown = new CSVparserRate("src/preprocessat/ratings.test.unknown.csv");
+        CSVparserRate CSVRate_unknown = new CSVparserRate("FONTS/src/preprocessat/ratings.test.unknown.csv");
         CSVRate_unknown.readLoadRate();
         CSVRate_unknown.LoadRate(CSVRate_unknown.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_unknown = CSVRate_unknown.getMapRate();
@@ -59,9 +60,20 @@ public class testmain {
                 break;
             case 2:
                 try {
-                    List<Integer> id_reals = CSVItem.getId_Items();
-                    Map<Integer, Float> similarities = taula.recommend(userID, 10, id_reals);
-                    for (Map.Entry<Integer, Float> entry : similarities.entrySet()) {
+                    Map<Integer, Float> similarities = taula.recommend(userID, 10);
+                    Map<Integer, Float> aux = new TreeMap<>();
+                    for(int i = 0; i < 10; ++i){
+                        Iterator<Integer> it = similarities.keySet().iterator();
+                        int maxitemID = it.next();
+                        for(Map.Entry<Integer, Float> entry: similarities.entrySet()){
+                            if(entry.getValue() > similarities.get(maxitemID)){
+                                maxitemID = entry.getKey();
+                            }
+                        }
+                        aux.put(maxitemID, similarities.get(maxitemID));
+                        similarities.remove(maxitemID);
+                    }
+                    for (Map.Entry<Integer, Float> entry : aux.entrySet()) {
                         System.out.println("ID item: " + id_reals.get(entry.getKey()) + " with similarity " + entry.getValue());
                         recommendation.put(id_reals.get(entry.getKey()),entry.getValue());
                     }

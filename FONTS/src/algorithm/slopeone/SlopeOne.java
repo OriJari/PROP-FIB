@@ -34,7 +34,8 @@ public class SlopeOne {
     /** @brief Default builder.
      *
      * \pre <em>true</em>
-     * \post It creates a <em>SlopeOne</em> object with its attribute <em>map_data</em>, <em>map_des</em>, <em>map_freq</em> and <em>map_pred</em> empty.
+     * \post It creates a <em>SlopeOne</em> object with its attribute <em>map_data</em>,
+     *       <em>map_des</em>, <em>map_freq</em> and <em>map_pred</em> empty.
      */
     public SlopeOne(){
         SlopeOne.map_data = new TreeMap<>();
@@ -47,10 +48,11 @@ public class SlopeOne {
      *
      * @param map_data Matrix that represents the data.
      * @param map_des  Matrix that represents the difference between two items.
-     * @param map_freq Matrix that represents times we've computed a diff rating for each pair
-     * @param map_pred Map that represents the ratings that users have given about some items
+     * @param map_freq Matrix that represents times we've computed a diff rating for each pair of items.
+     * @param map_pred Map that represents rates' predictions of the items for on user.
      *
-     * \post It creates a <em>K_Means</em> object with the parameter opinions as its attribute <em>opinions</em>.
+     * \post It creates a <em>SlopeOne</em> object with the parameters map_data, map_des,
+     *       map_freq and map_pred as its attribute <em>map_data</em>, <em>map_des</em>, <em>map_freq</em> and <em>map_pred</em>.
      */
     public SlopeOne(Map<Integer,Map<Integer,Float>> map_data, Map<Integer, Map<Integer, Float>> map_des,
                     Map<Integer, Map<Integer, Integer>> map_freq , Map<Integer,Float> map_pred){
@@ -61,7 +63,14 @@ public class SlopeOne {
     }
 
 
-
+    /** @brief Given the data and a user which it's the one we want to predict his ratings,
+     *         calls the pertinents methods to calculate it, and clean the map_pred with the predictions that we want.
+     *
+     * @param data Matrix with a cluster of users, with his rates for different items.
+     * @param user Map with the items from the user we want to predict his rate of the items non-rated.
+     *
+     * @return It returns the prediction map, which contains the predicted rates form our user.
+     */
     public static Map<Integer,Float> slopeone(Map<Integer, Map<Integer, Float>> data, Map<Integer,Float> user) {
         map_data = data;
         desviacio_mitjana();
@@ -75,20 +84,11 @@ public class SlopeOne {
     }
 
 
-    /*
-
-    //pre:
-  //  Based on the available data, calculate the relationships between the
-    // items and number of occurence
-     //existing user data and their items' ratings
-    //post:  The preprocessing phase, in which is calculated the difference between all item-item preference values
-
-    /*
-  1.  for every item i
-2.  for every other item j
-3.   for every user u expressing preference for both i and j
-4.     add the difference in u’s preference for i and j to an average
-*/
+    /** @brief Calculates the difference between all item-item rating values.
+     *
+     * \pre Ture
+     * \post Fills map_des with the diff between all item-item rating values.
+     */
     public static void desviacio_mitjana(){
         map_des = new TreeMap<Integer,Map<Integer,Float>>();
         map_freq = new TreeMap<Integer,Map<Integer,Integer>>();
@@ -124,13 +124,11 @@ public class SlopeOne {
     }
 
 
-    /*
-    1. for every item i the user u expresses no preference for
-    2.  for every item j that user u expresses a preference for
-    3.   find the average preference difference between j and i
-    4.   add this diff to u’s preference value for j
-    5.   add this to a running average
-    6. return the top items, ranked by these averages
+    /**
+     * @brief Calculates the prediction for the items non-rated.
+     *
+     * @param u_data Map with the items from the user we want to predict his rate of the items non-rated.
+     * \post Fill map_pred with the data form u_data and the items not rated by the user but that we predicted.
      */
     public static void prediccio(Map<Integer, Float> u_data) {
         map_pred = new TreeMap<Integer,Float>();
