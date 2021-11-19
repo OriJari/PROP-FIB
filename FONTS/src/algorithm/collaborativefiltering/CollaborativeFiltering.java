@@ -35,6 +35,7 @@ public class CollaborativeFiltering {
      * @param opinions Map that represents the ratings that users have given about some items.
      * @param k Desired number of clusters. Integer larger than 0.
      *
+     * \pre <em>k</em> must be larger than 0 but smaller or equal than opinions.size().
      * \post Creates <em>collaborativeFiltering</em> object with <em>opinions</em> set to opinions and computes the k clusters of users.
      */
     public CollaborativeFiltering(Map<Integer, Map<Integer, Float>> opinions, Integer k){
@@ -47,6 +48,9 @@ public class CollaborativeFiltering {
      *
      * @param userID ID of the user that receives the recommendation.
      * @return It returns a Map of item ID's together with the expected rating of the user.
+     *
+     * \pre The user must exist.
+     * \post Returns a Map of expected ratings with maximum size 10.
      */
     public Map<Integer, Float> recommend(Integer userID){
         boolean cont = true;
@@ -67,17 +71,21 @@ public class CollaborativeFiltering {
         SlopeOne Slopeone = new SlopeOne();
         Map<Integer, Float> recommendation = Slopeone.slopeone(valCluster, opinions.get(userID));
         Map<Integer, Float> result = new TreeMap<Integer, Float>();
-
-        for(int i = 0; i < 10; ++i){
-            Iterator<Integer> it = recommendation.keySet().iterator();
-            int maxitemID = it.next();
-            for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
-                if(entry.getValue() > recommendation.get(maxitemID)){
-                    maxitemID = entry.getKey();
+        if(recommendation.size() > 10) {
+            for (int i = 0; i < 10; ++i) {
+                Iterator<Integer> it = recommendation.keySet().iterator();
+                int maxitemID = it.next();
+                for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
+                    if (entry.getValue() > recommendation.get(maxitemID)) {
+                        maxitemID = entry.getKey();
+                    }
                 }
+                result.put(maxitemID, recommendation.get(maxitemID));
+                recommendation.remove(maxitemID);
             }
-            result.put(maxitemID, recommendation.get(maxitemID));
-            recommendation.remove(maxitemID);
+        }
+        else{
+            result = recommendation;
         }
         return result;
     }

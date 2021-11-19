@@ -1,7 +1,6 @@
 package algorithm.contentbasedflitering;
 
 import content.Content;
-import user.User;
 
 import java.util.*;
 
@@ -10,16 +9,21 @@ import java.util.*;
  * @author Marc Delgado Sánchez
  */
 
+/** @class K_NN
+ *  @brief Implements K-Nearest-Neighbours algorithm.
+ */
 public class K_NN {
     /**
-     * Table used to store similarities between all items
+     * @brief Table used to store similarities between all items
      */
     private double[][] similarityTable;
     private Map<Integer,Map<Integer,Float>> mapa_usuarios;
     List<Integer> id_reals;
 
     /**
-     * Default builder
+     * @brief Default builder
+     * \pre <em>True</em>
+     * \post An object of the K_NN class is created with mapa_usuarios and id_reals equal to the given parameters
      */
     public K_NN(Map<Integer,Map<Integer,Float>> mapa, List<Integer> ids) {
         this.mapa_usuarios = mapa;
@@ -27,9 +31,11 @@ public class K_NN {
     }
 
     /**
-     * Initialize the similarity table between the items present in the map.
+     * @brief Initialize the similarity table between the items present in the map.
      * Similarity table is normalized; similarities range between 0 and 1 (1 if items are identical).
      * @param map       integer is the ID of the item, ArrayList is a list of its tags
+     * \pre <em>True</em>
+     * \post Similarity between all items has been calculated and stored in <em>similarityTable</em>
      */
     public void initSimilarityTable(Map<Integer, List<Content>> map) {
         //given a Map<int, List<Content>> with int = id and List<Content> = tags converted to bool/int/double/string
@@ -71,7 +77,7 @@ public class K_NN {
     //}
 
     /**
-     * Calculates the similarity between two items, given their respective tags.
+     * @brief Calculates the similarity between two items, given their respective tags.
      * Similarity is calculated based on the type of the tags. Having a coincidence on a
      * boolean value does not contribute the same as having a coincidence on a string.
      * For coincidences on integers and doubles, similarity is calculated based on variance
@@ -80,6 +86,9 @@ public class K_NN {
      * @param list1     tags of the first item to compare
      * @param list2     tags of the second item to compare
      * @return          the similarity between these two items
+     *
+     * \pre <em>True</em>
+     * \post Similarity between two given items is calculated and returned.
      */
     private double calculate_similarity(List<Content> list1, List<Content> list2) {
         int size1 = list1.size();
@@ -140,11 +149,14 @@ public class K_NN {
     }
 
     /**
-     * Used to calculate the value of similarity between two integers/doubles.
+     * @brief Used to calculate the value of similarity between two integers/doubles.
      * @param double1   first number
      * @param double2   second number
      * @param max_val   value of similarity if numbers are identical
      * @return          value of similarity between the numbers
+     *
+     * \pre <em>True</em>
+     * \post Similarity between two given numbers is calculated and returned.
      */
     private double calculate_deviance(double double1, double double2, double max_val) {
         double bigger, other;
@@ -161,10 +173,13 @@ public class K_NN {
     }
 
     /**
-     * Finds the k most similar items to the given one
+     * @brief Finds the k most similar items to the given one
      * @param id_item    id_item of the item we want to find a recommendation for
      * @param k     number of items we want to get recommended
      * @return      the k most similar items to the id_item item
+     *
+     * \pre <em>id_item</em> corresponds to an existing item. <em>id_usuari</em> corresponds to an existing user.
+     * \post K-Nearest-Neighbours of the given item (which haven't been rated by the user) are calculated and returned.
      */
     public List<Pair> kNN(int id_item, int k, int id_usuari) {
         PriorityQueue<Pair> queue = new PriorityQueue<>();
@@ -200,6 +215,15 @@ public class K_NN {
         return result;
     }
 
+    /**
+     * @brief Finds the k most suitable items to recommend to the given user.
+     * @param id_usuari id of the user who wants a recommendation
+     * @param k         number of items to recommend
+     * @return          k most suitable items to recommend to <em>id_usuari</em> with their global similarities
+     *
+     * \pre <em>id_usuari</em> corresponds to an existing user.
+     * \post the k most suitable items to recommend to <em>id_usuari</em> are calculated and returned
+     */
     public Map<Integer,Float> recommend(int id_usuari, int k) {
         Map<Integer,Float> valoracions = mapa_usuarios.get(id_usuari);
         Map<Integer,Float> resultat = new TreeMap<>();
@@ -226,7 +250,9 @@ public class K_NN {
     }
 
     /**
-     * Prints the similarity matrix on console
+     * @brief Prints the similarity matrix on console
+     * \pre <em>similarityTable</em> has been initialized
+     * \post <em>similarityTable</em> has been printed on console
      */
     public void print_similarity_matrix() {
         int n = similarityTable.length;
