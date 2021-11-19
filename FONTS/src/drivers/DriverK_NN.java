@@ -18,7 +18,7 @@ public class DriverK_NN {
 
     static private BufferedReader buffer;
 
-    public static Map<Integer, Map<Integer, Float>> leeropinions() throws IOException {
+    public static Map<Integer, Map<Integer, Float>> read_map_rate() throws IOException {
         System.out.println("Numero de users: ");
         String line = buffer.readLine();
         int num_users = Integer.parseInt(line);
@@ -83,9 +83,9 @@ public class DriverK_NN {
             }
             map.put(i,lista);
         }
-        Map<Integer,Map<Integer,Float>> map_rate = leeropinions();
+        Map<Integer,Map<Integer,Float>> map_rate = read_map_rate();
         System.out.println("RESULTS:");
-        K_NN taula = new K_NN(map_rate);
+        K_NN taula = new K_NN(map_rate,parser.getId_Items());
         taula.initSimilarityTable(map);
         System.out.println("Similarity Table:");
         taula.print_similarity_matrix();
@@ -102,7 +102,7 @@ public class DriverK_NN {
             line = buffer.readLine();
             if (line == null || line.equals("end")) break;
             int k = Integer.parseInt(line);
-            Map<Integer,Float> result = taula.recommend(user_id,k,parser.getId_Items());
+            Map<Integer,Float> result = taula.recommend(user_id,k);
             System.out.println("Recommendation:");
             for (Map.Entry<Integer,Float> entry : result.entrySet()) {
                 System.out.println(entry.getKey() + " " + entry.getValue());

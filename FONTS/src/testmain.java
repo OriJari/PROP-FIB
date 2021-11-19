@@ -13,6 +13,7 @@ public class testmain {
 
     public static void makerecommendation(){
         CSVparserItem CSVItem = new CSVparserItem("FONTS/src/preprocessat/items.csv");
+        List<Integer> id_reals = CSVItem.getId_Items();
         CSVItem.readLoadItem();
         CSVItem.MapItemData(CSVItem.getContent());
         CSVparserRate CSVRate_known = new CSVparserRate("FONTS/src/preprocessat/ratings.test.known.csv");
@@ -22,7 +23,7 @@ public class testmain {
         CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, max(1, map_rate_known.size() / 3));
 
         Map<Integer, List<Content>> map_rate_item = CSVItem.getMapRatedata();
-        K_NN taula = new K_NN(map_rate_known);
+        K_NN taula = new K_NN(map_rate_known, id_reals);
         taula.initSimilarityTable(map_rate_item);
 
         CSVparserRate CSVRate_unknown = new CSVparserRate("FONTS/src/preprocessat/ratings.test.unknown.csv");
@@ -59,8 +60,7 @@ public class testmain {
                 break;
             case 2:
                 try {
-                    List<Integer> id_reals = CSVItem.getId_Items();
-                    Map<Integer, Float> similarities = taula.recommend(userID, 10, id_reals);
+                    Map<Integer, Float> similarities = taula.recommend(userID, 10);
                     Map<Integer, Float> aux = new TreeMap<>();
                     for(int i = 0; i < 10; ++i){
                         Iterator<Integer> it = similarities.keySet().iterator();
