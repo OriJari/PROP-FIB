@@ -16,16 +16,16 @@ import java.util.TreeMap;
 public class SlopeOne {
 
 
-    public static Map<Integer,Map<Integer,Float>> map_data;
+    private static Map<Integer,Map<Integer,Float>> map_data;
     /** @brief matrix data <userid<itemid,rate>>
      * */
-    public static Map<Integer, Map<Integer, Float>> map_des;
+    private static Map<Integer, Map<Integer, Float>> map_des;
     /** @brief matrix with differential between two items <itemid_1<itemid_2,diff>>
      * */
-    public static Map<Integer, Map<Integer, Integer>> map_freq;
+    private static Map<Integer, Map<Integer, Integer>> map_freq;
     /** @brief matrix with number of times we’ve computed a differential rating for each pair of items <itemid_1<itemid_2<times>>
      * */
-    public static Map<Integer,Float> map_pred;
+    private static Map<Integer,Float> map_pred;
     /** @brief map with rates' predictions of the items for one user <itemid,predict_rate>
      * */
 
@@ -62,6 +62,51 @@ public class SlopeOne {
         SlopeOne.map_freq = map_freq;
         SlopeOne.map_pred = map_pred;
     }
+
+    /**
+     * @brief Getter of the Map_data
+     * @return Return the map_data
+     *
+     * \pre true
+     * \post true
+     */
+    public static Map<Integer, Map<Integer, Float>> getMap_data() {return map_data;}
+
+    /**
+     * @brief Getter of the Map_des
+     * @return Return the map_des
+     *
+     * \pre true
+     * \post true
+     */
+    public static Map<Integer, Map<Integer, Float>> getMap_des() {return map_des;    }
+
+    /**
+     * @brief Getter of the Map_pred
+     * @return Return the map_pred
+     *
+     * \pre true
+     * \post true
+     */
+    public static Map<Integer, Float> getMap_pred() {return map_pred;}
+
+    /**
+     * @brief Getter of the Map_freq
+     * @return Return the map_freq
+     *
+     * \pre true
+     * \post true
+     */
+    public static Map<Integer, Map<Integer, Integer>> getMap_freq() {return map_freq;}
+
+    /**
+     * @brief Setter of the atribute map_data
+     * @param map_data Matrix that represents the data.
+     *
+     * \pre True
+     * \post Modify map_data
+     */
+    public static void setMap_data(Map<Integer, Map<Integer, Float>> map_data) { SlopeOne.map_data = map_data;}
 
 
     /** @brief Given the data and a user which it's the one we want to predict his ratings,

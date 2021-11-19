@@ -54,31 +54,31 @@ public class Driverslopeone {
 
     public static void testSlopeOne() {
         System.out.println("Test SlopeOne");
-        SlopeOne.map_data = leeropinions();
+        SlopeOne.setMap_data(leeropinions());
         Map<Integer,Float> user = leerusuariopredi();
         System.out.println("esta base de datos");
-        SlopeOne.map_pred = SlopeOne.slopeone( SlopeOne.map_data,user);
+        SlopeOne.slopeone( SlopeOne.getMap_data(),user);
         System.out.println("\n Resultado:");
-        print_map_completo(SlopeOne.map_data);
+        print_map_completo(SlopeOne.getMap_data());
         System.out.println("esta desviacion");
-        print_map_completo(SlopeOne.map_des);
+        print_map_completo(SlopeOne.getMap_des());
         System.out.println("\n\t esta prediccio");
-        print_pred(SlopeOne.map_pred);
+        print_pred(SlopeOne.getMap_pred());
         System.out.println("Terminado");
 
     }
 
     public static void testdesviacio_mitjana() {
         System.out.println("testdesviacio mitjana");
-        SlopeOne.map_data = leeropinions();
+        SlopeOne.setMap_data(leeropinions());
         System.out.println("esta base de datos");
-        print_map_completo(SlopeOne.map_data);
+        print_map_completo(SlopeOne.getMap_data());
         SlopeOne.desviacio_mitjana();
         System.out.println("\n Resultado:");
         System.out.println("\n\t esta desviacion");
-        print_map_completo(SlopeOne.map_des);
+        print_map_completo(SlopeOne.getMap_des());
         System.out.println("\n\t esta fequencia");
-        print_map_freq(SlopeOne.map_freq);
+        print_map_freq(SlopeOne.getMap_freq());
         System.out.println("\n test terminado");
 
     }
@@ -86,18 +86,18 @@ public class Driverslopeone {
 
     public static void testprediccio() {
         System.out.println("Test preddicio");
-        SlopeOne.map_data = leeropinions();
+        SlopeOne.setMap_data(leeropinions());
         System.out.println("esta desviacion");
         SlopeOne.desviacio_mitjana();
-        print_map_completo(SlopeOne.map_des);
+        print_map_completo(SlopeOne.getMap_des());
         System.out.println("\n\t esta fequencia");
-        print_map_freq(SlopeOne.map_freq);
+        print_map_freq(SlopeOne.getMap_freq());
         Map<Integer,Float> user = leerusuariopredi();
         SlopeOne.prediccio(user);
 
         System.out.println("\n Resultado:");
         System.out.println("\n\t esta prediccio");
-        print_pred(SlopeOne.map_pred);
+        print_pred(SlopeOne.getMap_pred());
         System.out.println("\n test terminado");
     }
 
