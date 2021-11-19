@@ -25,6 +25,11 @@ public class CSVparserItem {
     /**
      * @brief Default builder.
      * @param path where is located the csv document
+     * \pre the path of the file needs to be existent and the document csv needs to be from type items.csv
+     *
+     * \post It creates a <em>CSVparserItem</em> object with its attribute <em>path</em> with the value received as a parameter
+     * ,<em>numCols</em>  initialized as 0, <em>numRows</em>  initialized as 0, <em>content</em> empty, <em>header</em> empty,
+     *  <em>mapRatedata</em> empty and <em>id_Items</em>.
      */
     public CSVparserItem(String path){
         this.path = path;
@@ -38,6 +43,8 @@ public class CSVparserItem {
 
     /**
      * @brief Getter of the num rows
+     * \pre the csv document needs to be created and read.
+     * \post obtain the number of the rows of the content attribute.
      * @return the number of rows of the csv
      */
     public Integer getNumRows() {
@@ -46,6 +53,8 @@ public class CSVparserItem {
 
     /**
      * @brief Getter of the num columns
+     * \pre the csv document needs to be created and read.
+     * \post obtain the number of the columns of the content attribute.
      * @return the number of columns of the csv
      */
     public Integer getNumCols() {
@@ -54,6 +63,8 @@ public class CSVparserItem {
 
     /**
      * @brief Getter of the header
+     * \pre the csv document needs to be created and read.
+     * \post obtain the list of the header in the csv.
      * @return the header of the csv as a List
      */
     public List<String> getHeader() {
@@ -62,6 +73,8 @@ public class CSVparserItem {
 
     /**
      * @brief Getter of the path of the location of the csv
+     * \pre needs to be a existent path.
+     * \post obtain the path where is located the csv.
      * @return the path as String
      */
     public String getPath() {
@@ -70,6 +83,8 @@ public class CSVparserItem {
 
     /**
      * @brief Getter of the class, gets the content
+     * \pre the document needs to be read to obtain the content
+     * \post obtain the lecture of the csv ready to manipulate
      * @return the lecture of the document csv
      */
     public List<List<String>> getContent() {
@@ -78,6 +93,8 @@ public class CSVparserItem {
 
     /**
      * @brief Getter of the class, gets the mapRatedata
+     * \pre the document needs to be read to obtain the content
+     * \post obtain the data set manipulated to make easy the operation in algorithms
      * @return set of data structured
      */
     public Map<Integer, List<Content>> getMapRatedata() {
@@ -86,6 +103,8 @@ public class CSVparserItem {
 
     /**
      * @brief Getter of the class, gets the set of id items
+     * \pre needs to have a mapRatedata to obtain the set of id items
+     * \post obtain the set of id items of the csv
      * @return the array list of ths different items of the csv
      */
     public List<Integer> getId_Items() {
@@ -94,6 +113,8 @@ public class CSVparserItem {
 
     /**
      * @brief Setter of the class, modified the number of rows
+     * \pre true
+     * \post modify the attribute numRows of the class
      * @param numRows, new size of the number of rows
      */
     public void setNumRows(Integer numRows) {
@@ -102,6 +123,8 @@ public class CSVparserItem {
 
     /**
      * @brief Setter of the class, modified the number of columns
+     * \pre true
+     * \post modify the attribute numCols of the class
      * @param numCols, new size of the number of columns
      */
     public void setNumCols(Integer numCols) {
@@ -110,6 +133,8 @@ public class CSVparserItem {
 
     /**
      * @brief Setter of the class, modified the elements of the header
+     * \pre true
+     * \post modify the attribute header of the class
      * @param header, header of the csv as a list
      */
     public void setHeader(List<String> header) {
@@ -118,6 +143,8 @@ public class CSVparserItem {
 
     /**
      * @brief Setter of the class, modified the path where is located ths csv
+     * \pre the path needs to be corresponded with the location file
+     * \post modify the attribute path, changing to a new document.
      * @param path, where the document is located, as string
      */
     public void setPath(String path) {
@@ -125,7 +152,9 @@ public class CSVparserItem {
     }
 
     /**
-     * @brief Setter of the class, gets the conent
+     * @brief Setter of the class, gets the content
+     * \pre true
+     * \post modify the attribute content, changing the lecture.
      * @param content, lecture of the csv document to attribute
      */
     public void setContent(List<List<String>> content) {
@@ -134,6 +163,8 @@ public class CSVparserItem {
 
     /**
      * @brief Setter of the class, gets the mapRatedata
+     * \pre true
+     * \post modify the attribute mapRatedata, changing the content of it.
      * @param mapRatedata, set of data to redefine a previous one
      */
     public void setMapRatedata(Map<Integer, List<Content>> mapRatedata) {
@@ -142,6 +173,8 @@ public class CSVparserItem {
 
     /**
      * @brief Setter of the class, set the id of the items
+     * \pre true
+     * \post modify the attribute id_Items, changing the content of it.
      * @param id_Items, set of data to redefine a previous one
      */
     public void setId_Items(List<Integer> id_Items) {
@@ -150,6 +183,8 @@ public class CSVparserItem {
 
     /**
      * @brief Get the header of the csv.
+     * \pre needs a previous lecture of the csv
+     * \post obtain the set of ids of the document.
      * @param path where the document csv is located
      */
     public void obtainHeader(String path){
@@ -166,7 +201,9 @@ public class CSVparserItem {
     /**
      * @brief obtains the position where is located the id in csv
      * @param header of the csv
-     * @return the position where are located the id in the header
+     * \pre needs a content to read.
+     * \post obtain the position of the id item in a list.
+     * @return the position where are located the id in the header, -1 otherwise.
      */
     public Integer obten_id_header(List<String> header){
         if (header.contains("id")){
@@ -177,6 +214,8 @@ public class CSVparserItem {
 
     /**
      * @brief Read the content of the item csv into memory.
+     * \pre needs a document csv to read
+     * \post obtains the lecture of the document manipulated into content.
      */
     public void readLoadItem(){
         FileInputStream fis;
@@ -202,7 +241,10 @@ public class CSVparserItem {
 
     /**
      * @brief Change a String value to an Integer one
+     * \pre true
+     * \post change the value of the string to a integer.
      * @param s String to obtain the corresponding value
+     * @return string s converted to integer
      */
     public  Integer String_to_Int(String s){
         return Integer.parseInt(s);
@@ -211,6 +253,8 @@ public class CSVparserItem {
 
     /**
      * @brief Change a String value to a Double one
+     * \pre true
+     * \post change the value of the string to a float.
      * @param s String to obtain the corresponding value
      * @return string s converted to double
      */
@@ -221,6 +265,8 @@ public class CSVparserItem {
 
     /**
      * @brief Lecture of the List<List<String>> rows
+     * \pre needs to have a content of the lecture
+     * \post obtain a row of the content read.
      * @param i number of the row to obtain
      */
     public String getRow(int i) {
@@ -229,6 +275,8 @@ public class CSVparserItem {
 
     /**
      * @brief Obtains the appropriate preprocess of data set for the kk-neight algorithm
+     * \pre needs to have a content of the lecture
+     * \post change the content to a estructure where the data is processed
      * @param rate_content data set read from the csv
      */
     public void MapItemData(List<List<String>> rate_content){

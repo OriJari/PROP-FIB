@@ -29,7 +29,7 @@ public class CSVparserRate {
      * \pre the path of the file needs to be existent and the document csv needs to be from type ratings.csv
      *
      * \post It creates a <em>CSVparserRate</em> object with its attribute <em>path</em> with the value received as a parameter
-     *  ,<em>numCols</em>  initialized as 0, <em>numRows</em>  initialized as 0, <em>content</em> empty, <em>mapRate</em> empty,
+     *  ,<em>numCols</em>  initialized as 0, <em>numRows</em>  initialized as 0, <em>content</em> empty, <em>mapRate</em> empty and
      *   <em>header</em> empty.
      */
     public CSVparserRate(String path){
@@ -124,7 +124,7 @@ public class CSVparserRate {
     /**
      * @brief Setter of the class, modified the elements of the header
      * \pre true
-     * \post modify the attribute numRows of the class
+     * \post modify the attribute header of the class
      * @param header, header of the csv as a list
      */
     public void setHeader(List<String> header) {
@@ -212,6 +212,7 @@ public class CSVparserRate {
      * \pre true
      * \post change the value of the string to a integer.
      * @param s String to obtain the corresponding value
+     * @return string s converted to integer
      */
     public Integer String_to_Int(String s){
         return Integer.parseInt(s);
@@ -222,6 +223,7 @@ public class CSVparserRate {
      * \pre true
      * \post change the value of the string to a float.
      * @param s String to obtain the corresponding value
+     * @return string s converted to float
      */
     public Float String_to_Float(String s){
         return Float.parseFloat(s);
