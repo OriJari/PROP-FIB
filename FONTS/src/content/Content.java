@@ -107,7 +107,7 @@ public class Content {
     /**
      * @brief Setter of categorics
      *
-     * @param categorics list of the elements categorics
+     * @param categorics list of the elements categorics ordered
      */
     public void setCategorics(List<String> categorics) {
         this.categorics = categorics;
