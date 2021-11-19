@@ -51,6 +51,7 @@ public class SlopeOne {
      * @param map_freq Matrix that represents times we've computed a diff rating for each pair of items.
      * @param map_pred Map that represents rates' predictions of the items for on user.
      *
+     * \pre <em>true</em>
      * \post It creates a <em>SlopeOne</em> object with the parameters map_data, map_des,
      *       map_freq and map_pred as its attribute <em>map_data</em>, <em>map_des</em>, <em>map_freq</em> and <em>map_pred</em>.
      */
@@ -70,6 +71,9 @@ public class SlopeOne {
      * @param user Map with the items from the user we want to predict his rate of the items non-rated.
      *
      * @return It returns the prediction map, which contains the predicted rates form our user.
+     *
+     * \pre true
+     * \post Calculate a prediction for an user
      */
     public static Map<Integer,Float> slopeone(Map<Integer, Map<Integer, Float>> data, Map<Integer,Float> user) {
         map_data = data;
@@ -128,6 +132,7 @@ public class SlopeOne {
      * @brief Calculates the prediction for the items non-rated.
      *
      * @param u_data Map with the items from the user we want to predict his rate of the items non-rated.
+     * \pre true
      * \post Fill map_pred with the data form u_data and the items not rated by the user but that we predicted.
      */
     public static void prediccio(Map<Integer, Float> u_data) {
