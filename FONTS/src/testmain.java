@@ -12,10 +12,10 @@ public class testmain {
     private static Scanner sc;
 
     public static void makerecommendation(){
-        CSVparserItem CSVItem = new CSVparserItem("FONTS/src/preprocessat/items.csv");
+        CSVparserItem CSVItem = new CSVparserItem("src/preprocessat/items.csv");
         CSVItem.readLoadItem();
         CSVItem.MapItemData(CSVItem.getContent());
-        CSVparserRate CSVRate_known = new CSVparserRate("FONTS/src/preprocessat/ratings.test.known.csv");
+        CSVparserRate CSVRate_known = new CSVparserRate("src/preprocessat/ratings.test.known.csv");
         CSVRate_known.readLoadRate();
         CSVRate_known.LoadRate(CSVRate_known.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_known = CSVRate_known.getMapRate();
@@ -25,7 +25,7 @@ public class testmain {
         K_NN taula = new K_NN(map_rate_known);
         taula.initSimilarityTable(map_rate_item);
 
-        CSVparserRate CSVRate_unknown = new CSVparserRate("FONTS/src/preprocessat/ratings.test.unknown.csv");
+        CSVparserRate CSVRate_unknown = new CSVparserRate("src/preprocessat/ratings.test.unknown.csv");
         CSVRate_unknown.readLoadRate();
         CSVRate_unknown.LoadRate(CSVRate_unknown.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_unknown = CSVRate_unknown.getMapRate();
