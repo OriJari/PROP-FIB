@@ -1,7 +1,6 @@
 package algorithm.contentbasedflitering;
 
 import content.Content;
-import user.User;
 
 import java.util.*;
 
@@ -10,6 +9,9 @@ import java.util.*;
  * @author Marc Delgado Sánchez
  */
 
+/** @class K_NN
+ *  @brief Implements K-Nearest-Neighbours algorithm.
+ */
 public class K_NN {
     /**
      * Table used to store similarities between all items
