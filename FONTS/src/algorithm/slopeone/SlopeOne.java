@@ -138,30 +138,23 @@ public class SlopeOne {
             map_pred.put(j, 0.0f);
         }
 
-
-        for (int j : u_data.keySet()) {
-            for (int i : map_des.keySet()) {
-                if(map_freq.containsKey(i) && map_freq.get(i).containsKey(j)) {
-                    float mitjana = 0.0f;
-                    int k = 0;
-                    for(Map.Entry<Integer,Float> entry : u_data.entrySet()){
-                        ++k;
-                        mitjana += entry.getValue();
-                    }
-                    mitjana /= (float)k;
-
-                    float predictedValue = map_des.get(i).get(j) + mitjana;
-                    float finalValue = predictedValue * map_freq.get(i).get(j);//aqui pq multipliques per la frequencia????
-                    map_pred.put(i, map_pred.get(i) + finalValue);//aqui pq ho sumes?? has de fer la suma de les desviacions i despres sumarho a la mitjana
-                    freq.put(i, freq.get(i) + map_freq.get(i).get(j));
-                }
-            }
+        float mitjana = 0.0f;
+        int k = 0;
+        for(Map.Entry<Integer,Float> entry : u_data.entrySet()){
+            ++k;
+            mitjana += entry.getValue();
         }
+        if(k>1) mitjana /= (float)k;
 
-        for (Integer j : map_pred.keySet()) {
-            if (freq.get(j) > 0) {
-               map_pred.put(j, map_pred.get(j) / freq.get(j));
+        for(Map.Entry<Integer, Map<Integer, Float>> entry: map_des.entrySet()){
+            float desvi = 0.0f;
+            for(Map.Entry<Integer, Float> entry2: entry.getValue().entrySet()){
+                  desvi += entry2.getValue();
             }
+            if(entry.getValue().size() > 1){
+                desvi = desvi/(entry.getValue().size()-1);
+            }
+            map_pred.put(entry.getKey(), desvi + mitjana);
         }
     }
 

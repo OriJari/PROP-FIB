@@ -67,17 +67,21 @@ public class CollaborativeFiltering {
         SlopeOne Slopeone = new SlopeOne();
         Map<Integer, Float> recommendation = Slopeone.slopeone(valCluster, opinions.get(userID));
         Map<Integer, Float> result = new TreeMap<Integer, Float>();
-
-        for(int i = 0; i < 10; ++i){
-            Iterator<Integer> it = recommendation.keySet().iterator();
-            int maxitemID = it.next();
-            for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
-                if(entry.getValue() > recommendation.get(maxitemID)){
-                    maxitemID = entry.getKey();
+        if(recommendation.size() > 10) {
+            for (int i = 0; i < 10; ++i) {
+                Iterator<Integer> it = recommendation.keySet().iterator();
+                int maxitemID = it.next();
+                for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
+                    if (entry.getValue() > recommendation.get(maxitemID)) {
+                        maxitemID = entry.getKey();
+                    }
                 }
+                result.put(maxitemID, recommendation.get(maxitemID));
+                recommendation.remove(maxitemID);
             }
-            result.put(maxitemID, recommendation.get(maxitemID));
-            recommendation.remove(maxitemID);
+        }
+        else{
+            result = recommendation;
         }
         return result;
     }

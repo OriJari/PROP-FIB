@@ -90,7 +90,7 @@ public class testmain {
         }
         else{
             Evaluation eval = new Evaluation(map_rate_unknown.get(userID) , recommendation);
-            System.out.println("Calidad de la recomendacion: " + eval.DCG());
+            System.out.println("DCG de la recomendacion: " + eval.DCG());
         }
     }
 
