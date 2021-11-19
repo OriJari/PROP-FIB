@@ -27,8 +27,8 @@ public class CSVparserItem {
      * @param path where is located the csv document
      * \pre the path of the file needs to be existent and the document csv needs to be from type items.csv
      *
-     * \post It creates a <em>CSVparserItem</em> object with its attribute <em>path</em> with the value received as a parameter
-     * ,<em>numCols</em>  initialized as 0, <em>numRows</em>  initialized as 0, <em>content</em> empty, <em>header</em> empty,
+     * \post It creates a <em>CSVparserItem</em> object with its attribute <em>path</em> with the values:
+     * <em>numCols</em>  initialized as 0, <em>numRows</em>  initialized as 0, <em>content</em> empty, <em>header</em> empty,
      *  <em>mapRatedata</em> empty and <em>id_Items</em>.
      */
     public CSVparserItem(String path){

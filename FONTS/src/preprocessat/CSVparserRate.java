@@ -28,8 +28,8 @@ public class CSVparserRate {
      * @param path where is located the csv document
      * \pre the path of the file needs to be existent and the document csv needs to be from type ratings.csv
      *
-     * \post It creates a <em>CSVparserRate</em> object with its attribute <em>path</em> with the value received as a parameter
-     *  ,<em>numCols</em>  initialized as 0, <em>numRows</em>  initialized as 0, <em>content</em> empty, <em>mapRate</em> empty and
+     * \post It creates a <em>CSVparserRate</em> object with its attribute <em>path</em> with the values:
+     *  <em>numCols</em>  initialized as 0, <em>numRows</em>  initialized as 0, <em>content</em> empty, <em>mapRate</em> empty and
      *   <em>header</em> empty.
      */
     public CSVparserRate(String path){

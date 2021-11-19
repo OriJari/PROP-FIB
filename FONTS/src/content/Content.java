@@ -17,6 +17,10 @@ public class Content {
 
     /**
      * @brief Default builder
+     * \pre the path of the file needs to be existent and the document csv needs to be from type items.csv
+     *
+     * \post It creates a <em>Content</em> object with values:
+     *  <em>tag</em>  initialized as nnull, <em>tag_numi</em>  initialized as null, <em>tag_numd</em> null, <em>categorics</em> empty,
      */
     public Content() {
         this.tag = null;
@@ -28,7 +32,9 @@ public class Content {
 
     /**
      * @brief Default builder with initializers
-     *
+     *\pre the path of the file needs to be existent and the document csv needs to be from type items.csv
+     *\post It creates a <em>Content</em> object with values:
+     *  <em>tag</em>  initialized , <em>tag_numi</em>  initialized, <em>tag_numd</em> initialized, <em>categorics</em> initialized,
      * @param s type of the tag
      * @param i integer number associated
      * @param d double number associated
@@ -43,7 +49,8 @@ public class Content {
 
     /**
      * @brief Getter of the tag
-     *
+     * \pre exists a Content
+     * \post obtain the tag
      * @return the content tag
      */
     public String getTag() {
@@ -52,7 +59,8 @@ public class Content {
 
     /**
      * @brief Getter of the tag_numi
-     *
+     * \pre exists a Content
+     * \post obtain the tag_numi
      * @return the integer associated to the tag
      */
     public Integer getTag_numi() {
@@ -61,7 +69,8 @@ public class Content {
 
     /**
      * @brief Getter of the tag_numd
-     *
+     * \pre exists a Content
+     * \post obtain the tag_numd
      * @return the double associated to the tag
      */
     public Double getTag_numd() {
@@ -70,7 +79,8 @@ public class Content {
 
     /**
      * @brief Getter of categorics
-     *
+     * \pre exists a Content
+     * \post obtain the set of categorics
      * @return list of the categorics elements
      */
     public List<String> getCategorics() {
@@ -79,7 +89,8 @@ public class Content {
 
     /**
      * @brief Setter of the tag
-     *
+     * \pre true
+     * \post modify the attribute tag
      * @param tag, attributes the new tag
      */
     public void setTag(String tag) {
@@ -88,7 +99,8 @@ public class Content {
 
     /**
      * @brief Setter of the tag_numi
-     *
+     * \pre true
+     * \post modify the attribute tag_numi
      * @param tag_numi , attributes the integer corresponded
      */
     public void setTag_numi(Integer tag_numi) {
@@ -96,8 +108,9 @@ public class Content {
     }
 
     /**
-     * @brief Setter of the tag_numf
-     *
+     * @brief Setter of the tag_numd
+     * \pre true
+     * \post modify the attribute tag_numd
      * @param tag_numd , attributes the double corresponded
      */
     public void setTag_numd(Double tag_numd) {
@@ -106,7 +119,8 @@ public class Content {
 
     /**
      * @brief Setter of categorics
-     *
+     * \pre true
+     * \post modify the attribute categorics
      * @param categorics list of the elements categorics ordered
      */
     public void setCategorics(List<String> categorics) {
