@@ -28,7 +28,7 @@ public class K_Means {
         /** @brief Builder with defined <em>opinions</em>.
          *
          * @param opinions Map that represents the ratings that users have given about some items.
-         *
+         * \pre <em>true</em>
          * \post It creates a <em>K_Means</em> object with the parameter opinions as its attribute <em>opinions</em>.
          */
         public K_Means(Map<Integer, Map<Integer, Float>> opinions){
@@ -42,6 +42,9 @@ public class K_Means {
          * @param u2 Ratings of the second user about some items. All ratings must be greater or equal than 0.
          *
          * @return It returns the similarity between user <em>u1</em> and user <em>u2</em>. A value between 0 and 1.
+         *
+         * \pre <em>true</em>
+         * \post Returns the cosine squared similarity between two users.
          */
         public float cosineSquaredSimil(Map<Integer, Float> u1, Map<Integer, Float> u2){
                 float u1Squared = 0.0f;
@@ -64,6 +67,8 @@ public class K_Means {
          * @param nuevoClusters Vector that represents the first, the "new" group of clusters.
          * @param clusters Vector that represents the second, the "old" group of clusters.
          * @return It returns a boolean. <em>true</em> if the two groups of clusters are the same and in the same order, <em>false</em> for all the other cases.
+         * \pre <em>true</em>
+         * \post Returns true if theyare the same clusters and in the same order.
          */
         public boolean equalClusters(Vector<Vector<Integer>> nuevoClusters, Vector<Vector<Integer>> clusters){
                 for(int i = 0; i < clusters.size(); ++i){
@@ -88,11 +93,14 @@ public class K_Means {
 
         /** @brief Given a positive non-zero integer k, it groups the users in k different clusters based on their similarities.
          *
-         * @param k Number of clusters. k > 0.
+         * @param k Number of clusters.
          *
          * @return It returns a vector with size k of vectors of integers that represents the k different clusters, with the integers being the ID's of the users belonging to that cluster.
+         *
+         * \pre 0 < k <= opinions.size()
+         * \post Returns the users grouped in k clusters.
          */
-        public Vector<Vector<Integer>> k_means(Integer k){ // k <= opinions.size()
+        public Vector<Vector<Integer>> k_means(Integer k){
                 Vector<Vector<Integer>> clusters = new Vector<>();
                 for(int i = 0; i < k; ++i){
                         clusters.add(new Vector<Integer>(0));
@@ -102,7 +110,7 @@ public class K_Means {
                         means.add(new TreeMap<Integer, Float>());
                 }
 
-                //initialize vectors
+                //initialize clusters
                 {
                         int i = 0;
                         for (Map.Entry<Integer, Map<Integer, Float>> entry : opinions.entrySet()) {
@@ -132,6 +140,7 @@ public class K_Means {
                                 newClusters.add(new Vector<Integer>(0));
                         }
 
+                        //update clusters
                         for(int i = 0; i < clusters.size(); ++i){
                                 Vector<Integer> rowVector = clusters.get(i);
                                 for(int j = 0; j < rowVector.size(); ++j){
@@ -156,6 +165,7 @@ public class K_Means {
                                 clusters = newClusters;
                         }
 
+                        //update means
                         if(cont){
                                 for(int i = 0; i < clusters.size(); ++i){
                                         Vector<Integer> rowVector = clusters.get(i);

@@ -35,6 +35,7 @@ public class CollaborativeFiltering {
      * @param opinions Map that represents the ratings that users have given about some items.
      * @param k Desired number of clusters. Integer larger than 0.
      *
+     * \pre <em>k</em> must be larger than 0 but smaller or equal than opinions.size().
      * \post Creates <em>collaborativeFiltering</em> object with <em>opinions</em> set to opinions and computes the k clusters of users.
      */
     public CollaborativeFiltering(Map<Integer, Map<Integer, Float>> opinions, Integer k){
@@ -47,6 +48,9 @@ public class CollaborativeFiltering {
      *
      * @param userID ID of the user that receives the recommendation.
      * @return It returns a Map of item ID's together with the expected rating of the user.
+     *
+     * \pre The user must exist.
+     * \post Returns a Map of expected ratings with maximum size 10.
      */
     public Map<Integer, Float> recommend(Integer userID){
         boolean cont = true;

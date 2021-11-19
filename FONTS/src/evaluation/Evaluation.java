@@ -31,6 +31,9 @@ public class Evaluation {
          *
          * @param id Item id.
          * @param valor Item rating.
+         *
+         * \pre <em>true</em>
+         * \post Creates a rating.
          */
         public rating(Integer id, Float valor){
             this.id = id;
@@ -56,8 +59,11 @@ public class Evaluation {
 
     /** @brief Builder.
      *
-     * @param unknown Sets <em>known</em> to known.
+     * @param unknown Sets <em>unknown</em> to unknown.
      * @param recommendation Sets <em>recomanacio</em> to recomanacio but sorted decreasingly.
+     *
+     * \pre <em>true</em>
+     * \post Creates an Evaluation.
      */
     public Evaluation(Map<Integer, Float> unknown, Map<Integer, Float> recommendation) {
         this.unknown = unknown;
@@ -73,6 +79,9 @@ public class Evaluation {
     /** @brief Function that calculates the quality of a recommendation.
      *
      * @return It returns a number. The higher it is the better recommendation we have.
+     *
+     * \pre <em>true</em>
+     * \post Gives DCG value.
      */
     public float DCG(){
         int j = 1;
