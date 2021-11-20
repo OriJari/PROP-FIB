@@ -1,9 +1,9 @@
 import java.util.*;
 
-import algorithm.collaborativefiltering.CollaborativeFiltering;
-import algorithm.contentbasedflitering.K_NN;
-import content.Content;
-import evaluation.Evaluation;
+import algorithm.collaborativefiltering.*;
+import algorithm.contentbasedflitering.*;
+import content.*;
+import evaluation.*;
 import preprocessat.*;
 
 import static java.lang.Math.max;
@@ -102,14 +102,18 @@ public class testmain {
         boolean salir = false;
         sc = new Scanner(System.in);
         Scanner sc1 = new Scanner(System.in);
-
+        System.out.println("!!IMPORTANTE!!");
+        System.out.println("Antes de realizar una recomendacion debe insertar el path de los csv EXCEPTO en los casos movies y series");
+        System.out.println("Escoja una opción:");
+        System.out.println("\t 0) Salir");
+        System.out.println("\t 1) Introduzca el path del los csv");
+        System.out.println("\t 2) movies 250");
+        System.out.println("\t 3) movies 750");
+        System.out.println("\t 4) series 250");
+        System.out.println("\t 5) series 750");
+        System.out.println("\t 6) series 2250");
+        System.out.println("\t 7) Hacer recomendacion (solo en el caso que haya insertado manualmente los paths)");
         while (!salir) {
-            System.out.println("!!IMPORTANTE!!");
-            System.out.println("Antes de realizar una recomendacion debe insertar el path de los csv");
-            System.out.println("Escoja una opción:");
-            System.out.println("\t 0) Salir");
-            System.out.println("\t 1) Introduzca el path del los csv");
-            System.out.println("\t 2) Hacer recomendacion");
             int option = sc.nextInt();
             switch (option) {
                 case 0:
@@ -124,6 +128,56 @@ public class testmain {
                     path_unknown = sc1.next();
                     break;
                 case 2:
+                    path_item = "DATA/movie.sample/250/items.csv";
+                    path_known = "DATA/movie.sample/250/ratings.test.known.csv";
+                    path_unknown = "DATA/movie.sample/250/ratings.test.unknown.csv";
+                    try {
+                        makerecommendation();
+                    } catch (Exception E) {
+                        System.out.println(E.getMessage());
+                    }
+                    break;
+                case 3:
+                    path_item = "DATA/movie.sample/750/items.csv";
+                    path_known = "DATA/movie.sample/750/ratings.test.known.csv";
+                    path_unknown = "DATA/movie.sample/750/ratings.test.unknown.csv";
+                    try {
+                        makerecommendation();
+                    } catch (Exception E) {
+                        System.out.println(E.getMessage());
+                    }
+                    break;
+                case 4:
+                    path_item = "DATA/series.public/250/items.csv";
+                    path_known = "DATA/series.public/250/ratings.test.known.csv";
+                    path_unknown = "DATA/series.public/250/ratings.test.unknown.csv";
+                    try {
+                        makerecommendation();
+                    } catch (Exception E) {
+                        System.out.println(E.getMessage());
+                    }
+                    break;
+                case 5:
+                    path_item = "DATA/series.public/750/items.csv";
+                    path_known = "DATA/series.public/750/ratings.test.known.csv";
+                    path_unknown = "DATA/series.public/750/ratings.test.unknown.csv";
+                    try {
+                        makerecommendation();
+                    } catch (Exception E) {
+                        System.out.println(E.getMessage());
+                    }
+                    break;
+                case 6:
+                    path_item = "DATA/series.public/2250/items.csv";
+                    path_known = "DATA/series.public/2250/ratings.test.known.csv";
+                    path_unknown = "DATA/series.public/2250/ratings.test.unknown.csv";
+                    try {
+                        makerecommendation();
+                    } catch (Exception E) {
+                        System.out.println(E.getMessage());
+                    }
+                    break;
+                case 7:
                     try {
                         makerecommendation();
                     } catch (Exception E) {
