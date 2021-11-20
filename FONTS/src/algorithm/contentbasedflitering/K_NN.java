@@ -265,4 +265,8 @@ public class K_NN {
             System.out.println(similarities[j]);
         }
     }
+
+    public double getSimilarity(int i, int j) {
+        return similarityTable[i][j];
+    }
 }

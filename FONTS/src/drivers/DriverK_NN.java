@@ -45,7 +45,6 @@ public class DriverK_NN {
     }
     public static void main(String[] args) throws IOException {
         Map<Integer,List<Content>> map = new TreeMap<>();
-        CSVparserItem parser = new CSVparserItem("hola");
         System.out.println("Welcome to Driver Content Based Filtering");
         buffer = new BufferedReader(new FileReader("FONTS/src/algorithm/contentbasedflitering/Prova.txt"));
         String line;
@@ -65,7 +64,7 @@ public class DriverK_NN {
             System.out.println("Integer: <Integer> if integer, 0 if false, 1 if true, -1 elsewhere");
             System.out.println("Double: <Double> if double, -1.0 elsewhere ");
             System.out.println("List of Strings: <List of Strings> if categoric, empty elsewhere");
-            List<Content> lista = new ArrayList<>(m);
+            List<Content> lista = new ArrayList<>();
             for (int j = 0; j < m; ++j) {
                 System.out.println("State a tag:");
                 line = buffer.readLine();
@@ -85,7 +84,9 @@ public class DriverK_NN {
         }
         Map<Integer,Map<Integer,Float>> map_rate = read_map_rate();
         System.out.println("RESULTS:");
-        K_NN taula = new K_NN(map_rate,parser.getId_Items());
+        List<Integer> id_reals = new ArrayList<>();
+        for (int i = 0; i < n; ++i) id_reals.add(i);
+        K_NN taula = new K_NN(map_rate,id_reals);
         taula.initSimilarityTable(map);
         System.out.println("Similarity Table:");
         taula.print_similarity_matrix();
