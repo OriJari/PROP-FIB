@@ -1,0 +1,6 @@
+Datos de persistencia: el nombre puede ser "data" o similares; la
+  estructura de subcarpetas se decide en función de los diversos datos
+  que se necesiten mantener almacenados; de cara a la prueba de la
+  aplicación deberéis tener datasets que permitan probar las
+  funcionalidades en diversas situaciones; lo mismo para los
+  diferentes drivers. Ved más detalles en el pdf adjunto.
