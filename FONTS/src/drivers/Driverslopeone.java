@@ -62,6 +62,8 @@ public class Driverslopeone {
         print_map_completo(SlopeOne.getMap_data());
         System.out.println("esta desviacion");
         print_map_completo(SlopeOne.getMap_des());
+        System.out.println("\n\t esta fequencia");
+        print_map_freq(SlopeOne.getMap_freq());
         System.out.println("\n\t esta prediccio");
         print_pred(SlopeOne.getMap_pred());
         System.out.println("Terminado");
@@ -94,7 +96,6 @@ public class Driverslopeone {
         print_map_freq(SlopeOne.getMap_freq());
         Map<Integer,Float> user = leerusuariopredi();
         SlopeOne.prediccio(user);
-
         System.out.println("\n Resultado:");
         System.out.println("\n\t esta prediccio");
         print_pred(SlopeOne.getMap_pred());

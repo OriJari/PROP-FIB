@@ -125,10 +125,10 @@ public class SlopeOne {
         desviacio_mitjana();
 
         prediccio(user);
-        for(Map.Entry<Integer,Float> entry : user.entrySet()){
+        for(Map.Entry<Integer,Float> entry : user.entrySet()) { //netejar map_pred
             map_pred.remove(entry.getKey());
-
         }
+
         return map_pred;
     }
 
@@ -144,29 +144,40 @@ public class SlopeOne {
         for (Map<Integer, Float> users : map_data.values()) { //  per tots els usuaris
             for (Map.Entry<Integer, Float> u_data : users.entrySet()) { // itera a traves de les dades dels usuaris
 
-                if (!map_des.containsKey(u_data.getKey())) {
+                if (!map_des.containsKey(u_data.getKey())) { //mirar si item q estem tractan esta al map_des
+                    // afegir item map_des i map_freq
                     map_des.put(u_data.getKey(), new TreeMap<Integer, Float>());
                     map_freq.put(u_data.getKey(), new TreeMap<Integer, Integer>());
                 }
-                for (Map.Entry<Integer, Float> u2_data : users.entrySet()) {
-                    int cont1 = 0;
-                    if (map_freq.get(u_data.getKey()).containsKey(u2_data.getKey())) {
-                        cont1 = map_freq.get(u_data.getKey()).get(u2_data.getKey());
-                    }
-                    float desv_ini = 0.0f;
-                    if (map_des.get(u_data.getKey()).containsKey(u2_data.getKey()))
-                        desv_ini = map_des.get(u_data.getKey()).get(u2_data.getKey());
-                    float desv_result = u_data.getValue() - u2_data.getValue();
-                    map_freq.get(u_data.getKey()).put(u2_data.getKey(), cont1 + 1);
+
+                for (Map.Entry<Integer, Float> u2_data : users.entrySet()) { //itera a travesd de les dades dels usuaris
+
+                    int cont_ant = 0; //contador anterior, cops que un parell d'items l'hem vist
+                    //inicialitzat a 0 per si es el primer cop, si ja s'ha tractat abans, entrarem al if i recuperarem el valor
+                    if (map_freq.get(u_data.getKey()).containsKey(u2_data.getKey())) //quan els usuaris son diferents
+                        cont_ant =  map_freq.get(u_data.getKey()).get(u2_data.getKey()); //acumulem els cops vist el item en dos usuaris diferents
+
+
+                    float desv_ini = 0.0f; //difrerencia anterior, difrencia de dos items inicialitzat a 0 per si es el primer cop
+                    // si ja han estat tractats, ho recuperem i ho sumarem amb la diff actual
+                    if (map_des.get(u_data.getKey()).containsKey(u2_data.getKey()))  //if quan els usuaris son diferents
+                        desv_ini = map_des.get(u_data.getKey()).get(u2_data.getKey()); // acumulem les desviacions d'usuaris diferents
+
+
+
+                    float desv_result = u_data.getValue() - u2_data.getValue(); //diferencia entre els items de u1 i u2
+                    map_freq.get(u_data.getKey()).put(u2_data.getKey(), cont_ant +1);
+                    //+1, incrementem els cops tractat aquest parell d'item amb els cops anteriors
                     map_des.get(u_data.getKey()).put(u2_data.getKey(), desv_ini + desv_result);
                 }
             }
         }
+
         for (Integer j : map_des.keySet()) {
             for (Integer i : map_des.get(j).keySet()) {
-                float rate = (float) map_des.get(j).get(i);
-                int cardinalitat = map_freq.get(j).get(i);
-                map_des.get(j).put(i, rate / cardinalitat);
+                float rate = (float) map_des.get(j).get(i); //agafem la diferencia del rate
+                int cardinalitat = map_freq.get(j).get(i); //agafem la cardianlitat, cops q hem fet la diferencia
+                map_des.get(j).put(i, rate / cardinalitat); //calculem la desviació mitjana i l'afegim al map
             }
         }
 
@@ -183,20 +194,20 @@ public class SlopeOne {
     public static void prediccio(Map<Integer, Float> u_data) {
         map_pred = new TreeMap<Integer,Float>();
         Map<Integer,Integer> freq = new TreeMap<Integer,Integer>();
-        for (int j : map_des.keySet()) {
+        for (int j : map_des.keySet()) { //inicialitzem els maps
             freq.put(j, 0);
             map_pred.put(j, 0.0f);
         }
 
         float mitjana = 0.0f;
         int k = 0;
-        for(Map.Entry<Integer,Float> entry : u_data.entrySet()){
+        for(Map.Entry<Integer,Float> entry : u_data.entrySet()){ //mitjana de les valoracions de l'usuari a estimar
             ++k;
             mitjana += entry.getValue();
         }
-        if(k>1) mitjana /= (float)k;
+        if(k>1) mitjana /= (float)k; //per més d'un item
 
-        for(Map.Entry<Integer, Map<Integer, Float>> entry: map_des.entrySet()){
+        for(Map.Entry<Integer, Map<Integer, Float>> entry: map_des.entrySet()){ //mitjana de la desviacio mitjana
             float desvi = 0.0f;
             for(Map.Entry<Integer, Float> entry2: entry.getValue().entrySet()){
                   desvi += entry2.getValue();
@@ -204,7 +215,13 @@ public class SlopeOne {
             if(entry.getValue().size() > 1){
                 desvi = desvi/(entry.getValue().size()-1);
             }
-            map_pred.put(entry.getKey(), desvi + mitjana);
+            float predict = desvi + mitjana; //fem la prediccio
+
+            //si hem d'acotar els valors rates
+            //if(predict < 0.5f) predict = 0.5f;
+            //else if(predict > 5.0f) predict = 5.0f;
+
+            map_pred.put(entry.getKey(), predict);
         }
     }
 
