@@ -1,0 +1,34 @@
+Prova 1:
+
+Descripció: Cargar Datos, CSVparserRate.
+
+Objetivos: Realizar una correcta lectura del documento csv y formación de la estructura necessaria
+para la manipulación de datos.
+
+Driver: DriverCSVparserRate.
+
+Entrada: prova1item.csv, conjunto de 7 elementos aleatorios para comprobar que se realiza el funcionamiento anterior. Tenemos en cuenta el formato de las columnas como userid, itemid y rating.
+
+Salida: datos del csv pasados a una estructura para leer el contenido "content", una estructura "MapRate" para el preporcesado y una lista con la cabecera del csv.
+
+Resultado: ok.
+
+
+Opertativa:
+
+Antes de realizar el test es necesario incluir el path del documento csv y que este sea del tipo items.csv.
+
+Una vez introducido sale un menú coon las instruciones que puede realizar. Además para realizar correctamente las operaciones siempre se debe realizar en este formato:
+
+Si la función requiere de parámetros únicos, no el el caso de listas por ejemplo, se debe mostrar 
+el número de la operación y seguidamente el parámetro o los varios que sean necesarios para esa
+función. Por ejemplo, para la operación "1) CSVparserRate(String path)" debe de ser: 1 "path"
+En el caso de 10) setHeader(List<String> header): 10 Intro (Después seguir los pasos).
+
+Atención con estas funcionalidades:
+
+12) setContent()");
+13) setMapRate(Map<Integer, Map<Integer, Float>> mapRate)");
+
+Al no ser imprescindibles i no tenerlas en uso no han sido completadas, podriamos decir que son
+prescindibles por el momento.
