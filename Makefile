@@ -1,5 +1,5 @@
-DESTI_CLASSES = ./EXE/
-CODI_FONT = /FONTS/src/
+DESTI_CLASSES = /EXE/
+CODI_FONT = /src/
 
 
 $(DESTI_CLASSES):
@@ -9,18 +9,12 @@ $(DESTI_CLASSES):
 
 .PHONY: class
 class: 
-	javac -d ${DESTI_CLASSES} /FONTS/src/algorithm/*.java
-	javac -d ${DESTI_CLASSES} /FONTS/src/atribut/*.java      
-	javac -d ${DESTI_CLASSES} /FONTS/src/content/*.java   
-	javac -d ${DESTI_CLASSES} /FONTS/src/drivers/*.java  
-	javac -d ${DESTI_CLASSES} /FONTS/src/evaluation/*.java   
-	javac -d ${DESTI_CLASSES} /FONTS/src/item/*.java   
-	javac -d ${DESTI_CLASSES} /FONTS/src/preprocessat/*.java   
-	javac -d ${DESTI_CLASSES} /FONTS/src/tag/*.java   
-	javac -d ${DESTI_CLASSES} /FONTS/src/tipus/*.java   
-	javac -d ${DESTI_CLASSES} /FONTS/src/user/*.java    
+
+	javac -d ./content/*.java 
+
+.PHONY: run
 run: 
-	java -classpath ${DESTI_CLASSES} testmain
+	javac -classpath ${DESTI_CLASSES} testmain.java
 
 
 driver_CollaborativeFiltering: 

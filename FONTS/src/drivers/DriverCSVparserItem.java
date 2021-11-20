@@ -3,6 +3,7 @@ package drivers;
 import content.Content;
 import preprocessat.CSVparserItem;
 
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -74,21 +75,25 @@ public class DriverCSVparserItem {
                             csv = new CSVparserItem("DATA/provesCSVparserItem/prova1item.csv");
                             csv.readLoadItem();
                             csv.MapItemData(csv.getContent());
+                            System.out.println("CSV prueba 1 cargado");
                             break;
                         case "2" :
                             csv = new CSVparserItem("DATA/provesCSVparserItem/prova2item.csv");
                             csv.readLoadItem();
                             csv.MapItemData(csv.getContent());
+                            System.out.println("CSV prueba 2 cargado");
                             break;
                         case "3" :
                             csv = new CSVparserItem("DATA/provesCSVparserItem/prova3item.csv");
                             csv.readLoadItem();
                             csv.MapItemData(csv.getContent());
+                            System.out.println("CSV prueba 3 cargado");
                             break;
                         case "4" :
                             csv = new CSVparserItem("DATA/provesCSVparserItem/prova4item.csv");
                             csv.readLoadItem();
                             csv.MapItemData(csv.getContent());
+                            System.out.println("CSV prueba 4 cargado");
                             break;
                         case "5" :
                             csv = new CSVparserItem(param[1]);
