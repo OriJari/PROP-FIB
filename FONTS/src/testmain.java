@@ -1,10 +1,11 @@
 import java.util.*;
 
-import algorithm.collaborativefiltering.*;
-import algorithm.contentbasedflitering.*;
-import content.*;
-import evaluation.*;
-import preprocessat.*;
+import dominio.clases.algorithm.collaborativefiltering.CollaborativeFiltering;
+import dominio.clases.algorithm.contentbasedflitering.K_NN;
+import dominio.clases.content.Content;
+import dominio.clases.evaluation.Evaluation;
+import dominio.clases.preprocessat.CSVparserItem;
+import dominio.clases.preprocessat.CSVparserRate;
 
 import static java.lang.Math.max;
 
@@ -34,67 +35,73 @@ public class testmain {
         CSVRate_unknown.LoadRate(CSVRate_unknown.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_unknown = CSVRate_unknown.getMapRate();
 
-        System.out.println("Introduzca el ID del user que quiere la recomendacion:");
+        System.out.println("Introduzca el ID del user que quiere la recomendacion, por lo contrario si desea volver atras escribe -1 :");
         int userID = sc.nextInt();
         boolean existinguser = map_rate_known.containsKey(userID);
 
-        while(!existinguser){
-            System.out.println("Este user no existe! Introduzca ID del user que quiere la recomendacion:");
+        while(!existinguser && userID != -1){
+            System.out.println("Este user no existe! Introduzca ID del user que quiere la recomendacion  por lo contrario si desea volver atras escribe -1 :");
             userID = sc.nextInt();
+
             existinguser = map_rate_known.containsKey(userID);
         }
 
-        System.out.println("Qué algoritmo de recomendación desea usar?");
-        System.out.println("\t 1) Collaborative filtering (k-means + slope-one)");
-        System.out.println("\t 2) Content based filtering (k-nn)");
+        if(existinguser) {
+            System.out.println("Qué algoritmo de recomendación desea usar?");
+            System.out.println("\t 1) Collaborative filtering (k-means + slope-one)");
+            System.out.println("\t 2) Content based filtering (k-nn)");
+            System.out.println("\t 0) Volver atras");
 
-        Map<Integer, Float> recommendation = new TreeMap<>();
-        int choice = sc.nextInt();
-        switch (choice) {
-            case 1:
-                try {
-                    recommendation = CF.recommend(userID);
-                    for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
-                        System.out.println("ID item: " + entry.getKey() + " with expected rating " + entry.getValue());
-                    }
-                } catch (Exception E) {
-                    System.out.println(E.getMessage());
-                }
-                break;
-            case 2:
-                try {
-                    Map<Integer, Float> similarities = taula.recommend(userID, 10);
-                    Map<Integer, Float> aux = new TreeMap<>();
-                    for(int i = 0; i < 10; ++i){
-                        Iterator<Integer> it = similarities.keySet().iterator();
-                        int maxitemID = it.next();
-                        for(Map.Entry<Integer, Float> entry: similarities.entrySet()){
-                            if(entry.getValue() > similarities.get(maxitemID)){
-                                maxitemID = entry.getKey();
-                            }
+            Map<Integer, Float> recommendation = new TreeMap<>();
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    try {
+                        recommendation = CF.recommend(userID);
+                        for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
+                            System.out.println("ID item: " + entry.getKey() + " with expected rating " + entry.getValue());
                         }
-                        aux.put(maxitemID, similarities.get(maxitemID));
-                        similarities.remove(maxitemID);
+                    } catch (Exception E) {
+                        System.out.println(E.getMessage());
                     }
-                    for (Map.Entry<Integer, Float> entry : aux.entrySet()) {
-                        System.out.println("ID item: " + id_reals.get(entry.getKey()) + " with similarity " + entry.getValue());
-                        recommendation.put(id_reals.get(entry.getKey()),entry.getValue());
+                    break;
+                case 2:
+                    try {
+                        Map<Integer, Float> similarities = taula.recommend(userID, 10);
+                        Map<Integer, Float> aux = new TreeMap<>();
+                        for (int i = 0; i < 10; ++i) {
+                            Iterator<Integer> it = similarities.keySet().iterator();
+                            int maxitemID = it.next();
+                            for (Map.Entry<Integer, Float> entry : similarities.entrySet()) {
+                                if (entry.getValue() > similarities.get(maxitemID)) {
+                                    maxitemID = entry.getKey();
+                                }
+                            }
+                            aux.put(maxitemID, similarities.get(maxitemID));
+                            similarities.remove(maxitemID);
+                        }
+                        for (Map.Entry<Integer, Float> entry : aux.entrySet()) {
+                            System.out.println("ID item: " + id_reals.get(entry.getKey()) + " with similarity " + entry.getValue());
+                            recommendation.put(id_reals.get(entry.getKey()), entry.getValue());
+                        }
+                    } catch (Exception E) {
+                        System.out.println(E.getMessage());
                     }
-                } catch (Exception E) {
-                    System.out.println(E.getMessage());
-                }
-                break;
-            default:
-                System.out.println(choice);
-                break;
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println(choice);
+                    break;
+            }
+            if (choice != 1 && choice != 2 && choice != 0) {
+                System.out.println("No has elegido una opcion valida.");
+            } else {
+                Evaluation eval = new Evaluation(map_rate_unknown.get(userID), recommendation);
+                System.out.println("DCG de la recomendacion: " + eval.DCG()+"\n");
+            }
         }
-        if(choice != 1 && choice != 2){
-            System.out.println("No has elegido una opcion valida.");
-        }
-        else{
-            Evaluation eval = new Evaluation(map_rate_unknown.get(userID) , recommendation);
-            System.out.println("DCG de la recomendacion: " + eval.DCG());
-        }
+
     }
 
     public static void main(String[] args) {
@@ -104,16 +111,17 @@ public class testmain {
         Scanner sc1 = new Scanner(System.in);
         System.out.println("!!IMPORTANTE!!");
         System.out.println("Antes de realizar una recomendacion debe insertar el path de los csv EXCEPTO en los casos movies y series");
-        System.out.println("Escoja una opción:");
-        System.out.println("\t 0) Salir");
-        System.out.println("\t 1) Introduzca el path del los csv");
-        System.out.println("\t 2) movies 250");
-        System.out.println("\t 3) movies 750");
-        System.out.println("\t 4) series 250");
-        System.out.println("\t 5) series 750");
-        System.out.println("\t 6) series 2250");
-        System.out.println("\t 7) Hacer recomendacion (solo en el caso que haya insertado manualmente los paths)");
+
         while (!salir) {
+            System.out.println("Escoja una opción:");
+            System.out.println("\t 0) Salir");
+            System.out.println("\t 1) Introduzca el path del los csv");
+            System.out.println("\t 2) movies 250");
+            System.out.println("\t 3) movies 750");
+            System.out.println("\t 4) series 250");
+            System.out.println("\t 5) series 750");
+            System.out.println("\t 6) series 2250");
+            System.out.println("\t 7) Hacer recomendacion (solo en el caso que haya insertado manualmente los paths)");
             int option = sc.nextInt();
             switch (option) {
                 case 0:
@@ -128,9 +136,9 @@ public class testmain {
                     path_unknown = sc1.next();
                     break;
                 case 2:
-                    path_item = "VM/movie.sample/250/items.csv";
-                    path_known = "VM/movie.sample/250/ratings.test.known.csv";
-                    path_unknown = "VM/movie.sample/250/ratings.test.unknown.csv";
+                    path_item = "FONTS/src/VM/movie.sample/250/items.csv";
+                    path_known = "FONTS/src/VM/movie.sample/250/ratings.test.known.csv";
+                    path_unknown = "FONTS/src/VM/movie.sample/250/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
@@ -138,9 +146,9 @@ public class testmain {
                     }
                     break;
                 case 3:
-                    path_item = "VM/movie.sample/750/items.csv";
-                    path_known = "VM/movie.sample/750/ratings.test.known.csv";
-                    path_unknown = "VM/movie.sample/750/ratings.test.unknown.csv";
+                    path_item = "FONTS/src/VM/movie.sample/750/items.csv";
+                    path_known = "FONTS/src/VM/movie.sample/750/ratings.test.known.csv";
+                    path_unknown = "FONTS/src/VM/movie.sample/750/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
@@ -148,9 +156,9 @@ public class testmain {
                     }
                     break;
                 case 4:
-                    path_item = "VM/series.public/250/items.csv";
-                    path_known = "VM/series.public/250/ratings.test.known.csv";
-                    path_unknown = "VM/series.public/250/ratings.test.unknown.csv";
+                    path_item = "FONTS/src/VM/series.public/250/items.csv";
+                    path_known = "FONTS/src/VM/series.public/250/ratings.test.known.csv";
+                    path_unknown = "FONTS/src/VM/series.public/250/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
@@ -158,9 +166,9 @@ public class testmain {
                     }
                     break;
                 case 5:
-                    path_item = "VM/series.public/750/items.csv";
-                    path_known = "VM/series.public/750/ratings.test.known.csv";
-                    path_unknown = "VM/series.public/750/ratings.test.unknown.csv";
+                    path_item = "FONTS/src/VM/series.public/750/items.csv";
+                    path_known = "FONTS/src/VM/series.public/750/ratings.test.known.csv";
+                    path_unknown = "FONTS/src/VM/series.public/750/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
@@ -168,9 +176,9 @@ public class testmain {
                     }
                     break;
                 case 6:
-                    path_item = "VM/series.public/2250/items.csv";
-                    path_known = "VM/series.public/2250/ratings.test.known.csv";
-                    path_unknown = "VM/series.public/2250/ratings.test.unknown.csv";
+                    path_item = "FONTS/src/VM/series.public/2250/items.csv";
+                    path_known = "FONTS/src/VM/series.public/2250/ratings.test.known.csv";
+                    path_unknown = "FONTS/src/VM/series.public/2250/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {

@@ -9,7 +9,7 @@ Driver: DriverCSVparserRate.
 
 Entrada: prova2item.csv, conjunto de 7 elementos aleatorios para comprobar que se realiza el funcionamiento anterior. Tenemos en cuenta el formato de las columnas como itemid, userid y rating.
 
-Salida: datos del csv pasados a una estructura para leer el contenido "content", una estructura "MapRate" para el preporcesado y una lista con la cabecera del csv.
+Salida: datos del csv pasados a una estructura para leer el contenido "dominio.controladores.clases.atribut.content", una estructura "MapRate" para el preporcesado y una lista con la cabecera del csv.
 
 Resultado: ok.
 

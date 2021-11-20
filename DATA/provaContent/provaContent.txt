@@ -6,9 +6,9 @@ Objetivos: Realizar una correcta proceso de los datos para el nuevo formato de p
 
 Driver: DriverContent.
 
-Entrada: provaContent.txt, prueba del conjunto de content para ver el funcionamiento. 
+Entrada: provaContent.txt, prueba del conjunto de dominio.controladores.clases.atribut.content para ver el funcionamiento.
 
-Salida: estructura del tipo content, permite analizar el comportamientio del preprocesado de datos.
+Salida: estructura del tipo dominio.controladores.clases.atribut.content, permite analizar el comportamientio del preprocesado de datos.
 
 Resultado: ok.
 
@@ -19,7 +19,7 @@ Atencion:
 
 Esta clase es complementaria por lo que no es imprescindible.
 
-Se exponen una serie de elementos content para poder introdcuir y verificar la formación de la estructura.
+Se exponen una serie de elementos dominio.controladores.clases.atribut.content para poder introdcuir y verificar la formación de la estructura.
 
 En el caso de operaciones con parametros se realiza primero el numeor del caso y 
 seguidamente el valor del parametro. Si se trata de una lista se pone el numero y al 

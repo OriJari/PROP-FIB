@@ -9,7 +9,7 @@ Driver: DriverCSVparserItem.
 
 Entrada: prova3item.csv, conjunto de 50 elementos de series para comprobar que se realiza el funcionamiento anterior.
 
-Salida: datos del csv pasados a una estructura para leer el contenido "content", una estructura "MapRatedata" para el preporcesado, una lista con la cabecera del csv y una lista con los ids de los items.
+Salida: datos del csv pasados a una estructura para leer el contenido "dominio.controladores.clases.atribut.content", una estructura "MapRatedata" para el preporcesado, una lista con la cabecera del csv y una lista con los ids de los items.
 
 Resultado: ok.
 
