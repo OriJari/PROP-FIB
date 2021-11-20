@@ -10,13 +10,16 @@ import static java.lang.Math.max;
 
 public class testmain {
     private static Scanner sc;
+    private static String path_item;
+    private static String path_known;
+    private static String path_unknown;
 
     public static void makerecommendation(){
-        CSVparserItem CSVItem = new CSVparserItem("FONTS/src/preprocessat/items.csv");
+        CSVparserItem CSVItem = new CSVparserItem(path_item);
         List<Integer> id_reals = CSVItem.getId_Items();
         CSVItem.readLoadItem();
         CSVItem.MapItemData(CSVItem.getContent());
-        CSVparserRate CSVRate_known = new CSVparserRate("FONTS/src/preprocessat/ratings.test.known.csv");
+        CSVparserRate CSVRate_known = new CSVparserRate(path_known);
         CSVRate_known.readLoadRate();
         CSVRate_known.LoadRate(CSVRate_known.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_known = CSVRate_known.getMapRate();
@@ -26,7 +29,7 @@ public class testmain {
         K_NN taula = new K_NN(map_rate_known, id_reals);
         taula.initSimilarityTable(map_rate_item);
 
-        CSVparserRate CSVRate_unknown = new CSVparserRate("FONTS/src/preprocessat/ratings.test.unknown.csv");
+        CSVparserRate CSVRate_unknown = new CSVparserRate(path_unknown);
         CSVRate_unknown.readLoadRate();
         CSVRate_unknown.LoadRate(CSVRate_unknown.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_unknown = CSVRate_unknown.getMapRate();
@@ -98,22 +101,34 @@ public class testmain {
         System.out.println("Driver collaborativeFiltering");
         boolean salir = false;
         sc = new Scanner(System.in);
+        Scanner sc1 = new Scanner(System.in);
 
         while (!salir) {
+            System.out.println("!!IMPORTANTE!!");
+            System.out.println("Antes de realizar una recomendacion debe insertar el path de los csv");
             System.out.println("Escoja una opción:");
-            System.out.println("\t 1) Hacer recomendacion");
             System.out.println("\t 0) Salir");
+            System.out.println("\t 1) Introduzca el path del los csv");
+            System.out.println("\t 2) Hacer recomendacion");
             int option = sc.nextInt();
             switch (option) {
+                case 0:
+                    salir = true;
+                    break;
                 case 1:
+                    System.out.println("\t 1) Introduzca el path del parser tipo items.csv");
+                    path_item = sc1.next();
+                    System.out.println("\t 2) Introduzca el path del parser tipo ratings.known.csv");
+                    path_known = sc1.next();
+                    System.out.println("\t 3) Introduzca el path del parser tipo ratings.unknown.csv");
+                    path_unknown = sc1.next();
+                    break;
+                case 2:
                     try {
                         makerecommendation();
                     } catch (Exception E) {
                         System.out.println(E.getMessage());
                     }
-                    break;
-                case 0:
-                    salir = true;
                     break;
                 default:
                     System.out.println(option);
