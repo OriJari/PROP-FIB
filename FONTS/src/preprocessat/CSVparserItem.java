@@ -228,6 +228,16 @@ public class CSVparserItem {
             while(sc.hasNextLine()){
                 String line = sc.nextLine();
                 List<String> splitContent = new ArrayList<>(Arrays.asList(line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1)));
+                if (splitContent.size() < header.size()){
+                    String res = splitContent.get(0);
+                    for (int i = 1; i < splitContent.size(); ++i){
+                        String s = splitContent.get(i);
+                        res += s;
+                    }
+                    line = sc.nextLine();
+                    res += line;
+                    splitContent = new ArrayList<>(Arrays.asList(res.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1)));
+                }
                 content.add(splitContent);
                 //Update cols&rows
                 this.numRows += 1;
