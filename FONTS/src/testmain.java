@@ -128,9 +128,9 @@ public class testmain {
                     path_unknown = sc1.next();
                     break;
                 case 2:
-                    path_item = "DATA/movie.sample/250/items.csv";
-                    path_known = "DATA/movie.sample/250/ratings.test.known.csv";
-                    path_unknown = "DATA/movie.sample/250/ratings.test.unknown.csv";
+                    path_item = "VM/movie.sample/250/items.csv";
+                    path_known = "VM/movie.sample/250/ratings.test.known.csv";
+                    path_unknown = "VM/movie.sample/250/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
@@ -138,9 +138,9 @@ public class testmain {
                     }
                     break;
                 case 3:
-                    path_item = "DATA/movie.sample/750/items.csv";
-                    path_known = "DATA/movie.sample/750/ratings.test.known.csv";
-                    path_unknown = "DATA/movie.sample/750/ratings.test.unknown.csv";
+                    path_item = "VM/movie.sample/750/items.csv";
+                    path_known = "VM/movie.sample/750/ratings.test.known.csv";
+                    path_unknown = "VM/movie.sample/750/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
@@ -158,9 +158,9 @@ public class testmain {
                     }
                     break;
                 case 5:
-                    path_item = "DATA/series.public/750/items.csv";
-                    path_known = "DATA/series.public/750/ratings.test.known.csv";
-                    path_unknown = "DATA/series.public/750/ratings.test.unknown.csv";
+                    path_item = "VM/series.public/750/items.csv";
+                    path_known = "VM/series.public/750/ratings.test.known.csv";
+                    path_unknown = "VM/series.public/750/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
@@ -168,9 +168,9 @@ public class testmain {
                     }
                     break;
                 case 6:
-                    path_item = "DATA/series.public/2250/items.csv";
-                    path_known = "DATA/series.public/2250/ratings.test.known.csv";
-                    path_unknown = "DATA/series.public/2250/ratings.test.unknown.csv";
+                    path_item = "VM/series.public/2250/items.csv";
+                    path_known = "VM/series.public/2250/ratings.test.known.csv";
+                    path_unknown = "VM/series.public/2250/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
