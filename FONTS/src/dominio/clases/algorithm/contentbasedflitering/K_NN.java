@@ -3,6 +3,7 @@ package dominio.clases.algorithm.contentbasedflitering;
 import dominio.clases.content.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -45,10 +46,11 @@ public class K_NN {
         List<Content> list1, list2;
         for (int i = 0; i < n; ++i) {
             list1 = map.get(i);
-            for (int j = 0; j < n; ++j) {
+            for (int j = i; j < n; ++j) {
                 list2 = map.get(j);
                 similarity = calculate_similarity(list1, list2);
                 similarityTable[i][j] = similarity;
+                if (j != i) similarityTable[j][i] = similarity;
             }
         }
         double normalization;
@@ -136,9 +138,9 @@ public class K_NN {
                     case "c" : {
                         List<String> sublist1 = list1.get(i).getCategorics();
                         List<String> sublist2 = list2.get(i).getCategorics();
-                        for (String s : sublist1) {
-                            if (sublist2.contains(s)) simil = simil + categoric_base_coincidence;
-                        }
+                        List<String> aux = sublist1.stream().distinct().filter(sublist2::contains).collect(Collectors.toList());
+
+                        for (String s : aux) simil = simil + categoric_base_coincidence;
                         break;
                     }
                     default : simil = simil + string_base_coincidence;
@@ -226,7 +228,7 @@ public class K_NN {
      */
     public Map<Integer,Float> recommend(int id_usuari, int k) {
         Map<Integer,Float> valoracions = mapa_usuarios.get(id_usuari);
-        Map<Integer,Float> resultat = new TreeMap<>();
+        Map<Integer,Float> auxiliar = new TreeMap<>();
 
         List<Pair> k_nn;
 
@@ -237,13 +239,25 @@ public class K_NN {
             k_nn = kNN(id_fals, k, id_usuari);
             for (int i = 0; i < k_nn.size(); ++i) {
                 int id_item_knn = k_nn.get(i).getId();
-                if (resultat.containsKey(id_item_knn)) {
-                    resultat.replace(id_item_knn,(float)(resultat.get(id_item_knn) + k_nn.get(i).getSimilarity()*val));
+                if (auxiliar.containsKey(id_item_knn)) {
+                    auxiliar.replace(id_item_knn,(float)(auxiliar.get(id_item_knn) + k_nn.get(i).getSimilarity()*val));
                 }
                 else {
-                    resultat.put(id_item_knn, (float)(k_nn.get(i).getSimilarity()*val));
+                    auxiliar.put(id_item_knn, (float)(k_nn.get(i).getSimilarity()*val));
                 }
             }
+        }
+        Map<Integer, Float> resultat = new TreeMap<>();
+        for (int i = 0; i < k; ++i) {
+            Iterator<Integer> it = auxiliar.keySet().iterator();
+            int maxitemID = it.next();
+            for (Map.Entry<Integer, Float> entry : auxiliar.entrySet()) {
+                if (entry.getValue() > auxiliar.get(maxitemID)) {
+                    maxitemID = entry.getKey();
+                }
+            }
+            resultat.put(maxitemID, auxiliar.get(maxitemID));
+            auxiliar.remove(maxitemID);
         }
         return resultat;
 

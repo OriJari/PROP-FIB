@@ -5,6 +5,7 @@ import dominio.clases.algorithm.contentbasedflitering.*;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.io.BufferedReader;
 
@@ -18,23 +19,23 @@ public class DriverK_NN {
     static private BufferedReader buffer;
 
     public static Map<Integer, Map<Integer, Float>> read_map_rate() throws IOException {
-        System.out.println("Numero de users: ");
+        System.out.println("How many users are there?");
         String line = buffer.readLine();
         int num_users = Integer.parseInt(line);
         Map<Integer, Map<Integer, Float>> opinions = new TreeMap<>();
         for(int i = 0; i < num_users; ++i){
-            System.out.println("ID de user num " + (i+1) + ":");
+            System.out.println("ID of user number " + (i+1) + ":");
             line = buffer.readLine();
             int userID = Integer.parseInt(line);
             opinions.put(userID, new TreeMap<Integer, Float>());
-            System.out.println("Numero de items valorados por usuario " + userID + ":");
+            System.out.println("Number of items rated by " + userID + ":");
             line = buffer.readLine();
             int numItems = Integer.parseInt(line);
             for(int j = 0; j < numItems; ++j){
-                System.out.println("ID item numero " + (j+1) + ":");
+                System.out.println("ID of item number " + (j+1) + ": (int between 0 and n)");
                 String line2 = buffer.readLine();
                 int itemID = Integer.parseInt(line2);
-                System.out.println("Valoracion de l'item " + (j+1) + ":");
+                System.out.println("Rating " + (j+1) + ":  (double)");
                 line2 = buffer.readLine();
                 float itemVal = Float.parseFloat(line2);
                 opinions.get(userID).put(itemID, itemVal);
@@ -45,7 +46,7 @@ public class DriverK_NN {
     public static void main(String[] args) throws IOException {
         Map<Integer,List<Content>> map = new TreeMap<>();
         System.out.println("Welcome to Driver Content Based Filtering");
-        buffer = new BufferedReader(new FileReader("FONTS/src/dominio/clases/algorithm/contentbasedflitering/Prova.txt"));
+        buffer = new BufferedReader(new InputStreamReader(System.in));
         String line;
         System.out.println("How many items will you state?");
         System.out.println("int:");
@@ -92,7 +93,7 @@ public class DriverK_NN {
         System.out.println("Recommendation Phase:");
         System.out.println("If you wish to terminate execution, type 'end' in any query");
         while (true) {
-            System.out.println("Which user do you want a recommendation for?");
+            System.out.println("Which user do you want a recommendation for? (ID)");
             System.out.println("input: <Integer> ");
             line = buffer.readLine();
             if (line == null || line.equals("end")) break;
