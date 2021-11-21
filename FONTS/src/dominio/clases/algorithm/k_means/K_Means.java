@@ -172,7 +172,7 @@ public class K_Means {
                                         Map<Integer, Float> mean = new TreeMap<Integer, Float>();
                                         for(int j = 0; j < rowVector.size(); ++j){ //iterate through all users
                                                 Map<Integer, Float> user = opinions.get(rowVector.get(j));
-                                                for(Map.Entry<Integer, Float> entry : user.entrySet()){ //iterate through opinions of dominio.controladores.clases.atribut.user
+                                                for(Map.Entry<Integer, Float> entry : user.entrySet()){ //iterate through opinions of user
                                                         if(mean.containsKey(entry.getKey())){
                                                                 mean.put(entry.getKey(), mean.get(entry.getKey()) + user.get(entry.getKey())/rowVector.size());
                                                         }
