@@ -94,11 +94,11 @@ public class K_NN {
         int size1 = list1.size();
         int size2 = list2.size();
 
-        double bool_base_coincidence = 6.0;
-        double int_base_coincidence = 1.0;
-        double double_base_coincidence = 1.0;
+        double bool_base_coincidence = 7.5;
+        double int_base_coincidence = 2.5;
+        double double_base_coincidence = 2.5;
         double categoric_base_coincidence = 5.0;
-        double string_base_coincidence = 5.0;
+        double string_base_coincidence = 2.5;
 
         double simil = 0;
 

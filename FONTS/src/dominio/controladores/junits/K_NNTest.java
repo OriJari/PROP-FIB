@@ -44,7 +44,7 @@ public class K_NNTest {
     @org.junit.Test
     public void TestFindDistances() throws IOException {
         Map<Integer, List<Content>> map = new TreeMap<>();
-        buffer = new BufferedReader(new FileReader("FONTS/src/dominio.clases.algorithm/contentbasedflitering/Prova.txt"));
+        buffer = new BufferedReader(new FileReader("FONTS/src/dominio/clases/algorithm/contentbasedflitering/Prova_JUnit.txt"));
         String line;
         //Number of items declared
         line = buffer.readLine();
@@ -84,16 +84,15 @@ public class K_NNTest {
         double similarity_0_4 = taula.getSimilarity(0,4);
         double similarity_2_3 = taula.getSimilarity(2,3);
 
-        double expected_0_1;
-        double expected_1_2;
-        double expected_0_4;
-        double expected_2_3;
-/*
+        double expected_0_1 = 0.33826;
+        double expected_1_2 = 0.5736;
+        double expected_0_4 = 0.3878;
+        double expected_2_3 = 0.22144;
+
         double delta = 0.001;
         assertEquals(expected_0_1,similarity_0_1,delta);
         assertEquals(expected_1_2,similarity_1_2,delta);
         assertEquals(expected_0_4,similarity_0_4,delta);
         assertEquals(expected_2_3,similarity_2_3,delta);
-*/
     }
 }

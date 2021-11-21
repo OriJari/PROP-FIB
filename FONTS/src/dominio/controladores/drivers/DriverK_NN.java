@@ -45,19 +45,19 @@ public class DriverK_NN {
     public static void main(String[] args) throws IOException {
         Map<Integer,List<Content>> map = new TreeMap<>();
         System.out.println("Welcome to Driver Content Based Filtering");
-        buffer = new BufferedReader(new FileReader("dominio/controladores/vcont/ProvaContentbasefiltering.txt"));
+        buffer = new BufferedReader(new FileReader("FONTS/src/dominio/clases/algorithm/contentbasedflitering/Prova.txt"));
         String line;
         System.out.println("How many items will you state?");
         System.out.println("int:");
         line = buffer.readLine();
         int n = Integer.parseInt(line);
-        System.out.println("How many tags will each dominio.controladores.clases.atribut.item have?");
+        System.out.println("How many tags will each item have?");
         System.out.println("int:");
         line = buffer.readLine();
         int m = Integer.parseInt(line);
         for (int i = 0; i < n; ++i) {
-            System.out.println("State an dominio.controladores.clases.atribut.item");
-            System.out.println("State all the tags of the dominio.controladores.clases.atribut.item");
+            System.out.println("State an item");
+            System.out.println("State all the tags of the item");
             System.out.println("input: <String> <Integer> <Double> <List of Strings>");
             System.out.println("String: 'i' if integer, 'd' if double, 'b' if boolean, 'c' if categoric, <String> if string");
             System.out.println("Integer: <Integer> if integer, 0 if false, 1 if true, -1 elsewhere");
@@ -65,7 +65,7 @@ public class DriverK_NN {
             System.out.println("List of Strings: <List of Strings> if categoric, empty elsewhere");
             List<Content> lista = new ArrayList<>();
             for (int j = 0; j < m; ++j) {
-                System.out.println("State a dominio.controladores.clases.atribut.tag:");
+                System.out.println("State a tag:");
                 line = buffer.readLine();
                 String[] values = line.split(" ");
                 int mida = values.length;
@@ -92,7 +92,7 @@ public class DriverK_NN {
         System.out.println("Recommendation Phase:");
         System.out.println("If you wish to terminate execution, type 'end' in any query");
         while (true) {
-            System.out.println("Which dominio.controladores.clases.atribut.user do you want a recommendation for?");
+            System.out.println("Which user do you want a recommendation for?");
             System.out.println("input: <Integer> ");
             line = buffer.readLine();
             if (line == null || line.equals("end")) break;
