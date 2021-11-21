@@ -1,3 +1,6 @@
+Per executar el joc de prova, s'ha de tenir el fitxer input en local i escriure la seguent comanda:
+make driver_slopeone < path/input_slopeone_driver_test.txt
+
 Prova 1
 Descripció: test desviació mitjana
 Objectius: provar el metode desviació mitjana de la classe slopeone
