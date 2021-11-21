@@ -2,9 +2,7 @@ DESTI_CLASSES = ../../EXE/
 CODI_FONT = /src/
 
 
-run:
 
-	java -classpath ${DESTI_CLASSES} testmain.java
 
 
 $(DESTI_CLASSES):
@@ -27,6 +25,9 @@ class:
 	javac -d ${DESTI_CLASSES} ./dominio/clases/tag/*.java
 	javac -d ${DESTI_CLASSES} ./dominio/clases/tipus/*.java
 	javac -d ${DESTI_CLASSES} ./dominio/clases/user/*.java
+
+run:
+	java -classpath ${DESTI_CLASSES} testmain.java
 
 
 driver_CollaborativeFiltering:
