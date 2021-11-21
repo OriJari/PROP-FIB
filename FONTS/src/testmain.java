@@ -6,6 +6,9 @@ import dominio.clases.content.*;
 import dominio.clases.evaluation.*;
 import dominio.clases.preprocessat.*;
 
+/**
+ * @brief Clase ejecutable del proyecto con la que probar sus funcionalidades.
+ */
 
 import static java.lang.Math.max;
 

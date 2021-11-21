@@ -26,7 +26,7 @@ public class K_MeansTest {
 
     @org.junit.Test
     public void testcosineSquaredSimilBasic() throws FileNotFoundException {
-        sc = new Scanner(new File("FONTS/src/dominio/controladores/junits/Prova_Junit_K_Means.txt"));
+        sc = new Scanner(new File("DOCS/Input_Junit_K_Means.txt"));
         K_Means km = new K_Means();
         Map<Integer, Float> u1 = leerUsuario();
         Map<Integer, Float> u2 = leerUsuario();
