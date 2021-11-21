@@ -52,9 +52,9 @@ public class DriverK_Means {
         System.out.println("Numero de items valorados por usuario: ");
         int numItems = sc.nextInt();
         for(int j = 0; j < numItems; ++j){
-            System.out.println("ID dominio.controladores.clases.atribut.item numero " + (j+1) + ":");
+            System.out.println("ID item numero " + (j+1) + ":");
             int itemID = sc.nextInt();
-            System.out.println("Valoracion de l'dominio.controladores.clases.atribut.item " + (j+1) + ":");
+            System.out.println("Valoracion de l'item " + (j+1) + ":");
             float itemVal = sc.nextFloat();
             user.put(itemID, itemVal);
         }
@@ -83,13 +83,13 @@ public class DriverK_Means {
         int Nusers = sc.nextInt();
         Map<Integer, Map<Integer, Float>> opinions = new TreeMap<Integer, Map<Integer, Float>>();
         for(int i = 0; i < Nusers; ++i){
-            System.out.println("ID de dominio.controladores.clases.atribut.user num " + (i+1) + ":");
+            System.out.println("ID de user num " + (i+1) + ":");
             int userID = sc.nextInt();
             opinions.put(userID, new TreeMap<Integer, Float>());
             System.out.println("Numero de items valorados por usuario " + userID + ":");
             int numItems = sc.nextInt();
             for(int j = 0; j < numItems; ++j){
-                System.out.println("ID dominio.controladores.clases.atribut.item numero " + (j+1) + ":");
+                System.out.println("ID item numero " + (j+1) + ":");
                 int itemID = sc.nextInt();
                 System.out.println("Valoracion de l'dominio.controladores.clases.atribut.item " + (j+1) + ":");
                 float itemVal = sc.nextFloat();

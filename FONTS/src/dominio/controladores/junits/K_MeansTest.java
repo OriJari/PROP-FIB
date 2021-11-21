@@ -1,6 +1,6 @@
 package dominio.controladores.junits;
 
-import dominio.clases.algorithm.k_means.K_Means;
+import dominio.clases.algorithm.k_means.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,16 +25,28 @@ public class K_MeansTest {
     }
 
     @org.junit.Test
-    public void shootcosineSquaredSimilBasic() throws FileNotFoundException {
-        sc = new Scanner(new File(""));
+    public void testcosineSquaredSimilBasic() throws FileNotFoundException {
+        sc = new Scanner(new File("FONTS/src/dominio/controladores/junits/Prova_Junit_K_Means.txt"));
         K_Means km = new K_Means();
         Map<Integer, Float> u1 = leerUsuario();
         Map<Integer, Float> u2 = leerUsuario();
-        float simil = km.cosineSquaredSimil(u1, u2);
+        Map<Integer, Float> u3 = leerUsuario();
+        Map<Integer, Float> u4 = leerUsuario();
 
         float delta = 0.001f;
 
-        double expected = sc.nextFloat();
+        float simil = km.cosineSquaredSimil(u1, u2);
+        double expected = 0.7352f;
+
+        assertEquals(expected, simil, delta);
+
+        simil = km.cosineSquaredSimil(u1, u3);
+        expected = 0.0f;
+
+        assertEquals(expected, simil, delta);
+
+        simil = km.cosineSquaredSimil(u2, u4);
+        expected = 1.0f;
 
         assertEquals(expected, simil, delta);
     }
