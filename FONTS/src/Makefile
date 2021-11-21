@@ -73,6 +73,7 @@ help:
 	@echo "driver_K_Means : ejecuta el driver K_Means "
 	@echo "driver_K_NN : ejecuta el driver K_NN "
 	@echo "driver_slopeone : ejecuta el driver slopone "
+	@echo "junits: Executa los test junits"
 	@echo "run: Executa el código"
 
 .PHONY: clean
