@@ -45,7 +45,7 @@ public class DriverK_NN {
     public static void main(String[] args) throws IOException {
         Map<Integer,List<Content>> map = new TreeMap<>();
         System.out.println("Welcome to Driver Content Based Filtering");
-        buffer = new BufferedReader(new FileReader("FONTS/src/dominio.controladores.clases.atribut.algorithm/contentbasedflitering/Prova.txt"));
+        buffer = new BufferedReader(new FileReader("dominio/controladores/vcont/ProvaContentbasefiltering.txt"));
         String line;
         System.out.println("How many items will you state?");
         System.out.println("int:");
