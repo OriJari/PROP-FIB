@@ -23,7 +23,7 @@ public class DriverK_NN {
         int num_users = Integer.parseInt(line);
         Map<Integer, Map<Integer, Float>> opinions = new TreeMap<>();
         for(int i = 0; i < num_users; ++i){
-            System.out.println("ID de dominio.controladores.clases.atribut.user num " + (i+1) + ":");
+            System.out.println("ID de user num " + (i+1) + ":");
             line = buffer.readLine();
             int userID = Integer.parseInt(line);
             opinions.put(userID, new TreeMap<Integer, Float>());
@@ -31,10 +31,10 @@ public class DriverK_NN {
             line = buffer.readLine();
             int numItems = Integer.parseInt(line);
             for(int j = 0; j < numItems; ++j){
-                System.out.println("ID dominio.controladores.clases.atribut.item numero " + (j+1) + ":");
+                System.out.println("ID item numero " + (j+1) + ":");
                 String line2 = buffer.readLine();
                 int itemID = Integer.parseInt(line2);
-                System.out.println("Valoracion de l'dominio.controladores.clases.atribut.item " + (j+1) + ":");
+                System.out.println("Valoracion de l'item " + (j+1) + ":");
                 line2 = buffer.readLine();
                 float itemVal = Float.parseFloat(line2);
                 opinions.get(userID).put(itemID, itemVal);

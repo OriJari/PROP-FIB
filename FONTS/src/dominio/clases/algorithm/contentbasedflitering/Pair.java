@@ -14,8 +14,8 @@ public class Pair implements Comparable<Pair> {
 
     /**
      * @brief Default builder, with initializers
-     * @param id            id of the dominio.controladores.clases.atribut.item
-     * @param similarity    similarity with another dominio.controladores.clases.atribut.item (unknown to this class)
+     * @param id            id of the item
+     * @param similarity    similarity with another item (unknown to this class)
      */
     public Pair(int id, double similarity) {
         this.id = id;

@@ -10,7 +10,7 @@ import java.util.*;
  */
 
 /** @class K_NN
- *  @brief Implements K-Nearest-Neighbours dominio.controladores.clases.atribut.algorithm.
+ *  @brief Implements K-Nearest-Neighbours algorithm.
  */
 public class K_NN {
     /**
@@ -33,7 +33,7 @@ public class K_NN {
     /**
      * @brief Initialize the similarity table between the items present in the map.
      * Similarity table is normalized; similarities range between 0 and 1 (1 if items are identical).
-     * @param map       integer is the ID of the dominio.controladores.clases.atribut.item, ArrayList is a list of its tags
+     * @param map       integer is the ID of the item, ArrayList is a list of its tags
      * \pre <em>True</em>
      * \post Similarity between all items has been calculated and stored in <em>similarityTable</em>
      */
@@ -83,8 +83,8 @@ public class K_NN {
      * For coincidences on integers and doubles, similarity is calculated based on variance
      * between the two integers/doubles.
      *
-     * @param list1     tags of the first dominio.controladores.clases.atribut.item to compare
-     * @param list2     tags of the second dominio.controladores.clases.atribut.item to compare
+     * @param list1     tags of the first item to compare
+     * @param list2     tags of the second item to compare
      * @return          the similarity between these two items
      *
      * \pre <em>True</em>
@@ -174,12 +174,12 @@ public class K_NN {
 
     /**
      * @brief Finds the k most similar items to the given one
-     * @param id_item    id_item of the dominio.controladores.clases.atribut.item we want to find a recommendation for
+     * @param id_item    id_item of the item we want to find a recommendation for
      * @param k     number of items we want to get recommended
-     * @return      the k most similar items to the id_item dominio.controladores.clases.atribut.item
+     * @return      the k most similar items to the id_item item
      *
-     * \pre <em>id_item</em> corresponds to an existing dominio.controladores.clases.atribut.item. <em>id_usuari</em> corresponds to an existing dominio.controladores.clases.atribut.user.
-     * \post K-Nearest-Neighbours of the given dominio.controladores.clases.atribut.item (which haven't been rated by the dominio.controladores.clases.atribut.user) are calculated and returned.
+     * \pre <em>id_item</em> corresponds to an existing item. <em>id_usuari</em> corresponds to an existing user.
+     * \post K-Nearest-Neighbours of the given item (which haven't been rated by the user) are calculated and returned.
      */
     public List<Pair> kNN(int id_item, int k, int id_usuari) {
         PriorityQueue<Pair> queue = new PriorityQueue<>();
@@ -216,12 +216,12 @@ public class K_NN {
     }
 
     /**
-     * @brief Finds the k most suitable items to recommend to the given dominio.controladores.clases.atribut.user.
-     * @param id_usuari id of the dominio.controladores.clases.atribut.user who wants a recommendation
+     * @brief Finds the k most suitable items to recommend to the given user.
+     * @param id_usuari id of the user who wants a recommendation
      * @param k         number of items to recommend
      * @return          k most suitable items to recommend to <em>id_usuari</em> with their global similarities
      *
-     * \pre <em>id_usuari</em> corresponds to an existing dominio.controladores.clases.atribut.user.
+     * \pre <em>id_usuari</em> corresponds to an existing user.
      * \post the k most suitable items to recommend to <em>id_usuari</em> are calculated and returned
      */
     public Map<Integer,Float> recommend(int id_usuari, int k) {

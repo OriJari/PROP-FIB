@@ -25,14 +25,14 @@ public class K_NNTest {
             line = buffer.readLine();
             int userID = Integer.parseInt(line);
             opinions.put(userID, new TreeMap<Integer, Float>());
-            //Number of items rated by that dominio.controladores.clases.atribut.user
+            //Number of items rated by that user
             line = buffer.readLine();
             int numItems = Integer.parseInt(line);
             for (int j = 0; j < numItems; ++j) {
                 //Item ID
                 String line2 = buffer.readLine();
                 int itemID = Integer.parseInt(line2);
-                //Rating that dominio.controladores.clases.atribut.user gave to that dominio.controladores.clases.atribut.item
+                //Rating that user gave to that item
                 line2 = buffer.readLine();
                 float itemVal = Float.parseFloat(line2);
                 opinions.get(userID).put(itemID, itemVal);
@@ -49,7 +49,7 @@ public class K_NNTest {
         //Number of items declared
         line = buffer.readLine();
         int num_items = Integer.parseInt(line);
-        //Number of tags per dominio.controladores.clases.atribut.item
+        //Number of tags per item
         line = buffer.readLine();
         int num_tags = Integer.parseInt(line);
         //Read all items and all tags
