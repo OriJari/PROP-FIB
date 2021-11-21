@@ -178,7 +178,7 @@ public class DriverCSVparserRate {
                         case "18" :
                             csv.readLoadRate();
                             System.out.println("Done, csv parsered");
-                            System.out.println("Execute case 6 to see results");
+                            System.out.println("Execute case 10 to see results");
                             break;
                         case "19" :
                             System.out.println(csv.String_to_Int(param[1]));
@@ -188,7 +188,7 @@ public class DriverCSVparserRate {
                             break;
                         case "21" :
                             csv.LoadRate(csv.getContent());
-                            System.out.println("Datos Preprocesados, ejecute el caso 7 para ver los resultados");
+                            System.out.println("Datos Preprocesados, ejecute el caso 11 para ver los resultados");
                             break;
                         case "22" :
                             System.out.println("Inserte numero fila a conusltar: ");

@@ -206,7 +206,7 @@ public class DriverCSVparserItem {
                         case "20" :
                             csv.readLoadItem();
                             System.out.println("Done, csv parsered");
-                            System.out.println("Execute case 6 to see results");
+                            System.out.println("Execute case 10 to see results");
                             break;
                         case "21" :
                             System.out.println(csv.String_to_Int(param[1]));
@@ -216,7 +216,7 @@ public class DriverCSVparserItem {
                             break;
                         case "23" :
                             csv.MapItemData(csv.getContent());
-                            System.out.println("Datos Preprocesados, ejecute el caso 7 para ver los resultados");
+                            System.out.println("Datos Preprocesados, ejecute el caso 11 para ver los resultados");
                             break;
                         case "24" :
                             System.out.println("Inserte numero fila a conusltar: ");
