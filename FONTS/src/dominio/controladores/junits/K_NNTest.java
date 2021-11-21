@@ -44,7 +44,7 @@ public class K_NNTest {
     @org.junit.Test
     public void TestFindDistances() throws IOException {
         Map<Integer, List<Content>> map = new TreeMap<>();
-        buffer = new BufferedReader(new FileReader("FONTS/src/dominio/clases/algorithm/contentbasedflitering/JocDeProves_KNN.txt"));
+        buffer = new BufferedReader(new FileReader("dominio/controladores/junits/JocDeProves_KNN.txt"));
         String line;
         //Number of items declared
         line = buffer.readLine();

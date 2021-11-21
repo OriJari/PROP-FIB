@@ -1,5 +1,8 @@
 DESTI_CLASSES = ../../EXE/
 CODI_FONT = /src/
+JUNIT = src/dominio/controladores/junits
+LIB = libs/junit-4.12.jar:libs/hamcrest-core-1.3.jar
+
 
 
 default: class run
@@ -25,9 +28,15 @@ class:
 	javac -d ${DESTI_CLASSES} ./dominio/clases/tag/*.java
 	javac -d ${DESTI_CLASSES} ./dominio/clases/tipus/*.java
 	javac -d ${DESTI_CLASSES} ./dominio/clases/user/*.java
+	javac -cp $(LIB) -d ${DESTI_CLASSES} ./dominio/controladores/junits/K_MeansTest.java ./dominio/clases/algorithm/k_means/*.java
+	javac -cp $(LIB) -d ${DESTI_CLASSES} ./dominio/controladores/junits/K_NNTest.java ./dominio/clases/algorithm/contentbasedflitering/*.java ./dominio/clases/content/*.java ./dominio/clases/item/*.java ./dominio/clases/tag/*.java
 
-run:
+run: 
 	java -classpath ${DESTI_CLASSES} testmain.java
+
+junits:
+	java -cp $(LIB):${DESTI_CLASSES} org.junit.runner.JUnitCore dominio.controladores.junits.K_MeansTest
+	java -cp $(LIB):${DESTI_CLASSES} org.junit.runner.JUnitCore dominio.controladores.junits.K_NNTest
 
 
 driver_CollaborativeFiltering:
