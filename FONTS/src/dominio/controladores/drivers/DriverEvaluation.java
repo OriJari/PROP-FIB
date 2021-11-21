@@ -10,7 +10,7 @@ public class DriverEvaluation {
     private static Scanner sc;
 
     public static Map<Integer, Float> leerknown(){
-        Map<Integer, Float> known = new TreeMap<Integer, Float>();
+        Map<Integer, Float> known = new TreeMap<>();
         System.out.println("Numero de valores reales de la valoracion:");
         int numit = sc.nextInt();
         for(int i = 0; i < numit; ++i){
@@ -24,7 +24,7 @@ public class DriverEvaluation {
     }
 
     public static Map<Integer, Float> leerrecommendation(){
-        Map<Integer, Float> recommendation = new TreeMap<Integer, Float>();
+        Map<Integer, Float> recommendation = new TreeMap<>();
         System.out.println("Numero de items en la recomendacion:");
         int numit = sc.nextInt();
         for(int i = 0; i < numit; ++i){
