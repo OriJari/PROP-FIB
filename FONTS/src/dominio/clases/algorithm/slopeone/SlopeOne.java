@@ -144,8 +144,8 @@ public class SlopeOne {
         for (Map<Integer, Float> users : map_data.values()) { //  per tots els usuaris
             for (Map.Entry<Integer, Float> u_data : users.entrySet()) { // itera a traves de les dades dels usuaris
 
-                if (!map_des.containsKey(u_data.getKey())) { //mirar si dominio.controladores.clases.atribut.item q estem tractan esta al map_des
-                    // afegir dominio.controladores.clases.atribut.item map_des i map_freq
+                if (!map_des.containsKey(u_data.getKey())) { //mirar si item q estem tractan esta al map_des
+                    // afegir item map_des i map_freq
                     map_des.put(u_data.getKey(), new TreeMap<Integer, Float>());
                     map_freq.put(u_data.getKey(), new TreeMap<Integer, Integer>());
                 }
@@ -205,7 +205,7 @@ public class SlopeOne {
             ++k;
             mitjana += entry.getValue();
         }
-        if(k>1) mitjana /= (float)k; //per més d'un dominio.controladores.clases.atribut.item
+        if(k>1) mitjana /= (float)k; //per més d'un item
 
         for(Map.Entry<Integer, Map<Integer, Float>> entry: map_des.entrySet()){ //mitjana de la desviacio mitjana
             float desvi = 0.0f;
@@ -217,9 +217,7 @@ public class SlopeOne {
             }
             float predict = desvi + mitjana; //fem la prediccio
 
-            //si hem d'acotar els valors rates
-            //if(predict < 0.5f) predict = 0.5f;
-            //else if(predict > 5.0f) predict = 5.0f;
+
 
             map_pred.put(entry.getKey(), predict);
         }
