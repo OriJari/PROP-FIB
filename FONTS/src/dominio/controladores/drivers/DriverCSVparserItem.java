@@ -72,7 +72,7 @@ public class DriverCSVparserItem {
                         case "0" : finish = true;
                             break;
                         case "1" :
-                            csv = new CSVparserItem("VM/provesCSVparserItem/prova1item.csv");
+                            csv = new CSVparserItem("persistencia/provesCSVparserItem/prova1item.csv");
                             csv.readLoadItem();
                             csv.MapItemData(csv.getContent());
                             System.out.println("CSV prueba 1 cargado");

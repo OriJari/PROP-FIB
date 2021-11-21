@@ -3,6 +3,7 @@ CODI_FONT = /src/
 
 
 run:
+	java -classpath ${DESTI_CLASSES} dominio.clases.algorithm.collaborativefiltering.CollaborativeFiltering.java
 	java -classpath ${DESTI_CLASSES} testmain.java
 
 
@@ -13,38 +14,41 @@ $(DESTI_CLASSES):
 
 .PHONY: class
 class:
-	javac -d ${DESTI_CLASSES} algorithm/*.java
-	javac -d ${DESTI_CLASSES} atribut/*.java
-	javac -d ${DESTI_CLASSES} content/*.java
-	javac -d ${DESTI_CLASSES} drivers/*.java
-	javac -d ${DESTI_CLASSES} evaluation/*.java
-	javac -d ${DESTI_CLASSES} item/*.java
-	javac -d ${DESTI_CLASSES} preprocessat/*.java
-	javac -d ${DESTI_CLASSES} tag/*.java
-	javac -d ${DESTI_CLASSES} tipus/*.java
-	javac -d ${DESTI_CLASSES} user/*.java
+	javac -d ${DESTI_CLASSES} ./dominio/clases/algorithm/collaborativefiltering/*.java
+	javac -d ${DESTI_CLASSES} ./dominio/clases/algorithm/contentbasedflitering/*.java
+	javac -d ${DESTI_CLASSES} ./dominio/clases/algorithm/k_means/*.java
+	javac -d ${DESTI_CLASSES} ./dominio/clases/algorithm/slopeone/*.java	
+	javac -d ${DESTI_CLASSES} ./dominio/clases/atribut/*.java
+	javac -d ${DESTI_CLASSES} ./dominio/clases/content/*.java
+	javac -d ${DESTI_CLASSES} ./dominio/controladores/drivers/*.java
+	javac -d ${DESTI_CLASSES} ./dominio/clases/evaluation/*.java
+	javac -d ${DESTI_CLASSES} ./dominio/clases/item/*.java
+	javac -d ${DESTI_CLASSES} ./dominio/clases/preprocessat/*.java
+	javac -d ${DESTI_CLASSES} ./dominio/clases/tag/*.java
+	javac -d ${DESTI_CLASSES} ./dominio/clases/tipus/*.java
+	javac -d ${DESTI_CLASSES} ./dominio/clases/user/*.java
 
 
 driver_CollaborativeFiltering:
-	java -classpath ${DESTI_CLASSES} drivers.DriverCollaborativeFiltering
+	java -classpath ${DESTI_CLASSES} dominio.controladores.drivers.DriverCollaborativeFiltering
 
 driver_CSVparserItem:
-	java -classpath ${DESTI_CLASSES} drivers.DriverCSVparserItem
+	java -classpath ${DESTI_CLASSES} dominio.controladores.drivers.DriverCSVparserItem
 
 driver_CSVparserRate:
-	java -classpath ${DESTI_CLASSES} drivers.DriverCSVparserRate
+	java -classpath ${DESTI_CLASSES} dominio.controladores.drivers.DriverCSVparserRate
 
 driver_Evaluation:
-	java -classpath ${DESTI_CLASSES} drivers.DriverEvaluation
+	java -classpath ${DESTI_CLASSES} dominio.controladores.drivers.DriverEvaluation
 
 driver_K_Means:
-	java -classpath ${DESTI_CLASSES} drivers.DriverK_Means
+	java -classpath ${DESTI_CLASSES} dominio.controladores.drivers.DriverK_Means
 
 driver_K_NN:
-	java -classpath ${DESTI_CLASSES} drivers.DriverK_NN
+	java -classpath ${DESTI_CLASSES} dominio.controladores.drivers.DriverK_NN
 
 driver_slopone:
-	java -classpath ${DESTI_CLASSES} drivers.Driverslopeone
+	java -classpath ${DESTI_CLASSES} dominio.controladores.drivers.Driverslopeone
 
 
 default: class run

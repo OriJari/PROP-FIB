@@ -1,7 +1,6 @@
 package dominio.clases.preprocessat;
 
-import dominio.clases.content.Content;
-
+import dominio.clases.content.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
