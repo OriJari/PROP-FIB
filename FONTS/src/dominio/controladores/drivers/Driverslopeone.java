@@ -78,7 +78,7 @@ public class Driverslopeone {
     public static void testSlopeOne_250() {
         System.out.println("Test SlopeOne_250");
         System.out.println("\t1) CSV por defecto");
-        System.out.println("\t2) CSV propio");
+        System.out.println("\t2) CSV propio, el path al fichero");
         System.out.println("\t0) salir");
         boolean salir = false;
         sc = new Scanner(System.in);
@@ -146,7 +146,7 @@ public class Driverslopeone {
     public static void testSlopeOne_csv() {
         System.out.println("Test SlopeOne_CSV");
         System.out.println("\t1) CSV por defecto");
-        System.out.println("\t2) CSV propio");
+        System.out.println("\t2) CSV propio, path al fichero");
         System.out.println("\t0) salir");
         boolean salir = false;
         sc = new Scanner(System.in);
