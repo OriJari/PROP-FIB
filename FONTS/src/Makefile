@@ -3,7 +3,7 @@ CODI_FONT = /src/
 
 
 run:
-	java -classpath ${DESTI_CLASSES} dominio.clases.algorithm.collaborativefiltering.CollaborativeFiltering.java
+
 	java -classpath ${DESTI_CLASSES} testmain.java
 
 
