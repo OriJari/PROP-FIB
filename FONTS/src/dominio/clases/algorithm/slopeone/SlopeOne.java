@@ -155,7 +155,8 @@ public class SlopeOne {
                     int cont_ant = 0; //contador anterior, cops que un parell d'items l'hem vist
                     //inicialitzat a 0 per si es el primer cop, si ja s'ha tractat abans, entrarem al if i recuperarem el valor
                     if (map_freq.get(u_data.getKey()).containsKey(u2_data.getKey())) //quan els usuaris son diferents
-                        cont_ant =  map_freq.get(u_data.getKey()).get(u2_data.getKey()); //acumulem els cops vist el dominio.controladores.clases.atribut.item en dos usuaris diferents
+                        cont_ant =  map_freq.get(u_data.getKey()).get(u2_data.getKey());
+                    //acumulem els cops vist el dominio.controladores.clases.atribut.item en dos usuaris diferents
 
 
                     float desv_ini = 0.0f; //difrerencia anterior, difrencia de dos items inicialitzat a 0 per si es el primer cop

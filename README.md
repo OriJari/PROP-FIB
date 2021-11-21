@@ -5,6 +5,8 @@
 - Marc
 - Manel
 
-hello
+FONTS -> scr 
 
-let's gooooo
+DOCS -> documentació de la entrega, diagrama uml, documentació drivers i testos 
+
+DATA -> CSVs
