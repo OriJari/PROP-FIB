@@ -5,7 +5,7 @@
 - Marc
 - Manel
 
-FONTS -> scr 
+FONTS -> src 
 
 DOCS -> documentació de la entrega, diagrama uml, documentació drivers i testos 
 
