@@ -45,7 +45,7 @@ public class DriverCSVparserRate {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Por defector se inicia con la prueba 1, eliga opcion si desea cambiar de csv");
 
-            CSVparserRate csv = new CSVparserRate("FONTS/src/persistencia/provesCSVparserRate/prova1rating.csv");
+            CSVparserRate csv = new CSVparserRate("dominio/controladores/vcont/prova1rating.csv");
             csv.readLoadRate();
             csv.LoadRate(csv.getContent());
 
@@ -66,25 +66,25 @@ public class DriverCSVparserRate {
                         case "0" : finish = true;
                             break;
                         case "1" :
-                            csv = new CSVparserRate("FONTS/src/persistencia/provesCSVparserRate/prova1rating.csv");
+                            csv = new CSVparserRate("dominio/controladores/vcont/prova1rating.csv");
                             csv.readLoadRate();
                             csv.LoadRate(csv.getContent());
                             System.out.println("Pruba 1 cargada");
                             break;
                         case "2" :
-                            csv = new CSVparserRate("FONTS/src/persistencia/provesCSVparserRate/prova2rating.csv");
+                            csv = new CSVparserRate("dominio/controladores/vcont/prova2rating.csv");
                             csv.readLoadRate();
                             csv.LoadRate(csv.getContent());
                             System.out.println("Pruba 2 cargada");
                             break;
                         case "3" :
-                            csv = new CSVparserRate("FONTS/src/persistencia/provesCSVparserRate/prova3rating.csv");
+                            csv = new CSVparserRate("dominio/controladores/vcont/prova3rating.csv");
                             csv.readLoadRate();
                             csv.LoadRate(csv.getContent());
                             System.out.println("Pruba 3 cargada");
                             break;
                         case "4" :
-                            csv = new CSVparserRate("FONTS/src/persistencia/provesCSVparserRate/prova4rating.csv");
+                            csv = new CSVparserRate("dominio/controladores/vcont/prova4rating.csv");
                             csv.readLoadRate();
                             csv.LoadRate(csv.getContent());
                             System.out.println("Pruba 4 cargada");
