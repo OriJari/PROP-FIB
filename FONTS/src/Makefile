@@ -48,7 +48,7 @@ driver_K_Means:
 driver_K_NN:
 	java -classpath ${DESTI_CLASSES} dominio.controladores.drivers.DriverK_NN
 
-driver_slopone:
+driver_slopeone:
 	java -classpath ${DESTI_CLASSES} dominio.controladores.drivers.Driverslopeone
 
 
@@ -66,7 +66,7 @@ help:
 	@echo "driver_Evaluation : ejecuta el driver Evaluation "
 	@echo "driver_K_Means : ejecuta el driver K_Means "
 	@echo "driver_K_NN : ejecuta el driver K_NN "
-	@echo "driver_slopone : ejecuta el driver slopone "
+	@echo "driver_slopeone : ejecuta el driver slopone "
 	@echo "run: Executa el código"
 
 .PHONY: clean
