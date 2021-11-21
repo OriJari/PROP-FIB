@@ -7,7 +7,7 @@ para la manipulación de datos.
 
 Driver: DriverCSVparserItem.
 
-Entrada: prova4item.csv, conjunto de 100 elementos aleatorios de series para comprobar que se realiza el funcionamiento anterior.
+Entrada: prova4item.csv, conjunto de 50 elementos aleatorios de series para comprobar que se realiza el funcionamiento anterior.
 
 Salida: datos del csv pasados a una estructura para leer el contenido "dominio.controladores.clases.atribut.content", una estructura "MapRatedata" para el preporcesado, una lista con la cabecera del csv y una lista con los ids de los items.
 
