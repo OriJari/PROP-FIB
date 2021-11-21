@@ -1,10 +1,16 @@
 package dominio.controladores.drivers;
 
+import dominio.clases.algorithm.collaborativefiltering.*;
 import dominio.clases.algorithm.slopeone.*;
+
+import dominio.clases.preprocessat.*;
+
 
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
+
+import static java.lang.Math.max;
 
 /**
  *
@@ -22,15 +28,15 @@ public class Driverslopeone {
         int Nusers = sc.nextInt();
         Map<Integer, Map<Integer, Float>> opinions = new TreeMap<Integer, Map<Integer, Float>>();
         for(int i = 0; i < Nusers; ++i){
-            System.out.println("ID de dominio.controladores.clases.atribut.user num " + (i+1) + " : ");
+            System.out.println("ID de user nuemero " + (i+1) + " : ");
             int userID = sc.nextInt();
             opinions.put(userID, new TreeMap<Integer, Float>());
             System.out.println("Numero de items valorados por usuario " + userID + " : ");
             int numItems = sc.nextInt();
             for(int j = 0; j < numItems; ++j){
-                System.out.println("ID dominio.controladores.clases.atribut.item numero " + (j+1) + " : ");
+                System.out.println("ID item numero " + (j+1) + " : ");
                 int itemID = sc.nextInt();
-                System.out.println("Valoracion de l'dominio.controladores.clases.atribut.item " + (j+1) + " : ");
+                System.out.println("Valoracion del item " + (j+1) + " : ");
                 float itemVal = sc.nextFloat();
                 opinions.get(userID).put(itemID, itemVal);
             }
@@ -43,9 +49,9 @@ public class Driverslopeone {
         int Nitem = sc.nextInt();
         Map<Integer,Float> user = new TreeMap<Integer,Float>();
         for(int i = 0; i < Nitem; i++){
-            System.out.println("ID dominio.controladores.clases.atribut.item numero " + (i+1) + " : ");
+            System.out.println("ID item numero " + (i+1) + " : ");
             int itemID = sc.nextInt();
-            System.out.println("Valoracion de l'dominio.controladores.clases.atribut.item " + (i+1) + " : ");
+            System.out.println("Valoracion del item " + (i+1) + " : ");
             float itemVal = sc.nextFloat();
             user.put(itemID,itemVal);
         }
@@ -63,8 +69,144 @@ public class Driverslopeone {
         System.out.println("esta desviacion");
         print_map_completo(SlopeOne.getMap_des());
 
-        System.out.println("\n\t esta prediccio");
+        System.out.println("\n\t esta prediccion");
         print_pred(SlopeOne.getMap_pred());
+        System.out.println("Terminado");
+
+    }
+
+    public static void testSlopeOne_250() {
+        System.out.println("Test SlopeOne_250");
+        System.out.println("\t1) CSV por defecto");
+        System.out.println("\t2) CSV propio");
+        System.out.println("\t0) salir");
+        boolean salir = false;
+        sc = new Scanner(System.in);
+        CSVparserRate csv = new CSVparserRate("FONTS/src/persistencia/movie.sample/250/ratings.test.known.csv");
+        csv.readLoadRate();
+        csv.LoadRate(csv.getContent());
+
+            int option = sc.nextInt();
+            switch (option) {
+                case 1:
+                    try {
+                        SlopeOne.setMap_data(csv.getMapRate());
+
+                    } catch (Exception E) {
+                        System.out.println(E.getMessage());
+                    }
+                    break;
+                case 2:
+                    try {
+                        System.out.println("escriba el path de su csv");
+                        String s = sc.next();
+                        csv = new CSVparserRate(s);
+                        csv.readLoadRate();
+                        csv.LoadRate(csv.getContent());
+                        SlopeOne.setMap_data(csv.getMapRate());
+
+                    } catch (Exception E) {
+                        System.out.println(E.getMessage());
+                    }
+                    break;
+                case 0:
+                    salir = true;
+                    break;
+                default:
+                    System.out.println(option);
+                    break;
+            }
+
+
+        System.out.println("Introduzca el ID del user que quiere la recomendacion, por lo contrario si desea volver atras escribe -1 :");
+        int userID = sc.nextInt();
+        boolean existinguser = SlopeOne.getMap_data().containsKey(userID);
+
+        while(!existinguser && userID != -1){
+            System.out.println("Este user no existe! Introduzca ID del user que quiere la recomendacion  por lo contrario si desea volver atras escribe -1 :");
+            userID = sc.nextInt();
+
+            existinguser = SlopeOne.getMap_data().containsKey(userID);
+        }
+
+        Map<Integer, Float> recommendation = new TreeMap<>();
+
+        System.out.println("\n Resultado:");
+        CollaborativeFiltering CF = new CollaborativeFiltering(SlopeOne.getMap_data(), max(1, SlopeOne.getMap_data().size() / 3));
+        recommendation = CF.recommend(userID);
+        for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
+            System.out.println("ID item: " + entry.getKey() + " con esta prediccion " + entry.getValue());
+        }
+
+
+        System.out.println("Terminado");
+
+    }
+
+    public static void testSlopeOne_csv() {
+        System.out.println("Test SlopeOne_CSV");
+        System.out.println("\t1) CSV por defecto");
+        System.out.println("\t2) CSV propio");
+        System.out.println("\t0) salir");
+        boolean salir = false;
+        sc = new Scanner(System.in);
+        CSVparserRate csv = new CSVparserRate("FONTS/src/persistencia/movie.sample/750/ratings.test.known.csv");
+        csv.readLoadRate();
+        csv.LoadRate(csv.getContent());
+
+            int option = sc.nextInt();
+            switch (option) {
+                case 1:
+                    try {
+                        SlopeOne.setMap_data(csv.getMapRate());
+
+                    } catch (Exception E) {
+                        System.out.println(E.getMessage());
+                    }
+                    break;
+                case 2:
+                    try {
+                        System.out.println("escriba el path de su csv");
+                        String s = sc.next();
+                        csv = new CSVparserRate(s);
+                        csv.readLoadRate();
+                        csv.LoadRate(csv.getContent());
+                        SlopeOne.setMap_data(csv.getMapRate());
+
+                    } catch (Exception E) {
+                        System.out.println(E.getMessage());
+                    }
+                    break;
+                case 0:
+                    salir = true;
+                    break;
+                default:
+                    System.out.println(option);
+                    break;
+
+        }
+
+        System.out.println("Introduzca el ID del user que quiere la recomendacion, por lo contrario si desea volver atras escribe -1 :");
+        int userID = sc.nextInt();
+        boolean existinguser = SlopeOne.getMap_data().containsKey(userID);
+
+        while(!existinguser && userID != -1){
+            System.out.println("Este user no existe! Introduzca ID del user que quiere la recomendacion  por lo contrario si desea volver atras escribe -1 :");
+            userID = sc.nextInt();
+
+            existinguser = SlopeOne.getMap_data().containsKey(userID);
+        }
+
+        Map<Integer, Float> recommendation = new TreeMap<>();
+
+        System.out.println("\n Resultado:");
+        CollaborativeFiltering CF = new CollaborativeFiltering(SlopeOne.getMap_data(), max(1, SlopeOne.getMap_data().size() / 3));
+        recommendation = CF.recommend(userID);
+        for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
+            System.out.println("ID item: " + entry.getKey() + " con esta prediccion " + entry.getValue());
+        }
+
+
         System.out.println("Terminado");
 
     }
@@ -132,6 +274,8 @@ public class Driverslopeone {
             System.out.println("\t 1) testdesviacio_mitjana()");
             System.out.println("\t 2) testprediccio()");
             System.out.println("\t 3) testSlopeOne()");
+            System.out.println("\t 4) testSlopeOne() n = 250");
+            System.out.println("\t 5) testSlopeOne() csv entero");
             System.out.println("\t 0) Salir");
             int option = sc.nextInt();
             switch (option) {
@@ -152,6 +296,21 @@ public class Driverslopeone {
                 case 3:
                     try {
                         testSlopeOne();
+                    } catch (Exception E) {
+                        System.out.println(E.getMessage());
+                    }
+                    break;
+
+                case 4:
+                    try {
+                        testSlopeOne_250();
+                    } catch (Exception E) {
+                        System.out.println(E.getMessage());
+                    }
+                    break;
+                case 5:
+                    try {
+                        testSlopeOne_csv();
                     } catch (Exception E) {
                         System.out.println(E.getMessage());
                     }
