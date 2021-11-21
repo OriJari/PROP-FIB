@@ -2,7 +2,7 @@ DESTI_CLASSES = ../../EXE/
 CODI_FONT = /src/
 
 
-
+default: class run
 
 
 $(DESTI_CLASSES):
@@ -27,7 +27,7 @@ class:
 	javac -d ${DESTI_CLASSES} ./dominio/clases/user/*.java
 
 run:
-	java -classpath ${DESTI_CLASSES} testmain.javama
+	java -classpath ${DESTI_CLASSES} testmain.java
 
 
 driver_CollaborativeFiltering:
@@ -52,9 +52,6 @@ driver_slopeone:
 	java -classpath ${DESTI_CLASSES} dominio.controladores.drivers.Driverslopeone
 
 
-default: class run
-
-
 
 .PHONY: help
 help:
@@ -71,5 +68,5 @@ help:
 
 .PHONY: clean
 clean:
-	rm -rf EXE *.class
+	rm -rf $(DESTI_CLASSES) 
 
