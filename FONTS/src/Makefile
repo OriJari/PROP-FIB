@@ -27,7 +27,7 @@ class:
 	javac -d ${DESTI_CLASSES} ./dominio/clases/user/*.java
 
 run:
-	java -classpath ${DESTI_CLASSES} testmain.java
+	java -classpath ${DESTI_CLASSES} testmain.javama
 
 
 driver_CollaborativeFiltering:
@@ -72,3 +72,4 @@ help:
 .PHONY: clean
 clean:
 	rm -rf EXE *.class
+
