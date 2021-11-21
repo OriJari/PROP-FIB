@@ -14,9 +14,9 @@ public class DriverEvaluation {
         System.out.println("Numero de valores reales de la valoracion:");
         int numit = sc.nextInt();
         for(int i = 0; i < numit; ++i){
-            System.out.println("ID dominio.controladores.clases.atribut.item" + (i+1) +" :");
+            System.out.println("ID item" + (i+1) +" :");
             int ID = sc.nextInt();
-            System.out.println("Rating dominio.controladores.clases.atribut.item " + (i+1) +" :");
+            System.out.println("Rating item " + (i+1) +" :");
             Float rating = sc.nextFloat();
             known.put(ID, rating);
         }
@@ -28,9 +28,9 @@ public class DriverEvaluation {
         System.out.println("Numero de items en la recomendacion:");
         int numit = sc.nextInt();
         for(int i = 0; i < numit; ++i){
-            System.out.println("ID dominio.controladores.clases.atribut.item " + (i+1) +" :");
+            System.out.println("ID item " + (i+1) +" :");
             int ID = sc.nextInt();
-            System.out.println("Rating dominio.controladores.clases.atribut.item " + (i+1) +" :");
+            System.out.println("Rating item " + (i+1) +" :");
             Float rating = sc.nextFloat();
             recommendation.put(ID, rating);
         }

@@ -67,13 +67,13 @@ public class CollaborativeFiltering {
             }
         }
 
-        Map<Integer, Map<Integer, Float>> valCluster = new TreeMap<Integer, Map<Integer, Float>>();
+        Map<Integer, Map<Integer, Float>> valCluster = new TreeMap<>();
         for(int i = 0; i < clusters.get(clusterUser).size(); ++i){
             valCluster.put(clusters.get(clusterUser).get(i), opinions.get(clusters.get(clusterUser).get(i)));
         }
         SlopeOne Slopeone = new SlopeOne();
         Map<Integer, Float> recommendation = Slopeone.slopeone(valCluster, opinions.get(userID));
-        Map<Integer, Float> result = new TreeMap<Integer, Float>();
+        Map<Integer, Float> result = new TreeMap<>();
         if(recommendation.size() > 10) {
             for (int i = 0; i < 10; ++i) {
                 Iterator<Integer> it = recommendation.keySet().iterator();
