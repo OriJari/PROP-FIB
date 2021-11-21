@@ -1,0 +1,9 @@
+Prova 1
+Descripció: Slope One, desviacio_mitjana i prediccio, els tres
+Objectius: avaluar l'algoritme slope one
+Altres elements integrats a la prova:
+Drivers construïts i integrats per a la prova: Driverslopeone
+Entrada: input_slopeone_driver_test.txt
+Sortida: output_slopeone_driver_test.txt
+Resultat de la prova: ok
+Operativa: el driver es interactiu on tot moment et demana la entrada de dades per a realitzar el test, també hi ha per a 250 i 750 de dades.
