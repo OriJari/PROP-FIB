@@ -146,9 +146,9 @@ public class testmain {
                     path_unknown = sc1.next();
                     break;
                 case 2:
-                    path_item = "persistencia/movie.sample/250/items.csv";
-                    path_known = "persistencia/movie.sample/250/ratings.test.known.csv";
-                    path_unknown = "persistencia/movie.sample/250/ratings.test.unknown.csv";
+                    path_item = "FONTS/src/persistencia/movie.sample/250/items.csv";
+                    path_known = "FONTS/src/persistencia/movie.sample/250/ratings.test.known.csv";
+                    path_unknown = "FONTS/src/persistencia/movie.sample/250/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
