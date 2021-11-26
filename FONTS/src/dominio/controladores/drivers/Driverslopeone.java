@@ -82,7 +82,7 @@ public class Driverslopeone {
         System.out.println("\t0) salir");
         boolean salir = false;
         sc = new Scanner(System.in);
-        CSVparserRate csv = new CSVparserRate("FONTS/src/persistencia/movie.sample/250/ratings.test.unknown.csv");
+        CSVparserRate csv = new CSVparserRate("dominio/controladores/vcont/F250/ratings.test.known.csv");
         csv.readLoadRate();
         csv.LoadRate(csv.getContent());
 
@@ -150,7 +150,7 @@ public class Driverslopeone {
         System.out.println("\t0) salir");
         boolean salir = false;
         sc = new Scanner(System.in);
-        CSVparserRate csv = new CSVparserRate("FONTS/src/persistencia/movie.sample/750/ratings.test.unknown.csv");
+        CSVparserRate csv = new CSVparserRate("dominio/controladores/vcont/F750/ratings.test.known.csv");
         csv.readLoadRate();
         csv.LoadRate(csv.getContent());
 
