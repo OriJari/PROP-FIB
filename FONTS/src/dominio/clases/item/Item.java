@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Item {
     int ID;
-    ArrayList<String> tags;
+    List<String> tags;
 
     /**
      * Default builder
@@ -20,24 +20,29 @@ public class Item {
         tags = new ArrayList<>();
     }
     /**
-     * Default builder including the dominio.controladores.clases.atribut.item id.
-     * @param id , id which dominio.controladores.clases.atribut.item is identified
+     * Default builder including the item id.
+     * @param id , id which item is identified
      */
     public Item(int id) {
         ID = id;
         tags = new ArrayList<>();
     }
 
+    public Item(int id, List<String> tags) {
+        ID = id;
+        this.tags = tags;
+    }
+
     /**
-     * Getter of the dominio.controladores.clases.atribut.item id
+     * Getter of the item id
      */
     public Integer getID() {
         return this.ID;
     }
 
     /**
-     * Get the dominio.controladores.clases.atribut.tag of the list in a determinate position
-     * @param i , position of the dominio.controladores.clases.atribut.tag in the List
+     * Get the tag of the list in a determinate position
+     * @param i , position of the tag in the List
      */
     public List<String> getTags(int i) {
         return Collections.singletonList(this.tags.get(i));
@@ -52,32 +57,27 @@ public class Item {
 
     /*
     /**
-     * Add a dominio.controladores.clases.atribut.tag to the set of tags
+     * Add a tag to the set of tags
      * @param tag1 , element to insert to the set
      */
-    /* public void addTag(String tag1) {
-        int n = tags.length;
-        String[] new_tags = new String[n+1];
-         int i;
-        for (i = 0; i < n; i++) new_tags[i] = tags[i];
-        new_tags[n] = tag1;
-        tags = new_tags;
+    public void addTag(String tag1) {
+        this.tags.add(tag1);
      }
 
-    public Boolean exsistTag (String dominio.controladores.clases.atribut.tag, List<String>){
-
+    public Boolean existsTag (String tag){
+        return this.tags.contains(tag);
     }
 
     public void delTag(String tag1) {
-        //...
+        this.tags.remove(tag1);
     }
-     */
+
     public void setID(int id) {
         this.ID = id;
     }
 
-    public void setTags(ArrayList<Tag> tags) {
-
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 
 }
