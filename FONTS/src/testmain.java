@@ -19,24 +19,31 @@ public class testmain {
     private static String path_unknown;
 
     public static void makerecommendation(){
+        System.out.println("Vas a querer una valoración de la recomendación?");
+        System.out.println("0: NO, 1: SI");
+        int valoration = sc.nextInt();
+        boolean val = (valoration == 1);
+
         CSVparserItem CSVItem = new CSVparserItem(path_item);
         List<Integer> id_reals = CSVItem.getId_Items();
         CSVItem.readLoadItem();
         CSVItem.MapItemData(CSVItem.getContent());
+
         CSVparserRate CSVRate_known = new CSVparserRate(path_known);
         CSVRate_known.readLoadRate();
         CSVRate_known.LoadRate(CSVRate_known.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_known = CSVRate_known.getMapRate();
-        CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, max(1, map_rate_known.size() / 3));
-
-        Map<Integer, List<Content>> map_rate_item = CSVItem.getMapRatedata();
-        K_NN taula = new K_NN(map_rate_known, id_reals);
-        taula.initSimilarityTable(map_rate_item);
 
         CSVparserRate CSVRate_unknown = new CSVparserRate(path_unknown);
         CSVRate_unknown.readLoadRate();
         CSVRate_unknown.LoadRate(CSVRate_unknown.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_unknown = CSVRate_unknown.getMapRate();
+
+        CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, max(1, map_rate_known.size() / 3));
+
+        K_NN taula = new K_NN(map_rate_known, map_rate_unknown, id_reals);
+        Map<Integer, List<Content>> map_rate_item = CSVItem.getMapRatedata();
+        taula.initSimilarityTable(map_rate_item);
 
         System.out.println("Introduzca el ID del user que quiere la recomendacion, por lo contrario si desea volver atras escribe -1 :");
         int userID = sc.nextInt();
@@ -70,7 +77,7 @@ public class testmain {
                     break;
                 case 2:
                     try {
-                        Map<Integer, Float> similarities = taula.recommend(userID, 10);
+                        Map<Integer, Float> similarities = taula.recommend(userID, 10,val);
                         Map<Integer, Float> aux = new TreeMap<>();
                         for (int i = 0; i < 10; ++i) {
                             Iterator<Integer> it = similarities.keySet().iterator();

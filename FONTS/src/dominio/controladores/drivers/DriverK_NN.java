@@ -86,7 +86,7 @@ public class DriverK_NN {
         System.out.println("RESULTS:");
         List<Integer> id_reals = new ArrayList<>();
         for (int i = 0; i < n; ++i) id_reals.add(i);
-        K_NN taula = new K_NN(map_rate,id_reals);
+        K_NN taula = new K_NN(map_rate,map_rate,id_reals);
         taula.initSimilarityTable(map);
         System.out.println("Similarity Table:");
         taula.print_similarity_matrix();
@@ -103,7 +103,7 @@ public class DriverK_NN {
             line = buffer.readLine();
             if (line == null || line.equals("end")) break;
             int k = Integer.parseInt(line);
-            Map<Integer,Float> result = taula.recommend(user_id,k);
+            Map<Integer,Float> result = taula.recommend(user_id,k,false);
             System.out.println("Recommendation:");
             for (Map.Entry<Integer,Float> entry : result.entrySet()) {
                 System.out.println(entry.getKey() + " " + entry.getValue());

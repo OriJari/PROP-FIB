@@ -19,6 +19,7 @@ public class K_NN {
      */
     private double[][] similarityTable;
     private Map<Integer,Map<Integer,Float>> mapa_usuarios;
+    private Map<Integer,Map<Integer,Float>> mapa_unknown;
     List<Integer> id_reals;
 
     /**
@@ -26,8 +27,9 @@ public class K_NN {
      * \pre <em>True</em>
      * \post An object of the K_NN class is created with mapa_usuarios and id_reals equal to the given parameters
      */
-    public K_NN(Map<Integer,Map<Integer,Float>> mapa, List<Integer> ids) {
+    public K_NN(Map<Integer,Map<Integer,Float>> mapa, Map<Integer,Map<Integer,Float>> mapa_unknown, List<Integer> ids) {
         this.mapa_usuarios = mapa;
+        this.mapa_unknown = mapa_unknown;
         this.id_reals = ids;
     }
 
@@ -183,13 +185,19 @@ public class K_NN {
      * \pre <em>id_item</em> corresponds to an existing item. <em>id_usuari</em> corresponds to an existing user.
      * \post K-Nearest-Neighbours of the given item (which haven't been rated by the user) are calculated and returned.
      */
-    public List<Pair> kNN(int id_item, int k, int id_usuari) {
+    public List<Pair> kNN(int id_item, int k, int id_usuari, boolean valoration) {
         PriorityQueue<Pair> queue = new PriorityQueue<>();
         Map<Integer,Float> valorats = mapa_usuarios.get(id_usuari);
+        Map<Integer,Float> unknown = mapa_unknown.get(id_usuari);
+
         double min_similarity = -1.0;
         int n = similarityTable[id_item].length;
+        boolean comprobant;
         for (int j = 0; j < n; ++j) {
-            if (id_item != j && !valorats.containsKey(j)) {
+            if (valoration) comprobant = (id_item != j && !valorats.containsKey(j) && unknown.containsKey(j));
+            else comprobant = (id_item != j && !valorats.containsKey(j));
+
+            if (comprobant) {
                 double similarity_aux = similarityTable[id_item][j];
                 if (queue.size() == 0) {
                     queue.add(new Pair(j,similarity_aux));
@@ -226,7 +234,7 @@ public class K_NN {
      * \pre <em>id_usuari</em> corresponds to an existing user.
      * \post the k most suitable items to recommend to <em>id_usuari</em> are calculated and returned
      */
-    public Map<Integer,Float> recommend(int id_usuari, int k) {
+    public Map<Integer,Float> recommend(int id_usuari, int k, boolean valoration) {
         Map<Integer,Float> valoracions = mapa_usuarios.get(id_usuari);
         Map<Integer,Float> auxiliar = new TreeMap<>();
 
@@ -236,7 +244,7 @@ public class K_NN {
             int id_item = entry.getKey();
             float val = entry.getValue();
             int id_fals = id_reals.indexOf(id_item);
-            k_nn = kNN(id_fals, k, id_usuari);
+            k_nn = kNN(id_fals, k, id_usuari, valoration);
             for (int i = 0; i < k_nn.size(); ++i) {
                 int id_item_knn = k_nn.get(i).getId();
                 if (auxiliar.containsKey(id_item_knn)) {

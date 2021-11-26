@@ -47,33 +47,49 @@ public class Item {
     }
 
     /**
-     * Get the number of tags that an dominio.controladores.clases.atribut.item has.
+     * Get the number of tags that an item has.
      */
     public Integer getNumTags() {
         return tags.size();
     }
 
-    /*
     /**
      * Add a tag to the set of tags
-     * @param tag1 , element to insert to the set
+     * @param tag , element to insert to the set
      */
-    public void addTag(String tag1) {
-        this.tags.add(tag1);
+    public void addTag(String tag) {
+        this.tags.add(tag);
      }
 
+    /**
+     * Check if the item contains a given tag.
+     * @param tag , value to check
+     * @return      true if present, false if not.
+     */
     public Boolean existsTag (String tag){
         return this.tags.contains(tag);
     }
 
-    public void delTag(String tag1) {
-        this.tags.remove(tag1);
+    /**
+     * Delete a given tag from the list of tags of the item.
+     * @param tag , value to delete
+     */
+    public void delTag(String tag) {
+        this.tags.remove(tag);
     }
 
+    /**
+     * Setter of the item's id
+     * @param id ,  the new id of the item
+     */
     public void setID(int id) {
         this.ID = id;
     }
 
+    /**
+     * Setter of the tags
+     * @param tags ,    the new list of tags of the item
+     */
     public void setTags(List<String> tags) {
         this.tags = tags;
     }
