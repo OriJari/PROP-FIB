@@ -2,8 +2,6 @@ package dominio.controladores.drivers;
 
 import dominio.clases.content.*;
 import dominio.clases.algorithm.contentbasedflitering.*;
-
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
@@ -27,7 +25,7 @@ public class DriverK_NN {
             System.out.println("ID of user number " + (i+1) + ":");
             line = buffer.readLine();
             int userID = Integer.parseInt(line);
-            opinions.put(userID, new TreeMap<Integer, Float>());
+            opinions.put(userID, new TreeMap<>());
             System.out.println("Number of items rated by " + userID + ":");
             line = buffer.readLine();
             int numItems = Integer.parseInt(line);
