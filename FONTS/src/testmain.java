@@ -67,7 +67,9 @@ public class testmain {
             switch (choice) {
                 case 1:
                     try {
-                        recommendation = CF.recommend(userID, val, map_rate_unknown.get(userID));
+                        if(val) recommendation = CF.recommend(userID, val, map_rate_unknown.get(userID));
+                        else recommendation = CF.recommend(userID, false, new TreeMap<>());
+
                         for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
                             System.out.println("ID item: " + entry.getKey() + " with expected rating " + entry.getValue());
                         }
