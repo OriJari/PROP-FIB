@@ -55,7 +55,7 @@ public class CollaborativeFiltering {
      * \pre The dominio.controladores.clases.atribut.user must exist.
      * \post Returns a Map of expected ratings with maximum size 10.
      */
-    static public Map<Integer, Float> recommend(Integer userID){
+    static public Map<Integer, Float> recommend(Integer userID, boolean valoration, Map<Integer, Float> unknown){
         boolean cont = true;
         Integer clusterUser = 0;
         for(int i = 0; i < clusters.size() && cont; ++i){
@@ -74,6 +74,17 @@ public class CollaborativeFiltering {
         SlopeOne Slopeone = new SlopeOne();
         Map<Integer, Float> recommendation = Slopeone.slopeone(valCluster, opinions.get(userID));
         Map<Integer, Float> result = new TreeMap<>();
+
+        if(valoration){
+            for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
+                if(unknown.containsKey(entry.getKey())){
+                    result.put(entry.getKey(), entry.getValue());
+                }
+            }
+            recommendation = result;
+            result = new TreeMap<>();
+        }
+
         if(recommendation.size() > 10) {
             for (int i = 0; i < 10; ++i) {
                 Iterator<Integer> it = recommendation.keySet().iterator();
