@@ -78,21 +78,17 @@ public class testmain {
                 case 2:
                     try {
                         Map<Integer, Float> similarities = taula.recommend(userID, 10,val);
-                        Map<Integer, Float> aux = new TreeMap<>();
-                        for (int i = 0; i < 10; ++i) {
-                            Iterator<Integer> it = similarities.keySet().iterator();
-                            int maxitemID = it.next();
+                        if (val) {
                             for (Map.Entry<Integer, Float> entry : similarities.entrySet()) {
-                                if (entry.getValue() > similarities.get(maxitemID)) {
-                                    maxitemID = entry.getKey();
-                                }
+                                System.out.println("ID item: " + id_reals.get(entry.getKey()) + " with similarity " + entry.getValue());
+                                recommendation.put(id_reals.get(entry.getKey()), entry.getValue());
                             }
-                            aux.put(maxitemID, similarities.get(maxitemID));
-                            similarities.remove(maxitemID);
                         }
-                        for (Map.Entry<Integer, Float> entry : aux.entrySet()) {
-                            System.out.println("ID item: " + id_reals.get(entry.getKey()) + " with similarity " + entry.getValue());
-                            recommendation.put(id_reals.get(entry.getKey()), entry.getValue());
+                        else {
+                            for (Map.Entry<Integer, Float> entry : similarities.entrySet()) {
+                                System.out.println("ID item: " + id_reals.get(entry.getKey()));
+                                recommendation.put(id_reals.get(entry.getKey()), entry.getValue());
+                            }
                         }
                     } catch (Exception E) {
                         System.out.println(E.getMessage());

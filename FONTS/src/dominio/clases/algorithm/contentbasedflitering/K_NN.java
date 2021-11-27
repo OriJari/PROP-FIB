@@ -18,7 +18,7 @@ public class K_NN {
      * @brief Table used to store similarities between all items
      */
     private double[][] similarityTable;
-    private Map<Integer,Map<Integer,Float>> mapa_usuarios;
+    private Map<Integer,Map<Integer,Float>> mapa_known;
     private Map<Integer,Map<Integer,Float>> mapa_unknown;
     List<Integer> id_reals;
 
@@ -28,7 +28,7 @@ public class K_NN {
      * \post An object of the K_NN class is created with mapa_usuarios and id_reals equal to the given parameters
      */
     public K_NN(Map<Integer,Map<Integer,Float>> mapa, Map<Integer,Map<Integer,Float>> mapa_unknown, List<Integer> ids) {
-        this.mapa_usuarios = mapa;
+        this.mapa_known = mapa;
         this.mapa_unknown = mapa_unknown;
         this.id_reals = ids;
     }
@@ -187,15 +187,16 @@ public class K_NN {
      */
     public List<Pair> kNN(int id_item, int k, int id_usuari, boolean valoration) {
         PriorityQueue<Pair> queue = new PriorityQueue<>();
-        Map<Integer,Float> valorats = mapa_usuarios.get(id_usuari);
+        Map<Integer,Float> valorats = mapa_known.get(id_usuari);
         Map<Integer,Float> unknown = mapa_unknown.get(id_usuari);
 
         double min_similarity = -1.0;
         int n = similarityTable[id_item].length;
         boolean comprobant;
         for (int j = 0; j < n; ++j) {
-            if (valoration) comprobant = (id_item != j && !valorats.containsKey(j) && unknown.containsKey(j));
-            else comprobant = (id_item != j && !valorats.containsKey(j));
+            int id_real = id_reals.get(j);
+            if (valoration) comprobant = (id_item != j && !valorats.containsKey(id_real) && unknown.containsKey(id_real));
+            else comprobant = (id_item != j && !valorats.containsKey(id_real));
 
             if (comprobant) {
                 double similarity_aux = similarityTable[id_item][j];
@@ -218,7 +219,8 @@ public class K_NN {
             }
         }
         List<Pair> result = new ArrayList<>();
-        for (int j = 0; j < k; ++j) {
+        int mida = queue.size();
+        for (int j = 0; j < mida; ++j) {
             Pair aux = queue.poll();
             result.add(aux);
         }
@@ -235,7 +237,7 @@ public class K_NN {
      * \post the k most suitable items to recommend to <em>id_usuari</em> are calculated and returned
      */
     public Map<Integer,Float> recommend(int id_usuari, int k, boolean valoration) {
-        Map<Integer,Float> valoracions = mapa_usuarios.get(id_usuari);
+        Map<Integer,Float> valoracions = mapa_known.get(id_usuari);
         Map<Integer,Float> auxiliar = new TreeMap<>();
 
         List<Pair> k_nn;
@@ -255,7 +257,7 @@ public class K_NN {
                 }
             }
         }
-        Map<Integer, Float> resultat = new TreeMap<>();
+        Map<Integer, Float> resultat = new LinkedHashMap<>();
         for (int i = 0; i < k; ++i) {
             Iterator<Integer> it = auxiliar.keySet().iterator();
             int maxitemID = it.next();
