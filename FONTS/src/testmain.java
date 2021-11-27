@@ -67,7 +67,7 @@ public class testmain {
             switch (choice) {
                 case 1:
                     try {
-                        recommendation = CF.recommend(userID);
+                        recommendation = CF.recommend(userID, val, map_rate_unknown.get(userID));
                         for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
                             System.out.println("ID item: " + entry.getKey() + " with expected rating " + entry.getValue());
                         }
@@ -100,9 +100,10 @@ public class testmain {
                     System.out.println(choice);
                     break;
             }
+
             if (choice != 1 && choice != 2 && choice != 0) {
                 System.out.println("No has elegido una opcion valida.");
-            } else {
+            } else if(val) {
                 Evaluation eval = new Evaluation(map_rate_unknown.get(userID), recommendation);
                 System.out.println("DCG de la recomendacion: " + eval.DCG()+"\n");
             }

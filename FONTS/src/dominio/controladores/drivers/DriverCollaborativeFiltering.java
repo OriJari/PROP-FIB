@@ -38,7 +38,7 @@ public class DriverCollaborativeFiltering {
         CollaborativeFiltering CF = new CollaborativeFiltering(opinions, max(1, opinions.size() / 3));
         System.out.println("UserID del user que queremos la recomendacion:");
         int userID = sc.nextInt();
-        Map<Integer, Float> recommendation = CF.recommend(userID);
+        Map<Integer, Float> recommendation = CF.recommend(userID, false, new TreeMap<>());
         for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
             System.out.println("Expected rating for item " + entry.getKey() + ": " + entry.getValue());
         }

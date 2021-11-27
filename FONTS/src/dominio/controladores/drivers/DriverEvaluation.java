@@ -9,8 +9,8 @@ import java.util.TreeMap;
 public class DriverEvaluation {
     private static Scanner sc;
 
-    public static Map<Integer, Float> leerknown(){
-        Map<Integer, Float> known = new TreeMap<>();
+    public static Map<Integer, Float> leerunknown(){
+        Map<Integer, Float> unknown = new TreeMap<>();
         System.out.println("Numero de valores reales de la valoracion:");
         int numit = sc.nextInt();
         for(int i = 0; i < numit; ++i){
@@ -18,9 +18,9 @@ public class DriverEvaluation {
             int ID = sc.nextInt();
             System.out.println("Rating item " + (i+1) +" :");
             Float rating = sc.nextFloat();
-            known.put(ID, rating);
+            unknown.put(ID, rating);
         }
-        return known;
+        return unknown;
     }
 
     public static Map<Integer, Float> leerrecommendation(){
@@ -38,7 +38,7 @@ public class DriverEvaluation {
     }
 
     public static void testDCG(){
-        Evaluation eval = new Evaluation(leerknown(), leerrecommendation());
+        Evaluation eval = new Evaluation(leerunknown(), leerrecommendation());
         System.out.println("El valor DCG de la recomendacio es: " + eval.DCG());
     }
 
