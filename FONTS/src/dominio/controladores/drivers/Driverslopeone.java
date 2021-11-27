@@ -133,7 +133,7 @@ public class Driverslopeone {
 
         System.out.println("\n Resultado:");
         CollaborativeFiltering CF = new CollaborativeFiltering(SlopeOne.getMap_data(), max(1, SlopeOne.getMap_data().size() / 3));
-        recommendation = CF.recommend(userID);
+        recommendation = CF.recommend(userID, false, new TreeMap<>);
         for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
             System.out.println("ID item: " + entry.getKey() + " con esta prediccion " + entry.getValue());
         }
@@ -201,7 +201,7 @@ public class Driverslopeone {
 
         System.out.println("\n Resultado:");
         CollaborativeFiltering CF = new CollaborativeFiltering(SlopeOne.getMap_data(), max(1, SlopeOne.getMap_data().size() / 3));
-        recommendation = CF.recommend(userID);
+        recommendation = CF.recommend(userID, false, new TreeMap<>);
         for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
             System.out.println("ID item: " + entry.getKey() + " con esta prediccion " + entry.getValue());
         }
