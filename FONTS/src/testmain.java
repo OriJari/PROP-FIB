@@ -11,6 +11,7 @@ import dominio.clases.preprocessat.*;
  */
 
 import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 public class testmain {
     private static Scanner sc;
@@ -71,7 +72,7 @@ public class testmain {
                         else recommendation = CF.recommend(userID, false, new TreeMap<>());
 
                         for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
-                            System.out.println("ID item: " + entry.getKey() + " with expected rating " + entry.getValue());
+                            System.out.println("ID item: " + entry.getKey() + " with expected rating " + min(5, entry.getValue()));
                         }
                     } catch (Exception E) {
                         System.out.println(E.getMessage());
