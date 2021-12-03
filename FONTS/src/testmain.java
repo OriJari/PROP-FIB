@@ -114,7 +114,6 @@ public class testmain {
     }
 
     public static void main(String[] args) {
-        System.out.println("Driver collaborativeFiltering");
         boolean salir = false;
         sc = new Scanner(System.in);
         Scanner sc1 = new Scanner(System.in);

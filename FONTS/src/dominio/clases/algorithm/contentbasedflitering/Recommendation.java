@@ -5,11 +5,13 @@ import dominio.clases.item.*;
 public class Recommendation {
     Item[] conjunt;
     int ID_perfil;
+
     //Constructoras
     public Recommendation() {
         ID_perfil = 0;
         conjunt = null;
     }
+
     //Consultoras
     public int getID_perfil() {
         return ID_perfil;
@@ -18,6 +20,7 @@ public class Recommendation {
     public Item[] getConjunt() {
         return conjunt;
     }
+
     //Modificadoras
     public void setID_perfil(int id) {
         this.ID_perfil = id;
