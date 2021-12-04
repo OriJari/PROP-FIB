@@ -1,13 +1,14 @@
 package dominio.clases.preprocessat;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
+
+import static java.lang.System.out;
 
 /**
  * @class CSVparserRate
@@ -262,4 +263,29 @@ public class CSVparserRate {
         return String.valueOf(this.content.get(i));
     }
 
+    public void guardar_datos(Map<Integer, Map<Integer, Float>> mapRate, List<String> header){
+        Scanner sc = new Scanner(System.in);
+        out.println("Nombre del nuevo fichero: ");
+        String nuevoFichero = sc.nextLine();
+        File archivo = new File("FONTS/src/persistencia/" + nuevoFichero + ".txt");
+        out.println("Fichero " + nuevoFichero + " guardado");
+
+        try{
+            FileWriter doc = new FileWriter(archivo);
+            PrintWriter out = new PrintWriter(doc);
+            out.write(header.get(0) + "," + header.get(1) + "," + header.get(2) + "\n");
+            for (Map.Entry<Integer, Map<Integer, Float>> entry : mapRate.entrySet()) {
+                Integer first = entry.getKey();
+                Map<Integer, Float> m = entry.getValue();
+                for (Map.Entry<Integer, Float> entry1 : m.entrySet()){
+                        out.write( String.valueOf(first) + "," + String.valueOf(entry1.getKey()) + "," + String.valueOf(entry1.getValue()) + "\n");
+                }
+            }
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            out.close();
+        }
+    }
 }

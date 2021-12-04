@@ -2,9 +2,10 @@ package dominio.clases.preprocessat;
 
 import dominio.clases.content.*;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
+
+import static java.lang.System.out;
 
 
 /**
@@ -359,6 +360,44 @@ public class CSVparserItem {
             }
             mapRatedata.put(index, newtagform);
             ++index;
+        }
+    }
+
+    public void guardar_datos(List<List<String>> content, List<String> header){
+
+        Scanner sc = new Scanner(System.in);
+        out.println("Nombre del nuevo fichero: ");
+        String nuevoFichero = sc.nextLine();
+        File archivo = new File("FONTS/src/persistencia/" + nuevoFichero + ".csv");
+        out.println("Fichero " + nuevoFichero + " guardado");
+
+        try{
+            FileWriter doc = new FileWriter(archivo);
+            PrintWriter out = new PrintWriter(doc);
+            int size_header = header.size();
+            for (int i = 0; i < size_header; ++i){
+                if (i == 0) out.write(header.get(0));
+                else out.write( "," + header.get(i));
+            }
+            out.write("\n");
+            for (int i = 0; i < content.size(); ++i){
+                List<String> l = content.get(i);
+                boolean p = true;
+                for (String s : l){
+                    if (p){
+                        out.write(s);
+                        p = false;
+                    }
+                    else out.write( "," + s);
+                }
+                out.write("\n");
+            }
+            out.write("\n");
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            out.close();
         }
     }
 }
