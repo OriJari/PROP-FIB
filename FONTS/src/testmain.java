@@ -145,9 +145,9 @@ public class testmain {
                     path_unknown = sc1.next();
                     break;
                 case 2:
-                    path_item = "persistencia/movie.sample/250/items.csv";
-                    path_known = "persistencia/movie.sample/250/ratings.test.known.csv";
-                    path_unknown = "persistencia/movie.sample/250/ratings.test.unknown.csv";
+                    path_item = "FONTS/src/persistencia/movie.sample/250/items.csv";
+                    path_known = "FONTS/src/persistencia/movie.sample/250/ratings.test.known.csv";
+                    path_unknown = "FONTS/src/persistencia/movie.sample/250/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
@@ -155,9 +155,9 @@ public class testmain {
                     }
                     break;
                 case 3:
-                    path_item = "persistencia/movie.sample/750/items.csv";
-                    path_known = "persistencia/movie.sample/750/ratings.test.known.csv";
-                    path_unknown = "persistencia/movie.sample/750/ratings.test.unknown.csv";
+                    path_item = "FONTS/src/persistencia/movie.sample/750/items.csv";
+                    path_known = "FONTS/src/persistencia/movie.sample/750/ratings.test.known.csv";
+                    path_unknown = "FONTS/src/persistencia/movie.sample/750/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
@@ -165,9 +165,9 @@ public class testmain {
                     }
                     break;
                 case 4:
-                    path_item = "persistencia/series/250/items.csv";
-                    path_known = "persistencia/series/250/ratings.test.known.csv";
-                    path_unknown = "persistencia/series/250/ratings.test.unknown.csv";
+                    path_item = "FONTS/src/persistencia/series/250/items.csv";
+                    path_known = "FONTS/src/persistencia/series/250/ratings.test.known.csv";
+                    path_unknown = "FONTS/src/persistencia/series/250/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
@@ -175,9 +175,9 @@ public class testmain {
                     }
                     break;
                 case 5:
-                    path_item = "persistencia/series/750/items.csv";
-                    path_known = "persistencia/series/750/ratings.test.known.csv";
-                    path_unknown = "persistencia/series/750/ratings.test.unknown.csv";
+                    path_item = "FONTS/src/persistencia/series/750/items.csv";
+                    path_known = "FONTS/src/persistencia/series/750/ratings.test.known.csv";
+                    path_unknown = "FONTS/src/persistencia/series/750/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
@@ -185,9 +185,9 @@ public class testmain {
                     }
                     break;
                 case 6:
-                    path_item = "persistencia/series/2250/items.csv";
-                    path_known = "persistencia/series/2250/ratings.test.known.csv";
-                    path_unknown = "persistencia/series/2250/ratings.test.unknown.csv";
+                    path_item = "FONTS/src/persistencia/series/2250/items.csv";
+                    path_known = "FONTS/src/persistencia/series/2250/ratings.test.known.csv";
+                    path_unknown = "FONTS/src/persistencia/series/2250/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
