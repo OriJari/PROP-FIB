@@ -18,6 +18,7 @@ public class testmain {
     private static String path_item;
     private static String path_known;
     private static String path_unknown;
+    private static boolean serie = false;
 
     public static void makerecommendation(){
         System.out.println("Vas a querer una valoración de la recomendación?");
@@ -71,9 +72,17 @@ public class testmain {
                         if(val) recommendation = CF.recommend(userID, val, map_rate_unknown.get(userID));
                         else recommendation = CF.recommend(userID, false, new TreeMap<>());
 
-                        for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
-                            System.out.println("ID item: " + entry.getKey() + " with expected rating " + min(5, entry.getValue()));
+                        if(serie) {
+                            for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
+                                System.out.println("ID item: " + entry.getKey() + " with expected rating " + min(10, entry.getValue()));
+                            }
                         }
+                        else{
+                            for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
+                                System.out.println("ID item: " + entry.getKey() + " with expected rating " + min(5,entry.getValue()));
+                            }
+                        }
+
                     } catch (Exception E) {
                         System.out.println(E.getMessage());
                     }
@@ -132,6 +141,7 @@ public class testmain {
             System.out.println("\t 6) series 2250");
             System.out.println("\t 7) Hacer recomendacion (solo en el caso que haya insertado manualmente los paths)");
             int option = sc.nextInt();
+            serie = false;
             switch (option) {
                 case 0:
                     salir = true;
@@ -188,6 +198,7 @@ public class testmain {
                     path_item = "FONTS/src/persistencia/series/2250/items.csv";
                     path_known = "FONTS/src/persistencia/series/2250/ratings.test.known.csv";
                     path_unknown = "FONTS/src/persistencia/series/2250/ratings.test.unknown.csv";
+                    serie = true;
                     try {
                         makerecommendation();
                     } catch (Exception E) {
