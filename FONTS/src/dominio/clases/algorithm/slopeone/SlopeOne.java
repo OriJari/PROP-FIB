@@ -192,7 +192,7 @@ public class SlopeOne {
      * \pre true
      * \post Fill map_pred with the data form u_data and the items not rated by the dominio.controladores.clases.atribut.user but that we predicted.
      */
-/* //prediccio bona
+/* //prediccio bona not weighted
     public static void prediccio(Map<Integer, Float> u_data) {
         map_pred = new TreeMap<Integer,Float>();
         Map<Integer,Integer> freq = new TreeMap<Integer,Integer>();
@@ -226,7 +226,7 @@ public class SlopeOne {
     }
 //*/
 //retocs weighted
-    public static void prediccio(Map<Integer, Float> u_data) {
+    /* public static void prediccio(Map<Integer, Float> u_data) {
 
         Map<Integer,Float> pred = new TreeMap<Integer,Float>();
         Map<Integer,Integer> freq = new TreeMap<Integer,Integer>();
@@ -271,7 +271,7 @@ public class SlopeOne {
         }
         System.out.println("new val over");
 
-        map_pred = new TreeMap<Integer,Float>();
+        map_pred = new TreeMap<>();
         for (Integer j : pred.keySet()) {
             if (freq.get(j)>0) {
                 map_pred.put(j, pred.get(j)/freq.get(j));
@@ -280,9 +280,9 @@ public class SlopeOne {
 
     }
 //*/
-}
 
-/* weighted original
+
+// weighted original
  public static void prediccio(Map<Integer, Float> u_data) {
 
         Map<Integer,Float> pred = new TreeMap<Integer,Float>();
@@ -292,9 +292,9 @@ public class SlopeOne {
             pred.put(j, 0.0f);
         }
 
-        System.out.println("ceradores check");
+        System.out.println("creadores check");
         for (Map.Entry<Integer, Float> entry : u_data.entrySet()) { //j
-            for (Map.Entry<Integer, Map<Integer, Float>> entry2 : map_des.entrySet()){ //k
+            for (Map.Entry<Integer, Map<Integer, Float>> entry2 : map_des.entrySet()) { //k
 
 
                 System.out.println(" not new val");
@@ -328,5 +328,4 @@ public class SlopeOne {
         }
 
     }
-
- */
+}
