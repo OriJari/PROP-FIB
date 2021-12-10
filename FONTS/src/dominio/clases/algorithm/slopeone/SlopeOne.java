@@ -192,7 +192,7 @@ public class SlopeOne {
      * \pre true
      * \post Fill map_pred with the data form u_data and the items not rated by the dominio.controladores.clases.atribut.user but that we predicted.
      */
-/* //prediccio bona not weighted
+/* //prediccio bona no weighted
     public static void prediccio(Map<Integer, Float> u_data) {
         map_pred = new TreeMap<Integer,Float>();
         Map<Integer,Integer> freq = new TreeMap<Integer,Integer>();
@@ -225,62 +225,6 @@ public class SlopeOne {
         }
     }
 //*/
-//retocs weighted
-    /* public static void prediccio(Map<Integer, Float> u_data) {
-
-        Map<Integer,Float> pred = new TreeMap<Integer,Float>();
-        Map<Integer,Integer> freq = new TreeMap<Integer,Integer>();
-        for (int j : map_des.keySet()) { //inicialitzem els maps
-            freq.put(j, 0);
-            pred.put(j, 0.0f);
-        }
-
-
-        System.out.println("ceradores check");
-        for (Map.Entry<Integer, Float> entry : u_data.entrySet()) {
-            for (Map.Entry<Integer, Map<Integer, Float>> entry2 : map_des.entrySet()){
-                float des = 0.0f;
-                float rat = 0.0f;
-                int times = 0;
-
-                System.out.println(" not new val");
-
-                    System.out.println(map_des.get(entry2.getKey()));
-                    System.out.println(entry2.getKey());
-                    System.out.println(entry.getKey());
-                    if(map_des.containsKey(entry2.getKey()) && map_des.containsKey(entry.getKey())) {
-                        System.out.println(map_des.get(entry2).values());
-                        des = map_des.get(entry2.getKey()).get(entry.getKey());
-                    }
-                    System.out.println(" des " + des);
-                    rat = entry.getValue();
-                    System.out.println("rat " + rat);
-                    if(map_freq.containsKey(entry2.getKey()) && map_freq.containsKey(entry.getKey())) {
-                        times = map_freq.get(entry2.getKey()).get(entry.getKey());
-                    }
-                    System.out.println("times " + times);
-                    float newval = (des + rat) * times;
-                    System.out.println(" new val " + newval);
-
-                    pred.put(entry2.getKey(), pred.get(entry2.getKey()) + newval);
-                System.out.println("pred");
-                    freq.put(entry2.getKey(), freq.get(entry2.getKey()) + times );
-                System.out.println(" freq   ");
-
-            }
-        }
-        System.out.println("new val over");
-
-        map_pred = new TreeMap<>();
-        for (Integer j : pred.keySet()) {
-            if (freq.get(j)>0) {
-                map_pred.put(j, pred.get(j)/freq.get(j));
-            }
-        }
-
-    }
-//*/
-
 
 // weighted original
  public static void prediccio(Map<Integer, Float> u_data) {
@@ -292,31 +236,35 @@ public class SlopeOne {
             pred.put(j, 0.0f);
         }
 
-        System.out.println("creadores check");
+
         for (Map.Entry<Integer, Float> entry : u_data.entrySet()) { //j
-            for (Map.Entry<Integer, Map<Integer, Float>> entry2 : map_des.entrySet()) { //k
+            for (Map.Entry<Integer, Map<Integer, Float>> entry2 : map_des.entrySet()){ //k
 
 
-                System.out.println(" not new val");
 
+                float des = 0.0f;
+                int times = 0;
+                if(map_des.get(entry2.getKey()).get(entry.getKey()) != null) {
+                    des = map_des.get(entry2.getKey()).get(entry.getKey());
 
-                float des =  map_des.get(entry2.getKey()).get(entry.getKey());
-                System.out.println(" des " + des);
+                }
                 float rat = entry.getValue();
-                System.out.println("rat " + rat);
-                float times = map_freq.get(entry2.getKey()).get(entry.getKey());
-                System.out.println("times " + times);
+
+                if(map_freq.get(entry2.getKey()).get(entry.getKey()) != null) {
+                    times = map_freq.get(entry2.getKey()).get(entry.getKey());
+
+                }
                 float newval = (des + rat) * times;
-                System.out.println(" new val " + newval);
+
 
                 pred.put(entry2.getKey(), pred.get(entry2.getKey())+newval);
-                freq.put(entry2.getKey(), freq.get(entry2.getKey())+ map_freq.get(entry2.getKey()).get(entry.getKey()));
+                freq.put(entry2.getKey(), freq.get(entry2.getKey())+ times);
 
             }
         }
-        System.out.println("new val over");
 
-        map_pred = new TreeMap<Integer,Float>();
+
+        map_pred = new TreeMap<>();
         for (Integer j : pred.keySet()) {
             if (freq.get(j)>0) {
                 map_pred.put(j, pred.get(j)/freq.get(j));
@@ -329,3 +277,4 @@ public class SlopeOne {
 
     }
 }
+
