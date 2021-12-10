@@ -56,7 +56,7 @@ class Lamina extends JPanel{
     }
     public void button(){
         JButton b=new JButton("Log In");
-       // setBounds(50,100,95,30);
+       setBounds(50,100,95,30);
         add(b);
         /*setSize(400,400);
         setLayout(null);
