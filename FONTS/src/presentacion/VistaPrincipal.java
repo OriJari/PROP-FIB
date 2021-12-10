@@ -9,6 +9,7 @@ public class VistaPrincipal {
         finestra fin = new finestra();
         fin.setVisible(true);
         fin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
 }
@@ -33,6 +34,7 @@ class finestra extends JFrame{
 
         Lamina milamina = new Lamina();
         add(milamina);
+
     }
 
 
@@ -42,23 +44,24 @@ class Lamina extends JPanel{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2=(Graphics2D) g;
-        Font mifont=new Font("Comic Sans MS",Font.BOLD,26);
+        Font mifont=new Font("Arial Bold",Font.BOLD,26);
         g2.setFont(mifont);
         Toolkit mipantalla = Toolkit.getDefaultToolkit();
         Dimension tamPantalla = mipantalla.getScreenSize();
         int altura = tamPantalla.height;
         int amplada = tamPantalla.width;
-        g.drawString("RECOMENDATION", amplada-(amplada - 350),altura - (altura - 100) );
+        g2.drawString("RECOMENDATION", amplada-(amplada - 350),altura - (altura - 100) );
 
 
     }
     public void button(){
-        JButton b=new JButton("Click Here");
-        b.setBounds(50,100,95,30);
-        b.add(b);
-        b.setSize(400,400);
-        b.setLayout(null);
-        b.setVisible(true);
+        JButton b=new JButton("Log In");
+       // setBounds(50,100,95,30);
+        add(b);
+        /*setSize(400,400);
+        setLayout(null);
+        setVisible(true);*/
     }
+
 
 }
