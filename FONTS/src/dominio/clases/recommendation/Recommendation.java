@@ -3,6 +3,7 @@ package dominio.clases.recommendation;
 import dominio.clases.item.*;
 import dominio.clases.rating.Rating;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +14,12 @@ public class Recommendation {
     //Constructoras
     public Recommendation() {
         ID_perfil = 0;
-        conjunt = null;
+        conjunt = new ArrayList<Rating>();
+    }
+
+    public Recommendation(int userID) {
+        ID_perfil = userID;
+        conjunt = new ArrayList<Rating>();
     }
 
     //Consultoras
@@ -34,11 +40,11 @@ public class Recommendation {
         this.conjunt = conj;
     }
 
-    public void add_Item(Rating new_rating) {
+    public void add_Rating(Rating new_rating) {
         this.conjunt.add(new_rating);
     }
 
-    private void sortR(){
+    public void sortR(){
         Collections.sort(this.conjunt, new Rating.SortByVal());
     }
 }

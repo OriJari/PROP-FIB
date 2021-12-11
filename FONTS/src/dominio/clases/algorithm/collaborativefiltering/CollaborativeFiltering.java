@@ -2,6 +2,8 @@ package dominio.clases.algorithm.collaborativefiltering;
 
 import dominio.clases.algorithm.k_means.*;
 import dominio.clases.algorithm.slopeone.*;
+import dominio.clases.rating.Rating;
+import dominio.clases.recommendation.Recommendation;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -55,7 +57,7 @@ public class CollaborativeFiltering {
      * \pre The dominio.controladores.clases.atribut.user must exist.
      * \post Returns a Map of expected ratings with maximum size 10.
      */
-    static public Map<Integer, Float> recommend(Integer userID, boolean valoration, Map<Integer, Float> unknown){
+    static public Recommendation recommend(Integer userID, boolean valoration, Map<Integer, Float> unknown){
         boolean cont = true;
         Integer clusterUser = 0;
         for(int i = 0; i < clusters.size() && cont; ++i){
@@ -73,12 +75,12 @@ public class CollaborativeFiltering {
         }
         SlopeOne Slopeone = new SlopeOne();
         Map<Integer, Float> recommendation = Slopeone.slopeone(valCluster, opinions.get(userID));
-        Map<Integer, Float> result = new TreeMap<>();
+        Recommendation result = new Recommendation(userID);
 
         if(valoration){
             for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
                 if(unknown.containsKey(entry.getKey())){
-                    result.put(entry.getKey(), entry.getValue());
+                    result.add_Rating(new Rating(entry.getKey(), entry.getValue()));
                 }
             }
             recommendation = result;
