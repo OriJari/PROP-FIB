@@ -1,4 +1,4 @@
-package dominio.clases.algorithm.contentbasedflitering;
+package dominio.clases.recommendation;
 
 import dominio.clases.item.*;
 
