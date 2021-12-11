@@ -272,7 +272,11 @@ public class K_NN {
                 auxiliar.remove(maxitemID);
             }
         }
-
+        else {
+            for (Map.Entry<Integer,Float> entry: auxiliar.entrySet()) {
+                resultat.addRating(new Rating(entry.getKey(),entry.getValue()));
+            }
+        }
         resultat.sortR();
         return resultat;
 
