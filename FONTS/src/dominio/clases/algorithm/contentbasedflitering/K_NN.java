@@ -1,6 +1,8 @@
 package dominio.clases.algorithm.contentbasedflitering;
 
 import dominio.clases.content.*;
+import dominio.clases.rating.Rating;
+import dominio.clases.recommendation.Recommendation;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -236,10 +238,10 @@ public class K_NN {
      * \pre <em>id_usuari</em> corresponds to an existing user.
      * \post the k most suitable items to recommend to <em>id_usuari</em> are calculated and returned
      */
-    public Map<Integer,Float> recommend(int id_usuari, int k, boolean valoration) {
+    public Recommendation recommend(int id_usuari, int k, boolean valoration) {
         Map<Integer,Float> valoracions = mapa_known.get(id_usuari);
         Map<Integer,Float> auxiliar = new TreeMap<>();
-
+        Recommendation resultat = new Recommendation();
         List<Pair> k_nn;
 
         for (Map.Entry<Integer,Float> entry : valoracions.entrySet()) {
@@ -257,7 +259,6 @@ public class K_NN {
                 }
             }
         }
-        Map<Integer, Float> resultat = new LinkedHashMap<>();
         for (int i = 0; i < k; ++i) {
             Iterator<Integer> it = auxiliar.keySet().iterator();
             int maxitemID = it.next();
@@ -266,9 +267,11 @@ public class K_NN {
                     maxitemID = entry.getKey();
                 }
             }
-            resultat.put(maxitemID, auxiliar.get(maxitemID));
+            resultat.add_Rating(new Rating(maxitemID, auxiliar.get(maxitemID)));
             auxiliar.remove(maxitemID);
         }
+
+        resultat.sortR();
         return resultat;
 
     }
