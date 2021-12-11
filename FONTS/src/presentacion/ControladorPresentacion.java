@@ -1,7 +1,13 @@
 package presentacion;
 
-public class ControladorPresentacion {
-    public static void main(String[] args) {
+import dominio.controladores.ControladorDominio;
 
+public class ControladorPresentacion {
+    public void loginUsuario(){
+
+    }
+    public void main(String[] args) {
+        ControladorDominio CD = new ControladorDominio();
+        loginUsuario();
     }
 }
