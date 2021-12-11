@@ -112,7 +112,7 @@ public class testmain {
                 System.out.println("No has elegido una opcion valida.");
             } else if(val) {
                 Evaluation eval = new Evaluation(map_rate_unknown.get(userID), recommendation);
-                System.out.println("DCG de la recomendacion: " + eval.DCG()+"\n");
+                System.out.println("DCG de la recomendacion: " + eval.DCG() +"\n");
             }
         }
 
