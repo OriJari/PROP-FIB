@@ -95,7 +95,7 @@ public class testmain {
                     try {
                         recommendation = taula.recommend(userID,k,val);
                         for (Rating r : recommendation.getConjunt()) {
-                            System.out.println("ID item: " + id_reals.get(r.getId()) + " with similarity " + r.getValor());
+                            System.out.println("ID item: " + r.getId() + " with similarity " + r.getValor());
                         }
                     } catch (Exception E) {
                         System.out.println(E.getMessage());
