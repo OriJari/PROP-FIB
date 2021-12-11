@@ -43,7 +43,7 @@ public class testmain {
         CSVRate_unknown.LoadRate(CSVRate_unknown.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_unknown = CSVRate_unknown.getMapRate();
 
-        CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, max(1, map_rate_known.size() / 3));
+        CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, map_rate_unknown, max(1, map_rate_known.size() / 3));
 
         K_NN taula = new K_NN(map_rate_known, map_rate_unknown, id_reals);
         Map<Integer, List<Content>> map_rate_item = CSVItem.getMapRatedata();
@@ -74,17 +74,16 @@ public class testmain {
             switch (choice) {
                 case 1:
                     try {
-                        if(val) recommendation = CF.recommend(userID, val, map_rate_unknown.get(userID));
-                        else recommendation = CF.recommend(userID, false, new TreeMap<>());
+                        recommendation = CF.recommend(userID, k, val);
 
                         if(serie) {
-                            for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
-                                System.out.println("ID item: " + entry.getKey() + " with expected rating " + min(10, entry.getValue()));
+                            for (Rating r : recommendation.getConjunt()) {
+                                System.out.println("ID item: " + id_reals.get(r.getId()) + " with similarity " + min(10,r.getValor()));
                             }
                         }
                         else{
-                            for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
-                                System.out.println("ID item: " + entry.getKey() + " with expected rating " + min(5,entry.getValue()));
+                            for (Rating r : recommendation.getConjunt()) {
+                                System.out.println("ID item: " + id_reals.get(r.getId()) + " with similarity " + min(5,r.getValor()));
                             }
                         }
 
