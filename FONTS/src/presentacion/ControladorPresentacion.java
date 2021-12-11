@@ -3,11 +3,12 @@ package presentacion;
 import dominio.controladores.ControladorDominio;
 
 public class ControladorPresentacion {
+    ControladorDominio CD;
     public void loginUsuario(){
 
     }
     public void main(String[] args) {
-        ControladorDominio CD = new ControladorDominio();
+        CD = new ControladorDominio();
         loginUsuario();
     }
 }
