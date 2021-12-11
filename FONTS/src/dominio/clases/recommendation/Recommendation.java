@@ -1,9 +1,13 @@
 package dominio.clases.recommendation;
 
 import dominio.clases.item.*;
+import dominio.clases.rating.Rating;
+
+import java.util.Collections;
+import java.util.List;
 
 public class Recommendation {
-    Item[] conjunt;
+    List<Rating> conjunt;
     int ID_perfil;
 
     //Constructoras
@@ -17,7 +21,7 @@ public class Recommendation {
         return ID_perfil;
     }
 
-    public Item[] getConjunt() {
+    public List<Rating> getConjunt() {
         return conjunt;
     }
 
@@ -26,16 +30,15 @@ public class Recommendation {
         this.ID_perfil = id;
     }
 
-    public void setConjunt(Item[] conj) {
+    public void setConjunt(List<Rating> conj) {
         this.conjunt = conj;
     }
 
-    public void add_Item(Item new_item) {
-        int n = conjunt.length;
-        Item[] new_conj = new Item[n+1];
-        int i;
-        for (i = 0; i < n; i++) new_conj[i] = conjunt[i];
-        new_conj[n] = new_item;
-        conjunt = new_conj;
+    public void add_Item(Rating new_rating) {
+        this.conjunt.add(new_rating);
+    }
+
+    private void sortR(){
+        Collections.sort(this.conjunt, new Rating.SortByVal());
     }
 }
