@@ -268,13 +268,13 @@ public class K_NN {
                         maxitemID = entry.getKey();
                     }
                 }
-                resultat.addRating(new Rating(maxitemID, auxiliar.get(maxitemID)));
+                resultat.addRating(new Rating(id_reals.get(maxitemID), auxiliar.get(maxitemID)));
                 auxiliar.remove(maxitemID);
             }
         }
         else {
             for (Map.Entry<Integer,Float> entry: auxiliar.entrySet()) {
-                resultat.addRating(new Rating(entry.getKey(),entry.getValue()));
+                resultat.addRating(new Rating(id_reals.get(entry.getKey()),entry.getValue()));
             }
         }
         resultat.sortR();
