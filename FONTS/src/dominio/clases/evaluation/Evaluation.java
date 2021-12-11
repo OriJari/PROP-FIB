@@ -2,6 +2,7 @@ package dominio.clases.evaluation;
 
 import java.util.*;
 import dominio.clases.rating.*;
+import dominio.clases.recommendation.Recommendation;
 
 /**
  * @author Manel Piera Garrigosa
@@ -11,7 +12,7 @@ import dominio.clases.rating.*;
  * @brief Evaluates the quality of a recommendation.
  */
 public class Evaluation {
-    private List<Rating> recommendation;
+    private Recommendation recommendation;
     private Map<Integer, Float> unknown;
 
     /** @brief <em>recommendation</em> represents the recommendation to a dominio.controladores.clases.atribut.user ordered decreasingly by the expected rating.
@@ -27,15 +28,10 @@ public class Evaluation {
      * \pre <em>true</em>
      * \post Creates an Evaluation.
      */
-    public Evaluation(Map<Integer, Float> unknown, Map<Integer, Float> recommendation) {
+    public Evaluation(Map<Integer, Float> unknown, Recommendation recommendation) {
         this.unknown = unknown;
-        this.recommendation = new ArrayList<>();
-
-        for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
-            this.recommendation.add(new Rating(entry.getKey(), entry.getValue()));
-        }
-
-        Collections.sort(this.recommendation, new Rating.SortByVal());
+        this.recommendation = recommendation;
+        this.recommendation.sortR();
     }
 
     /** @brief Function that calculates the quality of a recommendation.
@@ -48,12 +44,12 @@ public class Evaluation {
     public float DCG(){
         int j = 1;
         float result = 0.0f;
-        for(int i = 0; i < recommendation.size(); ++i){
-            if(unknown.containsKey(recommendation.get(i).getId())){
-                result += (Math.pow(2, unknown.get(recommendation.get(i).getId()))-1)/(Math.log(j + 1)/Math.log(2));
+        for(int i = 0; i < recommendation.getConjunt().size(); ++i){
+            if(unknown.containsKey(recommendation.getConjunt().get(i).getId())){
+                result += (Math.pow(2, unknown.get(recommendation.getConjunt().get(i).getId()))-1)/(Math.log(j + 1)/Math.log(2));
             }
-            if(i == 0 || recommendation.get(i).getValor() != recommendation.get(i-1).getValor()){
-                ++j;
+            if(i == 0 || recommendation.getConjunt().get(i).getValor() != recommendation.getConjunt().get(i-1).getValor()){
+                j = i+1;
             }
         }
         return result;
