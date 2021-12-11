@@ -259,16 +259,18 @@ public class K_NN {
                 }
             }
         }
-        for (int i = 0; i < k; ++i) {
-            Iterator<Integer> it = auxiliar.keySet().iterator();
-            int maxitemID = it.next();
-            for (Map.Entry<Integer, Float> entry : auxiliar.entrySet()) {
-                if (entry.getValue() > auxiliar.get(maxitemID)) {
-                    maxitemID = entry.getKey();
+        if (auxiliar.size() > k) {
+            for (int i = 0; i < k; ++i) {
+                Iterator<Integer> it = auxiliar.keySet().iterator();
+                int maxitemID = it.next();
+                for (Map.Entry<Integer, Float> entry : auxiliar.entrySet()) {
+                    if (entry.getValue() > auxiliar.get(maxitemID)) {
+                        maxitemID = entry.getKey();
+                    }
                 }
+                resultat.addRating(new Rating(maxitemID, auxiliar.get(maxitemID)));
+                auxiliar.remove(maxitemID);
             }
-            resultat.addRating(new Rating(maxitemID, auxiliar.get(maxitemID)));
-            auxiliar.remove(maxitemID);
         }
 
         resultat.sortR();
