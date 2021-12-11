@@ -20,7 +20,9 @@ import java.util.Vector;
 public class CollaborativeFiltering {
 
     private static Map<Integer, Map<Integer, Float>> opinions;
+    private static Map<Integer, Map<Integer, Float>> unknown;
     private static Vector<Vector<Integer>> clusters;
+
 
     /** @brief <em>opinions</em> represents the ratings, float in the nested Map, that users, the first Integer is their ID, have given about items, their ID is the integer in the nested Map.
      *  <em>clusters</em> represents the k clusters of similar users.
@@ -33,6 +35,7 @@ public class CollaborativeFiltering {
      */
     public CollaborativeFiltering(){
         opinions = new TreeMap<>();
+        unknown = new TreeMap<>();
         clusters = new Vector<>();
     }
     /** @brief Builder with defined <em>opinions</em> and <em>k</em>.
@@ -43,7 +46,8 @@ public class CollaborativeFiltering {
      * \pre <em>k</em> must be larger than 0 but smaller or equal than opinions.size().
      * \post Creates <em>collaborativeFiltering</em> object with <em>opinions</em> set to opinions and computes the k clusters of users.
      */
-    public CollaborativeFiltering(Map<Integer, Map<Integer, Float>> opinions, Integer k){
+    public CollaborativeFiltering(Map<Integer, Map<Integer, Float>> opinions, Map<Integer, Map<Integer, Float>> unknown, Integer k){
+        CollaborativeFiltering.unknown = unknown;
         CollaborativeFiltering.opinions = opinions;
         K_Means Kmean = new K_Means(opinions);
         CollaborativeFiltering.clusters = Kmean.k_means(k);
@@ -57,7 +61,7 @@ public class CollaborativeFiltering {
      * \pre The dominio.controladores.clases.atribut.user must exist.
      * \post Returns a Map of expected ratings with maximum size 10.
      */
-    static public Recommendation recommend(Integer userID, boolean valoration, Map<Integer, Float> unknown){
+    static public Recommendation recommend(Integer userID, Integer maxItems, boolean valoration){
         boolean cont = true;
         Integer clusterUser = 0;
         for(int i = 0; i < clusters.size() && cont; ++i){
@@ -74,35 +78,43 @@ public class CollaborativeFiltering {
             valCluster.put(clusters.get(clusterUser).get(i), opinions.get(clusters.get(clusterUser).get(i)));
         }
         SlopeOne Slopeone = new SlopeOne();
-        Map<Integer, Float> recommendation = Slopeone.slopeone(valCluster, opinions.get(userID));
-        Recommendation result = new Recommendation(userID);
+        Map<Integer, Float> mapRecommendation = Slopeone.slopeone(valCluster, opinions.get(userID));
+        Map<Integer, Float> aux = new TreeMap<>();
 
         if(valoration){
-            for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
-                if(unknown.containsKey(entry.getKey())){
-                    result.add_Rating(new Rating(entry.getKey(), entry.getValue()));
+            for(Map.Entry<Integer, Float> entry: mapRecommendation.entrySet()){
+                if(unknown.get(userID).containsKey(entry.getKey())){
+                    aux.put(entry.getKey(), entry.getValue());
                 }
             }
-            recommendation = result;
-            result = new TreeMap<>();
+            mapRecommendation = aux;
+            aux = new TreeMap<>();
         }
 
-        if(recommendation.size() > 10) {
-            for (int i = 0; i < 10; ++i) {
-                Iterator<Integer> it = recommendation.keySet().iterator();
+        if(mapRecommendation.size() > maxItems) {
+            for (int i = 0; i < maxItems; ++i) {
+                Iterator<Integer> it = mapRecommendation.keySet().iterator();
                 int maxitemID = it.next();
-                for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
-                    if (entry.getValue() > recommendation.get(maxitemID)) {
+                for (Map.Entry<Integer, Float> entry : mapRecommendation.entrySet()) {
+                    if (entry.getValue() > mapRecommendation.get(maxitemID)) {
                         maxitemID = entry.getKey();
                     }
                 }
-                result.put(maxitemID, recommendation.get(maxitemID));
-                recommendation.remove(maxitemID);
+                aux.put(maxitemID, mapRecommendation.get(maxitemID));
+                mapRecommendation.remove(maxitemID);
             }
         }
         else{
-            result = recommendation;
+            aux = mapRecommendation;
         }
+
+        Recommendation result = new Recommendation(userID);
+        for(Map.Entry<Integer, Float> entry: aux.entrySet()){
+            result.addRating(new Rating(entry.getKey(), entry.getValue()));
+        }
+
+        result.sortR();
         return result;
     }
+
 }

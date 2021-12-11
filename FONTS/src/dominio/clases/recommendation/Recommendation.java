@@ -40,7 +40,7 @@ public class Recommendation {
         this.conjunt = conj;
     }
 
-    public void add_Rating(Rating new_rating) {
+    public void addRating(Rating new_rating) {
         this.conjunt.add(new_rating);
     }
 

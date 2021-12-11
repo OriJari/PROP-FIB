@@ -5,6 +5,7 @@ import dominio.clases.algorithm.contentbasedflitering.*;
 import dominio.clases.content.*;
 import dominio.clases.evaluation.*;
 import dominio.clases.preprocessat.*;
+import dominio.clases.recommendation.Recommendation;
 
 /**
  * @brief Clase ejecutable del proyecto con la que probar sus funcionalidades.
@@ -41,7 +42,7 @@ public class testmain {
         CSVRate_unknown.LoadRate(CSVRate_unknown.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_unknown = CSVRate_unknown.getMapRate();
 
-        CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, max(1, map_rate_known.size() / 3));
+        CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, map_rate_unknown, max(1, map_rate_known.size() / 3));
 
         K_NN taula = new K_NN(map_rate_known, map_rate_unknown, id_reals);
         Map<Integer, List<Content>> map_rate_item = CSVItem.getMapRatedata();
@@ -64,13 +65,12 @@ public class testmain {
             System.out.println("\t 2) Content based filtering (k-nn)");
             System.out.println("\t 0) Volver atras");
 
-            Map<Integer, Float> recommendation = new TreeMap<>();
+            Recommendation recommendation;
             int choice = sc.nextInt();
             switch (choice) {
                 case 1:
                     try {
-                        if(val) recommendation = CF.recommend(userID, val, map_rate_unknown.get(userID));
-                        else recommendation = CF.recommend(userID, false, new TreeMap<>());
+                        recommendation = CF.recommend(userID, 10, val);
 
                         if(serie) {
                             for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
