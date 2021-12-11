@@ -2,6 +2,9 @@ package dominio.controladores.drivers;
 
 import dominio.clases.content.*;
 import dominio.clases.algorithm.contentbasedflitering.*;
+import dominio.clases.rating.Rating;
+import dominio.clases.recommendation.Recommendation;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
@@ -101,10 +104,10 @@ public class DriverK_NN {
             line = buffer.readLine();
             if (line == null || line.equals("end")) break;
             int k = Integer.parseInt(line);
-            Map<Integer,Float> result = taula.recommend(user_id,k,false);
+            Recommendation result = taula.recommend(user_id,k,false);
             System.out.println("Recommendation:");
-            for (Map.Entry<Integer,Float> entry : result.entrySet()) {
-                System.out.println(entry.getKey() + " " + entry.getValue());
+            for (Rating r : result.getConjunt()) {
+                System.out.println(r.getId() + " " + r.getValor());
             }
             System.out.println(" ");
         }

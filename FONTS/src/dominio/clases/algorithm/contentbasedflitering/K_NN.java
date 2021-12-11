@@ -267,7 +267,7 @@ public class K_NN {
                     maxitemID = entry.getKey();
                 }
             }
-            resultat.add_Rating(new Rating(maxitemID, auxiliar.get(maxitemID)));
+            resultat.addRating(new Rating(maxitemID, auxiliar.get(maxitemID)));
             auxiliar.remove(maxitemID);
         }
 
