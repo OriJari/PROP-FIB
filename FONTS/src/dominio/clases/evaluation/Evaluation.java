@@ -49,7 +49,7 @@ public class Evaluation {
                 result += (Math.pow(2, unknown.get(recommendation.getConjunt().get(i).getId()))-1)/(Math.log(j + 1)/Math.log(2));
             }
             if(i == 0 || recommendation.getConjunt().get(i).getValor() != recommendation.getConjunt().get(i-1).getValor()){
-                j = i+1;
+                j = i+2;
             }
         }
         return result;

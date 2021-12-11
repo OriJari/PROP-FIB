@@ -1,6 +1,8 @@
 package dominio.controladores.drivers;
 
 import dominio.clases.evaluation.*;
+import dominio.clases.rating.Rating;
+import dominio.clases.recommendation.Recommendation;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -23,8 +25,8 @@ public class DriverEvaluation {
         return unknown;
     }
 
-    public static Map<Integer, Float> leerrecommendation(){
-        Map<Integer, Float> recommendation = new TreeMap<>();
+    public static Recommendation leerrecommendation(){
+        Recommendation recommendation = new Recommendation();
         System.out.println("Numero de items en la recomendacion:");
         int numit = sc.nextInt();
         for(int i = 0; i < numit; ++i){
@@ -32,7 +34,7 @@ public class DriverEvaluation {
             int ID = sc.nextInt();
             System.out.println("Rating item " + (i+1) +" :");
             Float rating = sc.nextFloat();
-            recommendation.put(ID, rating);
+            recommendation.addRating(new Rating(ID, rating));
         }
         return recommendation;
     }

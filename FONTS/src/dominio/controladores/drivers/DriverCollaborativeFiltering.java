@@ -1,12 +1,15 @@
 package dominio.controladores.drivers;
 
 import dominio.clases.algorithm.collaborativefiltering.*;
+import dominio.clases.rating.Rating;
+import dominio.clases.recommendation.Recommendation;
 
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
 import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 
 public class DriverCollaborativeFiltering {
@@ -35,12 +38,12 @@ public class DriverCollaborativeFiltering {
 
     public static void testrecommend(){
         Map<Integer, Map<Integer, Float>> opinions = leeropinions();
-        CollaborativeFiltering CF = new CollaborativeFiltering(opinions, max(1, opinions.size() / 3));
+        CollaborativeFiltering CF = new CollaborativeFiltering(opinions, new TreeMap<>(), max(1, opinions.size() / 3));
         System.out.println("UserID del user que queremos la recomendacion:");
         int userID = sc.nextInt();
-        Map<Integer, Float> recommendation = CF.recommend(userID, false, new TreeMap<>());
-        for(Map.Entry<Integer, Float> entry: recommendation.entrySet()){
-            System.out.println("Expected rating for item " + entry.getKey() + ": " + entry.getValue());
+        Recommendation recommendation = CF.recommend(userID, 10, false);
+        for (Rating r : recommendation.getConjunt()) {
+            System.out.println("ID item: " + r.getId() + " with expected rating " + r.getValor());
         }
     }
 

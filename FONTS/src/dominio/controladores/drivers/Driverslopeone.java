@@ -4,6 +4,8 @@ import dominio.clases.algorithm.collaborativefiltering.*;
 import dominio.clases.algorithm.slopeone.*;
 
 import dominio.clases.preprocessat.*;
+import dominio.clases.rating.Rating;
+import dominio.clases.recommendation.Recommendation;
 
 
 import java.util.Map;
@@ -11,6 +13,7 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 /**
  *
@@ -129,15 +132,14 @@ public class Driverslopeone {
             existinguser = SlopeOne.getMap_data().containsKey(userID);
         }
 
-        Map<Integer, Float> recommendation = new TreeMap<>();
+        Recommendation recommendation;
 
         System.out.println("\n Resultado:");
-        CollaborativeFiltering CF = new CollaborativeFiltering(SlopeOne.getMap_data(), max(1, SlopeOne.getMap_data().size() / 3));
-        recommendation = CF.recommend(userID, false, new TreeMap<>());
-        for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
-            System.out.println("ID item: " + entry.getKey() + " con esta prediccion " + entry.getValue());
+        CollaborativeFiltering CF = new CollaborativeFiltering(SlopeOne.getMap_data(), new TreeMap<>(), max(1, SlopeOne.getMap_data().size() / 3));
+        recommendation = CF.recommend(userID, 10, false);
+        for (Rating r : recommendation.getConjunt()) {
+            System.out.println("ID item: " + r.getId() + " con esta predicción " + r.getValor());
         }
-
 
         System.out.println("Terminado");
 
@@ -197,13 +199,13 @@ public class Driverslopeone {
             existinguser = SlopeOne.getMap_data().containsKey(userID);
         }
 
-        Map<Integer, Float> recommendation = new TreeMap<>();
+        Recommendation recommendation;
 
         System.out.println("\n Resultado:");
-        CollaborativeFiltering CF = new CollaborativeFiltering(SlopeOne.getMap_data(), max(1, SlopeOne.getMap_data().size() / 3));
-        recommendation = CF.recommend(userID, false, new TreeMap<>());
-        for (Map.Entry<Integer, Float> entry : recommendation.entrySet()) {
-            System.out.println("ID item: " + entry.getKey() + " con esta prediccion " + entry.getValue());
+        CollaborativeFiltering CF = new CollaborativeFiltering(SlopeOne.getMap_data(), new TreeMap<>(), max(1, SlopeOne.getMap_data().size() / 3));
+        recommendation = CF.recommend(userID, 10, false);
+        for (Rating r : recommendation.getConjunt()) {
+            System.out.println("ID item: " + r.getId() + " con esta predicción " + r.getValor());
         }
 
 

@@ -78,12 +78,12 @@ public class testmain {
 
                         if(serie) {
                             for (Rating r : recommendation.getConjunt()) {
-                                System.out.println("ID item: " + id_reals.get(r.getId()) + " with similarity " + min(10,r.getValor()));
+                                System.out.println("ID item: " + r.getId() + " with expected rating " + min(10,r.getValor()));
                             }
                         }
                         else{
                             for (Rating r : recommendation.getConjunt()) {
-                                System.out.println("ID item: " + id_reals.get(r.getId()) + " with similarity " + min(5,r.getValor()));
+                                System.out.println("ID item: " + r.getId() + " with expectedd rating " + min(5,r.getValor()));
                             }
                         }
 
