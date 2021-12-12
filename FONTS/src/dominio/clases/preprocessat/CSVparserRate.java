@@ -209,6 +209,44 @@ public class CSVparserRate {
     }
 
     /**
+     * @brief Read the preproces dataset of ratings.
+     * @param path "PENDIENTE A MODIFICAR"
+     * \pre needs a document csv to read
+     * \post obtains the preprocess data into the pertinent map.
+     */
+    public void reload_map_preporcess(String path){
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream(path);
+            Scanner sc = new Scanner(fis);
+            obtainHeader(path);
+            sc.nextLine();  // without header
+            Map<Integer, Map<Integer, Float>> m = new TreeMap<>();
+            //For each line
+            while(sc.hasNextLine()) {
+                String line = sc.nextLine();
+                //[:space]
+                List<String> splitContent = Arrays.asList(line.split(","));
+                int userID = Integer.parseInt(splitContent.get(0));
+                int itemID = Integer.parseInt(splitContent.get(1));
+                float rateID = Float.parseFloat(splitContent.get(2));
+                if(m.containsKey(userID)){
+                    m.get(userID).put(itemID,rateID);
+                }
+                else{
+                    Map<Integer, Float> aux = new TreeMap<>();
+                    aux.put(itemID, rateID);
+                    m.put(userID, aux);
+                }
+            }
+            this.mapRate = m;
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * @brief Change a String value to an Integer one
      * \pre true
      * \post change the value of the string to a integer.
@@ -263,17 +301,15 @@ public class CSVparserRate {
         return String.valueOf(this.content.get(i));
     }
 
-    public void guardar_datos(Map<Integer, Map<Integer, Float>> mapRate, List<String> header){
-        Scanner sc = new Scanner(System.in);
-        out.println("Nombre del nuevo fichero: ");
-        String nuevoFichero = sc.nextLine();
-        File archivo = new File("FONTS/src/persistencia/" + nuevoFichero + ".txt");
-        out.println("Fichero " + nuevoFichero + " guardado");
+    public void guardar_datos_preproces(Map<Integer, Map<Integer, Float>> mapRate, String namefile){
+        //Scanner sc = new Scanner(System.in);
+        //String nuevoFichero = sc.nextLine();
+        File archivo = new File("FONTS/src/persistencia/" + namefile + ".csv");
 
         try{
             FileWriter doc = new FileWriter(archivo);
             PrintWriter out = new PrintWriter(doc);
-            out.write(header.get(0) + "," + header.get(1) + "," + header.get(2) + "\n");
+            out.write("userId" + "," + "itemId" + "," + "rating" + "\n");
             for (Map.Entry<Integer, Map<Integer, Float>> entry : mapRate.entrySet()) {
                 Integer first = entry.getKey();
                 Map<Integer, Float> m = entry.getValue();
@@ -288,4 +324,46 @@ public class CSVparserRate {
             out.close();
         }
     }
+
+    public void guardar_datos(List<List<String>> content, List<String> header, String namefile) {
+
+        //Scanner sc = new Scanner(System.in);
+        //String nuevoFichero = sc.nextLine();
+        File archivo = new File("FONTS/src/persistencia/" + namefile + ".csv");
+
+        try {
+            FileWriter doc = new FileWriter(archivo);
+            PrintWriter out = new PrintWriter(doc);
+            out.write(header.get(0) + "," + header.get(1) + "," + header.get(2) + "\n");
+            for (int i = 0; i < content.size(); ++i) {
+                List<String> l = content.get(i);
+                boolean p = true;
+                for (String s : l) {
+                    if (p) {
+                        out.write(s);
+                        p = false;
+                    } else out.write("," + s);
+                }
+                out.write("\n");
+            }
+            out.write("\n");
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            out.close();
+        }
+    }
+
+    /*public static void main(String[] args) {
+        CSVparserRate CSVRate = new CSVparserRate("FONTS/src/dominio/controladores/vcont/prova1rating.csv");
+        CSVRate.readLoadRate();
+        CSVRate.LoadRate(CSVRate.getContent());
+        String s = "rating";
+        String s1 = "rating_prepo";
+        CSVRate.guardar_datos(CSVRate.getContent(), CSVRate.getHeader(), s);
+        CSVRate.guardar_datos_preproces(CSVRate.getMapRate(), s1);
+        CSVRate.reload_map_preporcess("FONTS/src/persistencia/rating_prepo.csv");
+        out.println("Hola");
+    }*/
 }
