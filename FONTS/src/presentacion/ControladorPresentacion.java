@@ -1,23 +1,35 @@
 package presentacion;
 
-import dominio.controladores.ControladorDominio;
+//import dominio.controladores.ControladorDominio;
 
 import java.util.List;
+import java.util.*;
 
 public class ControladorPresentacion {
-    ControladorDominio CD;
+    //privete ControladorDominio CD;
+    private VistaPrincipal vistaPrincipal = null;
     int ID_actual;
 
-    public boolean cambiarUsername(String new_username) {
-        CD.cambiarUsername(new_username);
+    public ControladorPresentacion(){
+        //CD = new ControladorDominio();
+        vistaPrincipal = new VistaPrincipal(this);
+    }
+
+    public void inicialitzarPresentacion(){
+        //CD.inicialitzarControladorDominio;
+        vistaPrincipal.hacerVisible();
+    }
+
+    /*public boolean cambiarUsername(String new_username) {
+        //CD.cambiarUsername(new_username);
     }
 
     public boolean cambiarPassword(String new_password) {
-        CD.cambiarPassword(new_password);
+       // CD.cambiarPassword(new_password);
     }
 
     public boolean cambiarMail(String new_mail) {
-        CD.cambiarMail(new_mail);
+       // CD.cambiarMail(new_mail);
     }
 
     public boolean cerrarSesion(){}
@@ -61,8 +73,5 @@ public class ControladorPresentacion {
     }
 
 
-    public void main(String[] args) {
-
-        CD = new ControladorDominio();
-    }
+    */
 }
