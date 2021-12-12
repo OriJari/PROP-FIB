@@ -346,13 +346,15 @@ public class CSVparserItem {
                     act = false;
                 }
                 if (s.contains(";")){
-                    t.setTag("c");
-                    t.setTag_numi(valI);
-                    t.setTag_numd(valD);
-                    List<String> orderlist = Arrays.asList(s.split(";"));
-                    Collections.sort(orderlist);
-                    t.setCategorics(orderlist);
-                    act = false;
+                    if(!s.contains("\"")) {
+                        t.setTag("c");
+                        t.setTag_numi(valI);
+                        t.setTag_numd(valD);
+                        List<String> orderlist = Arrays.asList(s.split(";"));
+                        Collections.sort(orderlist);
+                        t.setCategorics(orderlist);
+                        act = false;
+                    }
                 }
                 if (act) t.setTag(s);
                 newtagform.add(t);
@@ -363,32 +365,30 @@ public class CSVparserItem {
         }
     }
 
-    public void guardar_datos(List<List<String>> content, List<String> header){
+    public void guardar_datos(List<List<String>> content, List<String> header) {
 
-        Scanner sc = new Scanner(System.in);
-        out.println("Nombre del nuevo fichero: ");
-        String nuevoFichero = sc.nextLine();
-        File archivo = new File("FONTS/src/persistencia/" + nuevoFichero + ".csv");
-        out.println("Fichero " + nuevoFichero + " guardado");
+        //Scanner sc = new Scanner(System.in);
+        //String nuevoFichero = sc.nextLine();
+        //PENDIENTE NOMBRE FICHERO
+        File archivo = new File("FONTS/src/persistencia/" + "items" + ".csv");
 
-        try{
+        try {
             FileWriter doc = new FileWriter(archivo);
             PrintWriter out = new PrintWriter(doc);
             int size_header = header.size();
-            for (int i = 0; i < size_header; ++i){
+            for (int i = 0; i < size_header; ++i) {
                 if (i == 0) out.write(header.get(0));
-                else out.write( "," + header.get(i));
+                else out.write("," + header.get(i));
             }
             out.write("\n");
-            for (int i = 0; i < content.size(); ++i){
+            for (int i = 0; i < content.size(); ++i) {
                 List<String> l = content.get(i);
                 boolean p = true;
-                for (String s : l){
-                    if (p){
+                for (String s : l) {
+                    if (p) {
                         out.write(s);
                         p = false;
-                    }
-                    else out.write( "," + s);
+                    } else out.write("," + s);
                 }
                 out.write("\n");
             }
@@ -400,4 +400,109 @@ public class CSVparserItem {
             out.close();
         }
     }
+
+    public void guardar_datos_prepros(Map<Integer, List<Content>> mapRatedata, List<String> header) {
+
+        //Scanner sc = new Scanner(System.in);
+        //String nuevoFichero = sc.nextLine();
+        //PENDIENTE NOMBRE FICHERO
+        File archivo = new File("FONTS/src/persistencia/" + "itemsporcesdata" + ".csv");
+
+        try {
+            FileWriter doc = new FileWriter(archivo);
+            PrintWriter out = new PrintWriter(doc);
+            int size_header = header.size();
+            for (int i = 0; i < size_header; ++i) {
+                if (i == 0) out.write(header.get(0));
+                else out.write("," + header.get(i));
+            }
+            out.write("\n");
+            for (Map.Entry<Integer, List<Content>> entry : mapRatedata.entrySet()) {
+                Integer first = entry.getKey();
+                List<Content> l = entry.getValue();
+                for (int i = 0; i < l.size(); ++i){
+                    Content c = l.get(i);
+                    boolean primer = true;
+                    out.write( c.getTag() + "," + String.valueOf(c.getTag_numi()) + "," +String.valueOf(c.getTag_numd()) + ',');
+                    if (c.getCategorics() != null){
+                        List<String> li = c.getCategorics();
+                        for (int j = 0; j < li.size(); ++j){
+                            if (j == 0)  out.write(li.get(j));
+                            else out.write(";" + li.get(j));
+                        }
+                    }
+                    else if (c.getCategorics() == null) out.write( "null");
+                    if (primer) primer = false;
+                    if (!primer) out.write(",");
+                }
+                out.write( "\n");
+            }
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            out.close();
+        }
+    }
+
+    public void reload_map_preporcess(String path){
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream(path);
+            Scanner sc = new Scanner(fis);
+            obtainHeader(path);
+            sc.nextLine();  // without header
+            Map<Integer, List<Content>> m = new TreeMap<>();
+            //For each line
+            int filas = 0;
+            while(sc.hasNextLine()) {
+                String line = sc.nextLine();
+                List<String> splitContent = Arrays.asList(line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1));
+                List<Content> aux = new ArrayList<>();
+                int size = splitContent.size();
+                int i0 = 0;
+                int i1 = 1;
+                int i2 = 2;
+                int i3 = 3;
+                while(i3 < size){
+                    String tag = splitContent.get(i0);
+                    String tagi = splitContent.get(i1);
+                    String tagd = splitContent.get(i2);
+                    String categorics = splitContent.get(i3);
+                    Content c = new Content();
+                    c.setTag(tag);
+                    if (!tagi.equals("null")) c.setTag_numi(String_to_Int(tagi));
+                    if (!tagd.equals("null")) c.setTag_numd(String_to_Double(tagd));
+                    /*float f = Float.parseFloat(tagd);
+                    double tagdd = (double) f;*/
+                    if (categorics.contains(";")){
+                        List<String> cat = Arrays.asList(categorics.split(";"));
+                        c.setCategorics(cat);
+                    }
+                    aux.add(c);
+                    i0 += 4;
+                    i1 += 4;
+                    i2 += 4;
+                    i3 += 4;
+                }
+                m.put(filas, aux);
+                ++filas;
+            }
+            this.mapRatedata = m;
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*public static void main(String[] args) {
+        CSVparserItem CSVItem = new CSVparserItem("FONTS/src/persistencia/itemP.csv");
+        CSVItem.readLoadItem();
+        CSVItem.MapItemData(CSVItem.getContent());
+        CSVItem.guardar_datos(CSVItem.getContent(), CSVItem.getHeader());
+        CSVItem.guardar_datos_prepros(CSVItem.getMapRatedata(), CSVItem.getHeader());
+        CSVItem.reload_map_preporcess("FONTS/src/persistencia/itemsporcesdata.csv");
+        out.println("hola");
+    }*/
+
 }
