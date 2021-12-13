@@ -5,10 +5,21 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class VistaPrincipal {
+    //controlador presentacio
+    private ControladorPresentacion CP;
+
+    //components gui
     private JFrame fin = new JFrame("Recomendation System");
     private JPanel laminapor = new JPanel();
     private JPanel laminalog = new JPanel();
+    private JButton login = new JButton("Log In");
+    private JButton singup = new JButton("Sing Up");
+
+    //atributs
+    private int panelactual = 0;
+
     public VistaPrincipal(ControladorPresentacion controladorPresentacion) {
+        CP = controladorPresentacion;
     }
 
     public void hacerVisible() {

@@ -16,7 +16,7 @@ public class ControladorPersistencia {
 
     }
 
-    public int login(String nick, String password){
+   /* public int login(String nick, String password){
         //Retorna el ID del nick si la password coincideix
         //Retorna -1 si no
     }
@@ -25,7 +25,7 @@ public class ControladorPersistencia {
         //Retorna el ID del nick si son aptes
         //Retorna -1 si no
     }
-
+*/
     public void addItem(int ID, List<String> tags){
 
     }
