@@ -1,6 +1,7 @@
 package presentacion;
 
 import  javax.swing.*;
+import javax.tools.Tool;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -26,51 +27,34 @@ public class VistaPrincipal {
 
         fin.setVisible(true);
         fin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-    }
-
-
-    class finestra extends JFrame {
-        Lamina_portada laminapor = new Lamina_portada();
-        Lamina_login laminalog = new Lamina_login();
-
-        public finestra() {//constructora
-        }
-
-        public void finestra_main() {
-
-
-            // setExtendedState(Frame.MAXIMIZED_BOTH);
-            //pantalla completa al obrir
-            setTitle("Recomendation System");
-
-            this.setResizable(false);//no es pot fer més gran l'aplicacio
-            // fins q no sapiga fer resize i fixar les coses
-
-            Toolkit mipantalla = Toolkit.getDefaultToolkit();
-            Dimension tamPantalla = mipantalla.getScreenSize();
-            int altura = tamPantalla.height;
-            int amplada = tamPantalla.width;
-            setSize(amplada / 2, altura / 2);
-            setLocation(amplada / 4, altura / 4);
-
-            add(laminapor);
-        }
-
-        public void view_log() {
-
-            add(laminalog);
-        }
-
+        basic_frame();
 
     }
+
+    private void basic_frame(){
+        fin.setTitle("Recomendation System");
+        fin.setResizable(false);
+
+        Toolkit mipantalla = Toolkit.getDefaultToolkit();
+        Dimension tampantalla = mipantalla.getScreenSize();
+        int h = tampantalla.height;
+        int w = tampantalla.width;
+        fin.setSize(w/2,h/2);
+        fin.setLocation(w/4,h/4);
+    }
+
+    //private void laminapor(){
+
+    //}
+
+
+
+
+/*
 
     class Lamina_portada extends JPanel implements ActionListener {
 
 
-        JButton button_login = new JButton("Log In");
-        JButton button_singup = new JButton("Sing Up");
 
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -86,7 +70,7 @@ public class VistaPrincipal {
 
 
         }
-
+/*
         public void button() {
             add(button_login);
             add(button_singup);
@@ -134,5 +118,5 @@ public class VistaPrincipal {
 
         }
     }
-
+*/
 }
