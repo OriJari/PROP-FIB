@@ -39,7 +39,7 @@ public class VistaPrincipal {
         Dimension tampantalla = mipantalla.getScreenSize();
         int h = tampantalla.height;
         int w = tampantalla.width;
-        fin.setSize(w/2,h/2);
+        fin.setSize(960,540);
         fin.setLocation(w/4,h/4);
     }
 
