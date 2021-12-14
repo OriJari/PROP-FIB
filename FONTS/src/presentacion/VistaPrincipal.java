@@ -35,23 +35,45 @@ public class VistaPrincipal {
         fin.setTitle("Recomendation System");
         fin.setResizable(false);
 
-        Toolkit mipantalla = Toolkit.getDefaultToolkit();
-        Dimension tampantalla = mipantalla.getScreenSize();
-        int h = tampantalla.height;
-        int w = tampantalla.width;
         fin.setSize(960,540);
-        fin.setLocation(w/4,h/4);
+        fin.setLocationRelativeTo(null);
+        labelmain();
     }
 
-    //private void laminapor(){
+    private void labelmain(){
+        switch (panelactual){
+            case 0:
+                laminapor();
+                break;
 
-    //}
+            default:
+                break;
+        }
+    }
+    private void paintComponent(Graphics2D g) {
+
+        Graphics2D g2 = (Graphics2D) g;
+        Font mifont = new Font("Arial Bold", Font.BOLD, 26);
+        g.setFont(mifont);
+        Toolkit mipantalla = Toolkit.getDefaultToolkit();
+        Dimension tamPantalla = mipantalla.getScreenSize();
+        int altura = tamPantalla.height;
+        int amplada = tamPantalla.width;
+        if(panelactual == 0) g.drawString("RECOMENDATION", amplada - (amplada - 350), altura - (altura - 100));
+
+
+    }
+
+    private void laminapor(){
+        laminapor.setLayout(new GridBagLayout());
+        laminapor.add(login);
+        laminapor.add(singup);
+    }
 
 
 
 
 /*
-
     class Lamina_portada extends JPanel implements ActionListener {
 
 
