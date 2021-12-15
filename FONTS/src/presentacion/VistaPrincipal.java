@@ -11,10 +11,55 @@ public class VistaPrincipal {
 
     //components gui
     private JFrame fin = new JFrame("Recomendation System");
-    private JPanel laminapor = new JPanel();
-    private JPanel laminalog = new JPanel();
-    private JButton login = new JButton("Log In");
-    private JButton singup = new JButton("Sing Up");
+    private JPanel menu = new JPanel();
+
+    private JButton gestuser = new JButton("Log In");
+    private JButton gestitem = new JButton("Sing Up");
+    private JButton recomanacio = new JButton("Sing Up");
+
+    private JPanel recomana = new JPanel();
+    private JPanel buscarecoana = new JPanel();
+    private JComboBox cUserId;
+    private JComboBox algoritme;
+    private JCheckBox eval;
+    private JButton busca;
+    private JButton back;
+    private JButton save;
+    private JLabel imageitem;
+    private JLabel itemId;
+    private JLabel recValue;
+
+    private JPanel gestUser = new JPanel();
+    private JPanel gestrate;
+    private JTextField tUserId;
+    private JButton add;
+    private JButton delete;
+    private JButton gRate;
+    private JComboBox cItemId;
+    private JTextField tRate;
+
+
+    private JPanel gestItem;
+    private JButton additem;
+    private JButton bGestTag;
+    private JButton delteItem;
+
+    private JPanel pGestTag;
+    private JComboBox TagsItems;
+    private JTextField tagmod;
+    private JButton modify;
+
+    private JPanel addItem;
+    private JTextField tItemId;
+
+
+
+
+
+
+
+
+
 
     //atributs
     private int panelactual = 0;
@@ -69,9 +114,9 @@ public class VistaPrincipal {
     }
 
     private void laminapor(){
-        laminapor.setLayout(new GridBagLayout());
+       /* laminapor.setLayout(new GridBagLayout());
         laminapor.add(login);
-        laminapor.add(singup);
+        laminapor.add(singup);*/
     }
 
 
