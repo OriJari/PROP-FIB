@@ -1,4 +1,4 @@
-package dominio.controladores;
+/*package dominio.controladores;
 
 import dominio.clases.algorithm.collaborativefiltering.CollaborativeFiltering;
 import dominio.clases.algorithm.contentbasedflitering.K_NN;
@@ -74,4 +74,4 @@ public class ControladorDominio {
     public void recommendH(boolean valoration, int k){
 
     }
-}
+}*/

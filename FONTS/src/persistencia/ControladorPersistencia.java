@@ -1,4 +1,4 @@
-package persistencia;
+/*package persistencia;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class ControladorPersistencia {
         //Retorna el ID del nick si son aptes
         //Retorna -1 si no
     }
-*/
+
     public void addItem(int ID, List<String> tags){
 
     }
@@ -41,4 +41,4 @@ public class ControladorPersistencia {
     public void delTag(int IDitem, String tag){
 
     }
-}
+}*/

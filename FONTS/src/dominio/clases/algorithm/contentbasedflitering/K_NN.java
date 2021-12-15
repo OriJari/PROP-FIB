@@ -241,6 +241,7 @@ public class K_NN {
     public Recommendation recommend(int id_usuari, int k, boolean valoration) {
         Map<Integer,Float> valoracions = mapa_known.get(id_usuari);
         Map<Integer,Float> auxiliar = new TreeMap<>();
+        Map<Integer, Float> sum_simil = new TreeMap<>();
         Recommendation resultat = new Recommendation();
         List<Pair> k_nn;
 
@@ -252,13 +253,20 @@ public class K_NN {
             for (int i = 0; i < k_nn.size(); ++i) {
                 int id_item_knn = k_nn.get(i).getId();
                 if (auxiliar.containsKey(id_item_knn)) {
+                    sum_simil.replace(id_item_knn, (float) (sum_simil.get(id_item_knn) + k_nn.get(i).getSimilarity()));
                     auxiliar.replace(id_item_knn,(float)(auxiliar.get(id_item_knn) + k_nn.get(i).getSimilarity()*val));
                 }
                 else {
+                    sum_simil.put(id_item_knn, (float)(k_nn.get(i).getSimilarity()));
                     auxiliar.put(id_item_knn, (float)(k_nn.get(i).getSimilarity()*val));
                 }
             }
         }
+
+        /*for(Map.Entry<Integer, Float> entry: auxiliar.entrySet()){
+            auxiliar.put(entry.getKey(), entry.getValue()/sum_simil.get(entry.getKey()));
+        }*/
+
         if (auxiliar.size() > k) {
             for (int i = 0; i < k; ++i) {
                 Iterator<Integer> it = auxiliar.keySet().iterator();
