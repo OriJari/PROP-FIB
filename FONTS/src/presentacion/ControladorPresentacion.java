@@ -7,18 +7,23 @@ import java.util.*;
 
 public class ControladorPresentacion {
     //privete ControladorDominio CD;
-    private VistaPrincipal vistaPrincipal = null;
+    private static VistaPrincipal v = new VistaPrincipal();
     int ID_actual;
 
-    public ControladorPresentacion(){
+    public static void main(String[] args){
+        v.hacerVisible();
+
+    }
+
+    /*public ControladorPresentacion(){
         //CD = new ControladorDominio();
         vistaPrincipal = new VistaPrincipal(this);
     }
 
-    public void inicialitzarPresentacion(){
+    public static void inicialitzarPresentacion(){
         //CD.inicialitzarControladorDominio;
         vistaPrincipal.hacerVisible();
-    }
+    }*/
 
     /*public boolean cambiarUsername(String new_username) {
         //CD.cambiarUsername(new_username);

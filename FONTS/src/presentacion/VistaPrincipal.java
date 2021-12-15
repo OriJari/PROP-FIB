@@ -23,6 +23,10 @@ public class VistaPrincipal {
         CP = controladorPresentacion;
     }
 
+    public VistaPrincipal() {
+
+    }
+
     public void hacerVisible() {
 
         fin.setVisible(true);
