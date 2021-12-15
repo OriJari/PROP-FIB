@@ -8,62 +8,57 @@ import java.util.*;
 public class ControladorPresentacion {
     //privete ControladorDominio CD;
     private static VistaPrincipal v = new VistaPrincipal();
-    int ID_actual;
+
 
     public static void main(String[] args){
         v.hacerVisible();
 
     }
 
-    /*public ControladorPresentacion(){
-        //CD = new ControladorDominio();
-        vistaPrincipal = new VistaPrincipal(this);
+
+
+    /*
+
+    public boolean addUser(int ID){
+        CD.addUser(ID);
     }
 
-    public static void inicialitzarPresentacion(){
-        //CD.inicialitzarControladorDominio;
-        vistaPrincipal.hacerVisible();
-    }*/
-
-    /*public boolean cambiarUsername(String new_username) {
-        //CD.cambiarUsername(new_username);
-    }
-
-    public boolean cambiarPassword(String new_password) {
-       // CD.cambiarPassword(new_password);
-    }
-
-    public boolean cambiarMail(String new_mail) {
-       // CD.cambiarMail(new_mail);
-    }
-
-    public boolean cerrarSesion(){}
-
-    public boolean login(String nick, String password){
-        ID_actual = CD.login(nick, password);
-        return ID_actual != -1;
-    }
-
-    public boolean signin(String nick, String password, String mail){
-        ID_actual = CD.signin(nick, password, mail);
-        return ID_actual != -1;
+    public boolean deleteUser(int ID){
+        CD.deleteUser(ID);
     }
 
     public boolean addItem(int ID, List<String> tags){
         CD.addItem(ID, tags);
     }
 
+     public boolean deleteItem(int ID, List<String> tags){
+        CD.deleteItem(ID, tags);
+    }
+
     public boolean addRating(int IDitem, float valor){
         CD.addRating(ID_actual, IDitem, valor);
     }
 
-    public boolean addTag(int IDitem, String tag){
-        CD.addTag(IDitem, tag);
+    public boolean deleteRating(int IDitem, float valor){
+        CD.deleteRating(ID_actual, IDitem, valor);
+    }
+
+    public boolean modifyTag(int IDitem, String tag){
+        CD.modifyTag(IDitem, tag);
     }
 
     public boolean delTag(int IDitem, String tag){
         CD.delTag(IDitem, tag);
     }
+
+    public boolean saveRecomendation(boolean g){
+        CD.saveRecomendation(g);
+    }
+
+    public boolean evaluateRecomendation(boolean e){
+        CD.evaluateRecomendation(e);
+    }
+
 
     public void recommendCF(boolean valoration, int k){
         CD.recommendCF(valoration, k);

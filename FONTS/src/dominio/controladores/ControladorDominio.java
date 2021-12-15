@@ -1,18 +1,18 @@
-/*package dominio.controladores;
+package dominio.controladores;
 
 import dominio.clases.algorithm.collaborativefiltering.CollaborativeFiltering;
 import dominio.clases.algorithm.contentbasedflitering.K_NN;
-import persistencia.ControladorPersistencia;
+//import persistencia.ControladorPersistencia;
 
 import java.util.List;
 import java.util.Map;
 
 public class ControladorDominio {
-    ControladorPersistencia CP;
+ //   ControladorPersistencia CP;
     CollaborativeFiltering CF;
     K_NN KNN;
 
-    private Map<Integer, Map<Integer, Float>> transformerMapRate(List<String> l){
+   /* private Map<Integer, Map<Integer, Float>> transformerMapRate(List<String> l){
 
     }
 
@@ -27,40 +27,45 @@ public class ControladorDominio {
         KNN = new K_NN(mapRate);
     };
 
-    public void cambiarUsername(String new_username){
-        CP.cambiarUsername(new_username);
+
+    public void addUser(int ID){
+
     }
 
-    public void cambiarPassword(String new_password) {
-        CP.cambiarPassword(new_password);
-    }
+    public void deleteUser(int ID){
 
-    public void cambiarMail(String new_mail) {
-        CP.cambiarMail(new_mail);
-    }
-
-    public int login(String nick, String password){
-        return CP.login(nick, password);
-    }
-
-    public int signin(String nick, String password, String mail){
-        return CP.signin(nick, password, mail);
     }
 
     public void addItem(int ID, List<String> tags){
         CP.addItem(ID, tags);
     }
 
+    public void deleteItem(int ID, List<String> tags){
+        CP.deleteItem(ID, tags);
+    }
+
     public void addRating(int IDuser, int IDitem, float valor){
         CP.addRating(IDuser, IDitem, valor);
     }
 
-    public void addTag(int IDitem, String tag){
-        CP.addTag(IDitem, tag);
+    public void deleteRating(int IDuser, int IDitem, float valor){
+        CP.deleteRating(IDuser, IDitem, valor);
+    }
+
+    public void modifyTag(int IDitem, String tag){
+        CP.modifyTag(IDitem, tag);
     }
 
     public void delTag(int IDitem, String tag){
         CP.delTag(IDitem, tag);
+    }
+
+     public void saveRecomendation(boolean g){
+        CP.saveRecomendation(g);
+    }
+
+    public void evaluateRecomendation(boolean e){
+        CP.evaluateRecomendation(e);
     }
 
     public void recommendCF(boolean valoration, int k){
@@ -73,5 +78,5 @@ public class ControladorDominio {
 
     public void recommendH(boolean valoration, int k){
 
-    }
-}*/
+    }*/
+}
