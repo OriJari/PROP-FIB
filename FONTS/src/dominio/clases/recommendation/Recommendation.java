@@ -44,6 +44,22 @@ public class Recommendation {
         this.conjunt.add(new_rating);
     }
 
+    public float getValue(int id_item) {
+        for (Rating r : conjunt) {
+            if (r.getId() == id_item) return r.getValor();
+        }
+        return -1;
+    }
+
+    public void removeRating(int id) {
+        for (Rating r : conjunt) {
+            if (r.getId() == id) {
+                conjunt.remove(r);
+                break;
+            }
+        }
+    }
+
     public void sortR(){
         Collections.sort(this.conjunt, new Rating.SortByVal());
     }

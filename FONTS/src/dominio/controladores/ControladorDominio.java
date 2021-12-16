@@ -68,6 +68,8 @@ public class ControladorDominio {
     }
 
     public void recommendH(boolean valoration, int k){
-
+        r1 = CF.recommend();
+        r2 = CBF.recommend()
+        result = H.recommend(r1,r2);
     }
 }
