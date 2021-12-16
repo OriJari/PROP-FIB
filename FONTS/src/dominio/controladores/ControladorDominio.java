@@ -1,18 +1,18 @@
-package dominio.controladores;
+/*package dominio.controladores;
 
 import dominio.clases.algorithm.collaborativefiltering.CollaborativeFiltering;
 import dominio.clases.algorithm.contentbasedflitering.K_NN;
-//import persistencia.ControladorPersistencia;
+import persistencia.ControladorPersistencia;
 
 import java.util.List;
 import java.util.Map;
 
 public class ControladorDominio {
- //   ControladorPersistencia CP;
+    ControladorPersistencia CP;
     CollaborativeFiltering CF;
     K_NN KNN;
 
-   /* private Map<Integer, Map<Integer, Float>> transformerMapRate(List<String> l){
+    private Map<Integer, Map<Integer, Float>> transformerMapRate(List<String> l){
 
     }
 
@@ -26,47 +26,38 @@ public class ControladorDominio {
         CF = new CollaborativeFiltering(mapRate);
         KNN = new K_NN(mapRate);
     };
-
-
-    public void addUser(int ID){
-
-    }
-
-    public void deleteUser(int ID){
-
-    }
-
     public void addItem(int ID, List<String> tags){
+
+    }
+    public void delItem(int ID) {
         CP.addItem(ID, tags);
     }
-
-    public void deleteItem(int ID, List<String> tags){
-        CP.deleteItem(ID, tags);
+    public void modTag(int IDitem, String atribute, String newtag){
+        CP.modTag(IDitem, atribute, newtag);
     }
+    public void delTag(int IDitem, String atribute){
 
+    }
+    public void addUser(int ID) {
+
+    }
+    public void delUser(int ID) {
+
+    }
     public void addRating(int IDuser, int IDitem, float valor){
         CP.addRating(IDuser, IDitem, valor);
     }
+    public void modRating(int IDuser, int IDitem, float new_rate) {
 
-    public void deleteRating(int IDuser, int IDitem, float valor){
-        CP.deleteRating(IDuser, IDitem, valor);
     }
+    public void delRating(int IDuser, int IDitem) {
 
-    public void modifyTag(int IDitem, String tag){
-        CP.modifyTag(IDitem, tag);
     }
 
     public void delTag(int IDitem, String tag){
         CP.delTag(IDitem, tag);
     }
 
-     public void saveRecomendation(boolean g){
-        CP.saveRecomendation(g);
-    }
-
-    public void evaluateRecomendation(boolean e){
-        CP.evaluateRecomendation(e);
-    }
 
     public void recommendCF(boolean valoration, int k){
 
@@ -78,5 +69,5 @@ public class ControladorDominio {
 
     public void recommendH(boolean valoration, int k){
 
-    }*/
-}
+    }
+}*/

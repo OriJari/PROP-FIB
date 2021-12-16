@@ -6,39 +6,31 @@ public class ControladorPersistencia {
 
     public ControladorPersistencia(){};
 
-    public void cambiarUsername(String new_username){
-
-    }
-    public void cambiarPassword(String new_password) {
-
-    }
-    public void cambiarMail(String new_mail) {
-
-    }
-
-   /* public int login(String nick, String password){
-        //Retorna el ID del nick si la password coincideix
-        //Retorna -1 si no
-    }
-
-    public int signin(String nick, String password, String mail){
-        //Retorna el ID del nick si son aptes
-        //Retorna -1 si no
-    }
-
     public void addItem(int ID, List<String> tags){
 
     }
+    public void delItem(int ID) {
 
+    }
+    public void modTag(int IDitem, String atribute, String newtag){
+
+    }
+    public void delTag(int IDitem, String atribute){
+
+    }
+    public void addUser(int ID) {
+
+    }
+    public void delUser(int ID) {
+
+    }
     public void addRating(int IDuser, int IDitem, float valor){
 
     }
-
-    public void addTag(int IDitem, String tag){
+    public void modRating(int IDuser, int IDitem, float new_rate) {
 
     }
-
-    public void delTag(int IDitem, String tag){
+    public void delRating(int IDuser, int IDitem) {
 
     }
 }*/
