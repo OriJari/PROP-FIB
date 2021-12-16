@@ -4,6 +4,7 @@ import dominio.clases.algorithm.collaborativefiltering.CollaborativeFiltering;
 import dominio.clases.algorithm.contentbasedflitering.K_NN;
 import persistencia.ControladorPersistencia;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +49,14 @@ public class ControladorDominio {
     }
     public void delRating(int IDuser, int IDitem) {
         CP.delRating(IDuser, IDitem);
+    }
+
+    public List<List<String>> getMapRate(int a){ // 0 si es ratings, 1 si es known, 2 si es unknown
+        return CP.getMapRate(a);
+    }
+
+    public List<List<String>> getMapItem(){
+        return CP.getMapItem();
     }
 
     public void recommendCF(boolean valoration, int k){

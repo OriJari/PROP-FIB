@@ -1,5 +1,6 @@
 package persistencia;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorPersistencia {
@@ -32,5 +33,15 @@ public class ControladorPersistencia {
     }
     public void delRating(int IDuser, int IDitem) {
 
+    }
+
+    public List<List<String>> getMapRate(int a){
+        List<List<String>> result = new ArrayList<>();
+        return result;
+    }
+
+    public List<List<String>> getMapItem(){
+        List<List<String>> result = new ArrayList<>();
+        return result;
     }
 }
