@@ -23,7 +23,7 @@ public class ControladorDominio {
         CF = new CollaborativeFiltering(mapRate);
         KNN = new K_NN(mapRate);*/
     };
-    public void addItem(int ID, List<String> tags){
+    /*public void addItem(int ID, List<String> tags){
         CP.addItem(ID, tags);
     }
     public void delItem(int ID) {
@@ -71,5 +71,10 @@ public class ControladorDominio {
         r1 = CF.recommend();
         r2 = CBF.recommend()
         result = H.recommend(r1,r2);
+    }*
+
+    public void CSVescollit(String s){
     }
+
+     */
 }
