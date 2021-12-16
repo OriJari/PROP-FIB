@@ -1,4 +1,4 @@
-/*package persistencia;
+package persistencia;
 
 import java.util.List;
 
@@ -33,4 +33,4 @@ public class ControladorPersistencia {
     public void delRating(int IDuser, int IDitem) {
 
     }
-}*/
+}
