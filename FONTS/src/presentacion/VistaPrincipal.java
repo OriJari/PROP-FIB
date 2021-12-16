@@ -12,6 +12,7 @@ public class VistaPrincipal {
     //components gui
     private JFrame fin = new JFrame("Recomendation System");
     private JPanel menu = new JPanel();
+    private JPanel start = new JPanel();
 
     private JButton gestuser = new JButton("Gestión de Usuario");
     private JButton gestitem = new JButton("Gestión de Item");
@@ -24,7 +25,7 @@ public class VistaPrincipal {
     private JComboBox algoritme;
     private JCheckBox eval;
     private JButton busca;
-    private JButton back;
+
     private JButton save;
     private JLabel imatgeitem;
     private JLabel itemId;
@@ -86,39 +87,32 @@ public class VistaPrincipal {
     private void panelmain(){
         switch (panelactual){
             case 0:
+                System.out.println("Case: " + panelactual  + " start");
                 start();
                 break;
             case 1:
+                System.out.println("Case: " + panelactual  + " menu");
                 menu();
                 break;
             case 2:
+                System.out.println("Case: " + panelactual  + " gestion_user");
                 gestion_user();
                 break;
             case 3:
+                System.out.println("Case: " + panelactual  + " gestion_item");
                 gestion_item();
                 break;
             case 4:
+                System.out.println("Case: " + panelactual  + " recomanacio");
                 recomanacio();
                 break;
             default:
                 break;
         }
     }
-   /* private void paintComponent(Graphics2D g) {
 
-        Graphics2D g2 = (Graphics2D) g;
-        Font mifont = new Font("Arial Bold", Font.BOLD, 26);
-        g.setFont(mifont);
-        Toolkit mipantalla = Toolkit.getDefaultToolkit();
-        Dimension tamPantalla = mipantalla.getScreenSize();
-        int altura = tamPantalla.height;
-        int amplada = tamPantalla.width;
-        if(panelactual == 0) g.drawString("RECOMENDATION", amplada - (amplada - 350), altura - (altura - 100));
-
-
-    }*/
     private void start(){
-        JPanel start = new JPanel();
+
         fin.add(start);
         start.setVisible(true);
         start.setLayout(null);
@@ -126,35 +120,59 @@ public class VistaPrincipal {
 
         JLabel titol = new JLabel("SISTEMA RECOMANADOR");
         titol.setFont(new Font("Arial",Font.BOLD,30));
-        titol.setBounds(285,30,550,40);
+        titol.setBounds(280,30,550,40);
         titol.setVisible(true);
         start.add(titol);
 
         JLabel frase1 = new JLabel("Escoja el CSV con el que quiere trabajar.");
-        JLabel frase2 = new JLabel("Si quiere usar un CSV propio, especifique la ruta de este a continuación.");
-        frase1.setFont(new Font("Arial", Font.PLAIN,18));
-        frase2.setFont(new Font("Arial", Font.PLAIN,18));
-        frase1.setBounds(285,110,400,20);
-        frase2.setBounds(220,130,600,20);
-        frase1.setVisible(true);
-        frase2.setVisible(true);
+        JLabel frase2 = new JLabel("Si quiere usar un CSV propio, escriba la ruta.");
+        frase1.setFont(new Font("Arial", Font.PLAIN,16));
+        frase2.setFont(new Font("Arial", Font.PLAIN,16));
+        frase1.setBounds(285,150,400,20);
+        frase2.setBounds(280,180,400,20);
+        //frase1.setVisible(true);
+        //frase2.setVisible(true);
         start.add(frase1);
         start.add(frase2);
 
         JComboBox csvs = new JComboBox();
         csvs.setEditable(true);
-        csvs.setBounds(285,200,300,25);
-        csvs.setVisible(true);
-        csvs.addItem("-");
+        csvs.setBounds(265,250,400,25);
+
+        csvs.addItem(" ");
         csvs.addItem("Movies 250");
         csvs.addItem("Movies 750");
         csvs.addItem("Series 250");
         csvs.addItem("Series 750");
-        csvs.addItem("Sereies 2250");
+        csvs.addItem("Series 2250");
+
         start.add(csvs);
+        //csvs.setVisible(true);
         //resize tontorron pq aparegui el combobox
-        fin.setSize(970,541);
+        fin.setSize(960,541);
         fin.setSize(960,540);
+
+
+        JButton startB = new JButton("Start");
+        startB.setBounds(285,380,350,40);
+        startB.setFont(new Font("Arial", Font.BOLD, 20));
+        startB.setVisible(true);
+        start.add(startB);
+
+        ActionListener comencem = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("boton pulsado: start");
+                panelactual = 1;
+                start.setVisible(false);
+                String s = (String) csvs.getSelectedItem();
+                System.out.println("CSV selecionado: " + s);
+                //CP.CSVescollit(s);
+                panelmain();
+            }
+        };
+        startB.addActionListener(comencem);
+
 
     }
 
@@ -172,23 +190,40 @@ public class VistaPrincipal {
 
         gestuser.setBounds(300, 160,350,40);
         gestuser.setFont(new Font("Arial", Font.BOLD, 20));
-        gestuser.setVisible(true);
+        //gestuser.setVisible(true);
 
         gestitem.setBounds(300, 220,350,40);
         gestitem.setFont(new Font("Arial", Font.BOLD, 20));
-        gestitem.setVisible(true);
+        //gestitem.setVisible(true);
 
         recomanacio.setBounds(300, 280,350,40);
         recomanacio.setFont(new Font("Arial", Font.BOLD, 20));
-        recomanacio.setVisible(true);
+        //recomanacio.setVisible(true);
 
+        JButton backM = new JButton("Volver");
+        backM.setBounds(50,425,100,30);
+
+        menu.add(backM);
         menu.add(gestuser);
         menu.add(gestitem);
         menu.add(recomanacio);
 
+
+        ActionListener tornarM = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("boton pulsado: volver");
+                panelactual = 0;
+                menu.setVisible(false);
+                panelmain();
+            }
+        };
+        backM.addActionListener(tornarM);
+
         ActionListener gestionar_user = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("boton pulsado: gestion user");
                 panelactual = 2;
                 menu.setVisible(false);
                 panelmain();
@@ -199,6 +234,7 @@ public class VistaPrincipal {
         ActionListener gestionar_item = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("boton pulsado: gestion item");
                 panelactual = 3;
                 menu.setVisible(false);
                 panelmain();
@@ -209,6 +245,7 @@ public class VistaPrincipal {
         ActionListener rec = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("boton pulsado: recomanacio");
                 panelactual = 4;
                 menu.setVisible(false);
                 panelmain();
@@ -220,6 +257,7 @@ public class VistaPrincipal {
     private void gestion_user(){
         fin.add(gestUser);
         gestUser.setVisible(true);
+        gestUser.setLayout(null);
 
         JLabel titolU = new JLabel("Gestión de Usuario");
         titolU.setFont(new Font("Arial",Font.BOLD,30));
@@ -227,11 +265,28 @@ public class VistaPrincipal {
         titolU.setVisible(true);
         gestUser.add(titolU);
 
+        JButton backGU = new JButton("Volver");
+        backGU.setBounds(50,425,100,30);
+
+        gestUser.add(backGU);
+
+        ActionListener tornarGU = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("boton pulsado: tornarGU");
+                panelactual = 1;
+                gestUser.setVisible(false);
+                panelmain();
+            }
+        };
+        backGU.addActionListener(tornarGU);
+
     }
 
     private void gestion_item(){
         fin.add(gestItem);
         gestItem.setVisible(true);
+        gestItem.setLayout(null);
 
         JLabel titolI = new JLabel("Gestión de Item");
         titolI.setFont(new Font("Arial",Font.BOLD,30));
@@ -239,11 +294,28 @@ public class VistaPrincipal {
         titolI.setVisible(true);
         gestItem.add(titolI);
 
+        JButton backGI = new JButton("Volver");
+        backGI.setBounds(50,425,100,30);
+
+        gestItem.add(backGI);
+
+        ActionListener tornarGI = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("boton pulsado: tornarGI");
+                panelactual = 1;
+                gestItem.setVisible(false);
+                panelmain();
+            }
+        };
+        backGI.addActionListener(tornarGI);
+
     }
 
     private void recomanacio(){
         fin.add(recomana);
         recomana.setVisible(true);
+        recomana.setLayout(null);
 
         JLabel titolR = new JLabel("Recomendaciones");
         titolR.setFont(new Font("Arial",Font.BOLD,30));
@@ -251,76 +323,26 @@ public class VistaPrincipal {
         titolR.setVisible(true);
         recomana.add(titolR);
 
-    }
+        JButton backR = new JButton("Volver");
+        backR.setBounds(50,425,100,30);
 
+        recomana.add(backR);
 
-
-/*
-    class Lamina_portada extends JPanel implements ActionListener {
-
-
-
-        public void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D) g;
-            Font mifont = new Font("Arial Bold", Font.BOLD, 26);
-            g2.setFont(mifont);
-            Toolkit mipantalla = Toolkit.getDefaultToolkit();
-            Dimension tamPantalla = mipantalla.getScreenSize();
-            int altura = tamPantalla.height;
-            int amplada = tamPantalla.width;
-            g2.drawString("RECOMENDATION", amplada - (amplada - 350), altura - (altura - 100));
-            button();
-
-
-        }
-/*
-        public void button() {
-            add(button_login);
-            add(button_singup);
-            button_login.addActionListener(this);
-            button_singup.addActionListener(this);
-
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            Object botonPulsado = e.getSource();
-            if (botonPulsado == button_login) {
-
-            } else {
-
+        ActionListener tornarR = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("boton pulsado: tornarR");
+                panelactual = 1;
+                recomana.setVisible(false);
+                panelmain();
             }
+        };
+        backR.addActionListener(tornarR);
 
-        }
+
     }
 
-    class Lamina_login extends JPanel implements ActionListener {
-        public void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D) g;
-            Font mifont = new Font("Arial Bold", Font.BOLD, 26);
-            g2.setFont(mifont);
-            Toolkit mipantalla = Toolkit.getDefaultToolkit();
-            Dimension tamPantalla = mipantalla.getScreenSize();
-            int altura = tamPantalla.height;
-            int amplada = tamPantalla.width;
-            g2.drawString("LOG IN", amplada - (amplada - 350), altura - (altura - 100));
-            button();
 
 
-        }
 
-        public void button() {
-            JButton button_login = new JButton("Log In");
-
-            add(button_login);
-            button_login.addActionListener((this));
-
-        }
-
-        public void actionPerformed(ActionEvent e) {
-
-        }
-    }
-*/
 }

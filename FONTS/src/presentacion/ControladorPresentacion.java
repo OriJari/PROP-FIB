@@ -59,6 +59,9 @@ public class ControladorPresentacion {
         CD.evaluateRecomendation(e);
     }
 
+    public void CSVescollit(String s){
+        CD.CSVescollit(s);
+    }
 
     public void recommendCF(boolean valoration, int k){
         CD.recommendCF(valoration, k);
