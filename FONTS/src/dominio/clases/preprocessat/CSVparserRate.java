@@ -356,7 +356,7 @@ public class CSVparserRate {
     }
 
     /*public static void main(String[] args) {
-        CSVparserRate CSVRate = new CSVparserRate("FONTS/src/dominio/controladores/vcont/prova1rating.csv");
+        CSVparserRate CSVRate = new CSVparserRate("FONTS/src/persistencia/series/250/ratings.db.csv");
         CSVRate.readLoadRate();
         CSVRate.LoadRate(CSVRate.getContent());
         String s = "rating";

@@ -51,7 +51,7 @@ public class DriverCSVparserItem {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Por defector se inicia con la prueba 1, eliga opcion si desea cambiar de csv");
 
-            CSVparserItem csv = new CSVparserItem("FONTS/src/dominio/controladores/vcont/prova1item.csv");
+            CSVparserItem csv = new CSVparserItem("FONTS/src/dominio/controladores/drivers/provesCSVparserItem/prova1item.csv");
             csv.readLoadItem();
             csv.MapItemData(csv.getContent());
 
@@ -72,25 +72,25 @@ public class DriverCSVparserItem {
                         case "0" : finish = true;
                             break;
                         case "1" :
-                            csv = new CSVparserItem("FONTS/src/dominio/controladores/vcont/prova1item.csv");
+                            csv = new CSVparserItem("FONTS/src/dominio/controladores/drivers/provesCSVparserItem/prova1item.csv");
                             csv.readLoadItem();
                             csv.MapItemData(csv.getContent());
                             System.out.println("CSV prueba 1 cargado");
                             break;
                         case "2" :
-                            csv = new CSVparserItem("FONTS/src/dominio/controladores/vcont/prova2item.csv");
+                            csv = new CSVparserItem("FONTS/src/dominio/controladores/drivers/provesCSVparserItem/prova2item.csv");
                             csv.readLoadItem();
                             csv.MapItemData(csv.getContent());
                             System.out.println("CSV prueba 2 cargado");
                             break;
                         case "3" :
-                            csv = new CSVparserItem("FONTS/src/dominio/controladores/vcont/prova3item.csv");
+                            csv = new CSVparserItem("FONTS/src/dominio/controladores/drivers/provesCSVparserItem/prova3item.csv");
                             csv.readLoadItem();
                             csv.MapItemData(csv.getContent());
                             System.out.println("CSV prueba 3 cargado");
                             break;
                         case "4" :
-                            csv = new CSVparserItem("FONTS/src/dominio/controladores/vcont/prova4item.csv");
+                            csv = new CSVparserItem("FONTS/src/dominio/controladores/drivers/provesCSVparserItem/prova4item.csv");
                             csv.readLoadItem();
                             csv.MapItemData(csv.getContent());
                             System.out.println("CSV prueba 4 cargado");
