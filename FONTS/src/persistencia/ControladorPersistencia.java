@@ -7,6 +7,11 @@ public class ControladorPersistencia {
 
     public ControladorPersistencia(){};
 
+    public boolean inicializar(String path){
+        //Crea les classes que necessitis
+        return true;
+    }
+
     public boolean addItem(int ID, List<String> tags){
         return true;
     }
