@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
+import static dominio.clases.algorithm.slopeone.SlopeOne.prediccio;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
@@ -238,7 +239,7 @@ public class Driverslopeone {
         System.out.println("\n\t esta fequencia");
         print_map_freq(SlopeOne.getMap_freq());
         Map<Integer,Float> user = leerusuariopredi();
-        SlopeOne.prediccio(user);
+        prediccio(user);
 
         System.out.println("\n Resultado:");
         System.out.println("\n\t esta prediccio");
