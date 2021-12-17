@@ -1,9 +1,21 @@
 package persistencia;
 
+import dominio.clases.preprocessat.CSVparserItem;
+import dominio.clases.preprocessat.CSVparserRate;
+import persistencia.preprocessat.RecommendationSave;
+import persistencia.preprocessat.UserList;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorPersistencia {
+
+    CSVparserItem CSVItem;
+    CSVparserRate CSVRate;
+    CSVparserRate CSVKnown;
+    CSVparserRate CSVUnknown;
+    RecommendationSave Recomm;
+    UserList UserList;
 
     public ControladorPersistencia(){};
 
