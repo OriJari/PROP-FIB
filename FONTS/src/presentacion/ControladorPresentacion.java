@@ -2,12 +2,15 @@ package presentacion;
 
 //import dominio.controladores.ControladorDominio;
 
+import dominio.controladores.ControladorDominio;
+
 import java.util.List;
 import java.util.*;
 
 public class ControladorPresentacion {
-    //privete ControladorDominio CD;
+    private ControladorDominio CD;
     private static VistaPrincipal v = new VistaPrincipal();
+
 
 
     public static void main(String[] args){
@@ -15,13 +18,19 @@ public class ControladorPresentacion {
 
     }
 
+    public ControladorPresentacion(){
+        CD = new ControladorDominio();
+    }
 
-
-    /*
+    public void inicializar(String path){
+        CD.inicializar(path);
+    }
 
     public boolean addUser(int ID){
-        CD.addUser(ID);
+        return CD.addUser(ID);
     }
+
+    /*
 
     public boolean deleteUser(int ID){
         CD.deleteUser(ID);

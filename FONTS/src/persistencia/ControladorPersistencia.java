@@ -7,32 +7,32 @@ public class ControladorPersistencia {
 
     public ControladorPersistencia(){};
 
-    public void addItem(int ID, List<String> tags){
-
+    public boolean addItem(int ID, List<String> tags){
+        return true;
     }
-    public void delItem(int ID) {
-
+    public boolean delItem(int ID) {
+        return true;
     }
-    public void modTag(int IDitem, String atribute, String newtag){
-
+    public boolean modTag(int IDitem, String atribute, String newtag){
+        return true;
     }
-    public void delTag(int IDitem, String atribute){
-
+    public boolean delTag(int IDitem, String atribute){
+        return true;
     }
-    public void addUser(int ID) {
-
+    public boolean addUser(int ID) {
+        return true;
     }
-    public void delUser(int ID) {
-
+    public boolean delUser(int ID) {
+        return true;
     }
-    public void addRating(int IDuser, int IDitem, float valor){
-
+    public boolean addRating(int IDuser, int IDitem, float valor){
+        return true;
     }
-    public void modRating(int IDuser, int IDitem, float new_rate) {
-
+    public boolean modRating(int IDuser, int IDitem, float new_rate) {
+        return true;
     }
-    public void delRating(int IDuser, int IDitem) {
-
+    public boolean delRating(int IDuser, int IDitem) {
+        return true;
     }
 
     public List<List<String>> getMapRate(int a){

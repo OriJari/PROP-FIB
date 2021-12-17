@@ -9,46 +9,50 @@ import java.util.List;
 import java.util.Map;
 
 public class ControladorDominio {
-    ControladorPersistencia CP;
-    CollaborativeFiltering CF;
-    K_NN KNN;
+    private ControladorPersistencia CP;
+    private CollaborativeFiltering CF;
+    private K_NN KNN;
 
     public ControladorDominio(){
         //Cridar a Persistencia a que porti tots els mapes (En format List<String> i transformar-ho a maps)
         CP = new ControladorPersistencia();
 
+
+    }
+
+    public void inicializar(String path){
         /*List<String> mapaS = CP.getMapRate();
         Map<Integer, Map<Integer, Float>> mapRate= tranformerMapRate(mapaS);
 
         CF = new CollaborativeFiltering(mapRate);
         KNN = new K_NN(mapRate);*/
-    };
-    /*public void addItem(int ID, List<String> tags){
-        CP.addItem(ID, tags);
     }
-    public void delItem(int ID) {
-        CP.delItem(ID);
+    public boolean addItem(int ID, List<String> tags){
+        return CP.addItem(ID, tags);
     }
-    public void modTag(int IDitem, String atribute, String newtag){
-        CP.modTag(IDitem, atribute, newtag);
+    public boolean delItem(int ID) {
+        return CP.delItem(ID);
     }
-    public void delTag(int IDitem, String atribute){
-        CP.delTag(IDitem, atribute);
+    public boolean modTag(int IDitem, String atribute, String newtag){
+        return CP.modTag(IDitem, atribute, newtag);
     }
-    public void addUser(int ID) {
-        CP.addUser(ID);
+    public boolean delTag(int IDitem, String atribute){
+        return CP.delTag(IDitem, atribute);
     }
-    public void delUser(int ID) {
-        CP.delUser(ID);
+    public boolean addUser(int ID) {
+        return CP.addUser(ID);
     }
-    public void addRating(int IDuser, int IDitem, float valor){
-        CP.addRating(IDuser, IDitem, valor);
+    public boolean delUser(int ID) {
+        return CP.delUser(ID);
     }
-    public void modRating(int IDuser, int IDitem, float new_rate) {
-        CP.modRating(IDuser, IDitem, new_rate);
+    public boolean addRating(int IDuser, int IDitem, float valor){
+        return CP.addRating(IDuser, IDitem, valor);
     }
-    public void delRating(int IDuser, int IDitem) {
-        CP.delRating(IDuser, IDitem);
+    public boolean modRating(int IDuser, int IDitem, float new_rate) {
+        return CP.modRating(IDuser, IDitem, new_rate);
+    }
+    public boolean delRating(int IDuser, int IDitem) {
+        return CP.delRating(IDuser, IDitem);
     }
 
     public List<List<String>> getMapRate(int a){ // 0 si es ratings, 1 si es known, 2 si es unknown
@@ -68,13 +72,6 @@ public class ControladorDominio {
     }
 
     public void recommendH(boolean valoration, int k){
-        r1 = CF.recommend();
-        r2 = CBF.recommend()
-        result = H.recommend(r1,r2);
-    }*
 
-    public void CSVescollit(String s){
     }
-
-     */
 }
