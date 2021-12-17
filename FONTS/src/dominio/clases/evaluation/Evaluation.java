@@ -12,8 +12,7 @@ import dominio.clases.recommendation.Recommendation;
  * @brief Evaluates the quality of a recommendation.
  */
 public class Evaluation {
-    private Recommendation recommendation;
-    private Map<Integer, Float> unknown;
+    private Map<Integer, Map<Integer, Float>> unknown;
 
     /** @brief <em>recommendation</em> represents the recommendation to a dominio.controladores.clases.atribut.user ordered decreasingly by the expected rating.
      *  <em>known</em> represents the actual ratings from users of some items.
@@ -28,10 +27,8 @@ public class Evaluation {
      * \pre <em>true</em>
      * \post Creates an Evaluation.
      */
-    public Evaluation(Map<Integer, Float> unknown, Recommendation recommendation) {
+    public Evaluation(Map<Integer, Map<Integer, Float>> unknown) {
         this.unknown = unknown;
-        this.recommendation = recommendation;
-        this.recommendation.sortR();
     }
 
     /** @brief Function that calculates the quality of a recommendation.
@@ -41,14 +38,16 @@ public class Evaluation {
      * \pre <em>true</em>
      * \post Gives DCG value.
      */
-    public float DCG(){
+    public float DCG(Recommendation recommendation){
+        recommendation.sortR();
+        Map<Integer, Float> unknown_user = unknown.get(recommendation.getID_perfil());
         int j = 1;
         float result = 0.0f;
         for(int i = 0; i < recommendation.getConjunt().size(); ++i){
             if(i > 0 && recommendation.getConjunt().get(i).getValor() != recommendation.getConjunt().get(i-1).getValor()){
                 j = i+1;
             }
-            result += (Math.pow(2, unknown.get(recommendation.getConjunt().get(i).getId()))-1)/(Math.log(j + 1)/Math.log(2));
+            result += (Math.pow(2, unknown_user.get(recommendation.getConjunt().get(i).getId()))-1)/(Math.log(j + 1)/Math.log(2));
         }
         return result;
     }
