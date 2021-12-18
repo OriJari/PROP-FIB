@@ -91,7 +91,7 @@ public class CollaborativeFiltering {
             aux = new TreeMap<>();
         }
 
-        if(mapRecommendation.size() > maxItems) {
+        if (mapRecommendation.size() > maxItems) {
             for (int i = 0; i < maxItems; ++i) {
                 Iterator<Integer> it = mapRecommendation.keySet().iterator();
                 int maxitemID = it.next();
