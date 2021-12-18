@@ -21,7 +21,7 @@ public class ControladorPresentacion {
     public ControladorPresentacion(){
         CD = new ControladorDominio();
     }
-
+/*
     public void inicializar(String path){
         CD.inicializar(path);
     }

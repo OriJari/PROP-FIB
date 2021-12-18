@@ -4,6 +4,10 @@ import  javax.swing.*;
 import javax.tools.Tool;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class VistaPrincipal {
     //controlador presentacio
@@ -125,33 +129,43 @@ public class VistaPrincipal {
         start.add(titol);
 
         JLabel frase1 = new JLabel("Escoja el CSV con el que quiere trabajar.");
-        JLabel frase2 = new JLabel("Si quiere usar un CSV propio, escriba la ruta.");
-        frase1.setFont(new Font("Arial", Font.PLAIN,16));
-        frase2.setFont(new Font("Arial", Font.PLAIN,16));
-        frase1.setBounds(285,150,400,20);
-        frase2.setBounds(280,180,400,20);
-        //frase1.setVisible(true);
-        //frase2.setVisible(true);
+        frase1.setFont(new Font("Arial", Font.PLAIN,18));
+        frase1.setBounds(285,130,400,20);
         start.add(frase1);
-        start.add(frase2);
 
-        JComboBox csvs = new JComboBox();
-        csvs.setEditable(true);
-        csvs.setBounds(265,250,400,25);
 
-        csvs.addItem(" ");
-        csvs.addItem("Movies 250");
-        csvs.addItem("Movies 750");
-        csvs.addItem("Series 250");
-        csvs.addItem("Series 750");
-        csvs.addItem("Series 2250");
+
+
+        File file = new File("DATA");
+
+        String[] directories = file.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File current, String name) {
+                return new File(current, name).isDirectory();
+            }
+        });
+        System.out.println(Arrays.toString(directories));
+
+        JComboBox csvs = new JComboBox(directories);
+
+        csvs.setBounds(265,180,400,25);
 
         start.add(csvs);
-        //csvs.setVisible(true);
+
         //resize tontorron pq aparegui el combobox
         fin.setSize(960,541);
         fin.setSize(960,540);
 
+/*     //browser ficheros/dyrectory
+        JFileChooser fc = new JFileChooser(file);
+        fc.setDialogTitle("Escojer CSV");
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        if(fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+            //
+        }
+        System.out.println(fc.getSelectedFile().getPath());
+
+*/
 
         JButton startB = new JButton("Start");
         startB.setBounds(285,380,350,40);
@@ -162,12 +176,12 @@ public class VistaPrincipal {
         ActionListener comencem = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: start");
-                panelactual = 1;
-                start.setVisible(false);
                 String s = (String) csvs.getSelectedItem();
                 System.out.println("CSV selecionado: " + s);
                 //CP.CSVescollit(s);
+                System.out.println("boton pulsado: start");
+                panelactual = 1;
+                start.setVisible(false);
                 panelmain();
             }
         };
@@ -184,7 +198,7 @@ public class VistaPrincipal {
 
         JLabel titol = new JLabel("SISTEMA RECOMANADOR");
         titol.setFont(new Font("Arial",Font.BOLD,30));
-        titol.setBounds(285,70,550,40);
+        titol.setBounds(280,30,550,40);
         titol.setVisible(true);
         menu.add(titol);
 
@@ -201,7 +215,7 @@ public class VistaPrincipal {
         //recomanacio.setVisible(true);
 
         JButton backM = new JButton("Volver");
-        backM.setBounds(50,425,100,30);
+        backM.setBounds(20,450,100,30);
 
         menu.add(backM);
         menu.add(gestuser);
@@ -261,12 +275,12 @@ public class VistaPrincipal {
 
         JLabel titolU = new JLabel("Gestión de Usuario");
         titolU.setFont(new Font("Arial",Font.BOLD,30));
-        titolU.setBounds(285,70,550,40);
+        titolU.setBounds(280,30,550,40);
         titolU.setVisible(true);
         gestUser.add(titolU);
 
         JButton backGU = new JButton("Volver");
-        backGU.setBounds(50,425,100,30);
+        backGU.setBounds(20,450,100,30);
 
         gestUser.add(backGU);
 
@@ -290,12 +304,12 @@ public class VistaPrincipal {
 
         JLabel titolI = new JLabel("Gestión de Item");
         titolI.setFont(new Font("Arial",Font.BOLD,30));
-        titolI.setBounds(285,70,550,40);
+        titolI.setBounds(280,30,550,40);
         titolI.setVisible(true);
         gestItem.add(titolI);
 
         JButton backGI = new JButton("Volver");
-        backGI.setBounds(50,425,100,30);
+        backGI.setBounds(20,450,100,30);
 
         gestItem.add(backGI);
 
@@ -317,14 +331,14 @@ public class VistaPrincipal {
         recomana.setVisible(true);
         recomana.setLayout(null);
 
-        JLabel titolR = new JLabel("Recomendaciones");
+        JLabel titolR = new JLabel("RECOMENDACIONES");
         titolR.setFont(new Font("Arial",Font.BOLD,30));
-        titolR.setBounds(285,70,550,40);
+        titolR.setBounds(310,30,550,40);
         titolR.setVisible(true);
         recomana.add(titolR);
 
         JButton backR = new JButton("Volver");
-        backR.setBounds(50,425,100,30);
+        backR.setBounds(20,450,100,30);
 
         recomana.add(backR);
 
@@ -338,6 +352,21 @@ public class VistaPrincipal {
             }
         };
         backR.addActionListener(tornarR);
+
+
+
+        cUserId.setSelectedItem("user 1");
+        cUserId.setSelectedItem("user 2");
+
+
+        cUserId.setBounds(265,180,400,25);
+
+        start.add(cUserId);
+
+        //resize tontorron pq aparegui el combobox
+        fin.setSize(960,541);
+        fin.setSize(960,540);
+
 
 
     }
