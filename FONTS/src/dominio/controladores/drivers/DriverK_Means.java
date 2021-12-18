@@ -91,7 +91,7 @@ public class DriverK_Means {
             for(int j = 0; j < numItems; ++j){
                 System.out.println("ID item numero " + (j+1) + ":");
                 int itemID = sc.nextInt();
-                System.out.println("Valoracion de l'dominio.controladores.clases.atribut.item " + (j+1) + ":");
+                System.out.println("Valoracion del item " + (j+1) + ":");
                 float itemVal = sc.nextFloat();
                 opinions.get(userID).put(itemID, itemVal);
             }

@@ -125,9 +125,9 @@ public class SlopeOne {
         desviacio_mitjana();
 
         prediccio(user);
-        for(Map.Entry<Integer,Float> entry : user.entrySet()) { //netejar map_pred
-            map_pred.remove(entry.getKey());
-        }
+        //for(Map.Entry<Integer,Float> entry : user.entrySet()) { //netejar map_pred
+        //    map_pred.remove(entry.getKey());
+        //}
 
         return map_pred;
     }
@@ -192,10 +192,10 @@ public class SlopeOne {
      * \pre true
      * \post Fill map_pred with the data form u_data and the items not rated by the dominio.controladores.clases.atribut.user but that we predicted.
      */
-/* //prediccio bona no weighted
+//prediccio bona no weighted
     public static void prediccio(Map<Integer, Float> u_data) {
         map_pred = new TreeMap<Integer,Float>();
-        Map<Integer,Integer> freq = new TreeMap<Integer,Integer>();
+        Map<Integer,Integer> freq = new TreeMap<>();
         for (int j : map_des.keySet()) { //inicialitzem els maps
             freq.put(j, 0);
             map_pred.put(j, 0.0f);
@@ -227,7 +227,7 @@ public class SlopeOne {
 //*/
 
 // weighted original
- public static void prediccio(Map<Integer, Float> u_data) {
+ /*public static void prediccio(Map<Integer, Float> u_data) {
 
         Map<Integer,Float> pred = new TreeMap<Integer,Float>();
         Map<Integer,Integer> freq = new TreeMap<Integer,Integer>();
@@ -275,6 +275,6 @@ public class SlopeOne {
             map_pred.put(j,u_data.get(j));
         }
 
-    }
+    }*/
 }
 

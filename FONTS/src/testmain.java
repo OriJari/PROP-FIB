@@ -2,6 +2,7 @@ import java.util.*;
 
 import dominio.clases.algorithm.collaborativefiltering.*;
 import dominio.clases.algorithm.contentbasedflitering.*;
+import dominio.clases.algorithm.hybrid.Hybrid;
 import dominio.clases.content.*;
 import dominio.clases.evaluation.*;
 import dominio.clases.preprocessat.*;
@@ -43,11 +44,13 @@ public class testmain {
         CSVRate_unknown.LoadRate(CSVRate_unknown.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_unknown = CSVRate_unknown.getMapRate();
 
-        CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, map_rate_unknown, max(1, map_rate_known.size() / 3));
+        CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, map_rate_unknown, max(1, map_rate_known.size() / 25));
 
         K_NN taula = new K_NN(map_rate_known, map_rate_unknown, id_reals);
         Map<Integer, List<Content>> map_rate_item = CSVItem.getMapRatedata();
         taula.initSimilarityTable(map_rate_item);
+
+        Hybrid hybrid = new Hybrid();
 
         System.out.println("Introduzca el ID del user que quiere la recomendacion, por lo contrario si desea volver atras escribe -1 :");
         int userID = sc.nextInt();
@@ -64,6 +67,7 @@ public class testmain {
             System.out.println("Qué algoritmo de recomendación desea usar?");
             System.out.println("\t 1) Collaborative filtering (k-means + slope-one)");
             System.out.println("\t 2) Content based filtering (k-nn)");
+            System.out.println("\t 3) Hybrid algorithm");
             System.out.println("\t 0) Volver atras");
 
             Recommendation recommendation = new Recommendation();
@@ -75,18 +79,9 @@ public class testmain {
                 case 1:
                     try {
                         recommendation = CF.recommend(userID, k, val);
-
-                        if(serie) {
-                            for (Rating r : recommendation.getConjunt()) {
+                        for (Rating r : recommendation.getConjunt()) {
                                 System.out.println("ID item: " + r.getId() + " with expected rating " + min(10,r.getValor()));
-                            }
                         }
-                        else{
-                            for (Rating r : recommendation.getConjunt()) {
-                                System.out.println("ID item: " + r.getId() + " with expectedd rating " + min(5,r.getValor()));
-                            }
-                        }
-
                     } catch (Exception E) {
                         System.out.println(E.getMessage());
                     }
@@ -101,6 +96,18 @@ public class testmain {
                         System.out.println(E.getMessage());
                     }
                     break;
+                case 3:
+                    try {
+                        Recommendation r1 = taula.recommend(userID,k,val);
+                        Recommendation r2 = CF.recommend(userID, k, val);
+                        recommendation = hybrid.recommend(r1,r2,k);
+                        for (Rating r : recommendation.getConjunt()) {
+                            System.out.println("ID item: " + r.getId() + " with similarity " + r.getValor());
+                        }
+                    } catch (Exception E) {
+                        System.out.println(E.getMessage());
+                    }
+                    break;
                 case 0:
                     break;
                 default:
@@ -108,11 +115,11 @@ public class testmain {
                     break;
             }
 
-            if (choice != 1 && choice != 2 && choice != 0) {
+            if (choice != 1 && choice != 2 && choice != 0 && choice != 3) {
                 System.out.println("No has elegido una opcion valida.");
             } else if(val) {
-                Evaluation eval = new Evaluation(map_rate_unknown.get(userID), recommendation);
-                System.out.println("DCG de la recomendacion: " + eval.DCG() +"\n");
+                Evaluation eval = new Evaluation(map_rate_unknown);
+                System.out.println("DCG de la recomendacion: " + eval.DCG(recommendation) +"\n");
             }
         }
 

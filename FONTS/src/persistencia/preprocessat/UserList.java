@@ -53,7 +53,6 @@ public class UserList {
 
     public void saveUsers(){
         File archivo = new File("DATA/" + "UserList" + ".csv");
-
         try {
             FileWriter doc = new FileWriter(archivo);
             PrintWriter out = new PrintWriter(doc);
@@ -69,5 +68,9 @@ public class UserList {
         } finally {
             out.close();
         }
+    }
+
+    public static void main(String[] args) {
+
     }
 }

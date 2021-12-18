@@ -11,25 +11,35 @@ import java.util.TreeMap;
 public class DriverEvaluation {
     private static Scanner sc;
 
-    public static Map<Integer, Float> leerunknown(){
-        Map<Integer, Float> unknown = new TreeMap<>();
-        System.out.println("Numero de valores reales de la valoracion:");
-        int numit = sc.nextInt();
-        for(int i = 0; i < numit; ++i){
-            System.out.println("ID item" + (i+1) +" :");
-            int ID = sc.nextInt();
-            System.out.println("Rating item " + (i+1) +" :");
-            Float rating = sc.nextFloat();
-            unknown.put(ID, rating);
+    public static Map<Integer, Map<Integer, Float>> leerunknown(){
+        System.out.println("Introduzca las valoraciones de los usuarios no conocidas (unknown). Numero de users: ");
+        int Nusers = sc.nextInt();
+        Map<Integer, Map<Integer, Float>> opinions = new TreeMap<Integer, Map<Integer, Float>>();
+        for(int i = 0; i < Nusers; ++i){
+            System.out.println("ID de user num " + (i+1) + ":");
+            int userID = sc.nextInt();
+            opinions.put(userID, new TreeMap<Integer, Float>());
+            System.out.println("Numero de items valorados por usuario " + userID + ":");
+            int numItems = sc.nextInt();
+            for(int j = 0; j < numItems; ++j){
+                System.out.println("ID item numero " + (j+1) + ":");
+                int itemID = sc.nextInt();
+                System.out.println("Valoracion del item " + (j+1) + ":");
+                float itemVal = sc.nextFloat();
+                opinions.get(userID).put(itemID, itemVal);
+            }
         }
-        return unknown;
+        return opinions;
     }
 
     public static Recommendation leerrecommendation(){
         Recommendation recommendation = new Recommendation();
+        System.out.println("ID del perfil de la recomendacion:");
+        int n = sc.nextInt();
+        recommendation.setID_perfil(n);
         System.out.println("Numero de items en la recomendacion:");
-        int numit = sc.nextInt();
-        for(int i = 0; i < numit; ++i){
+        n = sc.nextInt();
+        for(int i = 0; i < n; ++i){
             System.out.println("ID item " + (i+1) +" :");
             int ID = sc.nextInt();
             System.out.println("Rating item " + (i+1) +" :");
@@ -40,8 +50,8 @@ public class DriverEvaluation {
     }
 
     public static void testDCG(){
-        Evaluation eval = new Evaluation(leerunknown(), leerrecommendation());
-        System.out.println("El valor DCG de la recomendacio es: " + eval.DCG());
+        Evaluation eval = new Evaluation(leerunknown());
+        System.out.println("El valor DCG de la recomendacio es: " + eval.DCG(leerrecommendation()));
     }
 
     public static void main(String[] args){

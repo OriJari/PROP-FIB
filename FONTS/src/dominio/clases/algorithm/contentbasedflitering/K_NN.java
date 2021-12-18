@@ -263,9 +263,9 @@ public class K_NN {
             }
         }
 
-        /*for(Map.Entry<Integer, Float> entry: auxiliar.entrySet()){
+        for(Map.Entry<Integer, Float> entry: auxiliar.entrySet()){
             auxiliar.put(entry.getKey(), entry.getValue()/sum_simil.get(entry.getKey()));
-        }*/
+        }
 
         if (auxiliar.size() > k) {
             for (int i = 0; i < k; ++i) {
