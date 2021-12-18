@@ -365,6 +365,73 @@ public class CSVparserItem {
         }
     }
 
+    public List<Content> linia_procesado(int IDitem, List<String> tags){
+        List<Content> res = new ArrayList<>();
+        for (String s : tags) {
+            boolean act = true;
+            Content t = new Content();
+            if (s.equals("False")) {
+                t.setTag("b");
+                t.setTag_numi(0);
+                t.setTag_numd(-1.0);
+                t.setCategorics(null);
+                act = false;
+            }
+            if (s.equals("True")) {
+                t.setTag("b");
+                t.setTag_numi(1);
+                t.setTag_numd(-1.0);
+                t.setCategorics(null);
+                act = false;
+            }
+            Double valD = -1.0;
+            boolean bd = true;
+            boolean bi = true;
+            try {
+                valD = String_to_Double(s);
+            } catch (NumberFormatException e) {
+                bd = false;
+                bi = false;
+            }
+            Integer valI = -1;
+            try {
+                valI = String_to_Int(s);
+            } catch (NumberFormatException e) {
+                bi = false;
+            }
+            if (bd) {
+                t.setTag("d");
+                t.setTag_numi(valI);
+                t.setTag_numd(valD);
+                t.setCategorics(null);
+                act = false;
+            }
+            if (bi) {
+                t.setTag("i");
+                t.setTag_numi(valI);
+                t.setTag_numd(valD);
+                t.setCategorics(null);
+                act = false;
+            }
+            if (s.contains(";")) {
+                if (!s.contains("\"")) {
+                    t.setTag("c");
+                    t.setTag_numi(valI);
+                    t.setTag_numd(valD);
+                    List<String> orderlist = Arrays.asList(s.split(";"));
+                    Collections.sort(orderlist);
+                    t.setCategorics(orderlist);
+                    act = false;
+                }
+            }
+            if (act) t.setTag(s);
+            res.add(t);
+        }
+        return res;
+    }
+
+
+
     public void guardar_datos(List<List<String>> content, List<String> header) {
 
         //Scanner sc = new Scanner(System.in);

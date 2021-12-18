@@ -10,28 +10,20 @@ import static java.lang.System.out;
 
 public class UserList {
     Set<Integer> users;
-    Map<Integer, Map<Integer, Float>> mapRate;
 
     public UserList(){
         this.users = new TreeSet<>();
-        this.mapRate = new TreeMap<>();
     }
 
     public Set<Integer> getUsers() {
         return users;
     }
 
-    public Map<Integer, Map<Integer, Float>> getMapRate() {
-        return mapRate;
-    }
 
     public void setUsers(Set<Integer> users) {
         this.users = users;
     }
 
-    public void setMapRate(Map<Integer, Map<Integer, Float>> mapRate) {
-        this.mapRate = mapRate;
-    }
 
     public void initializeUsers( Map<Integer, Map<Integer, Float>> mapRate){
         for (Map.Entry<Integer, Map<Integer, Float>> entry : mapRate.entrySet()) {
@@ -45,14 +37,11 @@ public class UserList {
     }
 
     public void delUser(int id_user){
-        if (users.contains(id_user)){
-            users.remove(id_user);
-            if (mapRate.containsKey(id_user)) mapRate.remove(id_user);
-        }
+        if (users.contains(id_user)) users.remove(id_user);
     }
 
-    public void saveUsers(){
-        File archivo = new File("DATA/" + "UserList" + ".csv");
+    public void saveUsers(String path){
+        File archivo = new File(path + "UserList" + ".csv");
         try {
             FileWriter doc = new FileWriter(archivo);
             PrintWriter out = new PrintWriter(doc);
@@ -70,7 +59,4 @@ public class UserList {
         }
     }
 
-    public static void main(String[] args) {
-
-    }
 }

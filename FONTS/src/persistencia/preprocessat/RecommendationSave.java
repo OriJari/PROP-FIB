@@ -9,41 +9,43 @@ import static java.lang.System.out;
 
 public class RecommendationSave {
 
-    Integer id_user;
-    List<Integer> intsratings;
-    List<Float> floatsratings;
+    List<Integer> id_user;
+    List<List<Integer>> idItems;
+    List<List<Float>> values;
+    List<Integer> algorithm;
+    List<String> dates;
 
     public RecommendationSave(){
         this.id_user = null;
-        this.intsratings = new ArrayList<>();
-        this.floatsratings = new ArrayList<>();
+        this.idItems = new ArrayList<>();
+        this.values = new ArrayList<>();
     }
 
-    public Integer getId_user() {
+    public  List<Integer> getId_user() {
         return id_user;
     }
 
-    public List<Integer> getIntsratings() {
-        return intsratings;
+    public List<List<Integer>>getIntsratings() {
+        return idItems;
     }
 
-    public List<Float> getFloatsratings() {
-        return floatsratings;
+    public  List<List<Float>> getFloatsratings() {
+        return values;
     }
 
-    public void setId_user(Integer id_user) {
+    public void setId_user( List<Integer> id_user) {
         this.id_user = id_user;
     }
 
-    public void setIntsratings(ArrayList<Integer> intsratings) {
-        this.intsratings = intsratings;
+    public void setIntsratings(List<List<Integer>> intsratings) {
+        this.idItems = intsratings;
     }
 
-    public void setFloatsratings(ArrayList<Float> floatsratings) {
-        this.floatsratings = floatsratings;
+    public void setFloatsratings( List<List<Float>> floatsratings) {
+        this.values = floatsratings;
     }
 
-    public static void saveRecommendation(int id_user, ArrayList<Integer> intsrating, ArrayList<Float> floatsrating){
+    public static void saveRecommendation(int id_user,  List<List<Integer>> intsrating,  List<List<Float>>floatsrating){
         File archivo = new File("DATA/" + "Recommedation" + id_user + ".csv");
         try {
             FileWriter doc = new FileWriter(archivo);
@@ -69,12 +71,12 @@ public class RecommendationSave {
             Scanner sc = new Scanner(fis);
             //For each line
             sc.nextLine();
-            id_user = id_user1;
+           //id_user = id_user1;
             while(sc.hasNextLine()) {
                 String line = sc.nextLine();
                 List<String> splitContent = Arrays.asList(line.split(","));
-                intsratings.add(Integer.valueOf(splitContent.get(0)));
-                floatsratings.add(Float.valueOf(splitContent.get(1)));
+                //intsratings.add(Integer.valueOf(splitContent.get(0)));
+                //floatsratings.add(Float.valueOf(splitContent.get(1)));
             }
         }
         catch (FileNotFoundException e) {
