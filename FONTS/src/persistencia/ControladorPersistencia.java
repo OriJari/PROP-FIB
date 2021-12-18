@@ -10,29 +10,35 @@ import java.util.*;
 
 public class ControladorPersistencia {
 
-    CSVparserItem CSVItem;
-    CSVparserRate CSVRate;
-    CSVparserRate CSVKnown;
-    CSVparserRate CSVUnknown;
+    static CSVparserItem CSVItem;
+    static CSVparserRate CSVRate;
+    static CSVparserRate CSVKnown;
+    static CSVparserRate CSVUnknown;
     RecommendationSave Recomm;
-    UserList UserList;
+    static UserList UserList;
 
     public ControladorPersistencia(){}
 
-    public boolean inicializar(String path){
+    public static boolean inicializar(String path){
         CSVItem = new CSVparserItem(path + "items.csv");
+        CSVItem.readLoadItem();
+        CSVItem.MapItemData(CSVItem.getContent());
         CSVRate = new CSVparserRate(path + "ratings.db.csv");
+        CSVRate.readLoadRate();
+        CSVRate.LoadRate(CSVRate.getContent());
         CSVKnown = new CSVparserRate(path + "ratings.test.known.csv");
+        CSVKnown.readLoadRate();
+        CSVKnown.LoadRate(CSVKnown.getContent());
         CSVUnknown = new CSVparserRate(path + "ratings.test.unknown.csv");
+        CSVUnknown.readLoadRate();
+        CSVUnknown.LoadRate(CSVUnknown.getContent());
         //Crea les classes que necessitis
         UserList = new UserList();
         return true;
     }
 
-    public boolean addItem(int ID, List<String> tags){
+    public static boolean addItem(int ID, List<String> tags){
         ///ATENCION FORMATO CONTENT !!!!!
-        CSVItem.readLoadItem();
-        CSVItem.MapItemData(CSVItem.getContent());
         List<Integer> iditems = CSVItem.getId_Items();
         if (iditems.contains(ID)) return false;
         else {
@@ -45,8 +51,16 @@ public class ControladorPersistencia {
             List<List<String>> l = CSVItem.getContent();
             //trato datos para crear lista a inserir
             List<String> res = new ArrayList<>();
-            res.add(String.valueOf(ID));
-            for (int i = 0; i < tags.size(); ++i) res.add(tags.get(i));
+            List<String> head = CSVItem.getHeader();
+            int posid = head.indexOf("id");
+            for (int i = 0; i < tags.size(); ++i){
+                if (i == posid){
+                    res.add(String.valueOf(ID));
+                    String s = tags.get(i);
+                    res.add(s);
+                }
+                else res.add(tags.get(i));
+            }
             l.add(res);
 
             //actualizo el nuevo
@@ -54,8 +68,8 @@ public class ControladorPersistencia {
 
             //PREPROCESADO
             Map<Integer, List<Content>> map = CSVItem.getMapRatedata();
-            List<Content> cont = CSVItem.linia_procesado(ID, tags);
-            map.put(rows, cont);
+            List<Content> cont = CSVItem.linia_procesado(ID, res);
+            map.put(rows-1, cont);
 
             //ADDItem a la lista de items
             iditems.add(ID);
@@ -64,10 +78,8 @@ public class ControladorPersistencia {
         return true;
     }
 
-    public boolean delItem(int ID) {
+    public static boolean delItem(int ID) {
         ///ATENCION FORMATO CONTENT !!!!!
-        CSVItem.readLoadItem();
-        CSVItem.MapItemData(CSVItem.getContent());
         List<Integer> iditems = CSVItem.getId_Items();
         if (!iditems.contains(ID)) return false;
         else {
@@ -88,18 +100,21 @@ public class ControladorPersistencia {
             rows -= 1;
             CSVItem.setNumRows(rows);
 
+            //actualizo lista id items
+            iditems.remove(pos);
+            CSVItem.setId_Items(iditems);
+
         }
         return true;
     }
 
-    public boolean modTag(int IDitem, String atribute, String newtag){
-        CSVItem.readLoadItem();
-        CSVItem.MapItemData(CSVItem.getContent());
+    public static boolean modTag(int IDitem, String atribute, String newtag){
         List<Integer> iditems = CSVItem.getId_Items();
+        List<String> head = CSVItem.getHeader();
         if (!iditems.contains(IDitem)) return false;
+        else if(!head.contains(atribute)) return false;
         else{
             //obtener posicion del atributo en el header y pos del item en la lista de items
-            List<String> head = CSVItem.getHeader();
             int poscol = head.indexOf(atribute);
             int posrow = iditems.indexOf(IDitem);
 
@@ -118,13 +133,12 @@ public class ControladorPersistencia {
         }
         return true;
     }
-    public boolean delTag(int IDitem, String atribute){
-        CSVItem.readLoadItem();
-        CSVItem.MapItemData(CSVItem.getContent());
+    public static boolean delTag(int IDitem, String atribute){
         List<Integer> iditems = CSVItem.getId_Items();
+        List<String> head = CSVItem.getHeader();
         if (!iditems.contains(IDitem)) return false;
+        else if(!head.contains(atribute)) return false;
         else{
-            List<String> head = CSVItem.getHeader();
             int poscol = head.indexOf(atribute);
             int posrow = iditems.indexOf(IDitem);
 
@@ -142,16 +156,12 @@ public class ControladorPersistencia {
         }
         return true;
     }
-    public boolean addUser(int ID) {
+    public static boolean addUser(int ID) {
 
         //CREO QUE NO TIENE SENTIDO AÑADIR UN USER SIN UNA VALORACION AL DATASET
         //SOLO DEBERIAMOS AÑADIRLO A LA LISTA USERS
 
         //QUE CSVS A AÑADIR USER?
-        CSVRate.readLoadRate();
-        CSVKnown.readLoadRate();
-        CSVRate.LoadRate(CSVRate.getContent());
-        CSVKnown.LoadRate(CSVKnown.getContent());
         Map<Integer, Map<Integer, Float>> auxR = CSVRate.getMapRate();
         Map<Integer, Map<Integer, Float>> auxK = CSVKnown.getMapRate();
         if(auxK.containsKey(ID)) return false;
@@ -201,7 +211,7 @@ public class ControladorPersistencia {
                     aux.add(String.valueOf(ID));
                 }
             }
-            l.add(row, aux);
+            l.add(aux);
             CSVKnown.setContent(l);
         }
         Set<Integer> s = UserList.getUsers();
@@ -213,19 +223,15 @@ public class ControladorPersistencia {
         return true;
     }
 
-    public boolean delUser(int ID) {
+    public static boolean delUser(int ID) {
         //QUE CSVS A ELIMINAR USER?
-        CSVRate.readLoadRate();
-        CSVKnown.readLoadRate();
-        CSVRate.LoadRate(CSVRate.getContent());
-        CSVKnown.LoadRate(CSVKnown.getContent());
         Map<Integer, Map<Integer, Float>> auxR = CSVRate.getMapRate();
         Map<Integer, Map<Integer, Float>> auxK = CSVKnown.getMapRate();
         if(!auxK.containsKey(ID)) return false;
         else{
             auxK.remove(ID);
             List<String> head = CSVKnown.getHeader();
-            int pos = head.indexOf("userID");
+            int pos = head.indexOf("userId");
             List<List<String>> l = CSVKnown.getContent();
             for (int i = 0; i < l.size(); ++i){
                 int rows = CSVKnown.getNumRows();
@@ -242,10 +248,6 @@ public class ControladorPersistencia {
 
     public boolean addRating(int IDuser, int IDitem, float valor){
         //QUE CSVS A AÑADIR RATING?
-        CSVRate.readLoadRate();
-        CSVKnown.readLoadRate();
-        CSVRate.LoadRate(CSVRate.getContent());
-        CSVKnown.LoadRate(CSVKnown.getContent());
         Map<Integer, Map<Integer, Float>> auxR = CSVRate.getMapRate();
         Map<Integer, Map<Integer, Float>> auxK = CSVKnown.getMapRate();
         Map<Integer, Float> m = new TreeMap<>();
@@ -303,10 +305,6 @@ public class ControladorPersistencia {
 
     public boolean modRating(int IDuser, int IDitem, float new_rate) {
         //QUE CSVS A MODIFICAR RATING?
-        CSVRate.readLoadRate();
-        CSVKnown.readLoadRate();
-        CSVRate.LoadRate(CSVRate.getContent());
-        CSVKnown.LoadRate(CSVKnown.getContent());
         Map<Integer, Map<Integer, Float>> auxR = CSVRate.getMapRate();
         Map<Integer, Map<Integer, Float>> auxK = CSVKnown.getMapRate();
         if(auxK.containsKey(IDuser)){
@@ -375,10 +373,6 @@ public class ControladorPersistencia {
 
     public boolean delRating(int IDuser, int IDitem) {
         //QUE CSVS A ELIMINAR RATING?
-        CSVRate.readLoadRate();
-        CSVKnown.readLoadRate();
-        CSVRate.LoadRate(CSVRate.getContent());
-        CSVKnown.LoadRate(CSVKnown.getContent());
         Map<Integer, Map<Integer, Float>> auxR = CSVRate.getMapRate();
         Map<Integer, Map<Integer, Float>> auxK = CSVKnown.getMapRate();
         if(auxK.containsKey(IDuser)){
@@ -418,5 +412,31 @@ public class ControladorPersistencia {
     public List<List<String>> getMapItem(){
         List<List<String>> result = new ArrayList<>();
         return result;
+    }
+
+    public static void main(String[] args) {
+        new ControladorPersistencia();
+        boolean b = inicializar("DATA/");
+        int id = 123;
+        //boolean b2 = delItem(id);
+        List<String> tags = new ArrayList<>();
+        tags.add("Cowboy bebop");
+        tags.add("Buenissima serie");
+        tags.add("Sci-Fi;Action;Adeventure");
+        tags.add("2021-12-18");
+        tags.add("14");
+        tags.add("50000");
+        tags.add("100");
+        tags.add("23");
+        tags.add("9.07");
+        tags.add("link1imagen.jpg");
+        tags.add("link2web");
+        boolean b1 = addItem(id, tags);
+        boolean b3 = modTag(id, "link", "Wapo");
+        //boolean b4 = delTag(id,"link");
+        boolean b5 = addUser(id);
+        boolean b6 = delUser(2);
+
+        System.out.println("hola");
     }
 }
