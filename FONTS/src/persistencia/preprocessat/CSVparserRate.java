@@ -349,12 +349,270 @@ public class CSVparserRate {
             out.close();
         }
     }
+    /*public  boolean addUser(int ID) {
+
+        //CREO QUE NO TIENE SENTIDO AÑADIR UN USER SIN UNA VALORACION AL DATASET
+        //SOLO DEBERIAMOS AÑADIRLO A LA LISTA USERS
+
+        //QUE CSVS A AÑADIR USER?
+        /*Map<Integer, Map<Integer, Float>> auxR = CSVRate.getMapRate();
+        Map<Integer, Map<Integer, Float>> auxK = CSVKnown.getMapRate();
+        if(auxK.containsKey(ID)) return false;
+        else{
+            Map<Integer, Float> m = new TreeMap<>();
+            m.put(0, 0.0F);
+            auxK.put(ID, m);
+            CSVKnown.setMapRate(auxK);
+
+            List<List<String>> l = CSVKnown.getContent();
+            int row = CSVKnown.getNumRows();
+            row += 1;
+            CSVKnown.setNumRows(row);
+            List<String> aux = new ArrayList<>();
+            List<String> head = CSVKnown.getHeader();
+            int posuser = head.indexOf("userId");
+            int positem = head.indexOf("itemId");
+            int posrate = head.indexOf("rating");
+            if (posuser < positem && posuser < posrate){
+                aux.add(String.valueOf(ID));
+                if(positem < posrate) {
+                    aux.add("0");
+                    aux.add("0.0");
+                }
+                else{
+                    aux.add("0.0");
+                    aux.add("0");
+                }
+            } else if (positem < posuser && positem < posrate) {
+                aux.add("0");
+                if(posuser < posrate){
+                    aux.add(String.valueOf(ID));
+                    aux.add("0.0");
+                }else{
+                    aux.add("0.0");
+                    aux.add(String.valueOf(ID));
+                }
+            }
+            else if (posrate < posuser && posrate < positem){
+                aux.add("0.0");
+                if(posuser < positem){
+                    aux.add(String.valueOf(ID));
+                    aux.add("0");
+                }
+                else{
+                    aux.add("0");
+                    aux.add(String.valueOf(ID));
+                }
+            }
+            l.add(aux);
+            CSVKnown.setContent(l);
+        }
+        return true;
+    }*/
+
+    public boolean delUserCSV(int ID) {
+        //Map<Integer, Map<Integer, Float>> auxK = CSVKnown.getMapRate();
+        if(!mapRate.containsKey(ID)) return false;
+        else{
+            mapRate.remove(ID);
+            //List<String> head = CSVKnown.getHeader();
+            int pos = header.indexOf("userId");
+            //List<List<String>> l = CSVKnown.getContent();
+            List<Integer> pos_delete = new ArrayList<>();
+            //int rows = CSVKnown.getNumRows();
+            for (int i = content.size()-1 ; i >= 0; --i){
+                List<String> aux = content.get(i);
+                if (aux.get(pos).equals(String.valueOf(ID))) {
+                    content.remove(i);
+                    numRows -= 1;
+                    //CSVKnown.setNumRows(rows);
+                }
+            }
+            //CSVKnown.setContent(l);
+        }
+        return true;
+    }
+
+    public boolean addRatingCSV(int IDuser, int IDitem, float valor){
+        //QUE CSVS A AÑADIR RATING?
+        //VALOR DENTRO DE LOS PARAMETROS MIN Y MAX
+        //Map<Integer, Map<Integer, Float>> auxR = CSVRate.getMapRate();
+        //Map<Integer, Map<Integer, Float>> auxK = CSVKnown.getMapRate();
+        Map<Integer, Float> m = new TreeMap<>();
+        m.put(IDitem, valor);
+        //NO PUEDE VALORAR UN MISMO ITEM CON UNA MISMA RATE
+        if(mapRate.containsValue(m)) return false;
+        else{
+            //PREPROCESADO
+            if(mapRate.containsKey(IDuser)){
+                mapRate.get(IDuser).put(IDitem,valor);
+            }
+            else{
+                Map<Integer, Float> aux = new TreeMap<>();
+                aux.put(IDitem, valor);
+                mapRate.put(IDuser, aux);
+            }
+
+            //CONTENT
+            //CSVKnown.setMapRate(auxK);
+            //List<List<String>> l = CSVKnown.getContent();
+            List<String> aux = new ArrayList<>();
+            //List<String> head = CSVKnown.getHeader();
+            int posuser = header.indexOf("userId");
+            int positem = header.indexOf("itemId");
+            int posrate = header.indexOf("rating");
+            if (posuser < positem && posuser < posrate){
+                aux.add(String.valueOf(IDuser));
+                if(positem < posrate) {
+                    aux.add(String.valueOf(IDitem));
+                    aux.add(String.valueOf(valor));
+                }
+                else{
+                    aux.add(String.valueOf(valor));
+                    aux.add(String.valueOf(IDitem));
+                }
+            } else if (positem < posuser && positem < posrate) {
+                aux.add(String.valueOf(IDitem));
+                if(posuser < posrate){
+                    aux.add(String.valueOf(IDuser));
+                    aux.add(String.valueOf(valor));
+                }else{
+                    aux.add(String.valueOf(valor));
+                    aux.add(String.valueOf(IDuser));
+                }
+            }
+            else if (posrate < posuser && posrate < positem){
+                aux.add(String.valueOf(valor));
+                if(posuser < positem){
+                    aux.add(String.valueOf(IDuser));
+                    aux.add(String.valueOf(IDitem));
+                }
+                else{
+                    aux.add(String.valueOf(IDitem));
+                    aux.add(String.valueOf(IDuser));
+                }
+            }
+            content.add(aux);
+            //int row = CSVKnown.getNumRows();
+            numRows += 1;
+            //CSVKnown.setNumRows(row);
+            //CSVKnown.setContent(l);
+        }
+        return true;
+    }
+
+    public boolean modRatingCSV(int IDuser, int IDitem, float new_rate) {
+        //QUE CSVS A MODIFICAR RATING?
+        //VALOR DENTRO DE LOS PARAMETROS MIN Y MAX
+        //Map<Integer, Map<Integer, Float>> auxR = CSVRate.getMapRate();
+        Map<Integer, Map<Integer, Float>> auxK = mapRate;
+        if(auxK.containsKey(IDuser)){
+            Map<Integer, Float> m = auxK.get(IDuser);
+            if(m.containsKey(IDitem)) {
+                m.remove(IDitem);
+                m.put(IDitem, new_rate);
+                setMapRate(auxK);
+
+                //List<List<String>> l = CSVKnown.getContent();
+                List<String> aux = new ArrayList<>();
+                //List<String> head = CSVKnown.getHeader();
+                int pos = -1;
+                for (int i = 0; i < content.size(); ++i){
+                    List<String> miro = content.get(i);
+                    int posu = header.indexOf("userId");
+                    int posi = header.indexOf("itemId");
+                    if (miro.get(posu).equals(String.valueOf(IDuser))) {
+                        if (miro.get(posi).equals(String.valueOf(IDitem))) {
+                            pos = i;
+                        }
+                    }
+                }
+                if (pos != -1) {
+                    content.remove(pos);
+                    int posuser = header.indexOf("userId");
+                    int positem = header.indexOf("itemId");
+                    int posrate = header.indexOf("rating");
+                    if (posuser < positem && posuser < posrate) {
+                        aux.add(String.valueOf(IDuser));
+                        if (positem < posrate) {
+                            aux.add(String.valueOf(IDitem));
+                            aux.add(String.valueOf(new_rate));
+                        } else {
+                            aux.add(String.valueOf(new_rate));
+                            aux.add(String.valueOf(IDitem));
+                        }
+                    } else if (positem < posuser && positem < posrate) {
+                        aux.add(String.valueOf(IDitem));
+                        if (posuser < posrate) {
+                            aux.add(String.valueOf(IDuser));
+                            aux.add(String.valueOf(new_rate));
+                        } else {
+                            aux.add(String.valueOf(new_rate));
+                            aux.add(String.valueOf(IDuser));
+                        }
+                    } else if (posrate < posuser && posrate < positem) {
+                        aux.add(String.valueOf(new_rate));
+                        if (posuser < positem) {
+                            aux.add(String.valueOf(IDuser));
+                            aux.add(String.valueOf(IDitem));
+                        } else {
+                            aux.add(String.valueOf(IDitem));
+                            aux.add(String.valueOf(IDuser));
+                        }
+                    }
+                    content.add(pos, aux);
+                    //CSVKnown.setContent(l);
+                }
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    public boolean delRatingCSV(int IDuser, int IDitem) {
+        //QUE CSVS A ELIMINAR RATING?
+        Map<Integer, Map<Integer, Float>> auxK = mapRate;
+        if(auxK.containsKey(IDuser)){
+            Map<Integer, Float> m = auxK.get(IDuser);
+            if(m.containsKey(IDitem)) {
+                m.remove(IDitem);
+                setMapRate(auxK);
+
+                //List<List<String>> l = CSVKnown.getContent();
+                //List<String> head = CSVKnown.getHeader();
+                int posu = header.indexOf("userId");
+                int posi = header.indexOf("itemId");
+                //int rows = CSVKnown.getNumRows();
+                for (int i = content.size()-1; i >= 0; --i){
+                    List<String> aux = content.get(i);
+                    if (aux.get(posu).equals(String.valueOf(IDuser))) {
+                        if (aux.get(posi).equals(String.valueOf(IDitem))) {
+                            content.remove(i);
+                            numRows -= 1;
+                            //CSVKnown.setNumRows(rows);
+                        }
+                    }
+                }
+                //CSVKnown.setContent(l);
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
 
     /*public static void main(String[] args) {
-        CSVparserRate CSVRate = new CSVparserRate("FONTS/src/persistencia/series/250/ratings.db.csv");
-        CSVRate.readLoadRate();
-        CSVRate.LoadRate(CSVRate.getContent());
-        String s = "rating";
+        CSVparserRate CSVKnown = new CSVparserRate("DATA/ratings.test.known.csv");
+        CSVKnown.readLoadRate();
+        CSVKnown.LoadRate(CSVKnown.getContent());
+        //boolean b5 = addUserCSV(id);
+        boolean b6 = CSVKnown.delUserCSV(2);
+        boolean b7 = CSVKnown.addRatingCSV(14, 2, 3.0F);
+        boolean b8 = CSVKnown.modRatingCSV(3, 80, 25.0F);
+        boolean b9 = CSVKnown.delRatingCSV(3, 80);
+
+        /*String s = "rating";
         String s1 = "rating_prepo";
         CSVRate.guardar_datos(CSVRate.getContent(), CSVRate.getHeader(), s);
         CSVRate.guardar_datos_preproces(CSVRate.getMapRate(), s1);
