@@ -4,16 +4,18 @@ package presentacion;
 
 import dominio.controladores.ControladorDominio;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.*;
 
 public class ControladorPresentacion {
     private ControladorDominio CD;
     private static VistaPrincipal v = new VistaPrincipal();
+    private int ID_actual;
 
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         v.hacerVisible();
 
     }
@@ -25,7 +27,11 @@ public class ControladorPresentacion {
     public void inicializar(String path){
         CD.inicializar(path);
     }
-
+ */
+    /*
+    public List<String> list_user(){
+        //retorna una llista amb tots els id users
+    }
     public boolean addUser(int ID){
         return CD.addUser(ID);
     }
@@ -36,20 +42,34 @@ public class ControladorPresentacion {
         CD.deleteUser(ID);
     }
 
-    public boolean addItem(int ID, List<String> tags){
+    public boolean validUser(int ID){
+        CD.validUser(ID);
+        //retorna true si l'usuari exsiteix
+
+    }
+
+     public boolean validItem(int ID){
+        CD.validItem(ID);
+        //retorna true si l'item exsiteix
+
+    }
+
+
+
+    public void addItem(int ID, List<String> tags){
         CD.addItem(ID, tags);
     }
 
-     public boolean deleteItem(int ID, List<String> tags){
-        CD.deleteItem(ID, tags);
+     public boolean deleteItem(int ID){
+        CD.deleteItem(ID);
     }
 
     public boolean addRating(int IDitem, float valor){
         CD.addRating(ID_actual, IDitem, valor);
     }
 
-    public boolean deleteRating(int IDitem, float valor){
-        CD.deleteRating(ID_actual, IDitem, valor);
+    public boolean deleteRating(int IDitem){
+        CD.deleteRating(ID_actual, IDitem);
     }
 
     public boolean modifyTag(int IDitem, String tag){
@@ -60,8 +80,8 @@ public class ControladorPresentacion {
         CD.delTag(IDitem, tag);
     }
 
-    public boolean saveRecomendation(boolean g){
-        CD.saveRecomendation(g);
+    public boolean saveRecomendation(){
+        CD.saveRecomendation();
     }
 
     public boolean evaluateRecomendation(boolean e){

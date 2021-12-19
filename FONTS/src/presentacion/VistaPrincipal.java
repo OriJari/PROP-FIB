@@ -10,56 +10,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class VistaPrincipal {
+
     //controlador presentacio
-    private ControladorPresentacion CP;
+    protected static ControladorPresentacion CP;
 
     //components gui
-    private JFrame fin = new JFrame("Recomendation System");
-    private JPanel menu = new JPanel();
-    private JPanel start = new JPanel();
-
-    private JButton gestuser = new JButton("Gestión de Usuario");
-    private JButton gestitem = new JButton("Gestión de Item");
-    private JButton recomanacio = new JButton("Recomendaciones");
+    protected static JFrame fin = new JFrame("Recomendation System");
 
 
-    private JPanel recomana = new JPanel();
-    private JPanel buscarecoana = new JPanel();
-    private JComboBox cUserId;
-    private JComboBox algoritme;
-    private JCheckBox eval;
-    private JButton busca;
+    private static JButton gestuser = new JButton("Gestión de Usuario");
+    private static JButton gestitem = new JButton("Gestión de Item");
+    private static JButton recomanacio = new JButton("Recomendaciones");
 
-    private JButton save;
-    private JLabel imatgeitem;
-    private JLabel itemId;
-    private JLabel recValue;
-
-    private JPanel gestUser = new JPanel();
-    private JPanel gestrate;
-    private JTextField tUserId;
-    private JButton add;
-    private JButton delete;
-    private JButton gRate;
-    private JComboBox cItemId;
-    private JTextField tRate;
-
-
-    private JPanel gestItem = new JPanel();
-    private JButton additem;
-    private JButton bGestTag;
-    private JButton delteItem;
-
-    private JPanel pGestTag;
-    private JComboBox TagsItems;
-    private JTextField tagmod;
-    private JButton modify;
-
-    private JPanel addItem;
-    private JTextField tItemId;
 
     //atributs
-    private int panelactual = 0;
+    protected static int panelactual = 0;
+    protected String path_csv;
+
 
     public VistaPrincipal(ControladorPresentacion cp) {
         CP = cp;
@@ -79,7 +46,7 @@ public class VistaPrincipal {
 
     }
 
-    private void basic_frame(){
+    public void basic_frame(){
         fin.setTitle("Recomendation System");
         fin.setResizable(false);
 
@@ -88,7 +55,7 @@ public class VistaPrincipal {
         panelmain();
     }
 
-    private void panelmain(){
+    public static void panelmain(){
         switch (panelactual){
             case 0:
                 System.out.println("Case: " + panelactual  + " start");
@@ -100,22 +67,49 @@ public class VistaPrincipal {
                 break;
             case 2:
                 System.out.println("Case: " + panelactual  + " gestion_user");
-                gestion_user();
+                VistaUser.gestion_user();
                 break;
             case 3:
                 System.out.println("Case: " + panelactual  + " gestion_item");
-                gestion_item();
+                VistaItem.gestion_item();
                 break;
             case 4:
                 System.out.println("Case: " + panelactual  + " recomanacio");
-                recomanacio();
+                VistaRec.menuRec();
                 break;
+            case 5:
+                System.out.println("Case: " + panelactual  + " buscar recomanacio");
+                VistaRec.recomanacio();
+                break;
+
+            case 6:
+                System.out.println("Case: " + panelactual  + " cargar recomanacio");
+                VistaRec.cargar_rec();
+                break;
+            case 7:
+                System.out.println("Case: " + panelactual  + " items recomanacio");
+                VistaRec.rec_items();
+                break;
+
+            case 8:
+                System.out.println("Case: " + panelactual  + " gestion ratings");
+                VistaUser.gestion_ratings();
+                break;
+
+            case 9:
+                System.out.println("Case: " + panelactual  + " gestion tags");
+                VistaItem.gestion_tag();
+                break;
+
             default:
                 break;
         }
     }
 
-    private void start(){
+    public static void start(){
+
+        JPanel start = new JPanel();
+
 
         fin.add(start);
         start.setVisible(true);
@@ -124,61 +118,74 @@ public class VistaPrincipal {
 
         JLabel titol = new JLabel("SISTEMA RECOMANADOR");
         titol.setFont(new Font("Arial",Font.BOLD,30));
-        titol.setBounds(280,30,550,40);
-        titol.setVisible(true);
+        titol.setBounds(285,30,550,40);
         start.add(titol);
 
-        JLabel frase1 = new JLabel("Escoja el CSV con el que quiere trabajar.");
+        JLabel frase1 = new JLabel("Escoja el CSV con el que quiere trabajar");
         frase1.setFont(new Font("Arial", Font.PLAIN,18));
-        frase1.setBounds(285,130,400,20);
+        frase1.setBounds(310,130,400,20);
         start.add(frase1);
 
 
-
-
-        File file = new File("DATA");
-
+/*
         String[] directories = file.list(new FilenameFilter() {
             @Override
             public boolean accept(File current, String name) {
                 return new File(current, name).isDirectory();
             }
         });
-        System.out.println(Arrays.toString(directories));
+        System.out.println(Arrays.toString(directories));*/
 
-        JComboBox csvs = new JComboBox(directories);
+        JButton csvs = new JButton("Browser CSV");
 
-        csvs.setBounds(265,180,400,25);
+        csvs.setBounds(390,250,150,25);
 
         start.add(csvs);
 
-        //resize tontorron pq aparegui el combobox
-        fin.setSize(960,541);
-        fin.setSize(960,540);
+        JTextField csvchoosen = new JTextField();
+        csvchoosen.setEnabled(false);
+        csvchoosen.setBounds(270,190,400,25);
+        start.add(csvchoosen);
 
-/*     //browser ficheros/dyrectory
+        File file = new File("DATA");
         JFileChooser fc = new JFileChooser(file);
-        fc.setDialogTitle("Escojer CSV");
-        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        if(fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
-            //
-        }
-        System.out.println(fc.getSelectedFile().getPath());
 
-*/
+        ActionListener selecciona = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //browser ficheros/dyrectory
+
+                fc.setDialogTitle("Escojer CSV");
+                fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                if(fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+                    //
+                }
+                File file1 = new File(fc.getSelectedFile().getPath());
+                File file2 = new File(file.getAbsolutePath());
+
+                String absolutePath1 = file1.toString();
+                String absolutePath2 = file2.toString();
+                String path = absolutePath1.substring(absolutePath2.length());
+
+                System.out.println(path);
+                csvchoosen.setFont(new Font("Arial", Font.BOLD,14));
+                csvchoosen.setText(path);
+            }
+        };
+        csvs.addActionListener(selecciona);
+
 
         JButton startB = new JButton("Start");
-        startB.setBounds(285,380,350,40);
+        startB.setBounds(290,380,350,40);
         startB.setFont(new Font("Arial", Font.BOLD, 20));
-        startB.setVisible(true);
         start.add(startB);
 
         ActionListener comencem = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String s = (String) csvs.getSelectedItem();
-                System.out.println("CSV selecionado: " + s);
-                //CP.CSVescollit(s);
+                String path_csv =  fc.getSelectedFile().getPath();
+                System.out.println("CSV selecionado: " + path_csv);
+                //CP.CSVescollit(path_csv);
                 System.out.println("boton pulsado: start");
                 panelactual = 1;
                 start.setVisible(false);
@@ -190,29 +197,28 @@ public class VistaPrincipal {
 
     }
 
-    private void menu(){
-
+    public static void menu(){
+        JPanel menu = new JPanel();
         fin.add(menu);
         menu.setVisible(true);
         menu.setLayout(null);
 
         JLabel titol = new JLabel("SISTEMA RECOMANADOR");
         titol.setFont(new Font("Arial",Font.BOLD,30));
-        titol.setBounds(280,30,550,40);
-        titol.setVisible(true);
+        titol.setBounds(285,30,550,40);
         menu.add(titol);
 
-        gestuser.setBounds(300, 160,350,40);
+        gestuser.setBounds(300, 150,350,40);
         gestuser.setFont(new Font("Arial", Font.BOLD, 20));
-        //gestuser.setVisible(true);
 
-        gestitem.setBounds(300, 220,350,40);
+
+        gestitem.setBounds(300, 230,350,40);
         gestitem.setFont(new Font("Arial", Font.BOLD, 20));
-        //gestitem.setVisible(true);
 
-        recomanacio.setBounds(300, 280,350,40);
+
+        recomanacio.setBounds(300, 310,350,40);
         recomanacio.setFont(new Font("Arial", Font.BOLD, 20));
-        //recomanacio.setVisible(true);
+
 
         JButton backM = new JButton("Volver");
         backM.setBounds(20,450,100,30);
@@ -266,109 +272,6 @@ public class VistaPrincipal {
             }
         };
         recomanacio.addActionListener(rec);
-    }
-
-    private void gestion_user(){
-        fin.add(gestUser);
-        gestUser.setVisible(true);
-        gestUser.setLayout(null);
-
-        JLabel titolU = new JLabel("Gestión de Usuario");
-        titolU.setFont(new Font("Arial",Font.BOLD,30));
-        titolU.setBounds(280,30,550,40);
-        titolU.setVisible(true);
-        gestUser.add(titolU);
-
-        JButton backGU = new JButton("Volver");
-        backGU.setBounds(20,450,100,30);
-
-        gestUser.add(backGU);
-
-        ActionListener tornarGU = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: tornarGU");
-                panelactual = 1;
-                gestUser.setVisible(false);
-                panelmain();
-            }
-        };
-        backGU.addActionListener(tornarGU);
-
-    }
-
-    private void gestion_item(){
-        fin.add(gestItem);
-        gestItem.setVisible(true);
-        gestItem.setLayout(null);
-
-        JLabel titolI = new JLabel("Gestión de Item");
-        titolI.setFont(new Font("Arial",Font.BOLD,30));
-        titolI.setBounds(280,30,550,40);
-        titolI.setVisible(true);
-        gestItem.add(titolI);
-
-        JButton backGI = new JButton("Volver");
-        backGI.setBounds(20,450,100,30);
-
-        gestItem.add(backGI);
-
-        ActionListener tornarGI = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: tornarGI");
-                panelactual = 1;
-                gestItem.setVisible(false);
-                panelmain();
-            }
-        };
-        backGI.addActionListener(tornarGI);
-
-    }
-
-    private void recomanacio(){
-        fin.add(recomana);
-        recomana.setVisible(true);
-        recomana.setLayout(null);
-
-        JLabel titolR = new JLabel("RECOMENDACIONES");
-        titolR.setFont(new Font("Arial",Font.BOLD,30));
-        titolR.setBounds(310,30,550,40);
-        titolR.setVisible(true);
-        recomana.add(titolR);
-
-        JButton backR = new JButton("Volver");
-        backR.setBounds(20,450,100,30);
-
-        recomana.add(backR);
-
-        ActionListener tornarR = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: tornarR");
-                panelactual = 1;
-                recomana.setVisible(false);
-                panelmain();
-            }
-        };
-        backR.addActionListener(tornarR);
-
-
-
-        cUserId.setSelectedItem("user 1");
-        cUserId.setSelectedItem("user 2");
-
-
-        cUserId.setBounds(265,180,400,25);
-
-        start.add(cUserId);
-
-        //resize tontorron pq aparegui el combobox
-        fin.setSize(960,541);
-        fin.setSize(960,540);
-
-
-
     }
 
 
