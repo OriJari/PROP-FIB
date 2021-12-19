@@ -36,8 +36,19 @@ public class UserList {
         if (!users.contains(id_user)) users.add(id_user);
     }
 
+    public  boolean addUserList (int ID) {
+        if (users.contains(ID)) return false;
+        else users.add(ID);
+        return true;
+    }
+
     public void delUser(int id_user){
         if (users.contains(id_user)) users.remove(id_user);
+    }
+    public  boolean delUserList (int ID) {
+        if (!users.contains(ID)) return false;
+        else users.remove(ID);
+        return true;
     }
 
     public void saveUsers(String path){

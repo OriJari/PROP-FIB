@@ -1,6 +1,6 @@
 package persistencia.preprocessat;
 
-import dominio.clases.content.Content;
+
 
 import java.io.*;
 import java.util.*;
@@ -562,10 +562,165 @@ public class CSVparserItem {
         }
     }
 
+    public boolean addItemCSV(int ID, List<String> tags){
+        ///ATENCION FORMATO CONTENT !!!!!
+        //List<Integer> iditems = id_Items;
+        if (id_Items.contains(ID)) return false;
+        else {
+            //incremento fila
+            //int rows = numRows;
+            numRows += 1;
+            //numRows = rows;
+
+            //Añadir los item y respectivos tags
+            //List<List<String>> l = content;
+            //trato datos para crear lista a inserir
+            List<String> res = new ArrayList<>();
+            //List<String> head = header;
+            int posid = header.indexOf("id");
+            for (int i = 0; i < tags.size(); ++i){
+                if (i == posid){
+                    res.add(String.valueOf(ID));
+                    String s = tags.get(i);
+                    res.add(s);
+                }
+                else res.add(tags.get(i));
+            }
+            content.add(res);
+
+            //actualizo el nuevo
+            //content = l;
+
+            //PREPROCESADO
+            //Map<Integer, List<Content>> map = mapRatedata;
+            List<Content> cont = linia_procesado(ID, res);
+            mapRatedata.put(numRows-1, cont);
+            //mapRatedata = map;
+
+            //ADDItem a la lista de items
+            id_Items.add(ID);
+            //id_Items = iditems;
+        }
+        return true;
+    }
+
+    public Map<Integer, List<Content>> setMapRate(Map<Integer, List<Content>> map){
+        int cont = 0;
+        Map<Integer, List<Content>> aux = new TreeMap<>();
+        for (Map.Entry<Integer, List<Content>> entry : map.entrySet()) {
+            List<Content> l = entry.getValue();
+            aux.put(cont, l);
+            ++cont;
+        }
+        return aux;
+    }
+
+
+    public boolean delItemCSV(int ID) {
+        ///ATENCION FORMATO CONTENT !!!!!
+        //List<Integer> iditems = id_Items;
+        if (!id_Items.contains(ID)) return false;
+        else {
+            //Posicion de id del item
+            int pos = id_Items.indexOf(ID);
+
+            //realizo el delete
+            //List<List<String>> l = content;
+            content.remove(pos);
+            //content = l;
+
+            mapRatedata.remove(pos);
+            Map<Integer, List<Content>> aux = setMapRate(mapRatedata);
+            mapRatedata = aux;
+            //mapRatedata = aux;
+
+            //actualizo filas
+            //int rows = numRows;
+            numRows -= 1;
+            //numRows = rows;
+
+            //actualizo lista id items
+            id_Items.remove(pos);
+            //id_Items = iditems;
+
+        }
+        return true;
+    }
+
+    public boolean modTagCSV(int IDitem, String atribute, String newtag){
+        //List<Integer> iditems = id_Items;
+        //List<String> head = header;
+        if (!id_Items.contains(IDitem)) return false;
+        else if(!header.contains(atribute)) return false;
+        else{
+            //obtener posicion del atributo en el header y pos del item en la lista de items
+            int poscol = header.indexOf(atribute);
+            int posrow = id_Items.indexOf(IDitem);
+
+            //Modifico tag pertinente del content
+            //List<List<String>> l = content;
+            List<String> aux = content.get(posrow);
+            aux.set(poscol, newtag);
+            content.set(posrow, aux);
+            //content = l;
+
+            //preporcesado datos del nuevo tag
+            //Map<Integer, List<Content>> map = mapRatedata;
+            List<Content> cont = linia_procesado(IDitem, aux);
+            mapRatedata.remove(posrow);
+            mapRatedata.put(posrow, cont);
+            //mapRatedata = map;
+        }
+        return true;
+    }
+
+    public boolean delTagCSV(int IDitem, String atribute){
+        //List<Integer> iditems = id_Items;
+        //List<String> head = header;
+        if (!id_Items.contains(IDitem)) return false;
+        else if(!header.contains(atribute)) return false;
+        else{
+            int poscol = header.indexOf(atribute);
+            int posrow = id_Items.indexOf(IDitem);
+
+            //List<List<String>> l = content;
+            List<String> aux = content.get(posrow);
+            aux.set(poscol, "null");
+            content.set(posrow, aux);
+            //content = l;
+
+            //PREPROCESADO lo ponemos a null a dicho tag
+            //Map<Integer, List<Content>> map = mapRatedata;
+            List<Content> cont = linia_procesado(IDitem, aux);
+            mapRatedata.remove(posrow);
+            mapRatedata.put(posrow, cont);
+            //mapRatedata = map;
+        }
+        return true;
+    }
+
+
     /*public static void main(String[] args) {
-        CSVparserItem CSVItem = new CSVparserItem("FONTS/src/persistencia/itemP.csv");
+        CSVparserItem CSVItem = new CSVparserItem("DATA/items.csv");
         CSVItem.readLoadItem();
         CSVItem.MapItemData(CSVItem.getContent());
+        int id = 123;
+        List<String> tags = new ArrayList<>();
+        tags.add("Cowboy bebop");
+        tags.add("Buenissima serie");
+        tags.add("Sci-Fi;Action;Adeventure");
+        tags.add("2021-12-18");
+        tags.add("14");
+        tags.add("50000");
+        tags.add("100");
+        tags.add("23");
+        tags.add("9.07");
+        tags.add("link1imagen.jpg");
+        tags.add("link2web");
+        boolean b1 = CSVItem.addItemCSV(id, tags);
+        //boolean b2 = CSVItem.delItemCSV(5114);
+        boolean b3 = CSVItem.modTagCSV(34599, "link", "Wapo");
+        boolean b4 = CSVItem.delTagCSV(id,"link");
         CSVItem.guardar_datos(CSVItem.getContent(), CSVItem.getHeader());
         CSVItem.guardar_datos_prepros(CSVItem.getMapRatedata(), CSVItem.getHeader());
         CSVItem.reload_map_preporcess("FONTS/src/persistencia/itemsporcesdata.csv");

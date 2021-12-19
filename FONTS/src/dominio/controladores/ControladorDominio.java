@@ -2,6 +2,7 @@ package dominio.controladores;
 
 import dominio.clases.algorithm.collaborativefiltering.CollaborativeFiltering;
 import dominio.clases.algorithm.contentbasedflitering.K_NN;
+import dominio.clases.evaluation.Evaluation;
 import persistencia.ControladorPersistencia;
 
 import java.util.ArrayList;
@@ -12,14 +13,32 @@ public class ControladorDominio {
     private ControladorPersistencia CP;
     private CollaborativeFiltering CF;
     private K_NN KNN;
+    private Evaluation E;
 
     public ControladorDominio(){
         //Cridar a Persistencia a que porti tots els mapes (En format List<String> i transformar-ho a maps)
         CP = new ControladorPersistencia();
-
-
     }
 
+    public void computeK(Map<Integer, Map<Integer, Float>> mapRateKnown, Map<Integer, Map<Integer, Float>> mapRateUnknown, int maxItems){
+        CollaborativeFiltering CFAux;
+        int maxK = 1;
+        float maxDCG = 0.0f;
+        E = new Evaluation(mapRateUnknown);
+        for(int i = 1; i < mapRateKnown.size()/2; ++i){
+            float DCG = 0.0f;
+            CFAux = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, i);
+            for(Map.Entry<Integer, Map<Integer, Float>> entry: mapRateKnown.entrySet()){
+                DCG += E.DCG(CFAux.recommend(entry.getKey(), maxItems, true));
+            }
+            if(DCG > maxDCG){
+                maxK = i;
+                maxDCG = DCG;
+            }
+        }
+
+        CF = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, maxK);
+    }
     public void inicializar(String path){
         /*List<String> mapaS = CP.getMapRate();
         Map<Integer, Map<Integer, Float>> mapRate= tranformerMapRate(mapaS);
@@ -27,6 +46,9 @@ public class ControladorDominio {
         CF = new CollaborativeFiltering(mapRate);
         KNN = new K_NN(mapRate);*/
     }
+
+
+
     public boolean addItem(int ID, List<String> tags){
         return CP.addItem(ID, tags);
     }
