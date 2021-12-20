@@ -60,6 +60,9 @@ public class ControladorDominio {
     public boolean addItem(int ID, List<String> tags){
         return CP.addItem(ID, tags);
     }
+    public boolean exists(int idItem){
+        return CP.exists(idItem);
+    }
     public boolean delItem(int ID) {
         return CP.delItem(ID);
     }
@@ -105,5 +108,17 @@ public class ControladorDominio {
         /*r1 = CF.recommend();
         r2 = CBF.recommend()
         result = H.recommend(r1,r2);*/
+    }
+
+    public List<String> tag_list(int id_actual) {
+        return CP.tag_list(id_actual);
+    }
+
+    public boolean saveRecomendation() {
+        return true;
+    }
+
+    public boolean evaluateRecomendation(boolean e) {
+        return true;
     }
 }

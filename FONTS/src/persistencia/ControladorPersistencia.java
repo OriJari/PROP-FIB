@@ -95,4 +95,14 @@ public class ControladorPersistencia {
         //retorna una llista amb tots els id items
     }
 
+    public boolean exists(int idItem){
+        //retroan si exxisteig l'item
+        return true;
+    }
+
+    public List<String> tag_list(int id_actual) {
+        List<String> result = new ArrayList<>();
+        return result;
+        //retrona llistat de tags per litem donat
+    }
 }

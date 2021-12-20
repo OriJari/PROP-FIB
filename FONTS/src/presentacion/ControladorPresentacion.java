@@ -54,25 +54,19 @@ public class ControladorPresentacion {
         return CD.delUser(ID);
     }
 
-
-/*
-     public boolean validItem(int ID){
-        CD.validItem(ID);
-        //retorna true si l'item exsiteix
-
-    }
-
-
-
     public void addItem(int ID, List<String> tags){
         CD.addItem(ID, tags);
     }
 
-     public boolean deleteItem(int ID){
-        CD.deleteItem(ID);
+    public boolean exists(int idItem){
+        return CD.exists(idItem);
     }
 
-*/
+     public boolean deleteItem(int ID){
+        return CD.delItem(ID);
+    }
+
+
     public boolean addRating(int ID_User,int IDitem, float valor){
         return CD.addRating(ID_User, IDitem, valor);
     }
@@ -80,26 +74,28 @@ public class ControladorPresentacion {
     public boolean deleteRating(int ID_actual,int  IDitem){
         return CD.delRating(ID_actual, IDitem);
     }
-/*
-    public boolean modifyTag(int IDitem, String tag){
-        CD.modifyTag(IDitem, tag);
+
+    public List<String> tag_list(int id_actual) {
+        return CD.tag_list(id_actual);
     }
 
-    public boolean delTag(int IDitem, String tag){
-        CD.delTag(IDitem, tag);
+    public boolean modifyTag(int IDitem,String atribut, String tag){
+        return CD.modTag(IDitem, atribut, tag);
+    }
+
+    public boolean delTag(int IDitem, String atribut){
+        return CD.delTag(IDitem, atribut);
     }
 
     public boolean saveRecomendation(){
-        CD.saveRecomendation();
+        return CD.saveRecomendation();
     }
 
     public boolean evaluateRecomendation(boolean e){
-        CD.evaluateRecomendation(e);
+        return CD.evaluateRecomendation(e);
     }
 
-    public void CSVescollit(String s){
-        CD.CSVescollit(s);
-    }
+
 
     public void recommendCF(boolean valoration, int k){
         CD.recommendCF(valoration, k);
@@ -114,5 +110,5 @@ public class ControladorPresentacion {
     }
 
 
-    */
+
 }

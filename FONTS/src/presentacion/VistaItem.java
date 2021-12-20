@@ -1,5 +1,7 @@
 package presentacion;
 
+import dominio.clases.tag.Tag;
+
 import  javax.swing.*;
 import javax.tools.Tool;
 import java.awt.*;
@@ -8,6 +10,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Vector;
 
 public class VistaItem extends VistaPrincipal {
 
@@ -15,8 +18,7 @@ public class VistaItem extends VistaPrincipal {
     private static JComboBox TagsItems = new JComboBox();
     private static JComboBox citemid = new JComboBox();
     private static JTextField tagmod = new JTextField();
-    private static JTextField titemId = new JTextField();
-
+    private static int id_actual;
     public VistaItem(){}
 
     public static void gestion_item(){
@@ -51,7 +53,7 @@ public class VistaItem extends VistaPrincipal {
         frase1.setBounds(310,110,400,20);
         gestItem.add(frase1);
 
-
+        JTextField titemId = new JTextField();
         titemId.setBounds(285,150,150,30);
         gestItem.add(titemId);
 
@@ -61,17 +63,7 @@ public class VistaItem extends VistaPrincipal {
         gestItem.add(addI);
 
 
-        File file = new File("DATA");
-
-        String[] directories = file.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File current, String name) {
-                return new File(current, name).isDirectory();
-            }
-        });
-        System.out.println(Arrays.toString(directories));
-
-        citemid = new JComboBox(directories);
+        citemid = new JComboBox((Vector)CP.list_item());
         citemid.setBounds(285,250,150,30);
         gestItem.add(citemid);
 
@@ -98,14 +90,14 @@ public class VistaItem extends VistaPrincipal {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: añadir");
 
-                if(isNumericI(titemId.getText())){
-                    //ArrayList<String> tags;
+                if(isNumericI(titemId.getText()) && !CP.exists(Integer.valueOf(titemId.getText()))){
+                    ArrayList<String> tags = new ArrayList<>();
                     //for(int i = 0; i < 5; ++i) {
 
-                        //tags.put(JOptionPane.showInputDialog("Introducir Tag");)
+                        tags.add(JOptionPane.showInputDialog("Introducir Tag"));
                         System.out.println(JOptionPane.showInputDialog("Introducir Tag"));
                     //}
-                    /* CP.addItem(Integer.valueOf(tUserId.getText()))*/
+                    CP.addItem(Integer.valueOf(titemId.getText()),tags);
 
 
                     System.out.println(titemId.getText());
@@ -121,7 +113,7 @@ public class VistaItem extends VistaPrincipal {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: eliminar");
 
-                if(true/*CP.valdiItem((Integer)citemid.getSelectedItem()) && CP.deleteItem((Integer)citemid.getSelectedItem())*/){
+                if(CP.deleteItem((Integer)citemid.getSelectedItem())){
                     JOptionPane.showMessageDialog(gestItem,"Eliminado correctamente");
                     System.out.println(citemid.getSelectedItem());
                 }
@@ -135,14 +127,10 @@ public class VistaItem extends VistaPrincipal {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: gestionar tags");
-                if(true /*CP.valdItem((Integer)citemid.getSelectedItem())*/){
-
-                    panelactual = 9;
-                    gestItem.setVisible(false);
-                    panelmain();
-                }
-                //else if(!CP.valdiItem((Integer)citemid.getSelectedItem())) JOptionPane.showMessageDialog(gestUser,"Item no registrado","Error",0);
-
+                id_actual = (Integer)citemid.getSelectedItem();
+                panelactual = 9;
+                gestItem.setVisible(false);
+                panelmain();
             }
         };
         gesTag.addActionListener(gt);
@@ -195,17 +183,7 @@ public class VistaItem extends VistaPrincipal {
         gestTag.add(modify);
 
 
-        File file = new File("DATA");
-
-        String[] directories = file.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File current, String name) {
-                return new File(current, name).isDirectory();
-            }
-        });
-        System.out.println(Arrays.toString(directories));
-
-        TagsItems = new JComboBox(directories);
+        TagsItems = new JComboBox((Vector)CP.tag_list(id_actual));
         TagsItems.setBounds(330,160,300,30);
 
         gestTag.add(TagsItems);
@@ -225,7 +203,7 @@ public class VistaItem extends VistaPrincipal {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: modificar");
 
-                if(true/*  CP.modifyTag(tagmod.getText())*/){
+                if(CP.modifyTag(id_actual, (String) TagsItems.getSelectedItem(), tagmod.getText())){
                     JOptionPane.showMessageDialog(gestTag,"Modificado correctamente");
                     System.out.println(tagmod.getText());
                 }
@@ -239,7 +217,7 @@ public class VistaItem extends VistaPrincipal {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: eliminar");
 
-                if(true/*CP.deleteTag(TagItems.getSelectedItem())*/){
+                if(CP.delTag(id_actual, (String) TagsItems.getSelectedItem())){
                     JOptionPane.showMessageDialog(gestTag,"Eliminado correctamente");
                     System.out.println("eliminado");
                 }
