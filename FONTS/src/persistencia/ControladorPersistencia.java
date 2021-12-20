@@ -34,6 +34,7 @@ public class ControladorPersistencia {
         CSVUnknown.LoadRate(CSVUnknown.getContent());
         //Crea les classes que necessitis
         UserList = new UserList();
+        UserList.initializeUsers(CSVKnown.getMapRate());
         return true;
     }
 
