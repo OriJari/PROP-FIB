@@ -47,7 +47,15 @@ public class ControladorDominio {
         KNN = new K_NN(mapRate);*/
     }
 
+    public List<Integer> list_user(){
+        return CP.list_user();
+        //retorna una llista amb tots els id users
+    }
 
+    public List<Integer> list_item(){
+        return CP.list_item();
+        //retorna una llista amb tots els id items
+    }
 
     public boolean addItem(int ID, List<String> tags){
         return CP.addItem(ID, tags);

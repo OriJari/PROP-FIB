@@ -11,7 +11,7 @@ import java.util.*;
 public class ControladorPresentacion {
     private ControladorDominio CD;
     private static VistaPrincipal v;
-    private int ID_actual;
+
 
 
 
@@ -33,12 +33,18 @@ public class ControladorPresentacion {
         CD.inicializar(path);
     }
 
-    /*
-    public List<String> list_user(){
+
+    public List<Integer> list_user(){
+        return CD.list_user();
         //retorna una llista amb tots els id users
     }
 
-     */
+    public List<Integer> list_item(){
+        return CD.list_item();
+        //retorna una llista amb tots els id items
+    }
+
+
     public boolean addUser(int ID){
         return CD.addUser(ID);
     }
@@ -66,14 +72,15 @@ public class ControladorPresentacion {
         CD.deleteItem(ID);
     }
 
-    public boolean addRating(int IDitem, float valor){
-        CD.addRating(ID_actual, IDitem, valor);
+*/
+    public boolean addRating(int ID_User,int IDitem, float valor){
+        return CD.addRating(ID_User, IDitem, valor);
     }
 
-    public boolean deleteRating(int IDitem){
-        CD.deleteRating(ID_actual, IDitem);
+    public boolean deleteRating(int ID_actual,int  IDitem){
+        return CD.delRating(ID_actual, IDitem);
     }
-
+/*
     public boolean modifyTag(int IDitem, String tag){
         CD.modifyTag(IDitem, tag);
     }

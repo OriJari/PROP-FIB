@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Arrays;
-
+import java.util.Vector;
 
 
 public class VistaUser extends VistaPrincipal {
@@ -21,6 +21,7 @@ public class VistaUser extends VistaPrincipal {
     private static JComboBox cItemId;
     private static JComboBox cUserid;
     private static JTextField tRate = new JTextField();
+    private static int id_actual_user;
 
     public VistaUser(){}
 
@@ -65,17 +66,9 @@ public class VistaUser extends VistaPrincipal {
         gestUser.add(addB);
 
 
-        File file = new File("DATA");
 
-        String[] directories = file.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File current, String name) {
-                return new File(current, name).isDirectory();
-            }
-        });
-        System.out.println(Arrays.toString(directories));
 
-        cUserid = new JComboBox(directories);
+        cUserid = new JComboBox((Vector) CP.list_user());
 
         cUserid.setBounds(285,250,150,30);
 
@@ -118,7 +111,7 @@ public class VistaUser extends VistaPrincipal {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: eliminar");
 
-                if( CP.deleteUser((Integer)cUserid.getSelectedItem())){
+                if(CP.deleteUser((Integer)cUserid.getSelectedItem())){
                     JOptionPane.showMessageDialog(gestUser,"Eliminado correctamente");
                     System.out.println(tUserId.getText());
                 }
@@ -131,13 +124,10 @@ public class VistaUser extends VistaPrincipal {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: gestionar ratings");
-                if(true /*CP.valdiUser((Integer)cUserid.getSelectedItem())*/){
-
+                    id_actual_user = (Integer)cUserid.getSelectedItem();
                     panelactual = 8;
                     gestUser.setVisible(false);
                     panelmain();
-                }
-                //else if(!CP.valdiUser((Integer)cUserid.getSelectedItem())) JOptionPane.showMessageDialog(gestUser,"Usuario no registrado","Error",0);
 
             }
         };
@@ -190,17 +180,9 @@ public class VistaUser extends VistaPrincipal {
         gestRate.add(addBR);
 
 
-        File file = new File("DATA");
 
-        String[] directories = file.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File current, String name) {
-                return new File(current, name).isDirectory();
-            }
-        });
-        System.out.println(Arrays.toString(directories));
 
-        cItemId = new JComboBox(directories);
+        cItemId = new JComboBox((Vector) CP.list_item());
         cItemId.setBounds(330,160,300,30);
 
         gestRate.add(cItemId);
@@ -219,7 +201,7 @@ public class VistaUser extends VistaPrincipal {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: añadir/modificar");
 
-                if(isNumericF(tRate.getText())/* && CP.addRating(Integer.valueOf(cUserid.getSelectedItem()),Float.valueOf(tRate.getText()))*/){
+                if(isNumericF(tRate.getText()) && CP.addRating(id_actual_user,Integer.valueOf((Integer) cUserid.getSelectedItem()),Float.valueOf(tRate.getText()))){
                     JOptionPane.showMessageDialog(gestRate,"Añadido/modificado correctamente");
                     System.out.println(tRate.getText());
                 }
@@ -233,7 +215,7 @@ public class VistaUser extends VistaPrincipal {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: eliminar");
 
-                if(true/*CP.valdiItem((Integer)cItemId.getSelectedItem()) && CP.deleteRating((Integer)cItemId.getSelectedItem())*/){
+                if(CP.deleteRating(id_actual_user,(Integer)cItemId.getSelectedItem())){
                     JOptionPane.showMessageDialog(gestRate,"Eliminado correctamente");
                     System.out.println("eliminado");
                 }

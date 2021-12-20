@@ -83,4 +83,16 @@ public class ControladorPersistencia {
         return result;
     }
 
+    public List<Integer> list_user(){
+        List<Integer> result = new ArrayList<>();
+        return result;
+        //retorna una llista amb tots els id users
+    }
+
+    public List<Integer> list_item(){
+        List<Integer> result = new ArrayList<>();
+        return result;
+        //retorna una llista amb tots els id items
+    }
+
 }
