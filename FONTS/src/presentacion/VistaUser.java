@@ -98,7 +98,7 @@ public class VistaUser extends VistaPrincipal {
         gRate.setBounds(360,325,220,40);
         gestUser.add(gRate);
 
-        ActionListener afegir = new ActionListener() {
+        ActionListener afegirU = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: añadir");
@@ -111,9 +111,9 @@ public class VistaUser extends VistaPrincipal {
                 else JOptionPane.showMessageDialog(gestUser,"No se ha podido añadir correctamente","Error",0);
             }
         };
-        addB.addActionListener(afegir);
+        addB.addActionListener(afegirU);
 
-        ActionListener eliminar = new ActionListener() {
+        ActionListener eliminarU = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: eliminar");
@@ -126,7 +126,7 @@ public class VistaUser extends VistaPrincipal {
                 else JOptionPane.showMessageDialog(gestUser,"No se ha podido eliminar correctamente","Error",0);
             }
         };
-        deleteB.addActionListener(eliminar);
+        deleteB.addActionListener(eliminarU);
 
         ActionListener ratings = new ActionListener() {
             @Override

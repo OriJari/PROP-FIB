@@ -131,7 +131,7 @@ public class VistaItem extends VistaPrincipal {
 
                 if(true/*CP.valdiItem((Integer)citemid.getSelectedItem()) && CP.deleteItem((Integer)citemid.getSelectedItem())*/){
                     JOptionPane.showMessageDialog(gestItem,"Eliminado correctamente");
-                    System.out.println(titemId.getText());
+                    System.out.println(citemid.getSelectedItem());
                 }
                 //else if(!CP.valdiItem((Integer)citemid.getSelectedItem())) JOptionPane.showMessageDialog(gestUser,"Item no registrado","Error",0);
                 else JOptionPane.showMessageDialog(gestItem,"No se ha podido eliminar correctamente","Error",0);

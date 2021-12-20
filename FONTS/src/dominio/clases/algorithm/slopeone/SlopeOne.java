@@ -4,6 +4,8 @@ package dominio.clases.algorithm.slopeone;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static java.lang.Math.abs;
+
 /**
  *
  * @author Oriol Martí Jariod
@@ -193,6 +195,7 @@ public class SlopeOne {
      * \post Fill map_pred with the data form u_data and the items not rated by the dominio.controladores.clases.atribut.user but that we predicted.
      */
 //prediccio bona no weighted
+    /*
     public static void prediccio(Map<Integer, Float> u_data) {
         map_pred = new TreeMap<Integer,Float>();
         Map<Integer,Integer> freq = new TreeMap<>();
@@ -227,7 +230,7 @@ public class SlopeOne {
 //*/
 
 // weighted original
- /*public static void prediccio(Map<Integer, Float> u_data) {
+ public static void prediccio(Map<Integer, Float> u_data) {
 
         Map<Integer,Float> pred = new TreeMap<Integer,Float>();
         Map<Integer,Integer> freq = new TreeMap<Integer,Integer>();
@@ -254,7 +257,7 @@ public class SlopeOne {
                     times = map_freq.get(entry2.getKey()).get(entry.getKey());
 
                 }
-                float newval = (des + rat) * times;
+                float newval = abs((des + rat) * times);
 
 
                 pred.put(entry2.getKey(), pred.get(entry2.getKey())+newval);
@@ -275,6 +278,6 @@ public class SlopeOne {
             map_pred.put(j,u_data.get(j));
         }
 
-    }*/
+    }//*/
 }
 
