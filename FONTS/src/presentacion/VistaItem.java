@@ -11,21 +11,11 @@ import java.util.Arrays;
 
 public class VistaItem extends VistaPrincipal {
 
-
-    private static JButton addI = new JButton("Añadir");
     private static JButton gesTag = new JButton("Gestionar Tags");
-    private static JButton deleteI = new JButton("Eliminar");
-    private static JButton deleteT = new JButton("Eliminar");
-
-
     private static JComboBox TagsItems = new JComboBox();
     private static JComboBox citemid = new JComboBox();
     private static JTextField tagmod = new JTextField();
     private static JTextField titemId = new JTextField();
-    private static JButton modify = new JButton("Modificar");
-
-
-
 
     public VistaItem(){}
 
@@ -65,6 +55,7 @@ public class VistaItem extends VistaPrincipal {
         titemId.setBounds(285,150,150,30);
         gestItem.add(titemId);
 
+        JButton addI = new JButton("Añadir");
         addI.setFont(new Font("Arial",Font.BOLD,18));
         addI.setBounds(515,150,150,30);
         gestItem.add(addI);
@@ -93,6 +84,7 @@ public class VistaItem extends VistaPrincipal {
         frase2.setBounds(280,200,600,20);
         gestItem.add(frase2);
 
+        JButton deleteI = new JButton("Eliminar");
         deleteI.setFont(new Font("Arial",Font.BOLD,18));
         deleteI.setBounds(515,250,150,30);
         gestItem.add(deleteI);
@@ -197,6 +189,7 @@ public class VistaItem extends VistaPrincipal {
         tagmod.setBounds(285,280,150,30);
         gestTag.add(tagmod);
 
+        JButton modify = new JButton("Modificar");
         modify.setFont(new Font("Arial",Font.BOLD,18));
         modify.setBounds(515,280,150,30);
         gestTag.add(modify);
@@ -221,6 +214,7 @@ public class VistaItem extends VistaPrincipal {
         fin.setSize(960,541);
         fin.setSize(960,540);
 
+        JButton deleteT = new JButton("Eliminar");
         deleteT.setFont(new Font("Arial",Font.BOLD,18));
         deleteT.setBounds(405,350,150,30);
         gestTag.add(deleteT);

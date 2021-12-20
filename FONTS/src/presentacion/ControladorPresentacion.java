@@ -10,12 +10,14 @@ import java.util.*;
 
 public class ControladorPresentacion {
     private ControladorDominio CD;
-    private static VistaPrincipal v = new VistaPrincipal();
+    private static VistaPrincipal v;
     private int ID_actual;
 
 
 
-    public static void main(String[] args) throws IOException {
+    public void run(){
+
+        crearVista();
         v.hacerVisible();
 
     }
@@ -23,31 +25,31 @@ public class ControladorPresentacion {
     public ControladorPresentacion(){
         CD = new ControladorDominio();
     }
-/*
+
+    public  void crearVista(){
+        v = new VistaPrincipal(this);
+    }
     public void inicializar(String path){
         CD.inicializar(path);
     }
- */
+
     /*
     public List<String> list_user(){
         //retorna una llista amb tots els id users
     }
+
+     */
     public boolean addUser(int ID){
         return CD.addUser(ID);
     }
 
-    /*
 
     public boolean deleteUser(int ID){
-        CD.deleteUser(ID);
+        return CD.delUser(ID);
     }
 
-    public boolean validUser(int ID){
-        CD.validUser(ID);
-        //retorna true si l'usuari exsiteix
 
-    }
-
+/*
      public boolean validItem(int ID){
         CD.validItem(ID);
         //retorna true si l'item exsiteix

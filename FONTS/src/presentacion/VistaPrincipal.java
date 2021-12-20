@@ -25,7 +25,7 @@ public class VistaPrincipal {
 
     //atributs
     protected static int panelactual = 0;
-    protected String path_csv;
+    protected static String path_csv;
 
 
     public VistaPrincipal(ControladorPresentacion cp) {
@@ -183,9 +183,9 @@ public class VistaPrincipal {
         ActionListener comencem = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String path_csv =  fc.getSelectedFile().getPath();
+                path_csv =  fc.getSelectedFile().getPath();
                 System.out.println("CSV selecionado: " + path_csv);
-                //CP.CSVescollit(path_csv);
+                CP.inicializar(path_csv);
                 System.out.println("boton pulsado: start");
                 panelactual = 1;
                 start.setVisible(false);

@@ -103,7 +103,7 @@ public class VistaUser extends VistaPrincipal {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: añadir");
 
-                if(isNumericI(tUserId.getText())/* && CP.addUser(Integer.valueOf(tUserId.getText()))*/){
+                if(isNumericI(tUserId.getText()) && CP.addUser(Integer.valueOf(tUserId.getText()))){
                     JOptionPane.showMessageDialog(gestUser,"Añadido correctamente");
                     System.out.println(tUserId.getText());
                 }
@@ -118,11 +118,10 @@ public class VistaUser extends VistaPrincipal {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: eliminar");
 
-                if(true/*CP.valdiUser((Integer)cUserid.getSelectedItem()) && CP.deleteUser((Integer)cUserid.getSelectedItem())*/){
+                if( CP.deleteUser((Integer)cUserid.getSelectedItem())){
                     JOptionPane.showMessageDialog(gestUser,"Eliminado correctamente");
                     System.out.println(tUserId.getText());
                 }
-                //else if(!CP.valdiUser((Integer)cUserid.getSelectedItem())) JOptionPane.showMessageDialog(gestUser,"Usuario no registrado","Error",0);
                 else JOptionPane.showMessageDialog(gestUser,"No se ha podido eliminar correctamente","Error",0);
             }
         };
