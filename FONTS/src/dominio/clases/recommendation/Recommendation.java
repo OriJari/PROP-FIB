@@ -30,6 +30,22 @@ public class Recommendation {
         return conjunt;
     }
 
+    public List<Integer> getItemIDs(){
+        List<Integer> result = new ArrayList<>();
+        for(Rating r: conjunt) {
+            result.add(r.getId());
+        }
+        return result;
+    }
+
+    public List<Float> getItemRates(){
+        List<Float> result = new ArrayList<>();
+        for(Rating r: conjunt) {
+            result.add(r.getValor());
+        }
+        return result;
+    }
+
     //Modificadoras
     public void setID_perfil(int id) {
         this.ID_perfil = id;

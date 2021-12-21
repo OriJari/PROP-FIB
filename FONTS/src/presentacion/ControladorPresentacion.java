@@ -127,6 +127,7 @@ public class ControladorPresentacion {
     public List<Integer> get_alg_rec(){
         return CD.get_alg_rec();
     }
+
     public List<String> get_dates_rec(){
         return CD.get_dates_rec();
     }

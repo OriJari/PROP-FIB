@@ -2,7 +2,9 @@ package dominio.controladores;
 
 import dominio.clases.algorithm.collaborativefiltering.CollaborativeFiltering;
 import dominio.clases.algorithm.contentbasedflitering.K_NN;
+import dominio.clases.algorithm.hybrid.Hybrid;
 import dominio.clases.evaluation.Evaluation;
+import dominio.clases.recommendation.Recommendation;
 import persistencia.ControladorPersistencia;
 
 import java.util.ArrayList;
@@ -15,6 +17,8 @@ public class ControladorDominio {
     private K_NN KNN;
     private Evaluation E;
     private boolean eval;
+    private Recommendation rec;
+    private Hybrid H;
 
     public ControladorDominio(){
         //Cridar a Persistencia a que porti tots els mapes (En format List<String> i transformar-ho a maps)
@@ -98,17 +102,17 @@ public class ControladorDominio {
     }
 
     public void recommendCF(int k, int userID){
-
+        rec = CF.recommend(userID, k, eval);
     }
 
     public void recommendCBF(int k, int userID){
-
+        rec = KNN.recommend(userID, k, eval);
     }
 
     public void recommendH(int k, int userID){
-        /*r1 = CF.recommend();
-        r2 = CBF.recommend()
-        result = H.recommend(r1,r2);*/
+        Recommendation r1 = CF.recommend(userID, k, eval);
+        Recommendation r2 = KNN.recommend(userID, k, eval);
+        rec = H.recommend(r1,r2,k);
     }
 
     public List<String> tag_list() {
@@ -124,14 +128,12 @@ public class ControladorDominio {
     }
 
     public List<Integer> list_itemREC() {
-        List<Integer> result = new ArrayList<>();
-        return result;
+        return rec.getItemIDs();
         //retorna la llista de items de la recomanacio
     }
 
     public List<Float> list_valREC() {
-        List<Float> result = new ArrayList<>();
-        return result;
+        return rec.getItemRates();
         //retorna la llista de valors de la recomanacio
     }
 
