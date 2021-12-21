@@ -85,16 +85,16 @@ public class K_NN {
     public void actualitza_taula(int item_id){
         int mida = similarityTable.length;
         List<Content> content1 = mapa_items.get(id_reals.get(item_id));
-        for (int i = 0; i < mida; ++i) {
+        double normalization = calculate_similarity(content1, content1);
+        double normalization_i;
+        for (int i = 0; i < mida && i != item_id; ++i) {
             List<Content> content2 = mapa_items.get(id_reals.get(i));
-            similarityTable[i][item_id] = calculate_similarity(content1, content2);
-            if (i != item_id) similarityTable[i][item_id] = similarityTable[i][item_id]/similarityTable[i][i];
+            normalization_i = calculate_similarity(content2, content2);
+            double sim = calculate_similarity(content1, content2);
+            similarityTable[i][item_id] = sim/normalization_i;
+            similarityTable[item_id][i] = sim/normalization;
         }
-        for (int j = 0; j < mida && j != item_id; ++j) {
-            List<Content> content2 = mapa_items.get(id_reals.get(j));
-            double aux = calculate_similarity(content1, content2);
-            similarityTable[item_id][j] = aux/similarityTable[item_id][item_id];
-        }
+        similarityTable[item_id][item_id] = 1.0;
     }
 
     public void nou_item_taula(int item_id) {
