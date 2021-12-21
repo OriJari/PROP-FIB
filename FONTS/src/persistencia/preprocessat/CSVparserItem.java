@@ -22,7 +22,7 @@ public class CSVparserItem {
     private List<String> header;
     private Map<Integer, List<Content>> mapRatedata;
     private List<Integer> id_Items;
-    private List<Character> tipus;
+    private List<String> tipus;
 
     /**
      * @brief Default builder.
@@ -114,6 +114,10 @@ public class CSVparserItem {
         return id_Items;
     }
 
+    public List<String> getTipus() {
+        return tipus;
+    }
+
     /**
      * @brief Setter of the class, modified the number of rows
      * \pre true
@@ -182,6 +186,10 @@ public class CSVparserItem {
      */
     public void setId_Items(List<Integer> id_Items) {
         this.id_Items = id_Items;
+    }
+
+    public void setTipus(List<String> tipus) {
+        this.tipus = tipus;
     }
 
     /**
@@ -290,6 +298,62 @@ public class CSVparserItem {
         return String.valueOf(this.content.get(i));
     }
 
+    public List<List<String>> obtentipus(){
+        List<List<String>>  res = new ArrayList<>();
+        for (Map.Entry<Integer, List<Content>> entry : mapRatedata.entrySet()) {
+            List<Content> l = entry.getValue();
+            List<String> aux = new ArrayList<>();
+            for (Content c : l){
+                String s = c.getTag();
+                aux.add(s);
+            }
+            res.add(aux);
+        }
+        return res;
+    }
+
+    public List<List<Integer>> obtenints(){
+        List<List<Integer>>  res = new ArrayList<>();
+        for (Map.Entry<Integer, List<Content>> entry : mapRatedata.entrySet()) {
+            List<Content> l = entry.getValue();
+            List<Integer> aux = new ArrayList<>();
+            for (Content c : l){
+                Integer i = c.getTag_numi();
+                aux.add(i);
+            }
+            res.add(aux);
+        }
+        return res;
+    }
+
+    public List<List<Double>> obtendoubles(){
+        List<List<Double>>  res = new ArrayList<>();
+        for (Map.Entry<Integer, List<Content>> entry : mapRatedata.entrySet()) {
+            List<Content> l = entry.getValue();
+            List<Double> aux = new ArrayList<>();
+            for (Content c : l){
+                Double d = c.getTag_numd();
+                aux.add(d);
+            }
+            res.add(aux);
+        }
+        return res;
+    }
+
+    public List<List<List<String>>> obtencategorics(){
+        List<List<List<String>>> res = new ArrayList<>();
+        for (Map.Entry<Integer, List<Content>> entry : mapRatedata.entrySet()) {
+            List<Content> l = entry.getValue();
+            List<List<String>> aux = new ArrayList<>();
+            for (Content c : l){
+                List<String> cat = c.getCategorics();
+                aux.add(cat);
+            }
+            res.add(aux);
+        }
+        return res;
+    }
+
     /**
      * @brief Obtains the appropriate preprocess of data set for the kk-neight dominio.controladores.clases.atribut.algorithm
      * \pre needs to have a dominio.controladores.clases.atribut.content of the lecture
@@ -371,6 +435,49 @@ public class CSVparserItem {
         }
     }
 
+    public void listatipos(){
+        if (mapRatedata.size() > 2) {
+            List<Integer> res = new ArrayList<>();
+            List<Content> first = mapRatedata.get(0);
+            List<Integer> res1 = new ArrayList<>();
+            List<Content> second = mapRatedata.get(1);
+            for (Content c : first){
+                String s = c.getTag();
+                if (s.equals("b")) res.add(0);
+                else if(s.equals("i")) res.add(1);
+                else if(s.equals("d")) res.add(2);
+                else if(s.equals("c")) res.add(3);
+                else res.add(4);
+            }
+            for (Content c : second){
+                String s = c.getTag();
+                if (s.equals("b")) res1.add(0);
+                else if(s.equals("i")) res1.add(1);
+                else if(s.equals("d")) res1.add(2);
+                else if(s.equals("c")) res1.add(3);
+                else res1.add(4);
+            }
+
+            for (int i = 0; i < res.size(); ++i){
+                int i1 = res.get(i);
+                int i2 = res1.get(i);
+                if (i1 != i2){
+                    if ((i1 == 3 || i1 == 4) && (i2 == 3 || i2 == 4)) res.set(i, 3);
+                }
+            }
+            List<String> s = new ArrayList<>();
+            for (int i = 0; i < res.size(); ++i){
+                if (res.get(i) == 0) s.add("b");
+                else if (res.get(i) == 1) s.add("i");
+                else if (res.get(i) == 2) s.add("d");
+                else if (res.get(i) == 3) s.add("c");
+                else s.add("n");
+            }
+            tipus = s;
+        }
+
+    }
+
     public List<Content> linia_procesado(int IDitem, List<String> tags){
         List<Content> res = new ArrayList<>();
         for (String s : tags) {
@@ -432,8 +539,6 @@ public class CSVparserItem {
                 }
             }
             if (act) t.setTag(s);
-
-
             res.add(t);
         }
         return res;
@@ -713,6 +818,7 @@ public class CSVparserItem {
         CSVparserItem CSVItem = new CSVparserItem("DATA/movies250/items.csv");
         CSVItem.readLoadItem();
         CSVItem.MapItemData(CSVItem.getContent());
+        CSVItem.listatipos();
         /*int id = 123;
         List<String> tags = new ArrayList<>();
         tags.add("Cowboy bebop");

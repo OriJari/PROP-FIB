@@ -22,6 +22,7 @@ public class ControladorPersistencia {
         CSVItem = new CSVparserItem(path + "items.csv");
         CSVItem.readLoadItem();
         CSVItem.MapItemData(CSVItem.getContent());
+        CSVItem.listatipos();
         CSVRate = new CSVparserRate(path + "ratings.db.csv");
         CSVRate.readLoadRate();
         CSVRate.LoadRate(CSVRate.getContent());
@@ -72,30 +73,54 @@ public class ControladorPersistencia {
        return CSVKnown.delRatingCSV(IDuser, IDitem);
     }
 
-    public List<List<Integer>> getMapRateIDitems(int a){
-        List<List<Integer>> result = new ArrayList<>();
-        return result;
+    public List<Integer> getMapRateIDusers(int a){
+        if (a == 0){
+            return CSVRate.obtenlistausers();
+        }
+        else if (a == 1){
+            return CSVKnown.obtenlistausers();
+        }
+        else  return CSVUnknown.obtenlistausers();
     }
 
-    public List<Integer> getMapRateIDusers(int a){
-        List<Integer> result = new ArrayList<>();
-        return result;
+    public List<List<Integer>> getMapRateIDitems(int a){
+        if (a == 0){
+            return CSVRate.obtenlistaitems();
+        }
+        else if (a == 1){
+            return CSVKnown.obtenlistaitems();
+        }
+        else  return CSVUnknown.obtenlistaitems();
     }
 
     public List<List<Float>> getMapRateVal(int a){
-        List<List<Float>> result = new ArrayList<>();
-        return result;
+        if (a == 0){
+            return CSVRate.obtenlistavalues();
+        }
+        else if (a == 1){
+            return CSVKnown.obtenlistavalues();
+        }
+        else  return CSVUnknown.obtenlistavalues();
     }
 
 
     public List<Integer> getMapItemIDs(){
-        List<Integer> result = new ArrayList<>();
-        return result;
+        return CSVItem.getId_Items();
     }
 
-    public List<List<String>> getMapItemTags(){
-        List<List<String>> result = new ArrayList<>();
-        return result;
+    public List<List<String>> getMapTipusTags(){
+        return CSVItem.obtentipus();
+    }
+
+    public List<List<Integer>> getMapIntsTags(){
+        return CSVItem.obtenints();
+    }
+    public List<List<Double>> getMapDoublesTags(){
+        return CSVItem.obtendoubles();
+    }
+
+    public List<List<List<String>>> getMapCategoricsTags(){
+        return CSVItem.obtencategorics();
     }
 
     public List<Integer> list_user(){
@@ -140,4 +165,8 @@ public class ControladorPersistencia {
     public List<String> get_dates_rec(){
         return Recomm.getDates();
     }
+
+    /*public List<Integer> list_tipusheader(){
+        return CSVItem.getTipus();
+    }*/
 }

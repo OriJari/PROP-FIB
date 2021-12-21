@@ -157,9 +157,9 @@ public class ControladorDominio {
         return CP.getMapRate(a);
     }*/
 
-    public List<List<String>> getMapItemTags(){
+    /*public List<List<String>> getMapItemTags(){
         return CP.getMapItemTags();
-    }
+    }*/
 
     public void recommendCF(int k, int userID, boolean eval){
         if(eval){

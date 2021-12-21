@@ -241,6 +241,43 @@ public class CSVparserRate {
         }
     }
 
+    public List<Integer> obtenlistausers(){
+        List<Integer> l = new ArrayList<>();
+        for (Map.Entry<Integer, Map<Integer, Float>> entry : mapRate.entrySet()) {
+            Map<Integer, Float> m = entry.getValue();
+            int user = entry.getKey();
+            l.add(user);
+        }
+        return l;
+    }
+
+    public List<List<Integer>> obtenlistaitems(){
+        List<List<Integer>> l = new ArrayList<>();
+        for (Map.Entry<Integer, Map<Integer, Float>> entry : mapRate.entrySet()) {
+            Map<Integer, Float> m = entry.getValue();
+            List<Integer> aux = new ArrayList<>();
+            for (Map.Entry<Integer, Float> entry1 : m.entrySet()){
+                Integer idItem = entry1.getKey();
+                aux.add(idItem);
+            }
+            l.add(aux);
+        }
+        return l;
+    }
+
+    public List<List<Float>> obtenlistavalues(){
+        List<List<Float>> l = new ArrayList<>();
+        for (Map.Entry<Integer, Map<Integer, Float>> entry : mapRate.entrySet()) {
+            Map<Integer, Float> m = entry.getValue();
+            List<Float> aux = new ArrayList<>();
+            for (Map.Entry<Integer, Float> entry1 : m.entrySet()){
+                Float val = entry1.getValue();
+                aux.add(val);
+            }
+            l.add(aux);
+        }
+        return l;
+    }
 
     /**
      * @brief Change a String value to an Integer one
@@ -608,10 +645,10 @@ public class CSVparserRate {
         CSVKnown.readLoadRate();
         CSVKnown.LoadRate(CSVKnown.getContent());
         //boolean b5 = addUserCSV(id);
-        boolean b6 = CSVKnown.delUserCSV(2);
         boolean b7 = CSVKnown.addRatingCSV(14, 2, 3.0F);
         boolean b8 = CSVKnown.modRatingCSV(3, 80, 25.0F);
         boolean b9 = CSVKnown.delRatingCSV(3, 80);
+        boolean b6 = CSVKnown.delUserCSV(2);
 
         /*String s = "rating";
         String s1 = "rating_prepo";
