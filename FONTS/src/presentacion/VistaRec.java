@@ -17,9 +17,10 @@ public class VistaRec extends VistaPrincipal{
     private static boolean nova_rec;
     private static List<Integer> id;
     private static List<Float> val;
-    private static int nitems;
+
     private static JCheckBox eval = new JCheckBox("Evaluación");
     private static boolean checkbox = false;
+
 
     public  VistaRec (){}
 
@@ -173,8 +174,18 @@ public class VistaRec extends VistaPrincipal{
         frase4.setBounds(145,300,300,25);
         recomana.add(frase4);
 
-        JTextField nit = new JTextField();
+        JComboBox nit = new JComboBox();
         nit.setBounds(470,300,250,25);
+        nit.addItem("1");
+        nit.addItem("2");
+        nit.addItem("3");
+        nit.addItem("4");
+        nit.addItem("5");
+        nit.addItem("6");
+        nit.addItem("7");
+        nit.addItem("8");
+        nit.addItem("9");
+        nit.addItem("10");
         recomana.add(nit);
 
         busca.setFont(new Font("Arial",Font.BOLD,20));
@@ -192,25 +203,19 @@ public class VistaRec extends VistaPrincipal{
                 System.out.println("algoritmo selecionado: " + algorithm);
 
                 nova_rec = true;
-                if(!isNumeric(nit.getText())) {
-                    JOptionPane.showMessageDialog(recomana, "No es un numero", "Error", 0);
-                }
-                else {
-                    nitems = (Integer) Integer.valueOf(nit.getText());
-                    if(algorithm == "Collaborative filtering") CP.recommendCF(nitems,uid,checkbox);
-                    else if(algorithm == "Content based filtering") CP.recommendCBF(nitems,uid,checkbox);
-                    else CP.recommendH(nitems,uid,checkbox);
-                    id = CP.list_itemREC();
-                    val = CP.list_valREC();
-                    System.out.println("boton pulsado: buscar");
-                    panelactual = 7;
-                    recomana.setVisible(false);
-                    panelmain();
-                }
+                int nitems = Integer.valueOf((String) nit.getSelectedItem());
 
+                System.out.println(nitems);
 
-
-
+                //if(algorithm == "Collaborative filtering") CP.recommendCF(nitems,uid,checkbox);
+                //else if(algorithm == "Content based filtering") CP.recommendCBF(nitems,uid,checkbox);
+                //else CP.recommendH(nitems,uid,checkbox);
+                //id = CP.list_itemREC();
+                //val = CP.list_valREC();
+                System.out.println("boton pulsado: buscar");
+                panelactual = 7;
+                recomana.setVisible(false);
+                rec_items(nitems);
 
             }
         };
@@ -293,13 +298,13 @@ public class VistaRec extends VistaPrincipal{
                 nova_rec = false;
                 panelactual = 7;
                 cargarR.setVisible(false);
-                panelmain();
+                rec_items(id.size());
             }
         };
         startB.addActionListener(comencem);
     }
 
-    public static void rec_items(){
+    public static void rec_items(int nitems){
         JPanel item_rec = new JPanel();
         fin.add(item_rec);
         item_rec.setVisible(true);
@@ -354,73 +359,88 @@ public class VistaRec extends VistaPrincipal{
         int [] x = {150,200,250,300,350};
         int [] y = {200,300};
 
-        JLabel icona1 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
-        JLabel icona2 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
-        JLabel icona3 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
-        JLabel icona4 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
-        JLabel icona5 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
-        JLabel icona6 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
-        JLabel icona7 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
-        JLabel icona8 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
-        JLabel icona9 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
-        JLabel icona10 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
+        List<JLabel> icon = new ArrayList<>();
+        List<JLabel> itemid = new ArrayList<>();
+        List<JLabel> val = new ArrayList<>();
+        for (int i = 0; 5*i < nitems;++i) {
+            for(int j = 0; j < 5 && 5*i+j < nitems; ++j) {
+                icon.add(new JLabel(new ImageIcon("FONTS/src/presentacion/item.png")));
+                icon.get(5*i+j).setBounds(150 +150*j,150+150*i,48,48);
+                item_rec.add(icon.get(5*i+j));
+                itemid.add(new JLabel("ItemId: "));
+                itemid.get(5*i+j).setBounds(150 +150*j,200+150*i,48,20);
+                item_rec.add(itemid.get(5*i+j));
+                val.add(new JLabel("Val: "));
+                val.get(5*i+j).setBounds(150 +150*j,220+150*i,48,20);
+                item_rec.add(val.get(5*i+j));
 
-        icona1.setBounds(150,150,48,48);
-        icona2.setBounds(300,150,48,48);
-        icona3.setBounds(450,150,48,48);
-        icona4.setBounds(600,150,48,48);
-        icona5.setBounds(750,150,48,48);
-        icona6.setBounds(150,300,48,48);
-        icona7.setBounds(300,300,48,48);
-        icona8.setBounds(450,300,48,48);
-        icona9.setBounds(600,300,48,48);
-        icona10.setBounds(750,300,48,48);
 
-        item_rec.add(icona1);
-        item_rec.add(icona2);
-        item_rec.add(icona3);
-        item_rec.add(icona4);
-        item_rec.add(icona5);
-        item_rec.add(icona6);
-        item_rec.add(icona7);
-        item_rec.add(icona8);
-        item_rec.add(icona9);
-        item_rec.add(icona10);
-
-        JLabel itemid1 = new JLabel("ItemId: ");
-        JLabel itemid2 = new JLabel("ItemId: ");
-        JLabel itemid3 = new JLabel("ItemId: ");
-        JLabel itemid4 = new JLabel("ItemId: ");
-        JLabel itemid5 = new JLabel("ItemId: ");
-        JLabel itemid6 = new JLabel("ItemId: ");
-        JLabel itemid7 = new JLabel("ItemId: ");
-        JLabel itemid8 = new JLabel("ItemId: ");
-        JLabel itemid9 = new JLabel("ItemId: ");
-        JLabel itemid10 = new JLabel("ItemId: ");
-        itemid1.setBounds(150,200,48,20);
-        itemid2.setBounds(300,200,48,20);
-        itemid3.setBounds(450,200,48,20);
-        itemid4.setBounds(600,200,48,20);
-        itemid5.setBounds(750,200,48,20);
-        itemid6.setBounds(150,350,48,20);
-        itemid7.setBounds(300,350,48,20);
-        itemid8.setBounds(450,350,48,20);
-        itemid9.setBounds(600,350,48,20);
-        itemid10.setBounds(750,350,48,20);
-        item_rec.add(itemid1);
-        item_rec.add(itemid2);
-        item_rec.add(itemid3);
-        item_rec.add(itemid4);
-        item_rec.add(itemid5);
-        item_rec.add(itemid6);
-        item_rec.add(itemid7);
-        item_rec.add(itemid8);
-        item_rec.add(itemid9);
-        item_rec.add(itemid10);
-
-        JLabel val1 = new JLabel("Val: " + "a");
-        JLabel val2 = new JLabel("Val: ");
-        JLabel val3 = new JLabel("Val: ");
+            }
+        }
+        /*
+        if (nitems > 0) {
+            JLabel icona1 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
+            icona1.setBounds(150,150,48,48); item_rec.add(icona1);
+            JLabel itemid1 = new JLabel("ItemId: " ); itemid1.setBounds(150,200,48,20);
+            item_rec.add(itemid1); JLabel val1 = new JLabel("Val: " + "a");
+            val1.setBounds(150,220,48,20); item_rec.add(val1);
+        }
+        if(nitems > 1){
+            JLabel icona2 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
+            icona2.setBounds(300,150,48,48);
+            item_rec.add(icona2); JLabel itemid2 = new JLabel("ItemId: ");
+            itemid2.setBounds(300,200,48,20); item_rec.add(itemid2);
+            JLabel val2 = new JLabel("Val: "); val2.setBounds(300,220,48,20); item_rec.add(val2);
+        }
+        if(nitems > 2){
+            JLabel icona3 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
+            icona3.setBounds(450,150,48,48); item_rec.add(icona3);
+            JLabel itemid3 = new JLabel("ItemId: "); itemid3.setBounds(450,200,48,20);
+            item_rec.add(itemid3);
+        }
+        if(nitems > 3){
+            JLabel icona4 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
+            icona4.setBounds(600,150,48,48); item_rec.add(icona4);
+            JLabel itemid4 = new JLabel("ItemId: "); itemid4.setBounds(600,200,48,20);
+            item_rec.add(itemid4);
+        }
+        if(nitems > 4){
+            JLabel icona5 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
+            icona5.setBounds(750,150,48,48); item_rec.add(icona5);
+            JLabel itemid5 = new JLabel("ItemId: "); itemid5.setBounds(750,200,48,20);
+            item_rec.add(itemid5);
+        }
+        if(nitems > 5){
+            JLabel icona6 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
+            icona6.setBounds(150,300,48,48); item_rec.add(icona6);
+            JLabel itemid6 = new JLabel("ItemId: "); itemid6.setBounds(150,350,48,20);
+            item_rec.add(itemid6);
+        }
+        if(nitems > 6){
+            JLabel icona7 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
+            icona7.setBounds(300,300,48,48); item_rec.add(icona7);
+            JLabel itemid7 = new JLabel("ItemId: ");  itemid7.setBounds(300,350,48,20);
+            item_rec.add(itemid7);
+        }
+        if(nitems > 7){
+            JLabel icona8 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
+            icona8.setBounds(450,300,48,48); item_rec.add(icona8);
+            JLabel itemid8 = new JLabel("ItemId: "); itemid8.setBounds(450,350,48,20);
+            item_rec.add(itemid8);
+        }
+        if(nitems > 8){
+            JLabel icona9 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
+            icona9.setBounds(600,300,48,48); item_rec.add(icona9);
+            JLabel itemid9 = new JLabel("ItemId: "); itemid9.setBounds(600,350,48,20);
+            item_rec.add(itemid9);
+        }
+        if(nitems > 9){
+            JLabel icona10 = new JLabel(new ImageIcon("FONTS/src/presentacion/item.png"));
+            icona10.setBounds(750,300,48,48); item_rec.add(icona10);
+            JLabel itemid10 = new JLabel("ItemId: "); itemid10.setBounds(750,350,48,20);
+            item_rec.add(itemid10);
+        }
+         JLabel val3 = new JLabel("Val: ");
         JLabel val4 = new JLabel("Val: ");
         JLabel val5 = new JLabel("Val: ");
         JLabel val6 = new JLabel("Val: ");
@@ -428,8 +448,8 @@ public class VistaRec extends VistaPrincipal{
         JLabel val8 = new JLabel("Val: ");
         JLabel val9 = new JLabel("Val: ");
         JLabel val10 = new JLabel("Val: ");
-        val1.setBounds(150,220,48,20);
-        val2.setBounds(300,220,48,20);
+
+
         val3.setBounds(450,220,48,20);
         val4.setBounds(600,220,48,20);
         val5.setBounds(750,220,48,20);
@@ -438,8 +458,8 @@ public class VistaRec extends VistaPrincipal{
         val8.setBounds(450,370,48,20);
         val9.setBounds(600,370,48,20);
         val10.setBounds(750,370,48,20);
-        item_rec.add(val1);
-        item_rec.add(val2);
+
+
         item_rec.add(val3);
         item_rec.add(val4);
         item_rec.add(val5);
@@ -448,16 +468,9 @@ public class VistaRec extends VistaPrincipal{
         item_rec.add(val8);
         item_rec.add(val9);
         item_rec.add(val10);
+*/
     }
 
-    private static boolean isNumeric(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
-    }
 
 
 }

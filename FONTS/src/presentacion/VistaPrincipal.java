@@ -25,7 +25,7 @@ public class VistaPrincipal {
 
 
     //atributs
-    protected static int panelactual = 4;
+    protected static int panelactual = 5;
     protected static String path_csv;
 
 
@@ -90,7 +90,8 @@ public class VistaPrincipal {
                 break;
             case 7:
                 System.out.println("Case: " + panelactual  + " items recomanacio");
-                VistaRec.rec_items();
+                int i = 0;
+                VistaRec.rec_items(i);
                 break;
 
             case 8:
