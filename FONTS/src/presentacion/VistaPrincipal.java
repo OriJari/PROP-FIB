@@ -94,7 +94,7 @@ public class VistaPrincipal {
     private JButton openB = new JButton("Open");
 
     //items recomanats
-    private  JPanel item_rec = new JPanel();
+    private  JPanel item_rec;
     private JLabel titolIR = new JLabel("RECOMENDACIONES");
     private JButton back_IR = new JButton("Volver");
     private JLabel frase1IR = new JLabel("Lo que te puede gustar...");
@@ -145,6 +145,23 @@ public class VistaPrincipal {
 
     private void inicializaComponentes() {
         hacerVisible();
+        asignar_listenersComponentes();
+
+        nit.addItem("1");
+        nit.addItem("2");
+        nit.addItem("3");
+        nit.addItem("4");
+        nit.addItem("5");
+        nit.addItem("6");
+        nit.addItem("7");
+        nit.addItem("8");
+        nit.addItem("9");
+        nit.addItem("10");
+
+        algoritme.addItem("Collaborative filtering");
+        algoritme.addItem("Content based filtering");
+        algoritme.addItem("Hybrid algorithm");
+
     }
 
 
@@ -403,6 +420,14 @@ public class VistaPrincipal {
         System.out.println("boton pulsado: tornarGT");
         panelactual = 3;
         gestTag.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_backIR(ActionEvent e) {
+        System.out.println("boton pulsado: tornar");
+        if(nova_rec) panelactual = 5;
+        else panelactual = 6;
+        item_rec.setVisible(false);
         panelmain();
     }
 
@@ -685,6 +710,15 @@ public class VistaPrincipal {
                         String texto = ((JButton) event.getSource()).getText();
                         System.out.println("Has clickado el boton con texto: " + texto);
                         actionPerformed_openB(event);
+                    }
+                });
+
+        back_IR.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_backIR(event);
                     }
                 });
 
@@ -1021,9 +1055,10 @@ public class VistaPrincipal {
 
 
         algoritme.setBounds(470,240,250,25);
+        /*
         algoritme.addItem("Collaborative filtering");
         algoritme.addItem("Content based filtering");
-        algoritme.addItem("Hybrid algorithm");
+        algoritme.addItem("Hybrid algorithm");*/
 
         recomana.add(algoritme);
 
@@ -1038,6 +1073,7 @@ public class VistaPrincipal {
 
 
         nit.setBounds(470,300,250,25);
+        /*
         nit.addItem("1");
         nit.addItem("2");
         nit.addItem("3");
@@ -1047,7 +1083,7 @@ public class VistaPrincipal {
         nit.addItem("7");
         nit.addItem("8");
         nit.addItem("9");
-        nit.addItem("10");
+        nit.addItem("10");*/
         recomana.add(nit);
 
         busca.setFont(new Font("Arial",Font.BOLD,20));
@@ -1169,7 +1205,7 @@ public class VistaPrincipal {
     }
 
     public  void rec_items(){
-
+        item_rec = new JPanel();
         fin.add(item_rec);
         item_rec.setVisible(true);
         item_rec.setLayout(null);
