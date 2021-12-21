@@ -17,6 +17,7 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class testmain {
+    /*
     private static Scanner sc;
     private static String path_item;
     private static String path_known;
@@ -242,5 +243,5 @@ public class testmain {
                     break;
             }
         }
-    }
+    }*/
 }

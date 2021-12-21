@@ -91,22 +91,22 @@ public class ControladorDominio {
         List<Integer> mapRateIDusersUnknown = CP.getMapRateIDusers(2);
         List<List<Integer>> mapRateIDitemsUnknown = CP.getMapRateIDitems(2);
         List<List<Float>> mapRateValUnknown = CP.getMapRateVal(2);
-
+/*
         List<Integer> mapItemIDs = CP.getMapItemIDs();
         List<List<String>>  mapItemTagsTipus = CP.getMapTipusTags();
         List<List<Integer>> mapItemTagsIntegers = CP.getMapIntegersTags();
         List<List<Double>> mapItemTagsDoubles = CP.getMapDoublesTags();
         List<List<List<String>>> mapItemTagsCategorics = CP.getMapCategoricsTags();
-
+*/
         Map<Integer, Map<Integer, Float>> mapRateRatings = constructMapRate(mapRateIDusersRatings, mapRateIDitemsRatings, mapRateValRatings);
         Map<Integer, Map<Integer, Float>> mapRateKnown = constructMapRate(mapRateIDusersKnown, mapRateIDitemsKnown, mapRateValKnown);
         Map<Integer, Map<Integer, Float>> mapRateUnknown = constructMapRate(mapRateIDusersUnknown, mapRateIDitemsUnknown, mapRateValUnknown);
-        Map<Integer, List<Content>> mapItems = constructMapItem(mapItemIDs, mapItemTagsTipus, mapItemTagsIntegers, mapItemTagsDoubles, mapItemTagsCategorics);
+       // Map<Integer, List<Content>> mapItems = constructMapItem(mapItemIDs, mapItemTagsTipus, mapItemTagsIntegers, mapItemTagsDoubles, mapItemTagsCategorics);
 
         int maxK = computeK(mapRateKnown, mapRateUnknown, 10);
         CFNotEval = new CollaborativeFiltering(mapRateRatings, new TreeMap<>(), maxK);
-        KNNEval = new K_NN(mapRateKnown, mapRateUnknown, mapItems, CP.list_item());
-        KNNnotEval = new K_NN(mapRateRatings, new TreeMap<>(), mapItems, CP.list_item());
+      //  KNNEval = new K_NN(mapRateKnown, mapRateUnknown, mapItems, CP.list_item());
+       // KNNnotEval = new K_NN(mapRateRatings, new TreeMap<>(), mapItems, CP.list_item());
 
         KNNEval.initSimilarityTable();
         KNNnotEval.initSimilarityTable();
