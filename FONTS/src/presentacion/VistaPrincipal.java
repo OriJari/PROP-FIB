@@ -93,9 +93,29 @@ public class VistaPrincipal {
     private JComboBox combo_rec;
     private JButton openB = new JButton("Open");
 
-    //items recomanats
-    private JPanel item_rec = new JPanel();
+    //gestion user
+    private JPanel gestUser = new JPanel();
+    private JLabel titolU = new JLabel("GESTION DE USUARIO");
+    private JButton backGU = new JButton("Volver");
+    private JLabel frase1GU = new JLabel("Escriba el ID del usuario que quiera añadir");
+    private JLabel frase2GU = new JLabel("Escoje el ID del usuario que quiera eliminar/modificar las ratings");
 
+    //gestion ratings
+    private JPanel gestRate = new JPanel();
+    private JLabel titolGR = new JLabel("GESTION DE RATINGS");
+    private JButton backGR = new JButton("Volver");
+    private  JLabel frase1GR = new JLabel("Selecciona el ID del item que quiera gestionar");
+    private JLabel frase2GR = new JLabel("Nuevo valor de la rate");
+
+    //gestion item
+    private JPanel gestItem = new JPanel();
+    private JLabel titolGI = new JLabel("GESTION DE ITEM");
+    private JButton backGI = new JButton("Volver");
+    private JLabel frase1GI = new JLabel("Escriba el ID del item que quiera añadir");
+    private JTextField titemId = new JTextField();
+    private JButton addI = new JButton("Añadir");
+    private JLabel frase2GI = new JLabel("Escoje el ID del item que quiera eliminar/modificar");
+    private JButton deleteI = new JButton("Eliminar");
 
     //atributs
     private  int panelactual = 5;
@@ -613,7 +633,7 @@ public class VistaPrincipal {
     }
 
     public  void rec_items(){
-
+        JPanel item_rec = new JPanel();
         fin.add(item_rec);
         item_rec.setVisible(true);
         item_rec.setLayout(null);
@@ -780,17 +800,17 @@ public class VistaPrincipal {
     }
 
     public  void gestion_user(){
-        JPanel gestUser = new JPanel();
+
         fin.add(gestUser);
         gestUser.setVisible(true);
         gestUser.setLayout(null);
 
-        JLabel titolU = new JLabel("GESTION DE USUARIO");
+
         titolU.setFont(new Font("Arial",Font.BOLD,30));
         titolU.setBounds(310,30,550,40);
         gestUser.add(titolU);
 
-        JButton backGU = new JButton("Volver");
+
         backGU.setBounds(20,450,100,30);
 
         gestUser.add(backGU);
@@ -806,10 +826,10 @@ public class VistaPrincipal {
         };
         backGU.addActionListener(tornarGU);
 
-        JLabel frase1 = new JLabel("Escriba el ID del usuario que quiera añadir");
-        frase1.setFont(new Font("Arial", Font.PLAIN,18));
-        frase1.setBounds(310,110,400,20);
-        gestUser.add(frase1);
+
+        frase1GU.setFont(new Font("Arial", Font.PLAIN,18));
+        frase1GU.setBounds(310,110,400,20);
+        gestUser.add(frase1GU);
 
 
         tUserId.setBounds(285,150,150,30);
@@ -832,10 +852,10 @@ public class VistaPrincipal {
         fin.setSize(960,541);
         fin.setSize(960,540);
 
-        JLabel frase2 = new JLabel("Escoje el ID del usuario que quiera eliminar/modificar las ratings");
-        frase2.setFont(new Font("Arial", Font.PLAIN,18));
-        frase2.setBounds(220,200,600,20);
-        gestUser.add(frase2);
+
+        frase2GU.setFont(new Font("Arial", Font.PLAIN,18));
+        frase2GU.setBounds(220,200,600,20);
+        gestUser.add(frase2GU);
 
         deleteB.setFont(new Font("Arial",Font.BOLD,18));
         deleteB.setBounds(515,250,150,30);
@@ -891,17 +911,17 @@ public class VistaPrincipal {
     }
 
     public  void gestion_ratings(){
-        JPanel gestRate = new JPanel();
+
         fin.add(gestRate);
         gestRate.setVisible(true);
         gestRate.setLayout(null);
 
-        JLabel titolU = new JLabel("GESTION DE RATINGS");
-        titolU.setFont(new Font("Arial",Font.BOLD,30));
-        titolU.setBounds(310,30,550,40);
-        gestRate.add(titolU);
 
-        JButton backGR = new JButton("Volver");
+        titolGR.setFont(new Font("Arial",Font.BOLD,30));
+        titolGR.setBounds(310,30,550,40);
+        gestRate.add(titolGR);
+
+
         backGR.setBounds(20,450,100,30);
         gestRate.add(backGR);
 
@@ -916,15 +936,15 @@ public class VistaPrincipal {
         };
         backGR.addActionListener(tornarGR);
 
-        JLabel frase1 = new JLabel("Selecciona el ID del item que quiera gestionar");
-        frase1.setFont(new Font("Arial", Font.PLAIN,18));
-        frase1.setBounds(300,110,400,20);
-        gestRate.add(frase1);
 
-        JLabel frase2 = new JLabel("Nuevo valor de la rate");
-        frase2.setFont(new Font("Arial", Font.PLAIN,16));
-        frase2.setBounds(285,250,200,20);
-        gestRate.add(frase2);
+        frase1GR.setFont(new Font("Arial", Font.PLAIN,18));
+        frase1GR.setBounds(300,110,400,20);
+        gestRate.add(frase1GR);
+
+
+        frase2GR.setFont(new Font("Arial", Font.PLAIN,16));
+        frase2GR.setBounds(285,250,200,20);
+        gestRate.add(frase2GR);
 
         tRate.setBounds(285,280,150,30);
         gestRate.add(tRate);
@@ -982,17 +1002,17 @@ public class VistaPrincipal {
     }
 
     public  void gestion_item(){
-        JPanel gestItem = new JPanel();
+
         fin.add(gestItem);
         gestItem.setVisible(true);
         gestItem.setLayout(null);
 
-        JLabel titolI = new JLabel("GESTION DE ITEM");
-        titolI.setFont(new Font("Arial",Font.BOLD,30));
-        titolI.setBounds(340,30,550,40);
-        gestItem.add(titolI);
 
-        JButton backGI = new JButton("Volver");
+        titolGI.setFont(new Font("Arial",Font.BOLD,30));
+        titolGI.setBounds(340,30,550,40);
+        gestItem.add(titolGI);
+
+
         backGI.setBounds(20,450,100,30);
 
         gestItem.add(backGI);
@@ -1008,16 +1028,16 @@ public class VistaPrincipal {
         };
         backGI.addActionListener(tornarGI);
 
-        JLabel frase1 = new JLabel("Escriba el ID del item que quiera añadir");
-        frase1.setFont(new Font("Arial", Font.PLAIN,18));
-        frase1.setBounds(310,110,400,20);
-        gestItem.add(frase1);
 
-        JTextField titemId = new JTextField();
+        frase1GI.setFont(new Font("Arial", Font.PLAIN,18));
+        frase1GI.setBounds(310,110,400,20);
+        gestItem.add(frase1GI);
+
+
         titemId.setBounds(285,150,150,30);
         gestItem.add(titemId);
 
-        JButton addI = new JButton("Añadir");
+
         addI.setFont(new Font("Arial",Font.BOLD,18));
         addI.setBounds(515,150,150,30);
         gestItem.add(addI);
@@ -1031,12 +1051,12 @@ public class VistaPrincipal {
         fin.setSize(960,541);
         fin.setSize(960,540);
 
-        JLabel frase2 = new JLabel("Escoje el ID del item que quiera eliminar/modificar");
-        frase2.setFont(new Font("Arial", Font.PLAIN,18));
-        frase2.setBounds(280,200,600,20);
-        gestItem.add(frase2);
 
-        JButton deleteI = new JButton("Eliminar");
+        frase2GI.setFont(new Font("Arial", Font.PLAIN,18));
+        frase2GI.setBounds(280,200,600,20);
+        gestItem.add(frase2GI);
+
+
         deleteI.setFont(new Font("Arial",Font.BOLD,18));
         deleteI.setBounds(515,250,150,30);
         gestItem.add(deleteI);
@@ -1187,7 +1207,6 @@ public class VistaPrincipal {
         deleteT.addActionListener(eliminaT);
 
     }
-
 
     private  boolean isNumericI(String str) {
         try {
