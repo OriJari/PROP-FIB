@@ -3,7 +3,7 @@ import java.util.*;
 import dominio.clases.algorithm.collaborativefiltering.*;
 import dominio.clases.algorithm.contentbasedflitering.*;
 import dominio.clases.algorithm.hybrid.Hybrid;
-import persistencia.preprocessat.Content;
+import dominio.clases.content.Content;
 import dominio.clases.evaluation.*;
 import persistencia.preprocessat.*;
 import dominio.clases.rating.Rating;
@@ -68,9 +68,9 @@ public class testmain {
         CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, map_rate_unknown, max(1, map_rate_known.size() / 3));
         System.out.println("La k es " + max(1, map_rate_known.size() / 3) + " y hay " + map_rate_known.size() + " usuarios.");
 
-        K_NN taula = new K_NN(map_rate_known, map_rate_unknown, id_reals);
         Map<Integer, List<Content>> map_rate_item = CSVItem.getMapRatedata();
-        taula.initSimilarityTable(map_rate_item);
+        K_NN taula = new K_NN(map_rate_known, map_rate_unknown, map_rate_item, id_reals);
+        taula.initSimilarityTable();
 
         Hybrid hybrid = new Hybrid();
 
