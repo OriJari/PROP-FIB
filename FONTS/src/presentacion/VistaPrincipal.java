@@ -24,7 +24,7 @@ public class VistaPrincipal {
     private JButton busca = new JButton("Buscar");
     private JButton save = new JButton("Guardar recomendación");
     private boolean nova_rec;
-    private java.util.List<Integer> id;
+    private List<Integer> id;
     private List<Float> val;
     private int nitems;
     private JCheckBox eval = new JCheckBox("Evaluación");
