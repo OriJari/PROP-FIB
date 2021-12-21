@@ -73,10 +73,22 @@ public class ControladorPersistencia {
        return CSVKnown.delRatingCSV(IDuser, IDitem);
     }
 
-    public List<List<String>> getMapRate(int a){
-        List<List<String>> result = new ArrayList<>();
+    public List<List<Integer>> getMapRateIDitems(int a){
+        List<List<Integer>> result = new ArrayList<>();
         return result;
     }
+
+    public List<Integer> getMapRateIDusers(int a){
+        List<Integer> result = new ArrayList<>();
+        return result;
+    }
+
+    public List<List<Float>> getMapRateVal(int a){
+        List<List<Float>> result = new ArrayList<>();
+        return result;
+    }
+
+
 
     public List<List<String>> getMapItem(){
         List<List<String>> result = new ArrayList<>();
@@ -84,7 +96,7 @@ public class ControladorPersistencia {
     }
 
     public List<Integer> list_user(){
-        List<Integer> result = new ArrayList<>();
+        List result = (List) UserList.getUsers();
         return result;
         //retorna una llista amb tots els id users
     }
@@ -100,7 +112,7 @@ public class ControladorPersistencia {
         return true;
     }
 
-    public List<String> tag_list(int id_actual) {
+    public List<String> tag_list(int id_item) {
         List<String> result = new ArrayList<>();
         return result;
         //retrona llistat de tags per litem donat

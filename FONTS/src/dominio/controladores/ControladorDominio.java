@@ -22,10 +22,10 @@ public class ControladorDominio {
 
     public void computeK(Map<Integer, Map<Integer, Float>> mapRateKnown, Map<Integer, Map<Integer, Float>> mapRateUnknown, int maxItems){
         CollaborativeFiltering CFAux;
-        int maxK = 1;
+        int maxK = mapRateKnown.size()/50;
         float maxDCG = 0.0f;
         E = new Evaluation(mapRateUnknown);
-        for(int i = 1; i < mapRateKnown.size()/2; ++i){
+        for(int i = maxK; i < mapRateKnown.size()/3; ++i){
             float DCG = 0.0f;
             CFAux = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, i);
             for(Map.Entry<Integer, Map<Integer, Float>> entry: mapRateKnown.entrySet()){
@@ -40,7 +40,7 @@ public class ControladorDominio {
         CF = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, maxK);
     }
     public void inicializar(String path){
-        /*List<String> mapaS = CP.getMapRate();
+        /*List<String> mapaS = CP.getMapRate(0);
         Map<Integer, Map<Integer, Float>> mapRate= tranformerMapRate(mapaS);
 
         CF = new CollaborativeFiltering(mapRate);
@@ -88,9 +88,9 @@ public class ControladorDominio {
         return CP.delRating(IDuser, IDitem);
     }
 
-    public List<List<String>> getMapRate(int a){ // 0 si es ratings, 1 si es known, 2 si es unknown
+    /*public List<List<String>> getMapRate(int a){ // 0 si es ratings, 1 si es known, 2 si es unknown
         return CP.getMapRate(a);
-    }
+    }*/
 
     public List<List<String>> getMapItem(){
         return CP.getMapItem();

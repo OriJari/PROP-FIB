@@ -23,6 +23,27 @@ public class testmain {
     private static String path_unknown;
     private static boolean serie = false;
 
+    public static void computeK(Map<Integer, Map<Integer, Float>> mapRateKnown, Map<Integer, Map<Integer, Float>> mapRateUnknown, int maxItems, int userID){
+        CollaborativeFiltering CFAux;
+        int maxK = mapRateKnown.size()/3;
+        float maxDCG = 0.0f;
+        Evaluation E = new Evaluation(mapRateUnknown);
+        for(int i = mapRateKnown.size()/3; i > mapRateKnown.size()/50; --i){
+            float DCG = 0.0f;
+            CFAux = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, i);
+            for(Map.Entry<Integer, Map<Integer, Float>> entry: mapRateUnknown.entrySet()){
+                DCG += E.DCG(CFAux.recommend(entry.getKey(), maxItems, true));
+            }
+            if(DCG > maxDCG){
+                maxK = i;
+                maxDCG = DCG;
+            }
+        }
+
+        CollaborativeFiltering CF1 = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, maxK);
+        System.out.println("La mejor k clusters de para valoraciones de 10 items es: " + maxK + " con DCG " + E.DCG(CF1.recommend(userID, 10, true)));
+    }
+
     public static void makerecommendation(){
         System.out.println("Vas a querer una valoración de la recomendación?");
         System.out.println("0: NO, 1: SI");
@@ -44,7 +65,8 @@ public class testmain {
         CSVRate_unknown.LoadRate(CSVRate_unknown.getContent());
         Map<Integer, Map<Integer, Float>> map_rate_unknown = CSVRate_unknown.getMapRate();
 
-        CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, map_rate_unknown, max(1, map_rate_known.size() / 25));
+        CollaborativeFiltering CF = new CollaborativeFiltering(map_rate_known, map_rate_unknown, max(1, map_rate_known.size() / 3));
+        System.out.println("La k es " + max(1, map_rate_known.size() / 3) + " y hay " + map_rate_known.size() + " usuarios.");
 
         K_NN taula = new K_NN(map_rate_known, map_rate_unknown, id_reals);
         Map<Integer, List<Content>> map_rate_item = CSVItem.getMapRatedata();
@@ -78,6 +100,7 @@ public class testmain {
             switch (choice) {
                 case 1:
                     try {
+                        computeK(map_rate_known, map_rate_unknown, k, userID);
                         recommendation = CF.recommend(userID, k, val);
                         for (Rating r : recommendation.getConjunt()) {
                                 System.out.println("ID item: " + r.getId() + " with expected rating " + min(10,r.getValor()));
@@ -157,9 +180,9 @@ public class testmain {
                     path_unknown = sc1.next();
                     break;
                 case 2:
-                    path_item = "DATA/movie.sample/250/items.csv";
-                    path_known = "DATA/movie.sample/250/ratings.test.known.csv";
-                    path_unknown = "DATA/movie.sample/250/ratings.test.unknown.csv";
+                    path_item = "DATA/movies250/items.csv";
+                    path_known = "DATA/movies250/ratings.test.known.csv";
+                    path_unknown = "DATA/movies250/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
@@ -167,9 +190,9 @@ public class testmain {
                     }
                     break;
                 case 3:
-                    path_item = "DATA/movie.sample/750/items.csv";
-                    path_known = "DATA/movie.sample/750/ratings.test.known.csv";
-                    path_unknown = "DATA/movie.sample/750/ratings.test.unknown.csv";
+                    path_item = "DATA/movies750/items.csv";
+                    path_known = "DATA/movies750/ratings.test.known.csv";
+                    path_unknown = "DATA/movies750/ratings.test.unknown.csv";
                     try {
                         makerecommendation();
                     } catch (Exception E) {
@@ -197,9 +220,9 @@ public class testmain {
                     }
                     break;
                 case 6:
-                    path_item = "DATA/series/2250/items.csv";
-                    path_known = "DATA/series/2250/ratings.test.known.csv";
-                    path_unknown = "DATA/series/2250/ratings.test.unknown.csv";
+                    path_item = "DATA/series2250/items.csv";
+                    path_known = "DATA/series2250/ratings.test.known.csv";
+                    path_unknown = "DATA/series2250/ratings.test.unknown.csv";
                     serie = true;
                     try {
                         makerecommendation();
