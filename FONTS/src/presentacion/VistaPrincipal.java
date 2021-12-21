@@ -117,6 +117,16 @@ public class VistaPrincipal {
     private JLabel frase2GI = new JLabel("Escoje el ID del item que quiera eliminar/modificar");
     private JButton deleteI = new JButton("Eliminar");
 
+    //gestion tag
+    private JPanel gestTag = new JPanel();
+    private JLabel titolGT = new JLabel("GESTION DE TAGS");
+    private JButton backGT = new JButton("Volver");
+    private JLabel frase1GT = new JLabel("Selecciona el TAG quieras modificar");
+    private JLabel frase2GT = new JLabel("Nuevo valor de la TAG");
+    private JButton modify = new JButton("Modificar");
+    private JButton deleteT = new JButton("Eliminar");
+
+
     //atributs
     private  int panelactual = 5;
     private  String path_csv;
@@ -1119,17 +1129,17 @@ public class VistaPrincipal {
     }
 
     public  void gestion_tag(){
-        JPanel gestTag = new JPanel();
+
         fin.add(gestTag);
         gestTag.setVisible(true);
         gestTag.setLayout(null);
 
-        JLabel titolU = new JLabel("GESTION DE TAGS");
-        titolU.setFont(new Font("Arial",Font.BOLD,30));
-        titolU.setBounds(335,30,550,40);
-        gestTag.add(titolU);
 
-        JButton backGT = new JButton("Volver");
+        titolGT.setFont(new Font("Arial",Font.BOLD,30));
+        titolGT.setBounds(335,30,550,40);
+        gestTag.add(titolGT);
+
+
         backGT.setBounds(20,450,100,30);
         gestTag.add(backGT);
 
@@ -1144,20 +1154,20 @@ public class VistaPrincipal {
         };
         backGT.addActionListener(tornarGT);
 
-        JLabel frase1 = new JLabel("Selecciona el TAG quieras modificar");
-        frase1.setFont(new Font("Arial", Font.PLAIN,18));
-        frase1.setBounds(330,110,400,20);
-        gestTag.add(frase1);
 
-        JLabel frase2 = new JLabel("Nuevo valor de la TAG");
-        frase2.setFont(new Font("Arial", Font.PLAIN,16));
-        frase2.setBounds(285,250,200,20);
-        gestTag.add(frase2);
+        frase1GT.setFont(new Font("Arial", Font.PLAIN,18));
+        frase1GT.setBounds(330,110,400,20);
+        gestTag.add(frase1GT);
+
+
+        frase2GT.setFont(new Font("Arial", Font.PLAIN,16));
+        frase2GT.setBounds(285,250,200,20);
+        gestTag.add(frase2GT);
 
         tagmod.setBounds(285,280,150,30);
         gestTag.add(tagmod);
 
-        JButton modify = new JButton("Modificar");
+
         modify.setFont(new Font("Arial",Font.BOLD,18));
         modify.setBounds(515,280,150,30);
         gestTag.add(modify);
@@ -1172,7 +1182,7 @@ public class VistaPrincipal {
         fin.setSize(960,541);
         fin.setSize(960,540);
 
-        JButton deleteT = new JButton("Eliminar");
+
         deleteT.setFont(new Font("Arial",Font.BOLD,18));
         deleteT.setBounds(405,350,150,30);
         gestTag.add(deleteT);
