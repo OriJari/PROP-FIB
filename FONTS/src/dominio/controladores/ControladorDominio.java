@@ -48,7 +48,7 @@ public class ControladorDominio {
         return maxK;
     }
 
-    public Map<Integer, Map<Integer, Float>> constructMap(List<Integer> mapRateIDusers, List<List<Integer>> mapRateIDitems, List<List<Float>> mapRateVal){
+    public Map<Integer, Map<Integer, Float>> constructMapRate(List<Integer> mapRateIDusers, List<List<Integer>> mapRateIDitems, List<List<Float>> mapRateVal){
         Map<Integer, Map<Integer, Float>> result = new TreeMap<>();
         for(int i = 0; i < mapRateIDusers.size(); ++i){
             Map<Integer, Float> interiorMap = new TreeMap<>();
@@ -75,9 +75,9 @@ public class ControladorDominio {
         List<List<Integer>> mapRateIDitemsUnknown = CP.getMapRateIDitems(2);
         List<List<Float>> mapRateValUnknown = CP.getMapRateVal(2);
 
-        Map<Integer, Map<Integer, Float>> mapRateRatings = constructMap(mapRateIDusersRatings, mapRateIDitemsRatings, mapRateValRatings);
-        Map<Integer, Map<Integer, Float>> mapRateKnown = constructMap(mapRateIDusersKnown, mapRateIDitemsKnown, mapRateValKnown);
-        Map<Integer, Map<Integer, Float>> mapRateUnknown = constructMap(mapRateIDusersUnknown, mapRateIDitemsUnknown, mapRateValUnknown);
+        Map<Integer, Map<Integer, Float>> mapRateRatings = constructMapRate(mapRateIDusersRatings, mapRateIDitemsRatings, mapRateValRatings);
+        Map<Integer, Map<Integer, Float>> mapRateKnown = constructMapRate(mapRateIDusersKnown, mapRateIDitemsKnown, mapRateValKnown);
+        Map<Integer, Map<Integer, Float>> mapRateUnknown = constructMapRate(mapRateIDusersUnknown, mapRateIDitemsUnknown, mapRateValUnknown);
 
         int maxK = computeK(mapRateKnown, mapRateUnknown, 10);
         CFNotEval = new CollaborativeFiltering(mapRateRatings, new TreeMap<>(), maxK);
