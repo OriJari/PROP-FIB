@@ -102,11 +102,22 @@ public class ControladorDominio {
     }
 
     public void recommendCF(int k, int userID, boolean eval){
-        rec = CFNotEval.recommend(userID, k, eval);
+        if(eval){
+            rec = CFEval.recommend(userID, k, eval);
+        }
+        else{
+            rec = CFNotEval.recommend(userID, k, eval);
+        }
+
     }
 
     public void recommendCBF(int k, int userID, boolean eval){
-        rec = KNNnotEval.recommend(userID, k, eval);
+        if (eval){
+            rec = KNNEval.recommend(userID, k, eval);
+        }
+        else{
+            rec = KNNnotEval.recommend(userID, k, eval);
+        }
     }
 
     public void recommendH(int k, int userID, boolean eval){
