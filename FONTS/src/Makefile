@@ -15,10 +15,10 @@ $(DESTI_CLASSES):
 
 .PHONY: class
 class:
-	javac -d ${DESTI_CLASSES} ./dominio/clases/algorithm/collaborativefiltering/*.java -d ${DESTI_CLASSES} ./dominio/clases/algorithm/contentbasedflitering/*.java -d ${DESTI_CLASSES} ./dominio/clases/algorithm/k_means/*.java -d ${DESTI_CLASSES} ./dominio/clases/algorithm/slopeone/*.java	-d ${DESTI_CLASSES} ./dominio/clases/atribut/*.java -d ${DESTI_CLASSES} ./dominio/clases/content/*.java -d ${DESTI_CLASSES} ./dominio/controladores/drivers/*.java -d ${DESTI_CLASSES} ./dominio/clases/evaluation/*.java -d ${DESTI_CLASSES} ./dominio/clases/item/*.java -d ${DESTI_CLASSES} ./dominio/clases/preprocessat/*.java -d ${DESTI_CLASSES} ./dominio/clases/tag/*.java -d ${DESTI_CLASSES} ./dominio/clases/tipus/*.java -d ${DESTI_CLASSES} ./dominio/clases/user/*.java -cp $(LIB) -d ${DESTI_CLASSES} ./dominio/controladores/junits/K_MeansTest.java ./dominio/clases/algorithm/k_means/*.java -cp $(LIB) -d ${DESTI_CLASSES} ./dominio/controladores/junits/K_NNTest.java ./dominio/clases/algorithm/contentbasedflitering/*.java ./dominio/clases/content/*.java ./dominio/clases/item/*.java ./dominio/clases/tag/*.java
+	javac -d ${DESTI_CLASSES} ./dominio/clases/algorithm/collaborativefiltering/*.java -d ${DESTI_CLASSES} ./dominio/clases/algorithm/contentbasedflitering/*.java -d ${DESTI_CLASSES} ./dominio/clases/algorithm/k_means/*.java -d ${DESTI_CLASSES} ./dominio/clases/algorithm/slopeone/*.java -d ${DESTI_CLASSES} ./dominio/clases/algorithm/hybrid/*.java -d ${DESTI_CLASSES} ./dominio/clases/recommendation/*.java -d ${DESTI_CLASSES} ./dominio/clases/rating/*.java -d ${DESTI_CLASSES} ./dominio/controladores/ControladorDominio.java -d ${DESTI_CLASSES} ./persistencia/preprocessat/*.java -d ${DESTI_CLASSES} ./persistencia/ControladorPersistencia.java -d ${DESTI_CLASSES} ./presentacion/*.java -d ${DESTI_CLASSES} ./dominio/controladores/drivers/*.java -d ${DESTI_CLASSES} ./dominio/clases/evaluation/*.java -cp $(LIB) -d ${DESTI_CLASSES} ./dominio/controladores/junits/K_MeansTest.java ./dominio/clases/algorithm/k_means/*.java -cp $(LIB) -d ${DESTI_CLASSES} ./dominio/controladores/junits/K_NNTest.java ./dominio/clases/algorithm/contentbasedflitering/*.java ./dominio/clases/content/*.java
 
-run: 
-	java -classpath ${DESTI_CLASSES} testmain.java
+run:
+	java -classpath ${DESTI_CLASSES} ./presentacion/Main.java
 
 junits:
 	java -cp $(LIB):${DESTI_CLASSES} org.junit.runner.JUnitCore dominio.controladores.junits.K_MeansTest
@@ -64,5 +64,5 @@ help:
 
 .PHONY: clean
 clean:
-	rm -rf $(DESTI_CLASSES) 
+	rm -rf $(DESTI_CLASSES)
 

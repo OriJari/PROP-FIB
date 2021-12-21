@@ -29,7 +29,7 @@ public class Hybrid {
 
         for(Integer i : ids_1) {
             if (ids_2.contains(i)) {
-                Float new_rating = r1.getValue(i)*r2.getValue(i);
+                Float new_rating = (float)Math.sqrt(r1.getValue(i)*r2.getValue(i));
                 comuns.add(new Rating(i,new_rating));
                 r1.removeRating(i);
                 r2.removeRating(i);
