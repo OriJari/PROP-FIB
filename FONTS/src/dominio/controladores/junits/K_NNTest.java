@@ -1,6 +1,6 @@
 package dominio.controladores.junits;
 
-import dominio.clases.content.Content;
+
 import dominio.clases.algorithm.contentbasedflitering.*;
 
 import java.io.BufferedReader;
@@ -11,7 +11,7 @@ import java.util.*;
 import static org.junit.Assert.assertEquals;
 
 public class K_NNTest {
-    private static BufferedReader buffer;
+    /*private static BufferedReader buffer;
 
     public static Map<Integer, Map<Integer, Float>> read_map_rate() throws IOException {
         //Number of users
@@ -76,8 +76,8 @@ public class K_NNTest {
         List<Integer> id_reals = new ArrayList<>();
         for (int i = 0; i < num_items; ++i) id_reals.add(i);
         //Initialize distances between all items
-        K_NN taula = new K_NN(map_rate,map_rate,map,id_reals);
-        taula.initSimilarityTable();
+        K_NN taula = new K_NN(map_rate,map_rate,id_reals);
+        taula.initSimilarityTable(map);
 
         double similarity_0_1 = taula.getSimilarity(0,1);
         double similarity_1_2 = taula.getSimilarity(1,2);
@@ -94,5 +94,5 @@ public class K_NNTest {
         assertEquals(expected_1_2,similarity_1_2,delta);
         assertEquals(expected_0_4,similarity_0_4,delta);
         assertEquals(expected_2_3,similarity_2_3,delta);
-    }
+    }*/
 }

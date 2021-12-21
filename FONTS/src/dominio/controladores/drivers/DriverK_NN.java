@@ -1,6 +1,5 @@
 package dominio.controladores.drivers;
 
-import dominio.clases.content.Content;
 import dominio.clases.algorithm.contentbasedflitering.*;
 import dominio.clases.rating.Rating;
 import dominio.clases.recommendation.Recommendation;
@@ -16,7 +15,7 @@ import java.io.BufferedReader;
  */
 
 public class DriverK_NN {
-
+/*
     static private BufferedReader buffer;
 
     public static Map<Integer, Map<Integer, Float>> read_map_rate() throws IOException {
@@ -87,8 +86,8 @@ public class DriverK_NN {
         System.out.println("RESULTS:");
         List<Integer> id_reals = new ArrayList<>();
         for (int i = 0; i < n; ++i) id_reals.add(i);
-        K_NN taula = new K_NN(map_rate,map_rate, map,id_reals);
-        taula.initSimilarityTable();
+        K_NN taula = new K_NN(map_rate,map_rate,id_reals);
+        taula.initSimilarityTable(map);
         System.out.println("Similarity Table:");
         taula.print_similarity_matrix();
         System.out.println("Recommendation Phase:");
@@ -112,5 +111,5 @@ public class DriverK_NN {
             System.out.println(" ");
         }
         System.out.println("Thank you for your cooperation!");
-    }
+    }*/
 }

@@ -1,6 +1,6 @@
 package presentacion;
 
-import dominio.controladores.ControladorDominio;
+import dominio.controladores.*;
 
 import java.io.IOException;
 import java.util.List;

@@ -13,7 +13,7 @@ import java.util.Map;
 import static java.lang.Integer.parseInt;
 
 public class DriverCSVparserItem {
-
+/*
     public static void options() {
         System.out.println("Choose an option with the necessary parameters needed:");
         System.out.println("\t 0) exit");
@@ -234,5 +234,5 @@ public class DriverCSVparserItem {
             System.out.println(e.getMessage());
 
         }
-    }
+    }*/
 }

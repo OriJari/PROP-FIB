@@ -78,7 +78,7 @@ public class VistaPrincipal {
     private JLabel titolRecomanacio = new JLabel("RECOMENDACIONES");
     private JButton backR = new JButton("Volver");
     private JLabel frase1Recomanacio = new JLabel("Buscar Recomendación");
-    private JComboBox CuserID = new JComboBox(/*(Vector) CP.list_user()*/);
+    private JComboBox CuserID;
     private JLabel frase2Recomanacio = new JLabel("Para el usuario:");
     private JLabel frase3Recomanacio = new JLabel("Con el algoritmo:");
     private JLabel frase4Recomanacio = new JLabel("Numero de items recomendados:");
@@ -134,7 +134,7 @@ public class VistaPrincipal {
 
 
     //atributs
-    protected  int panelactual = 5;
+    protected  int panelactual = 0;
     protected  String path_csv;
 
 
@@ -201,9 +201,8 @@ public class VistaPrincipal {
         csvchoosen.setFont(new Font("Arial", Font.BOLD,14));
         csvchoosen.setText(path);
     }
-
     public void actionPerformed_startB(ActionEvent e) {
-        path_csv =  fc.getSelectedFile().getPath();
+        path_csv =  (fc.getSelectedFile().getPath() + "\\");
         System.out.println("CSV selecionado: " + path_csv);
         CP.inicializar(path_csv);
 
@@ -212,42 +211,36 @@ public class VistaPrincipal {
         start.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_backM(ActionEvent e) {
         System.out.println("boton pulsado: volver");
         panelactual = 0;
         menu.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_gestuser(ActionEvent e) {
         System.out.println("boton pulsado: gestion user");
         panelactual = 2;
         menu.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_gestitem(ActionEvent e) {
         System.out.println("boton pulsado: gestion item");
         panelactual = 3;
         menu.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_recomanacio(ActionEvent e) {
         System.out.println("boton pulsado: recomanacio");
         panelactual = 4;
         menu.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_backRm(ActionEvent e) {
         System.out.println("boton pulsado: tornarR");
         panelactual = 1;
         menR.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_nuevarec(ActionEvent e) {
         if(eval.isSelected()) checkbox = true;
         else checkbox = false;
@@ -256,21 +249,18 @@ public class VistaPrincipal {
         menR.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_savedrec(ActionEvent e) {
         System.out.println("boton pulsado: cargar");
         panelactual = 6;
         menR.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_backR(ActionEvent e) {
         System.out.println("boton pulsado: tornarR");
         panelactual = 4;
         recomana.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_busca(ActionEvent e) {
         String userid = (String) CuserID.getSelectedItem();
         int uid = Integer.valueOf(userid);
@@ -283,7 +273,7 @@ public class VistaPrincipal {
 
         System.out.println(nitems);
 
-        //if(algorithm == "Collaborative filtering") CP.recommendCF(nitems,uid,checkbox);
+        if(algorithm == "Collaborative filtering") CP.recommendCF(nitems,uid,checkbox);
         //else if(algorithm == "Content based filtering") CP.recommendCBF(nitems,uid,checkbox);
         //else CP.recommendH(nitems,uid,checkbox);
         //id = CP.list_itemREC();
@@ -293,28 +283,24 @@ public class VistaPrincipal {
         recomana.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_back_carRm(ActionEvent e) {
         System.out.println("boton pulsado: tornar");
         panelactual = 4;
         cargarR.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_save(ActionEvent e) {
         System.out.println("boton pulsado: guardar");
         if(CP.saveRecomendation()){
             JOptionPane.showMessageDialog(item_rec,"Guardado correctamente");
         }
     }
-
     public void actionPerformed_backGU(ActionEvent e) {
         System.out.println("boton pulsado: tornarGU");
         panelactual = 1;
         gestUser.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_addB(ActionEvent e) {
         System.out.println("boton pulsado: añadir");
 
@@ -325,7 +311,6 @@ public class VistaPrincipal {
         else if(isNumericI(tUserId.getText())) JOptionPane.showMessageDialog(gestUser,"Usuario ya registrado","Error",0);
         else JOptionPane.showMessageDialog(gestUser,"No se ha podido añadir correctamente","Error",0);
     }
-
     public void actionPerformed_deleteB(ActionEvent e) {
         System.out.println("boton pulsado: eliminar");
 
@@ -343,14 +328,12 @@ public class VistaPrincipal {
             panelmain();
 
     }
-
     public void actionPerformed_backGR(ActionEvent e) {
         System.out.println("boton pulsado: tornarGR");
         panelactual = 2;
         gestRate.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_addBR(ActionEvent e) {
         System.out.println("boton pulsado: añadir/modificar");
 
@@ -360,7 +343,6 @@ public class VistaPrincipal {
         }
         else JOptionPane.showMessageDialog(gestRate,"No se ha podido añadir/modificar correctamente","Error",0);
     }
-
     public void actionPerformed_deleteBR(ActionEvent e) {
         System.out.println("boton pulsado: eliminar");
 
@@ -370,14 +352,12 @@ public class VistaPrincipal {
         }
         else JOptionPane.showMessageDialog(gestRate,"No se ha podido eliminar correctamente","Error",0);
     }
-
     public void actionPerformed_backGI(ActionEvent e) {
         System.out.println("boton pulsado: tornarGI");
         panelactual = 1;
         gestItem.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_addI(ActionEvent e) {
         System.out.println("boton pulsado: añadir");
 
@@ -396,7 +376,6 @@ public class VistaPrincipal {
 
         else JOptionPane.showMessageDialog(gestItem,"No se ha podido añadir correctamente","Error",0);
     }
-
     public void actionPerformed_deleteI(ActionEvent e) {
         System.out.println("boton pulsado: eliminar");
 
@@ -407,7 +386,6 @@ public class VistaPrincipal {
         //else if(!CP.valdiItem((Integer)citemid.getSelectedItem())) JOptionPane.showMessageDialog(gestUser,"Item no registrado","Error",0);
         else JOptionPane.showMessageDialog(gestItem,"No se ha podido eliminar correctamente","Error",0);
     }
-
     public void actionPerformed_gesTag(ActionEvent e) {
         System.out.println("boton pulsado: gestionar tags");
         id_actual = (Integer)citemid.getSelectedItem();
@@ -415,14 +393,12 @@ public class VistaPrincipal {
         gestItem.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_backGT(ActionEvent e) {
         System.out.println("boton pulsado: tornarGT");
         panelactual = 3;
         gestTag.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_backIR(ActionEvent e) {
         System.out.println("boton pulsado: tornar");
         if(nova_rec) panelactual = 5;
@@ -430,7 +406,6 @@ public class VistaPrincipal {
         item_rec.setVisible(false);
         panelmain();
     }
-
     public void actionPerformed_modify(ActionEvent e) {
         System.out.println("boton pulsado: modificar");
 
@@ -1040,10 +1015,10 @@ public class VistaPrincipal {
 
 
 
-
+        CuserID = new JComboBox((Vector) CP.list_user());
         CuserID.setBounds(470,180,250,25);
-        CuserID.addItem("2848721");
-        CuserID.addItem("8466126");
+       // CuserID.addItem("2848721");
+       // CuserID.addItem("8466126");
 
         recomana.add(CuserID);
 
@@ -1105,7 +1080,7 @@ public class VistaPrincipal {
 
                 System.out.println(nitems);
 
-                //if(algorithm == "Collaborative filtering") CP.recommendCF(nitems,uid,checkbox);
+                if(algorithm == "Collaborative filtering") CP.recommendCF(nitems,uid,checkbox);
                 //else if(algorithm == "Content based filtering") CP.recommendCBF(nitems,uid,checkbox);
                 //else CP.recommendH(nitems,uid,checkbox);
                 //id = CP.list_itemREC();
@@ -1707,6 +1682,5 @@ public class VistaPrincipal {
             return false;
         }
     }
-
 
 }

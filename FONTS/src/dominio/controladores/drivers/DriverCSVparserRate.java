@@ -10,7 +10,7 @@ import static java.lang.Integer.parseInt;
 
 
 public class DriverCSVparserRate {
-
+/*
     public static void options() {
         System.out.println("Choose an option with the necessary parameters needed:");
         System.out.println("\t 0) exit");
