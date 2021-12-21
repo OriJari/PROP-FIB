@@ -19,9 +19,9 @@ import java.util.Vector;
  */
 public class CollaborativeFiltering {
 
-    private static Map<Integer, Map<Integer, Float>> opinions;
-    private static Map<Integer, Map<Integer, Float>> unknown;
-    private static Vector<Vector<Integer>> clusters;
+    private Map<Integer, Map<Integer, Float>> opinions;
+    private Map<Integer, Map<Integer, Float>> unknown;
+    private Vector<Vector<Integer>> clusters;
 
 
     /** @brief <em>opinions</em> represents the ratings, float in the nested Map, that users, the first Integer is their ID, have given about items, their ID is the integer in the nested Map.
@@ -47,10 +47,10 @@ public class CollaborativeFiltering {
      * \post Creates <em>collaborativeFiltering</em> object with <em>opinions</em> set to opinions and computes the k clusters of users.
      */
     public CollaborativeFiltering(Map<Integer, Map<Integer, Float>> opinions, Map<Integer, Map<Integer, Float>> unknown, Integer k){
-        CollaborativeFiltering.unknown = unknown;
-        CollaborativeFiltering.opinions = opinions;
+        this.unknown = unknown;
+        this.opinions = opinions;
         K_Means Kmean = new K_Means(opinions);
-        CollaborativeFiltering.clusters = Kmean.k_means(k);
+        this.clusters = Kmean.k_means(k);
     }
 
     /** @brief Function that makes a recommendation of items to a dominio.controladores.clases.atribut.user.
@@ -61,7 +61,7 @@ public class CollaborativeFiltering {
      * \pre The dominio.controladores.clases.atribut.user must exist.
      * \post Returns a Map of expected ratings with maximum size 10.
      */
-    static public Recommendation recommend(Integer userID, Integer maxItems, boolean valoration){
+     public Recommendation recommend(Integer userID, Integer maxItems, boolean valoration){
         boolean cont = true;
         Integer clusterUser = 0;
         for(int i = 0; i < clusters.size() && cont; ++i){

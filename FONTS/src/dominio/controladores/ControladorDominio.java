@@ -9,6 +9,7 @@ import persistencia.ControladorPersistencia;
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class ControladorDominio {
     private ControladorPersistencia CP;
@@ -44,12 +45,40 @@ public class ControladorDominio {
 
         CFNotEval = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, maxK);
     }
-    public void inicializar(String path){
-        /*List<String> mapaS = CP.getMapRate(0);
-        Map<Integer, Map<Integer, Float>> mapRate= tranformerMapRate(mapaS);
 
-        CF = new CollaborativeFiltering(mapRate);
-        KNN = new K_NN(mapRate);*/
+    public Map<Integer, Map<Integer, Float>> constructMap(List<Integer> mapRateIDusers, List<List<Integer>> mapRateIDitems, List<List<Float>> mapRateVal){
+        Map<Integer, Map<Integer, Float>> result = new TreeMap<>();
+        for(int i = 0; i < mapRateIDusers.size(); ++i){
+            Map<Integer, Float> interiorMap = new TreeMap<>();
+            for(int j = 0; j < mapRateIDitems.get(i).size(); ++j){
+                interiorMap.put(mapRateIDitems.get(i).get(j), mapRateVal.get(i).get(j));
+            }
+            result.put(mapRateIDusers.get(i), interiorMap);
+        }
+        return result;
+    }
+
+    public void inicializar(String path){
+        boolean result = CP.inicializar(path);
+        List<Integer> mapRateIDusersRatings = CP.getMapRateIDusers(0);
+        List<List<Integer>> mapRateIDitemsRatings = CP.getMapRateIDitems(0);
+        List<List<Float>> mapRateValRatings = CP.getMapRateVal(0);
+
+        List<Integer> mapRateIDusersKnown = CP.getMapRateIDusers(1);
+        List<List<Integer>> mapRateIDitemsKnown = CP.getMapRateIDitems(1);
+        List<List<Float>> mapRateValKnown = CP.getMapRateVal(1);
+
+        List<Integer> mapRateIDusersUnknown = CP.getMapRateIDusers(2);
+        List<List<Integer>> mapRateIDitemsUnknown = CP.getMapRateIDitems(2);
+        List<List<Float>> mapRateValUnknown = CP.getMapRateVal(2);
+
+        Map<Integer, Map<Integer, Float>> mapRateRatings = constructMap(mapRateIDusersRatings, mapRateIDitemsRatings, mapRateValRatings);
+        Map<Integer, Map<Integer, Float>> mapRateKnown = constructMap(mapRateIDusersKnown, mapRateIDitemsKnown, mapRateValKnown);
+        Map<Integer, Map<Integer, Float>> mapRateUnknown = constructMap(mapRateIDusersUnknown, mapRateIDitemsUnknown, mapRateValUnknown);
+
+        //CFNotEval = CollaborativeFiltering();
+
+
     }
 
     public List<Integer> list_user(){
@@ -97,8 +126,8 @@ public class ControladorDominio {
         return CP.getMapRate(a);
     }*/
 
-    public List<List<String>> getMapItem(){
-        return CP.getMapItem();
+    public List<List<String>> getMapItemTags(){
+        return CP.getMapItemTags();
     }
 
     public void recommendCF(int k, int userID, boolean eval){
