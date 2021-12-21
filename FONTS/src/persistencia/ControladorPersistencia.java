@@ -89,7 +89,6 @@ public class ControladorPersistencia {
     }
 
 
-
     public List<List<String>> getMapItem(){
         List<List<String>> result = new ArrayList<>();
         return result;
@@ -102,19 +101,16 @@ public class ControladorPersistencia {
     }
 
     public List<Integer> list_item(){
-        List<Integer> result = new ArrayList<>();
-        return result;
+        return CSVItem.getId_Items();
         //retorna una llista amb tots els id items
     }
 
     public boolean exists(int idItem){
-        //retroan si exxisteig l'item
-        return true;
+        return CSVItem.exsistitemID(idItem);
     }
 
-    public List<String> tag_list(int id_item) {
-        List<String> result = new ArrayList<>();
-        return result;
+    public List<String> tag_list() {
+        return CSVItem.getHeader();
         //retrona llistat de tags per litem donat
     }
 }

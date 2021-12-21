@@ -110,8 +110,8 @@ public class ControladorDominio {
         result = H.recommend(r1,r2);*/
     }
 
-    public List<String> tag_list(int id_actual) {
-        return CP.tag_list(id_actual);
+    public List<String> tag_list() {
+        return CP.tag_list();
     }
 
     public boolean saveRecomendation() {

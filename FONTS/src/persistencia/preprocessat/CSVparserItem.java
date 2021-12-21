@@ -22,6 +22,7 @@ public class CSVparserItem {
     private List<String> header;
     private Map<Integer, List<Content>> mapRatedata;
     private List<Integer> id_Items;
+    private List<Character> tipus;
 
     /**
      * @brief Default builder.
@@ -40,6 +41,7 @@ public class CSVparserItem {
         this.mapRatedata = new TreeMap<>();
         this.header = new ArrayList<>();
         this.id_Items = new ArrayList<>();
+        this.tipus = new ArrayList<>();
     }
 
     /**
@@ -198,6 +200,10 @@ public class CSVparserItem {
         }catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean exsistitemID(int idItem){
+        return id_Items.contains(idItem);
     }
     /**
      * @brief obtains the position where is located the id in csv
@@ -369,6 +375,7 @@ public class CSVparserItem {
         List<Content> res = new ArrayList<>();
         for (String s : tags) {
             boolean act = true;
+
             Content t = new Content();
             if (s.equals("False")) {
                 t.setTag("b");
@@ -425,6 +432,8 @@ public class CSVparserItem {
                 }
             }
             if (act) t.setTag(s);
+
+
             res.add(t);
         }
         return res;
@@ -700,11 +709,11 @@ public class CSVparserItem {
     }
 
 
-    /*public static void main(String[] args) {
-        CSVparserItem CSVItem = new CSVparserItem("DATA/items.csv");
+    public static void main(String[] args) {
+        CSVparserItem CSVItem = new CSVparserItem("DATA/movies250/items.csv");
         CSVItem.readLoadItem();
         CSVItem.MapItemData(CSVItem.getContent());
-        int id = 123;
+        /*int id = 123;
         List<String> tags = new ArrayList<>();
         tags.add("Cowboy bebop");
         tags.add("Buenissima serie");
@@ -718,13 +727,13 @@ public class CSVparserItem {
         tags.add("link1imagen.jpg");
         tags.add("link2web");
         boolean b1 = CSVItem.addItemCSV(id, tags);
-        //boolean b2 = CSVItem.delItemCSV(5114);
-        boolean b3 = CSVItem.modTagCSV(34599, "link", "Wapo");
-        boolean b4 = CSVItem.delTagCSV(id,"link");
+        //boolean b2 = CSVItem.delItemCSV(5114);*/
+        boolean b3 = CSVItem.modTagCSV(1408, "genres", "Drama");
+        boolean b4 = CSVItem.delTagCSV(1408,"genres");
         CSVItem.guardar_datos(CSVItem.getContent(), CSVItem.getHeader());
         CSVItem.guardar_datos_prepros(CSVItem.getMapRatedata(), CSVItem.getHeader());
         CSVItem.reload_map_preporcess("FONTS/src/persistencia/itemsporcesdata.csv");
         out.println("hola");
-    }*/
+    }
 
 }

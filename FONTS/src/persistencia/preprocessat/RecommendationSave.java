@@ -94,8 +94,8 @@ public class RecommendationSave {
 
     public String selectalgorithm(Integer i){
         if (i.equals(0)) return "KNN";
-        else if (i.equals(1)) return "Collaborative";
-        else return "x";
+        else if (i.equals(1)) return "CollaborativeF";
+        else return "Hybrid";
     }
 
 

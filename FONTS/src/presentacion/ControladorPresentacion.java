@@ -72,8 +72,8 @@ public class ControladorPresentacion {
         return CD.delRating(ID_actual, IDitem);
     }
 
-    public List<String> tag_list(int id_actual) {
-        return CD.tag_list(id_actual);
+    public List<String> tag_list() {
+        return CD.tag_list();
     }
 
     public boolean modifyTag(int IDitem,String atribut, String tag){

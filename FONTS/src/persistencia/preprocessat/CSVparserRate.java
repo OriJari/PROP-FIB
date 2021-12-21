@@ -241,6 +241,7 @@ public class CSVparserRate {
         }
     }
 
+
     /**
      * @brief Change a String value to an Integer one
      * \pre true

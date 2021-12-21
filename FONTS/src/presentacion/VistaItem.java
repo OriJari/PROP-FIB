@@ -183,7 +183,7 @@ public class VistaItem extends VistaPrincipal {
         gestTag.add(modify);
 
 
-        TagsItems = new JComboBox((Vector)CP.tag_list(id_actual));
+        TagsItems = new JComboBox((Vector)CP.tag_list());
         TagsItems.setBounds(330,160,300,30);
 
         gestTag.add(TagsItems);
