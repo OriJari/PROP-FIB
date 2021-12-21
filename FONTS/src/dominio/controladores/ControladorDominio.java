@@ -3,12 +3,15 @@ package dominio.controladores;
 import dominio.clases.algorithm.collaborativefiltering.CollaborativeFiltering;
 import dominio.clases.algorithm.contentbasedflitering.K_NN;
 import dominio.clases.algorithm.hybrid.Hybrid;
+import dominio.clases.content.Content;
 import dominio.clases.evaluation.Evaluation;
 import dominio.clases.recommendation.Recommendation;
 import persistencia.ControladorPersistencia;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class ControladorDominio {
     private ControladorPersistencia CP;
@@ -25,31 +28,88 @@ public class ControladorDominio {
         CP = new ControladorPersistencia();
     }
 
-    public void computeK(Map<Integer, Map<Integer, Float>> mapRateKnown, Map<Integer, Map<Integer, Float>> mapRateUnknown, int maxItems){
+    public Integer computeK(Map<Integer, Map<Integer, Float>> mapRateKnown, Map<Integer, Map<Integer, Float>> mapRateUnknown, int maxItems){
         CollaborativeFiltering CFAux;
-        int maxK = mapRateKnown.size()/50;
+        int maxK = 2;
         float maxDCG = 0.0f;
         E = new Evaluation(mapRateUnknown);
-        for(int i = maxK; i < mapRateKnown.size()/3; ++i){
+        CFEval = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, maxK);
+
+        for(int i = maxK; i < mapRateKnown.size()/10; ++i){
             float DCG = 0.0f;
-            CFAux = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, i);
+            CFEval.setK(i);
             for(Map.Entry<Integer, Map<Integer, Float>> entry: mapRateKnown.entrySet()){
-                DCG += E.DCG(CFAux.recommend(entry.getKey(), maxItems, true));
+                DCG += E.DCG(CFEval.recommend(entry.getKey(), maxItems, true));
             }
             if(DCG > maxDCG){
                 maxK = i;
                 maxDCG = DCG;
             }
         }
+        CFEval.setK(maxK);
+        return maxK;
+    }
 
-        CFNotEval = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, maxK);
+    public Map<Integer, Map<Integer, Float>> constructMapRate(List<Integer> mapRateIDusers, List<List<Integer>> mapRateIDitems, List<List<Float>> mapRateVal){
+        Map<Integer, Map<Integer, Float>> result = new TreeMap<>();
+        for(int i = 0; i < mapRateIDusers.size(); ++i){
+            Map<Integer, Float> interiorMap = new TreeMap<>();
+            for(int j = 0; j < mapRateIDitems.get(i).size(); ++j){
+                interiorMap.put(mapRateIDitems.get(i).get(j), mapRateVal.get(i).get(j));
+            }
+            result.put(mapRateIDusers.get(i), interiorMap);
+        }
+        return result;
+    }
+
+
+    public Map<Integer, List<Content>> constructMapItem(List<Integer> IDs, List<List<String>> types, List<List<Integer>> ints, List<List<Double>> doubles, List<List<List<String>>> categorics) {
+        Map<Integer, List<Content>> result = new TreeMap<>();
+        int how_many_items = IDs.size();
+        int how_many_tags = types.get(1).size();
+        for (int i = 0; i < how_many_items; ++i) {
+            List<Content> new_tags = new ArrayList<>();
+            for (int j = 0; j < how_many_tags; ++j) {
+                Content tag = new Content(types.get(i).get(j),ints.get(i).get(j),doubles.get(i).get(j), categorics.get(i).get(j));
+                new_tags.add(tag);
+            }
+            result.put(IDs.get(i),new_tags);
+        }
+        return result;
     }
     public void inicializar(String path){
-        /*List<String> mapaS = CP.getMapRate(0);
-        Map<Integer, Map<Integer, Float>> mapRate= tranformerMapRate(mapaS);
+        CP.inicializar(path);
 
-        CF = new CollaborativeFiltering(mapRate);
-        KNN = new K_NN(mapRate);*/
+        List<Integer> mapRateIDusersRatings = CP.getMapRateIDusers(0);
+        List<List<Integer>> mapRateIDitemsRatings = CP.getMapRateIDitems(0);
+        List<List<Float>> mapRateValRatings = CP.getMapRateVal(0);
+
+        List<Integer> mapRateIDusersKnown = CP.getMapRateIDusers(1);
+        List<List<Integer>> mapRateIDitemsKnown = CP.getMapRateIDitems(1);
+        List<List<Float>> mapRateValKnown = CP.getMapRateVal(1);
+
+        List<Integer> mapRateIDusersUnknown = CP.getMapRateIDusers(2);
+        List<List<Integer>> mapRateIDitemsUnknown = CP.getMapRateIDitems(2);
+        List<List<Float>> mapRateValUnknown = CP.getMapRateVal(2);
+
+        List<Integer> mapItemIDs = CP.getMapItemIDs();
+        List<List<String>>  mapItemTagsTipus = CP.getMapTipusTags();
+        List<List<Integer>> mapItemTagsIntegers = CP.getMapIntegersTags();
+        List<List<Double>> mapItemTagsDoubles = CP.getMapDoublesTags();
+        List<List<List<String>>> mapItemTagsCategorics = CP.getMapCategoricsTags();
+
+        Map<Integer, Map<Integer, Float>> mapRateRatings = constructMapRate(mapRateIDusersRatings, mapRateIDitemsRatings, mapRateValRatings);
+        Map<Integer, Map<Integer, Float>> mapRateKnown = constructMapRate(mapRateIDusersKnown, mapRateIDitemsKnown, mapRateValKnown);
+        Map<Integer, Map<Integer, Float>> mapRateUnknown = constructMapRate(mapRateIDusersUnknown, mapRateIDitemsUnknown, mapRateValUnknown);
+        Map<Integer, List<Content>> mapItems = constructMapItem(mapItemIDs, mapItemTagsTipus, mapItemTagsIntegers, mapItemTagsDoubles, mapItemTagsCategorics);
+
+        int maxK = computeK(mapRateKnown, mapRateUnknown, 10);
+        CFNotEval = new CollaborativeFiltering(mapRateRatings, new TreeMap<>(), maxK);
+        KNNEval = new K_NN(mapRateKnown, mapRateUnknown, mapItems, CP.list_item());
+        KNNnotEval = new K_NN(mapRateRatings, new TreeMap<>(), mapItems, CP.list_item());
+
+        KNNEval.initSimilarityTable();
+        KNNnotEval.initSimilarityTable();
     }
 
     public List<Integer> list_user(){
@@ -97,8 +157,8 @@ public class ControladorDominio {
         return CP.getMapRate(a);
     }*/
 
-    public List<List<String>> getMapItem(){
-        return CP.getMapItem();
+    public List<List<String>> getMapItemTags(){
+        return CP.getMapItemTags();
     }
 
     public void recommendCF(int k, int userID, boolean eval){

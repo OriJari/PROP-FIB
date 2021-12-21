@@ -1,6 +1,6 @@
 package dominio.clases.algorithm.contentbasedflitering;
 
-import persistencia.preprocessat.Content;
+import dominio.clases.content.Content;
 import dominio.clases.rating.Rating;
 import dominio.clases.recommendation.Recommendation;
 
@@ -22,6 +22,7 @@ public class K_NN {
     private double[][] similarityTable;
     private Map<Integer,Map<Integer,Float>> mapa_known;
     private Map<Integer,Map<Integer,Float>> mapa_unknown;
+    private Map<Integer,List<Content>> mapa_items;
     List<Integer> id_reals;
 
     /**
@@ -29,9 +30,10 @@ public class K_NN {
      * \pre <em>True</em>
      * \post An object of the K_NN class is created with mapa_usuarios and id_reals equal to the given parameters
      */
-    public K_NN(Map<Integer,Map<Integer,Float>> mapa, Map<Integer,Map<Integer,Float>> mapa_unknown, List<Integer> ids) {
+    public K_NN(Map<Integer,Map<Integer,Float>> mapa, Map<Integer,Map<Integer,Float>> mapa_unknown, Map<Integer, List<Content>> map, List<Integer> ids) {
         this.mapa_known = mapa;
         this.mapa_unknown = mapa_unknown;
+        this.mapa_items = map;
         this.id_reals = ids;
     }
 
@@ -42,16 +44,16 @@ public class K_NN {
      * \pre <em>True</em>
      * \post Similarity between all items has been calculated and stored in <em>similarityTable</em>
      */
-    public void initSimilarityTable(Map<Integer, List<Content>> map) {
+    public void initSimilarityTable() {
         //given a Map<int, List<Content>> with int = id and List<Content> = tags converted to bool/int/double/string
-        int n = map.size();
+        int n = mapa_items.size();
         similarityTable = new double[n][n];
         double similarity;
         List<Content> list1, list2;
         for (int i = 0; i < n; ++i) {
-            list1 = map.get(i);
+            list1 = mapa_items.get(i);
             for (int j = i; j < n; ++j) {
-                list2 = map.get(j);
+                list2 = mapa_items.get(j);
                 similarity = calculate_similarity(list1, list2);
                 similarityTable[i][j] = similarity;
                 if (j != i) similarityTable[j][i] = similarity;
@@ -64,23 +66,30 @@ public class K_NN {
         }
     }
 
-    //FUNCTIONS NOT NEEDED FOR FIRST DELIVERY
-    //public void addTag_Item(Item dominio.controladores.clases.atribut.item, String dominio.controladores.clases.atribut.tag) {
-    //    dominio.controladores.clases.atribut.item.addTag(dominio.controladores.clases.atribut.tag);
-    //    actualitza_map(dominio.controladores.clases.atribut.item);
-    //    actualitza_taula(dominio.controladores.clases.atribut.item);
-    //}
+    public void Mod_Item(int item_id, List<Content> tags) {
+        int id_fals = id_reals.indexOf(item_id);
+        mapa_items.put(item_id,tags);
+        actualitza_taula(id_fals);
+    }
 
-    //public void removeTag_item(Item dominio.controladores.clases.atribut.item, String dominio.controladores.clases.atribut.tag) {
-    //    dominio.controladores.clases.atribut.item.delTag(dominio.controladores.clases.atribut.tag);
-    //    actualitza_map(dominio.controladores.clases.atribut.item);
-    //    actualitza_taula(dominio.controladores.clases.atribut.item);
-    //}
+    public void Add_Item(int item_id, List<Content> tags) {
+        id_reals.add(item_id);
+        int id_fals = id_reals.indexOf(item_id);
+        mapa_items.put(item_id,tags);
+        nou_item_taula(id_fals);
+    }
 
+    public void modifica_map_rating() {
 
-    //public void actualitza_taula(Item dominio.controladores.clases.atribut.item) {
+    }
 
-    //}
+    public void actualitza_taula(int item_id){
+
+    }
+
+    public void nou_item_taula(int item_id) {
+
+    }
 
     /**
      * @brief Calculates the similarity between two items, given their respective tags.

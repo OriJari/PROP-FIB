@@ -18,7 +18,7 @@ public class ControladorPersistencia {
 
     public ControladorPersistencia(){}
 
-    public boolean inicializar(String path){
+    public void inicializar(String path){
         CSVItem = new CSVparserItem(path + "items.csv");
         CSVItem.readLoadItem();
         CSVItem.MapItemData(CSVItem.getContent());
@@ -34,7 +34,6 @@ public class ControladorPersistencia {
         //Crea les classes que necessitis
         UserList = new UserList();
         UserList.initializeUsers(CSVKnown.getMapRate());
-        return true;
     }
 
     public  boolean addItem(int ID, List<String> tags){
@@ -89,7 +88,12 @@ public class ControladorPersistencia {
     }
 
 
-    public List<List<String>> getMapItem(){
+    public List<Integer> getMapItemIDs(){
+        List<Integer> result = new ArrayList<>();
+        return result;
+    }
+
+    public List<List<String>> getMapItemTags(){
         List<List<String>> result = new ArrayList<>();
         return result;
     }

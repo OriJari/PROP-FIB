@@ -1,6 +1,6 @@
 package dominio.controladores.junits;
 
-import dominio.clases.content.*;
+import dominio.clases.content.Content;
 import dominio.clases.algorithm.contentbasedflitering.*;
 
 import java.io.BufferedReader;
@@ -76,8 +76,8 @@ public class K_NNTest {
         List<Integer> id_reals = new ArrayList<>();
         for (int i = 0; i < num_items; ++i) id_reals.add(i);
         //Initialize distances between all items
-        K_NN taula = new K_NN(map_rate,map_rate,id_reals);
-        taula.initSimilarityTable(map);
+        K_NN taula = new K_NN(map_rate,map_rate,map,id_reals);
+        taula.initSimilarityTable();
 
         double similarity_0_1 = taula.getSimilarity(0,1);
         double similarity_1_2 = taula.getSimilarity(1,2);
