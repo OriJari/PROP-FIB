@@ -85,11 +85,6 @@ public class ControladorPresentacion {
         return CD.saveRecomendation();
     }
 
-    public void evaluateRecomendation(boolean e){
-        CD.evaluateRecomendation(e);
-    }
-
-
 
     public void recommendCF(int k, int userID, boolean eval){
         CD.recommendCF(k, userID, eval);

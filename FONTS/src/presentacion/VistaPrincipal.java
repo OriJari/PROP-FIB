@@ -21,13 +21,13 @@ public class VistaPrincipal {
     private static JButton gestuser = new JButton("Gestión de Usuario");
     private static JButton gestitem = new JButton("Gestión de Item");
     private static JButton recomanacio = new JButton("Recomendaciones");
-    private static JCheckBox eval = new JCheckBox("Evaluar recomendación");
+
 
 
     //atributs
-    protected static int panelactual = 0;
+    protected static int panelactual = 4;
     protected static String path_csv;
-    private static boolean checkbox = false;
+
 
 
     public VistaPrincipal(ControladorPresentacion cp) {
@@ -120,7 +120,7 @@ public class VistaPrincipal {
 
         JLabel titol = new JLabel("SISTEMA RECOMANADOR");
         titol.setFont(new Font("Arial",Font.BOLD,30));
-        titol.setBounds(285,30,550,40);
+        titol.setBounds(290,30,550,40);
         start.add(titol);
 
         JLabel frase1 = new JLabel("Escoja el CSV con el que quiere trabajar");
@@ -168,10 +168,7 @@ public class VistaPrincipal {
         };
         csvs.addActionListener(selecciona);
 
-        eval.setFont(new Font("Arial",Font.PLAIN,18));
-        eval.setBounds(360,300,250,25);
-        eval.setSelected(checkbox);
-        start.add(eval);
+
 
 
         JButton startB = new JButton("Start");
@@ -185,9 +182,7 @@ public class VistaPrincipal {
                 path_csv =  fc.getSelectedFile().getPath();
                 System.out.println("CSV selecionado: " + path_csv);
                 CP.inicializar(path_csv);
-                if(eval.isSelected()) checkbox = true;
-                else checkbox = false;
-                CP.evaluateRecomendation(checkbox);
+
                 System.out.println("boton pulsado: start");
                 panelactual = 1;
                 start.setVisible(false);

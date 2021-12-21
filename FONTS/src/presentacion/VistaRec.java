@@ -17,6 +17,10 @@ public class VistaRec extends VistaPrincipal{
     private static boolean nova_rec;
     private static List<Integer> id;
     private static List<Float> val;
+    private static int nitems;
+    private static JCheckBox eval = new JCheckBox("Evaluación");
+    private static boolean checkbox = false;
+
     public  VistaRec (){}
 
     public static void menuRec(){
@@ -39,9 +43,14 @@ public class VistaRec extends VistaPrincipal{
         nuevarec.setFont(new Font("Arial", Font.BOLD, 20));
         savedrec.setFont(new Font("Arial", Font.BOLD, 20));
         nuevarec.setBounds(300, 160,350,40);
-        savedrec.setBounds(300, 260,350,40);
+        savedrec.setBounds(300, 300,350,40);
         menR.add(nuevarec);
         menR.add(savedrec);
+
+        eval.setFont(new Font("Arial",Font.PLAIN,18));
+        eval.setBounds(410,220,250,25);
+        eval.setSelected(checkbox);
+        menR.add(eval);
 
         ActionListener tornarRm = new ActionListener() {
             @Override
@@ -57,6 +66,8 @@ public class VistaRec extends VistaPrincipal{
         ActionListener nova = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(eval.isSelected()) checkbox = true;
+                else checkbox = false;
                 System.out.println("boton pulsado: nuevarec");
                 panelactual = 5;
                 menR.setVisible(false);
@@ -127,7 +138,7 @@ public class VistaRec extends VistaPrincipal{
 
         JLabel frase2 = new JLabel("Para el usuario:");
         frase2.setFont(new Font("Arial",Font.PLAIN,18));
-        frase2.setBounds(275,180,150,25);
+        frase2.setBounds(281,180,150,25);
         recomana.add(frase2);
 
 
@@ -141,7 +152,7 @@ public class VistaRec extends VistaPrincipal{
 
         JLabel frase3 = new JLabel("Con el algoritmo:");
         frase3.setFont(new Font("Arial",Font.PLAIN,18));
-        frase3.setBounds(275,240,150,25);
+        frase3.setBounds(273,240,150,25);
         recomana.add(frase3);
 
         algoritme = new JComboBox();
@@ -157,10 +168,17 @@ public class VistaRec extends VistaPrincipal{
         fin.setSize(960,541);
         fin.setSize(960,540);
 
+        JLabel frase4 = new JLabel("Numero de items recomendados:");
+        frase4.setFont(new Font("Arial",Font.PLAIN,18));
+        frase4.setBounds(145,300,300,25);
+        recomana.add(frase4);
 
+        JTextField nit = new JTextField();
+        nit.setBounds(470,300,250,25);
+        recomana.add(nit);
 
         busca.setFont(new Font("Arial",Font.BOLD,20));
-        busca.setBounds(310,360,300,40);
+        busca.setBounds(310,380,300,40);
         recomana.add(busca);
 
 
@@ -174,18 +192,26 @@ public class VistaRec extends VistaPrincipal{
                 System.out.println("algoritmo selecionado: " + algorithm);
 
                 nova_rec = true;
+                if(!isNumeric(nit.getText())) {
+                    JOptionPane.showMessageDialog(recomana, "No es un numero", "Error", 0);
+                }
+                else {
+                    nitems = (Integer) Integer.valueOf(nit.getText());
+                    if(algorithm == "Collaborative filtering") CP.recommendCF(nitems,uid,checkbox);
+                    else if(algorithm == "Content based filtering") CP.recommendCBF(nitems,uid,checkbox);
+                    else CP.recommendH(nitems,uid,checkbox);
+                    id = CP.list_itemREC();
+                    val = CP.list_valREC();
+                    System.out.println("boton pulsado: buscar");
+                    panelactual = 7;
+                    recomana.setVisible(false);
+                    panelmain();
+                }
 
-                if(algorithm == "Collaborative filtering") CP.recommendCF(uid);
-                else if(algorithm == "Content based filtering") CP.recommendCBF(uid);
-                else CP.recommendH(uid);
 
-                id = CP.list_itemREC();
-                val = CP.list_valREC();
 
-                System.out.println("boton pulsado: buscar");
-                panelactual = 7;
-                recomana.setVisible(false);
-                panelmain();
+
+
             }
         };
         busca.addActionListener(search);
@@ -361,7 +387,7 @@ public class VistaRec extends VistaPrincipal{
         item_rec.add(icona9);
         item_rec.add(icona10);
 
-        JLabel itemid1 = new JLabel("ItemId: " + "a");
+        JLabel itemid1 = new JLabel("ItemId: ");
         JLabel itemid2 = new JLabel("ItemId: ");
         JLabel itemid3 = new JLabel("ItemId: ");
         JLabel itemid4 = new JLabel("ItemId: ");
@@ -422,6 +448,15 @@ public class VistaRec extends VistaPrincipal{
         item_rec.add(val8);
         item_rec.add(val9);
         item_rec.add(val10);
+    }
+
+    private static boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
     }
 
 
