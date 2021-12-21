@@ -3,9 +3,9 @@ import java.util.*;
 import dominio.clases.algorithm.collaborativefiltering.*;
 import dominio.clases.algorithm.contentbasedflitering.*;
 import dominio.clases.algorithm.hybrid.Hybrid;
-import dominio.clases.content.*;
+import persistencia.preprocessat.Content;
 import dominio.clases.evaluation.*;
-import dominio.clases.preprocessat.*;
+import persistencia.preprocessat.*;
 import dominio.clases.rating.Rating;
 import dominio.clases.recommendation.Recommendation;
 

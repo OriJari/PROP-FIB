@@ -97,15 +97,15 @@ public class ControladorDominio {
         return CP.getMapItem();
     }
 
-    public void recommendCF(int k){
+    public void recommendCF(int k, int userID){
 
     }
 
-    public void recommendCBF(int k){
+    public void recommendCBF(int k, int userID){
 
     }
 
-    public void recommendH(int k){
+    public void recommendH(int k, int userID){
         /*r1 = CF.recommend();
         r2 = CBF.recommend()
         result = H.recommend(r1,r2);*/

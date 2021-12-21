@@ -1,6 +1,6 @@
 package dominio.clases.algorithm.contentbasedflitering;
 
-import dominio.clases.content.*;
+import persistencia.preprocessat.Content;
 import dominio.clases.rating.Rating;
 import dominio.clases.recommendation.Recommendation;
 

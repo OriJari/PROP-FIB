@@ -1,7 +1,5 @@
 package presentacion;
 
-//import dominio.controladores.ControladorDominio;
-
 import dominio.controladores.ControladorDominio;
 
 import java.io.IOException;
@@ -11,7 +9,6 @@ import java.util.*;
 public class ControladorPresentacion {
     private ControladorDominio CD;
     private static VistaPrincipal v;
-
 
     public void run(){
         crearVista();
@@ -94,16 +91,16 @@ public class ControladorPresentacion {
 
 
 
-    public void recommendCF(int k){
-        CD.recommendCF(k);
+    public void recommendCF(int k, int userID){
+        CD.recommendCF(k, userID);
     }
 
-    public void recommendCBF(int k){
-        CD.recommendCBF(k);
+    public void recommendCBF(int k, int userID){
+        CD.recommendCBF(k, userID);
     }
 
-    public void recommendH(int k){
-        CD.recommendH(k);
+    public void recommendH(int k, int userID){
+        CD.recommendH(k, userID);
     }
 
 

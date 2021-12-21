@@ -1,6 +1,5 @@
 package dominio.clases.recommendation;
 
-import dominio.clases.item.*;
 import dominio.clases.rating.Rating;
 
 import java.util.ArrayList;
