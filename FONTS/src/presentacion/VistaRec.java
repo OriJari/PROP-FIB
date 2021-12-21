@@ -5,24 +5,18 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class VistaRec extends VistaPrincipal{
 
-
     private static JComboBox algoritme;
-    private static JCheckBox eval = new JCheckBox("Evaluar recomendación");
     private static JButton busca = new JButton("Buscar");
-
-    private static Boolean checkbox = false;
-
-
     private static JButton save = new JButton("Guardar recomendación");
-
-
     private static boolean nova_rec;
-
-
+    private static List<Integer> id;
+    private static List<Float> val;
     public  VistaRec (){}
 
     public static void menuRec(){
@@ -150,7 +144,7 @@ public class VistaRec extends VistaPrincipal{
         frase3.setBounds(275,240,150,25);
         recomana.add(frase3);
 
-        algoritme = new JComboBox(/*CP.list_user()/*directories*/);
+        algoritme = new JComboBox();
 
         algoritme.setBounds(470,240,250,25);
         algoritme.addItem("Collaborative filtering");
@@ -163,10 +157,7 @@ public class VistaRec extends VistaPrincipal{
         fin.setSize(960,541);
         fin.setSize(960,540);
 
-        eval.setFont(new Font("Arial",Font.PLAIN,18));
-        eval.setBounds(350,300,250,25);
-        eval.setSelected(checkbox);
-        recomana.add(eval);
+
 
         busca.setFont(new Font("Arial",Font.BOLD,20));
         busca.setBounds(310,360,300,40);
@@ -181,15 +172,16 @@ public class VistaRec extends VistaPrincipal{
                 System.out.println("user selecionado: " + userid);
                 String algorithm = (String) algoritme.getSelectedItem();
                 System.out.println("algoritmo selecionado: " + algorithm);
-                System.out.println("evaluación activa:" + eval.isSelected());
-                if(eval.isSelected()) checkbox = true;
-                else checkbox = false;
+
                 nova_rec = true;
-                /*
-                if(algorithm == "Collaborative filtering") CP.recommendCF(checkbox,uid);
-                else if(algorithm == "Content based filtering") CP.recommendCBF(checkbox,uid);
-                else CP.recommendH(checkbox,uid);
-                */
+
+                if(algorithm == "Collaborative filtering") CP.recommendCF(uid);
+                else if(algorithm == "Content based filtering") CP.recommendCBF(uid);
+                else CP.recommendH(uid);
+
+                id = CP.list_itemREC();
+                val = CP.list_valREC();
+
                 System.out.println("boton pulsado: buscar");
                 panelactual = 7;
                 recomana.setVisible(false);
@@ -237,12 +229,12 @@ public class VistaRec extends VistaPrincipal{
 
 
 
-        File file = new File("DATA");
+        File file = new File(path_csv);
 
         String[] directories = file.list(new FilenameFilter() {
             @Override
             public boolean accept(File current, String name) {
-                return new File(current, name).isDirectory();
+                return new File(current, name).isFile();
             }
         });
         System.out.println(Arrays.toString(directories));
@@ -269,7 +261,8 @@ public class VistaRec extends VistaPrincipal{
             public void actionPerformed(ActionEvent e) {
                 String path_rec = (String) combo_rec.getSelectedItem();
                 System.out.println("recomendacion guardada selecionado: " + path_rec);
-                //CP.cargarRec();
+                id = CP.list_itemSavedREC(path_rec);
+                val = CP.list_valSavedREC(path_rec);
                 System.out.println("boton pulsado: open");
                 nova_rec = false;
                 panelactual = 7;
@@ -317,7 +310,7 @@ public class VistaRec extends VistaPrincipal{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("boton pulsado: guardar");
-                    if(true/*CP.saveRecomendation()*/){
+                    if(CP.saveRecomendation()){
                         JOptionPane.showMessageDialog(item_rec,"Guardado correctamente");
                     }
 
@@ -325,7 +318,6 @@ public class VistaRec extends VistaPrincipal{
             };
             save.addActionListener(guardar);
         }
-
 
 
         JLabel frase1 = new JLabel("Lo que te puede gustar...");

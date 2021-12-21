@@ -113,4 +113,15 @@ public class ControladorPersistencia {
         return CSVItem.getHeader();
         //retrona llistat de tags per litem donat
     }
+
+    public List<Float> list_valSavedREC(String path_rec) {
+        List<Float> result = new ArrayList<>();
+        return result;
+        //retorna la llista
+    }
+
+    public List<Integer> list_itemSavedREC(String path_rec) {
+        List<Integer> result = new ArrayList<>();
+        return result;
+    }
 }

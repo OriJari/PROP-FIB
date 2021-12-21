@@ -96,15 +96,15 @@ public class ControladorDominio {
         return CP.getMapItem();
     }
 
-    public void recommendCF(boolean valoration, int k){
+    public void recommendCF(int k){
 
     }
 
-    public void recommendCBF(boolean valoration, int k){
+    public void recommendCBF(int k){
 
     }
 
-    public void recommendH(boolean valoration, int k){
+    public void recommendH(int k){
         /*r1 = CF.recommend();
         r2 = CBF.recommend()
         result = H.recommend(r1,r2);*/
@@ -120,5 +120,25 @@ public class ControladorDominio {
 
     public boolean evaluateRecomendation(boolean e) {
         return true;
+    }
+
+    public List<Integer> list_itemREC() {
+        List<Integer> result = new ArrayList<>();
+        return result;
+        //retorna la llista de items de la recomanacio
+    }
+
+    public List<Float> list_valREC() {
+        List<Float> result = new ArrayList<>();
+        return result;
+        //retorna la llista de valors de la recomanacio
+    }
+
+    public List<Float> list_valSavedREC(String path_rec) {
+        return CP.list_valSavedREC(path_rec);
+    }
+
+    public List<Integer> list_itemSavedREC(String path_rec) {
+        return CP.list_itemSavedREC(path_rec);
     }
 }
