@@ -94,7 +94,7 @@ public class ControladorDominio {
 
         List<Integer> mapItemIDs = CP.getMapItemIDs();
         List<List<String>>  mapItemTagsTipus = CP.getMapTipusTags();
-        List<List<Integer>> mapItemTagsIntegers = CP.getMapIntegersTags();
+        List<List<Integer>> mapItemTagsIntegers = CP.getMapIntsTags();
         List<List<Double>> mapItemTagsDoubles = CP.getMapDoublesTags();
         List<List<List<String>>> mapItemTagsCategorics = CP.getMapCategoricsTags();
 
