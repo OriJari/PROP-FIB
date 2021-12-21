@@ -1,4 +1,4 @@
-package dominio.controladores.drivers;
+/*package dominio.controladores.drivers;
 
 import dominio.clases.algorithm.collaborativefiltering.*;
 import dominio.clases.algorithm.slopeone.*;
@@ -21,7 +21,7 @@ import static java.lang.Math.min;
  * @author Oriol Martí Jariod
  */
 
-
+/*
 public class Driverslopeone {
     private static Scanner sc;
 
@@ -327,4 +327,4 @@ public class Driverslopeone {
             }
         }
     }
-}
+}*/

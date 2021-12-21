@@ -14,21 +14,21 @@ import java.util.Vector;
 public class VistaPrincipal {
 
     //controlador presentacio
-    private ControladorPresentacion CP;
+    private  ControladorPresentacion CP;
 
     //components gui
-    private JFrame fin = new JFrame("Recomendation System");
+    private  JFrame fin = new JFrame("Recomendation System");
 
 
     //recomendacions
-    private JButton busca = new JButton("Buscar");
-    private JButton save = new JButton("Guardar recomendación");
-    private boolean nova_rec;
+    private  JButton busca = new JButton("Buscar");
+    private  JButton save = new JButton("Guardar recomendación");
+    private  boolean nova_rec;
     private List<Integer> id;
     private List<Float> val;
-    private int nitems;
-    private JCheckBox eval = new JCheckBox("Evaluación");
-    private boolean checkbox = false;
+    private  int nitems;
+    private  JCheckBox eval = new JCheckBox("Evaluación");
+    private  boolean checkbox = false;
 
     //user
     private  JTextField tUserId = new JTextField();
@@ -134,8 +134,8 @@ public class VistaPrincipal {
 
 
     //atributs
-    private  int panelactual = 5;
-    private  String path_csv;
+    protected  int panelactual = 5;
+    protected  String path_csv;
 
 
     public VistaPrincipal(ControladorPresentacion cp) {
@@ -145,19 +145,14 @@ public class VistaPrincipal {
 
     private void inicializaComponentes() {
         hacerVisible();
-
-
     }
 
 
     public void hacerVisible() {
-
+        fin.pack();
         fin.setVisible(true);
         fin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fin.pack();
-
         basic_frame();
-
     }
 
     public void basic_frame(){
@@ -167,6 +162,532 @@ public class VistaPrincipal {
         fin.setSize(960,540);
         fin.setLocationRelativeTo(null);
         panelmain();
+    }
+
+    public void actionPerformed_csvs(ActionEvent e) {
+        //browser ficheros/dyrectory
+        File file = new File("DATA");
+
+        fc.setDialogTitle("Escojer CSV");
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        if(fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+            //
+        }
+        File file1 = new File(fc.getSelectedFile().getPath());
+        File file2 = new File(file.getAbsolutePath());
+
+        String absolutePath1 = file1.toString();
+        String absolutePath2 = file2.toString();
+        String path = absolutePath1.substring(absolutePath2.length());
+
+        System.out.println(path);
+        csvchoosen.setFont(new Font("Arial", Font.BOLD,14));
+        csvchoosen.setText(path);
+    }
+
+    public void actionPerformed_startB(ActionEvent e) {
+        path_csv =  fc.getSelectedFile().getPath();
+        System.out.println("CSV selecionado: " + path_csv);
+        CP.inicializar(path_csv);
+
+        System.out.println("boton pulsado: start");
+        panelactual = 1;
+        start.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_backM(ActionEvent e) {
+        System.out.println("boton pulsado: volver");
+        panelactual = 0;
+        menu.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_gestuser(ActionEvent e) {
+        System.out.println("boton pulsado: gestion user");
+        panelactual = 2;
+        menu.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_gestitem(ActionEvent e) {
+        System.out.println("boton pulsado: gestion item");
+        panelactual = 3;
+        menu.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_recomanacio(ActionEvent e) {
+        System.out.println("boton pulsado: recomanacio");
+        panelactual = 4;
+        menu.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_backRm(ActionEvent e) {
+        System.out.println("boton pulsado: tornarR");
+        panelactual = 1;
+        menR.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_nuevarec(ActionEvent e) {
+        if(eval.isSelected()) checkbox = true;
+        else checkbox = false;
+        System.out.println("boton pulsado: nuevarec");
+        panelactual = 5;
+        menR.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_savedrec(ActionEvent e) {
+        System.out.println("boton pulsado: cargar");
+        panelactual = 6;
+        menR.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_backR(ActionEvent e) {
+        System.out.println("boton pulsado: tornarR");
+        panelactual = 4;
+        recomana.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_busca(ActionEvent e) {
+        String userid = (String) CuserID.getSelectedItem();
+        int uid = Integer.valueOf(userid);
+        System.out.println("user selecionado: " + userid);
+        String algorithm = (String) algoritme.getSelectedItem();
+        System.out.println("algoritmo selecionado: " + algorithm);
+
+        nova_rec = true;
+        nitems = Integer.valueOf((String) nit.getSelectedItem());
+
+        System.out.println(nitems);
+
+        //if(algorithm == "Collaborative filtering") CP.recommendCF(nitems,uid,checkbox);
+        //else if(algorithm == "Content based filtering") CP.recommendCBF(nitems,uid,checkbox);
+        //else CP.recommendH(nitems,uid,checkbox);
+        //id = CP.list_itemREC();
+        //val = CP.list_valREC();
+        System.out.println("boton pulsado: buscar");
+        panelactual = 7;
+        recomana.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_back_carRm(ActionEvent e) {
+        System.out.println("boton pulsado: tornar");
+        panelactual = 4;
+        cargarR.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_save(ActionEvent e) {
+        System.out.println("boton pulsado: guardar");
+        if(CP.saveRecomendation()){
+            JOptionPane.showMessageDialog(item_rec,"Guardado correctamente");
+        }
+    }
+
+    public void actionPerformed_backGU(ActionEvent e) {
+        System.out.println("boton pulsado: tornarGU");
+        panelactual = 1;
+        gestUser.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_addB(ActionEvent e) {
+        System.out.println("boton pulsado: añadir");
+
+        if(isNumericI(tUserId.getText()) && CP.addUser(Integer.valueOf(tUserId.getText()))){
+            JOptionPane.showMessageDialog(gestUser,"Añadido correctamente");
+            System.out.println(tUserId.getText());
+        }
+        else if(isNumericI(tUserId.getText())) JOptionPane.showMessageDialog(gestUser,"Usuario ya registrado","Error",0);
+        else JOptionPane.showMessageDialog(gestUser,"No se ha podido añadir correctamente","Error",0);
+    }
+
+    public void actionPerformed_deleteB(ActionEvent e) {
+        System.out.println("boton pulsado: eliminar");
+
+        if(CP.deleteUser((Integer)cUserid.getSelectedItem())){
+            JOptionPane.showMessageDialog(gestUser,"Eliminado correctamente");
+            System.out.println(tUserId.getText());
+        }
+        else JOptionPane.showMessageDialog(gestUser,"No se ha podido eliminar correctamente","Error",0);
+    }
+    public void actionPerformed_gRate(ActionEvent e) {
+            System.out.println("boton pulsado: gestionar ratings");
+            id_actual_user = (Integer)cUserid.getSelectedItem();
+            panelactual = 8;
+            gestUser.setVisible(false);
+            panelmain();
+
+    }
+
+    public void actionPerformed_backGR(ActionEvent e) {
+        System.out.println("boton pulsado: tornarGR");
+        panelactual = 2;
+        gestRate.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_addBR(ActionEvent e) {
+        System.out.println("boton pulsado: añadir/modificar");
+
+        if(isNumericF(tRate.getText()) && CP.addRating(id_actual_user,Integer.valueOf((Integer) cUserid.getSelectedItem()),Float.valueOf(tRate.getText()))){
+            JOptionPane.showMessageDialog(gestRate,"Añadido/modificado correctamente");
+            System.out.println(tRate.getText());
+        }
+        else JOptionPane.showMessageDialog(gestRate,"No se ha podido añadir/modificar correctamente","Error",0);
+    }
+
+    public void actionPerformed_deleteBR(ActionEvent e) {
+        System.out.println("boton pulsado: eliminar");
+
+        if(CP.deleteRating(id_actual_user,(Integer)cItemId.getSelectedItem())){
+            JOptionPane.showMessageDialog(gestRate,"Eliminado correctamente");
+            System.out.println("eliminado");
+        }
+        else JOptionPane.showMessageDialog(gestRate,"No se ha podido eliminar correctamente","Error",0);
+    }
+
+    public void actionPerformed_backGI(ActionEvent e) {
+        System.out.println("boton pulsado: tornarGI");
+        panelactual = 1;
+        gestItem.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_addI(ActionEvent e) {
+        System.out.println("boton pulsado: añadir");
+
+        if(isNumericI(titemId.getText()) && !CP.exists(Integer.valueOf(titemId.getText()))){
+            ArrayList<String> tags = new ArrayList<>();
+            //for(int i = 0; i < 5; ++i) {
+
+            tags.add(JOptionPane.showInputDialog("Introducir Tag"));
+            System.out.println(JOptionPane.showInputDialog("Introducir Tag"));
+            //}
+            CP.addItem(Integer.valueOf(titemId.getText()),tags);
+
+
+            System.out.println(titemId.getText());
+        }
+
+        else JOptionPane.showMessageDialog(gestItem,"No se ha podido añadir correctamente","Error",0);
+    }
+
+    public void actionPerformed_deleteI(ActionEvent e) {
+        System.out.println("boton pulsado: eliminar");
+
+        if(CP.deleteItem((Integer)citemid.getSelectedItem())){
+            JOptionPane.showMessageDialog(gestItem,"Eliminado correctamente");
+            System.out.println(citemid.getSelectedItem());
+        }
+        //else if(!CP.valdiItem((Integer)citemid.getSelectedItem())) JOptionPane.showMessageDialog(gestUser,"Item no registrado","Error",0);
+        else JOptionPane.showMessageDialog(gestItem,"No se ha podido eliminar correctamente","Error",0);
+    }
+
+    public void actionPerformed_gesTag(ActionEvent e) {
+        System.out.println("boton pulsado: gestionar tags");
+        id_actual = (Integer)citemid.getSelectedItem();
+        panelactual = 9;
+        gestItem.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_backGT(ActionEvent e) {
+        System.out.println("boton pulsado: tornarGT");
+        panelactual = 3;
+        gestTag.setVisible(false);
+        panelmain();
+    }
+
+    public void actionPerformed_modify(ActionEvent e) {
+        System.out.println("boton pulsado: modificar");
+
+        if(CP.modifyTag(id_actual, (String) TagsItems.getSelectedItem(), tagmod.getText())){
+            JOptionPane.showMessageDialog(gestTag,"Modificado correctamente");
+            System.out.println(tagmod.getText());
+        }
+        else JOptionPane.showMessageDialog(gestTag,"No se ha podido modificar correctamente","Error",0);
+    }
+    public void actionPerformed_deleteT(ActionEvent e) {
+        System.out.println("boton pulsado: eliminar");
+
+        if(CP.delTag(id_actual, (String) TagsItems.getSelectedItem())){
+        JOptionPane.showMessageDialog(gestTag,"Eliminado correctamente");
+        System.out.println("eliminado");
+        }
+        else JOptionPane.showMessageDialog(gestTag,"No se ha podido eliminar correctamente","Error",0);
+    }
+    public void actionPerformed_openB(ActionEvent e) {
+        String path_rec = (String) combo_rec.getSelectedItem();
+        System.out.println("recomendacion guardada selecionado: " + path_rec);
+        id = CP.list_itemSavedREC(path_rec);
+        val = CP.list_valSavedREC(path_rec);
+        System.out.println("boton pulsado: open");
+        nova_rec = false;
+        panelactual = 7;
+        cargarR.setVisible(false);
+        panelmain();
+    }
+
+    //listeners
+    private void asignar_listenersComponentes() {
+        //botones
+
+        deleteI.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_deleteI(event);
+                    }
+                });
+
+        deleteT.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_deleteT(event);
+                    }
+                });
+
+        modify.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_modify(event);
+                    }
+                });
+
+        backGT.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_backGT(event);
+                    }
+                });
+
+        addI.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_addI(event);
+                    }
+                });
+
+        backGI.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_backGI(event);
+                    }
+                });
+
+        backGR.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_backGR(event);
+                    }
+                });
+
+        backGU.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_backGU(event);
+                    }
+                });
+
+        busca.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_busca(event);
+                    }
+                });
+
+        save.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_save(event);
+                    }
+                });
+
+        addB.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_addB(event);
+                    }
+                });
+
+        addBR.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_addBR(event);
+                    }
+                });
+
+        deleteB.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_deleteB(event);
+                    }
+                });
+
+        deleteBR.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_deleteBR(event);
+                    }
+                });
+
+        gRate.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_gRate(event);
+                    }
+                });
+
+        gesTag.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_addBR(event);
+                    }
+                });
+
+        csvs.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_csvs(event);
+                    }
+                });
+
+        startB.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_startB(event);
+                    }
+                });
+
+
+        backM.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_backM(event);
+                    }
+                });
+        gestuser.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_gestuser(event);
+                    }
+                });
+        gestitem.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_gestitem(event);
+                    }
+                });
+        recomanacio.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_recomanacio(event);
+                    }
+                });
+
+        backRm.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_backRm(event);
+                    }
+                });
+        nuevarec.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_nuevarec(event);
+                    }
+                });
+        savedrec.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_savedrec(event);
+                    }
+                });
+
+        backR.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_backR(event);
+                    }
+                });
+
+        back_carRm.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_back_carRm(event);
+                    }
+                });
+
+        openB.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_openB(event);
+                    }
+                });
+
     }
 
     public  void panelmain(){
@@ -249,7 +770,7 @@ public class VistaPrincipal {
         File file = new File("DATA");
         fc = new JFileChooser(file);
 
-        ActionListener selecciona = new ActionListener() {
+        /*ActionListener selecciona = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //browser ficheros/dyrectory
@@ -271,7 +792,7 @@ public class VistaPrincipal {
                 csvchoosen.setText(path);
             }
         };
-        csvs.addActionListener(selecciona);
+        csvs.addActionListener(selecciona);*/
 
 
 
@@ -281,7 +802,7 @@ public class VistaPrincipal {
         startB.setFont(new Font("Arial", Font.BOLD, 20));
         start.add(startB);
 
-        ActionListener comencem = new ActionListener() {
+        /*ActionListener comencem = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 path_csv =  fc.getSelectedFile().getPath();
@@ -294,7 +815,7 @@ public class VistaPrincipal {
                 panelmain();
             }
         };
-        startB.addActionListener(comencem);
+        startB.addActionListener(comencem);*/
 
 
     }
@@ -331,7 +852,7 @@ public class VistaPrincipal {
         menu.add(recomanacio);
 
 
-        ActionListener tornarM = new ActionListener() {
+        /*ActionListener tornarM = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: volver");
@@ -340,9 +861,9 @@ public class VistaPrincipal {
                 panelmain();
             }
         };
-        backM.addActionListener(tornarM);
+        backM.addActionListener(tornarM);*/
 
-        ActionListener gestionar_user = new ActionListener() {
+        /*ActionListener gestionar_user = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: gestion user");
@@ -373,7 +894,7 @@ public class VistaPrincipal {
                 panelmain();
             }
         };
-        recomanacio.addActionListener(rec);
+        recomanacio.addActionListener(rec);*/
     }
 
     public  void menuRec(){
@@ -404,7 +925,7 @@ public class VistaPrincipal {
         eval.setSelected(checkbox);
         menR.add(eval);
 
-        ActionListener tornarRm = new ActionListener() {
+        /*ActionListener tornarRm = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: tornarR");
@@ -437,7 +958,7 @@ public class VistaPrincipal {
                 panelmain();
             }
         };
-        savedrec.addActionListener(cargar);
+        savedrec.addActionListener(cargar);*/
 
 
     }
@@ -458,7 +979,7 @@ public class VistaPrincipal {
 
         recomana.add(backR);
 
-        ActionListener tornarR = new ActionListener() {
+        /*ActionListener tornarR = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: tornarR");
@@ -467,7 +988,7 @@ public class VistaPrincipal {
                 panelmain();
             }
         };
-        backR.addActionListener(tornarR);
+        backR.addActionListener(tornarR);*/
 
 
 
@@ -534,7 +1055,7 @@ public class VistaPrincipal {
         recomana.add(busca);
 
 
-        ActionListener search = new ActionListener() {
+        /*ActionListener search = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String userid = (String) CuserID.getSelectedItem();
@@ -562,7 +1083,7 @@ public class VistaPrincipal {
 
             }
         };
-        busca.addActionListener(search);
+        busca.addActionListener(search);*/
 
 
 
@@ -583,7 +1104,7 @@ public class VistaPrincipal {
         back_carRm.setBounds(20,450,100,30);
         cargarR.add(back_carRm);
 
-        ActionListener cargar_rec_back = new ActionListener() {
+        /*ActionListener cargar_rec_back = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: tornar");
@@ -592,7 +1113,7 @@ public class VistaPrincipal {
                 panelmain();
             }
         };
-        back_carRm.addActionListener(cargar_rec_back);
+        back_carRm.addActionListener(cargar_rec_back);*/
 
 
 
@@ -630,7 +1151,7 @@ public class VistaPrincipal {
         openB.setFont(new Font("Arial", Font.BOLD, 20));
         cargarR.add(openB);
 
-        ActionListener comencem = new ActionListener() {
+        /*ActionListener comencem = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String path_rec = (String) combo_rec.getSelectedItem();
@@ -644,7 +1165,7 @@ public class VistaPrincipal {
                 panelmain();
             }
         };
-        openB.addActionListener(comencem);
+        openB.addActionListener(comencem);*/
     }
 
     public  void rec_items(){
@@ -663,7 +1184,7 @@ public class VistaPrincipal {
         back_IR.setBounds(20,450,100,30);
         item_rec.add(back_IR);
 
-        ActionListener cargar_rec_back = new ActionListener() {
+        /*ActionListener cargar_rec_back = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: tornar");
@@ -674,14 +1195,14 @@ public class VistaPrincipal {
             }
         };
 
-        back_IR.addActionListener(cargar_rec_back);
+        back_IR.addActionListener(cargar_rec_back);*/
 
         if (nova_rec) {
             save.setBounds(350,430,220,35);
             save.setFont(new Font("Arial",Font.BOLD,16));
             item_rec.add(save);
 
-            ActionListener guardar = new ActionListener() {
+            /*ActionListener guardar = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("boton pulsado: guardar");
@@ -691,7 +1212,7 @@ public class VistaPrincipal {
 
                 }
             };
-            save.addActionListener(guardar);
+            save.addActionListener(guardar);*/
         }
 
 
@@ -740,7 +1261,7 @@ public class VistaPrincipal {
 
         gestUser.add(backGU);
 
-        ActionListener tornarGU = new ActionListener() {
+        /*ActionListener tornarGU = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: tornarGU");
@@ -749,7 +1270,7 @@ public class VistaPrincipal {
                 panelmain();
             }
         };
-        backGU.addActionListener(tornarGU);
+        backGU.addActionListener(tornarGU);*/
 
 
         frase1GU.setFont(new Font("Arial", Font.PLAIN,18));
@@ -790,7 +1311,7 @@ public class VistaPrincipal {
         gRate.setBounds(360,325,220,40);
         gestUser.add(gRate);
 
-        ActionListener afegirU = new ActionListener() {
+        /*ActionListener afegirU = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: añadir");
@@ -830,7 +1351,7 @@ public class VistaPrincipal {
 
             }
         };
-        gRate.addActionListener(ratings);
+        gRate.addActionListener(ratings);*/
 
 
     }
@@ -849,7 +1370,7 @@ public class VistaPrincipal {
 
         backGR.setBounds(20,450,100,30);
         gestRate.add(backGR);
-
+/*
         ActionListener tornarGR = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -860,7 +1381,7 @@ public class VistaPrincipal {
             }
         };
         backGR.addActionListener(tornarGR);
-
+*/
 
         frase1GR.setFont(new Font("Arial", Font.PLAIN,18));
         frase1GR.setBounds(300,110,400,20);
@@ -894,7 +1415,7 @@ public class VistaPrincipal {
         deleteBR.setBounds(405,350,150,30);
         gestRate.add(deleteBR);
 
-
+/*
         ActionListener mod = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -922,7 +1443,7 @@ public class VistaPrincipal {
             }
         };
         deleteBR.addActionListener(eli);
-
+*/
 
     }
 
@@ -941,7 +1462,7 @@ public class VistaPrincipal {
         backGI.setBounds(20,450,100,30);
 
         gestItem.add(backGI);
-
+/*
         ActionListener tornarGI = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -953,7 +1474,7 @@ public class VistaPrincipal {
         };
         backGI.addActionListener(tornarGI);
 
-
+*/
         frase1GI.setFont(new Font("Arial", Font.PLAIN,18));
         frase1GI.setBounds(310,110,400,20);
         gestItem.add(frase1GI);
@@ -990,7 +1511,7 @@ public class VistaPrincipal {
         gesTag.setBounds(360,325,220,40);
         gestItem.add(gesTag);
 
-        ActionListener addIt = new ActionListener() {
+      /*  ActionListener addIt = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton pulsado: añadir");
@@ -1040,7 +1561,7 @@ public class VistaPrincipal {
         };
         gesTag.addActionListener(gt);
 
-
+*/
     }
 
     public  void gestion_tag(){
@@ -1057,7 +1578,7 @@ public class VistaPrincipal {
 
         backGT.setBounds(20,450,100,30);
         gestTag.add(backGT);
-
+/*
         ActionListener tornarGT = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1069,7 +1590,7 @@ public class VistaPrincipal {
         };
         backGT.addActionListener(tornarGT);
 
-
+*/
         frase1GT.setFont(new Font("Arial", Font.PLAIN,18));
         frase1GT.setBounds(330,110,400,20);
         gestTag.add(frase1GT);
@@ -1101,7 +1622,7 @@ public class VistaPrincipal {
         deleteT.setFont(new Font("Arial",Font.BOLD,18));
         deleteT.setBounds(405,350,150,30);
         gestTag.add(deleteT);
-
+/*
 
         ActionListener modT = new ActionListener() {
             @Override
@@ -1130,7 +1651,7 @@ public class VistaPrincipal {
             }
         };
         deleteT.addActionListener(eliminaT);
-
+*/
     }
 
     private  boolean isNumericI(String str) {

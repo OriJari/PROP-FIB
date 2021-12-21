@@ -13,7 +13,6 @@ public class ControladorPresentacion {
     public void run(){
         crearVista();
         v.hacerVisible();
-
     }
 
     public ControladorPresentacion(){

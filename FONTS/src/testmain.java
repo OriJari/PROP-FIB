@@ -1,4 +1,4 @@
-import java.util.*;
+/*import java.util.*;
 
 import dominio.clases.algorithm.collaborativefiltering.*;
 import dominio.clases.algorithm.contentbasedflitering.*;
@@ -10,13 +10,12 @@ import dominio.clases.recommendation.Recommendation;
 
 /**
  * @brief Clase ejecutable del proyecto con la que probar sus funcionalidades.
- */
+ **/
 
-import static java.lang.Math.max;
+/*import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class testmain {
-    /*
     private static Scanner sc;
     private static String path_item;
     private static String path_known;
@@ -242,5 +241,5 @@ public class testmain {
                     break;
             }
         }
-    }*/
-}
+    }
+}*/
