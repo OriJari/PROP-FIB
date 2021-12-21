@@ -89,7 +89,12 @@ public class ControladorPersistencia {
     }
 
 
-    public List<List<String>> getMapItem(){
+    public List<Integer> getMapItemIDs(){
+        List<Integer> result = new ArrayList<>();
+        return result;
+    }
+
+    public List<List<String>> getMapItemTags(){
         List<List<String>> result = new ArrayList<>();
         return result;
     }
