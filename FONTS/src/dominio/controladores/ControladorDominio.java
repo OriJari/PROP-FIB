@@ -3,10 +3,12 @@ package dominio.controladores;
 import dominio.clases.algorithm.collaborativefiltering.CollaborativeFiltering;
 import dominio.clases.algorithm.contentbasedflitering.K_NN;
 import dominio.clases.algorithm.hybrid.Hybrid;
+import dominio.clases.content.Content;
 import dominio.clases.evaluation.Evaluation;
 import dominio.clases.recommendation.Recommendation;
 import persistencia.ControladorPersistencia;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -60,6 +62,21 @@ public class ControladorDominio {
         return result;
     }
 
+
+    public Map<Integer, List<Content>> constructMapItem(List<Integer> IDs, List<List<String>> types, List<List<Integer>> ints, List<List<Double>> doubles, List<List<List<String>>> categorics) {
+        Map<Integer, List<Content>> result = new TreeMap<>();
+        int how_many_items = IDs.size();
+        int how_many_tags = types.get(1).size();
+        for (int i = 0; i < how_many_items; ++i) {
+            List<Content> new_tags = new ArrayList<>();
+            for (int j = 0; j < how_many_tags; ++j) {
+                Content tag = new Content(types.get(i).get(j),ints.get(i).get(j),doubles.get(i).get(j), categorics.get(i).get(j));
+                new_tags.add(tag);
+            }
+            result.put(IDs.get(i),new_tags);
+        }
+        return result;
+    }
     public void inicializar(String path){
         CP.inicializar(path);
 
@@ -75,13 +92,24 @@ public class ControladorDominio {
         List<List<Integer>> mapRateIDitemsUnknown = CP.getMapRateIDitems(2);
         List<List<Float>> mapRateValUnknown = CP.getMapRateVal(2);
 
+        List<Integer> mapItemIDs = CP.getMapItemIDs();
+        List<List<String>>  mapItemTagsTipus = CP.getMapTipusTags();
+        List<List<Integer>> mapItemTagsIntegers = CP.getMapIntegersTags();
+        List<List<Double>> mapItemTagsDoubles = CP.getMapDoublesTags();
+        List<List<List<String>>> mapItemTagsCategorics = CP.getMapCategoricsTags();
+
         Map<Integer, Map<Integer, Float>> mapRateRatings = constructMapRate(mapRateIDusersRatings, mapRateIDitemsRatings, mapRateValRatings);
         Map<Integer, Map<Integer, Float>> mapRateKnown = constructMapRate(mapRateIDusersKnown, mapRateIDitemsKnown, mapRateValKnown);
         Map<Integer, Map<Integer, Float>> mapRateUnknown = constructMapRate(mapRateIDusersUnknown, mapRateIDitemsUnknown, mapRateValUnknown);
+        Map<Integer, List<Content>> mapItems = constructMapItem(mapItemIDs, mapItemTagsTipus, mapItemTagsIntegers, mapItemTagsDoubles, mapItemTagsCategorics);
 
         int maxK = computeK(mapRateKnown, mapRateUnknown, 10);
         CFNotEval = new CollaborativeFiltering(mapRateRatings, new TreeMap<>(), maxK);
+        KNNEval = new K_NN(mapRateKnown, mapRateUnknown, mapItems, CP.list_item());
+        KNNnotEval = new K_NN(mapRateRatings, new TreeMap<>(), mapItems, CP.list_item());
 
+        KNNEval.initSimilarityTable();
+        KNNnotEval.initSimilarityTable();
     }
 
     public List<Integer> list_user(){
