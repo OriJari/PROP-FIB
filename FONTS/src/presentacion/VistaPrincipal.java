@@ -132,7 +132,6 @@ public class VistaPrincipal {
     private  String path_csv;
 
 
-
     public VistaPrincipal(ControladorPresentacion cp) {
         CP = cp;
         inicializaComponentes();
