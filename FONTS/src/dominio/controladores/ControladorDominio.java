@@ -7,16 +7,16 @@ import dominio.clases.evaluation.Evaluation;
 import dominio.clases.recommendation.Recommendation;
 import persistencia.ControladorPersistencia;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class ControladorDominio {
     private ControladorPersistencia CP;
-    private CollaborativeFiltering CF;
-    private K_NN KNN;
+    private CollaborativeFiltering CFNotEval;
+    private CollaborativeFiltering CFEval;
+    private K_NN KNNnotEval;
+    private K_NN KNNEval;
     private Evaluation E;
-    private boolean eval;
     private Recommendation rec;
     private Hybrid H;
 
@@ -42,7 +42,7 @@ public class ControladorDominio {
             }
         }
 
-        CF = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, maxK);
+        CFNotEval = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, maxK);
     }
     public void inicializar(String path){
         /*List<String> mapaS = CP.getMapRate(0);
@@ -101,17 +101,24 @@ public class ControladorDominio {
         return CP.getMapItem();
     }
 
-    public void recommendCF(int k, int userID){
-        rec = CF.recommend(userID, k, eval);
+    public void recommendCF(int k, int userID, boolean eval){
+        rec = CFNotEval.recommend(userID, k, eval);
     }
 
-    public void recommendCBF(int k, int userID){
-        rec = KNN.recommend(userID, k, eval);
+    public void recommendCBF(int k, int userID, boolean eval){
+        rec = KNNnotEval.recommend(userID, k, eval);
     }
 
-    public void recommendH(int k, int userID){
-        Recommendation r1 = CF.recommend(userID, k, eval);
-        Recommendation r2 = KNN.recommend(userID, k, eval);
+    public void recommendH(int k, int userID, boolean eval){
+        if (eval) {
+            Recommendation r1 = CFEval.recommend(userID, k, eval);
+            Recommendation r2 = KNNEval.recommend(userID, k, eval);
+        }
+        else{
+            Recommendation r1 = CFNotEval.recommend(userID, k, eval);
+            Recommendation r2 = KNNnotEval.recommend(userID, k, eval);
+        }
+
         rec = H.recommend(r1,r2,k);
     }
 
@@ -124,7 +131,6 @@ public class ControladorDominio {
     }
 
     public void evaluateRecomendation(boolean e) {
-        eval = e;
     }
 
     public List<Integer> list_itemREC() {

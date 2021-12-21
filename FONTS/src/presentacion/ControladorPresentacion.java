@@ -91,16 +91,16 @@ public class ControladorPresentacion {
 
 
 
-    public void recommendCF(int k, int userID){
-        CD.recommendCF(k, userID);
+    public void recommendCF(int k, int userID, boolean eval){
+        CD.recommendCF(k, userID, eval);
     }
 
-    public void recommendCBF(int k, int userID){
-        CD.recommendCBF(k, userID);
+    public void recommendCBF(int k, int userID, boolean eval){
+        CD.recommendCBF(k, userID, eval);
     }
 
-    public void recommendH(int k, int userID){
-        CD.recommendH(k, userID);
+    public void recommendH(int k, int userID, boolean eval){
+        CD.recommendH(k, userID, eval);
     }
 
 
