@@ -22,6 +22,7 @@ public class CollaborativeFiltering {
     private Map<Integer, Map<Integer, Float>> opinions;
     private Map<Integer, Map<Integer, Float>> unknown;
     private Vector<Vector<Integer>> clusters;
+    private Integer k;
 
 
     /** @brief <em>opinions</em> represents the ratings, float in the nested Map, that users, the first Integer is their ID, have given about items, their ID is the integer in the nested Map.
@@ -50,6 +51,13 @@ public class CollaborativeFiltering {
         this.unknown = unknown;
         this.opinions = opinions;
         K_Means Kmean = new K_Means(opinions);
+        this.k = k;
+        this.clusters = Kmean.k_means(k);
+    }
+
+    public void setK(int k){
+        K_Means Kmean = new K_Means(opinions);
+        this.k = k;
         this.clusters = Kmean.k_means(k);
     }
 

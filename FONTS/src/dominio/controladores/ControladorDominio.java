@@ -26,24 +26,26 @@ public class ControladorDominio {
         CP = new ControladorPersistencia();
     }
 
-    public void computeK(Map<Integer, Map<Integer, Float>> mapRateKnown, Map<Integer, Map<Integer, Float>> mapRateUnknown, int maxItems){
+    public Integer computeK(Map<Integer, Map<Integer, Float>> mapRateKnown, Map<Integer, Map<Integer, Float>> mapRateUnknown, int maxItems){
         CollaborativeFiltering CFAux;
-        int maxK = mapRateKnown.size()/50;
+        int maxK = 2;
         float maxDCG = 0.0f;
         E = new Evaluation(mapRateUnknown);
-        for(int i = maxK; i < mapRateKnown.size()/3; ++i){
+        CFEval = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, maxK);
+
+        for(int i = maxK; i < mapRateKnown.size()/10; ++i){
             float DCG = 0.0f;
-            CFAux = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, i);
+            CFEval.setK(i);
             for(Map.Entry<Integer, Map<Integer, Float>> entry: mapRateKnown.entrySet()){
-                DCG += E.DCG(CFAux.recommend(entry.getKey(), maxItems, true));
+                DCG += E.DCG(CFEval.recommend(entry.getKey(), maxItems, true));
             }
             if(DCG > maxDCG){
                 maxK = i;
                 maxDCG = DCG;
             }
         }
-
-        CFNotEval = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, maxK);
+        CFEval.setK(maxK);
+        return maxK;
     }
 
     public Map<Integer, Map<Integer, Float>> constructMap(List<Integer> mapRateIDusers, List<List<Integer>> mapRateIDitems, List<List<Float>> mapRateVal){
@@ -59,7 +61,8 @@ public class ControladorDominio {
     }
 
     public void inicializar(String path){
-        boolean result = CP.inicializar(path);
+        CP.inicializar(path);
+
         List<Integer> mapRateIDusersRatings = CP.getMapRateIDusers(0);
         List<List<Integer>> mapRateIDitemsRatings = CP.getMapRateIDitems(0);
         List<List<Float>> mapRateValRatings = CP.getMapRateVal(0);
@@ -76,8 +79,8 @@ public class ControladorDominio {
         Map<Integer, Map<Integer, Float>> mapRateKnown = constructMap(mapRateIDusersKnown, mapRateIDitemsKnown, mapRateValKnown);
         Map<Integer, Map<Integer, Float>> mapRateUnknown = constructMap(mapRateIDusersUnknown, mapRateIDitemsUnknown, mapRateValUnknown);
 
-        //CFNotEval = CollaborativeFiltering();
-
+        int maxK = computeK(mapRateKnown, mapRateUnknown, 10);
+        CFNotEval = new CollaborativeFiltering(mapRateRatings, new TreeMap<>(), maxK);
 
     }
 
