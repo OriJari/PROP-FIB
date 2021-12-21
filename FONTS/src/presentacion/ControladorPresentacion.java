@@ -13,10 +13,7 @@ public class ControladorPresentacion {
     private static VistaPrincipal v;
 
 
-
-
     public void run(){
-
         crearVista();
         v.hacerVisible();
 
