@@ -45,7 +45,6 @@ public class K_NN {
      * \post Similarity between all items has been calculated and stored in <em>similarityTable</em>
      */
     public void initSimilarityTable() {
-        //given a Map<int, List<Content>> with int = id and List<Content> = tags converted to bool/int/double/string
         int n = mapa_items.size();
         similarityTable = new double[n][n];
         double similarity;
@@ -84,7 +83,18 @@ public class K_NN {
     }
 
     public void actualitza_taula(int item_id){
-
+        int mida = similarityTable.length;
+        List<Content> content1 = mapa_items.get(id_reals.get(item_id));
+        double normalization = calculate_similarity(content1, content1);
+        double normalization_i;
+        for (int i = 0; i < mida && i != item_id; ++i) {
+            List<Content> content2 = mapa_items.get(id_reals.get(i));
+            normalization_i = calculate_similarity(content2, content2);
+            double sim = calculate_similarity(content1, content2);
+            similarityTable[i][item_id] = sim/normalization_i;
+            similarityTable[item_id][i] = sim/normalization;
+        }
+        similarityTable[item_id][item_id] = 1.0;
     }
 
     public void nou_item_taula(int item_id) {

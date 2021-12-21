@@ -1,7 +1,6 @@
 package dominio.controladores.drivers;
 
-import dominio.clases.content.*;
-import dominio.clases.preprocessat.*;
+import persistencia.preprocessat.*;
 
 
 import java.io.BufferedReader;

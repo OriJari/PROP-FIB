@@ -3,7 +3,7 @@ package dominio.controladores.drivers;
 import dominio.clases.algorithm.collaborativefiltering.*;
 import dominio.clases.algorithm.slopeone.*;
 
-import dominio.clases.preprocessat.*;
+import persistencia.preprocessat.*;
 import dominio.clases.rating.Rating;
 import dominio.clases.recommendation.Recommendation;
 

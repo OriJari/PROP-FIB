@@ -11,11 +11,11 @@ import static java.lang.System.out;
 
 public class RecommendationSave {
 
-    List<Integer> id_user;
-    List<List<Integer>> idItems;
-    List<List<Float>> values;
-    List<Integer> algorithm;
-    List<String> dates;
+    private List<Integer> id_user;
+    private List<List<Integer>> idItems;
+    private List<List<Float>> values;
+    private List<Integer> algorithm;
+    private List<String> dates;
 
     public RecommendationSave(){
         this.id_user = new ArrayList<>();
@@ -85,6 +85,7 @@ public class RecommendationSave {
         dates.add(data);
     }
 
+
     public String datasystem(Date data){
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
@@ -143,13 +144,6 @@ public class RecommendationSave {
                     values.add(val);
                     idIt = new ArrayList<>();
                     val = new ArrayList<>();
-                    /*idIt.remove(2);
-                    idIt.remove(1);
-                    idIt.remove(0);
-                    val.remove(2);
-                    val.remove(1);
-                    val.remove(0);*/
-                    //if (sc.hasNextLine()) line = sc.nextLine();
                 }
                 if (line.contains("ITEMS:")) line = sc.nextLine();
                 List<String> splitContent = Arrays.asList(line.split(","));
@@ -183,7 +177,7 @@ public class RecommendationSave {
         }
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         RecommendationSave r = new RecommendationSave();
         int user = 234;
         int user1 = 123;
@@ -245,5 +239,5 @@ public class RecommendationSave {
         RecommendationSave s = new RecommendationSave();
         s.reloadRecommendation("DATA/");
         out.println("adios");
-    }
+    }*/
 }
