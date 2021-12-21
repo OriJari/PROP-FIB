@@ -124,4 +124,16 @@ public class ControladorPersistencia {
         List<Integer> result = new ArrayList<>();
         return result;
     }
+
+    public List<Integer> get_item_rec(){
+        return Recomm.getId_user();
+    }
+
+    public List<Integer> get_alg_rec(){
+        return Recomm.getAlgorithm();
+    }
+
+    public List<String> get_dates_rec(){
+        return Recomm.getDates();
+    }
 }

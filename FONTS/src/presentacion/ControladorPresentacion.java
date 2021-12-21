@@ -88,8 +88,8 @@ public class ControladorPresentacion {
         return CD.saveRecomendation();
     }
 
-    public boolean evaluateRecomendation(boolean e){
-        return CD.evaluateRecomendation(e);
+    public void evaluateRecomendation(boolean e){
+        CD.evaluateRecomendation(e);
     }
 
 
@@ -121,5 +121,16 @@ public class ControladorPresentacion {
 
     public List<Integer> list_itemSavedREC(String path_rec) {
         return CD.list_itemSavedREC(path_rec);
+    }
+
+    public List<Integer> get_item_rec(){
+        return CD.get_item_rec();
+    }
+
+    public List<Integer> get_alg_rec(){
+        return CD.get_alg_rec();
+    }
+    public List<String> get_dates_rec(){
+        return CD.get_dates_rec();
     }
 }

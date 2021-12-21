@@ -14,6 +14,7 @@ public class ControladorDominio {
     private CollaborativeFiltering CF;
     private K_NN KNN;
     private Evaluation E;
+    private boolean eval;
 
     public ControladorDominio(){
         //Cridar a Persistencia a que porti tots els mapes (En format List<String> i transformar-ho a maps)
@@ -118,8 +119,8 @@ public class ControladorDominio {
         return true;
     }
 
-    public boolean evaluateRecomendation(boolean e) {
-        return true;
+    public void evaluateRecomendation(boolean e) {
+        eval = e;
     }
 
     public List<Integer> list_itemREC() {
@@ -140,5 +141,17 @@ public class ControladorDominio {
 
     public List<Integer> list_itemSavedREC(String path_rec) {
         return CP.list_itemSavedREC(path_rec);
+    }
+
+    public List<Integer> get_item_rec(){
+        return CP.get_item_rec();
+    }
+
+    public List<Integer> get_alg_rec(){
+        return CP.get_alg_rec();
+    }
+
+    public List<String> get_dates_rec(){
+        return CP.get_dates_rec();
     }
 }
