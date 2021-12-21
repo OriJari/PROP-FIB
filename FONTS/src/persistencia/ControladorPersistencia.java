@@ -1,6 +1,5 @@
 package persistencia;
 
-import dominio.clases.content.Content;
 import persistencia.preprocessat.CSVparserItem;
 import persistencia.preprocessat.CSVparserRate;
 import persistencia.preprocessat.RecommendationSave;
@@ -105,5 +104,16 @@ public class ControladorPersistencia {
         List<String> result = new ArrayList<>();
         return result;
         //retrona llistat de tags per litem donat
+    }
+
+    public List<Float> list_valSavedREC(String path_rec) {
+        List<Float> result = new ArrayList<>();
+        return result;
+        //retorna la llista
+    }
+
+    public List<Integer> list_itemSavedREC(String path_rec) {
+        List<Integer> result = new ArrayList<>();
+        return result;
     }
 }

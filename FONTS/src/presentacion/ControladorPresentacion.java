@@ -26,7 +26,7 @@ public class ControladorPresentacion {
         CD = new ControladorDominio();
     }
 
-    public  void crearVista(){
+    public void crearVista(){
         v = new VistaPrincipal(this);
     }
     public void inicializar(String path){
@@ -97,18 +97,32 @@ public class ControladorPresentacion {
 
 
 
-    public void recommendCF(boolean valoration, int k){
-        CD.recommendCF(valoration, k);
+    public void recommendCF(int k){
+        CD.recommendCF(k);
     }
 
-    public void recommendCBF(boolean valoration, int k){
-        CD.recommendCBF(valoration, k);
+    public void recommendCBF(int k){
+        CD.recommendCBF(k);
     }
 
-    public void recommendH(boolean valoration, int k){
-        CD.recommendH(valoration, k);
+    public void recommendH(int k){
+        CD.recommendH(k);
     }
 
 
+    public List<Integer> list_itemREC() {
+        return CD.list_itemREC();
+    }
 
+    public List<Float> list_valREC() {
+        return CD.list_valREC();
+    }
+
+    public List<Float> list_valSavedREC(String path_rec) {
+        return CD.list_valSavedREC(path_rec);
+    }
+
+    public List<Integer> list_itemSavedREC(String path_rec) {
+        return CD.list_itemSavedREC(path_rec);
+    }
 }
