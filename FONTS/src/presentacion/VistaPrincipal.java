@@ -14,22 +14,21 @@ import java.util.Vector;
 public class VistaPrincipal {
 
     //controlador presentacio
-    private  ControladorPresentacion CP;
+    private ControladorPresentacion CP;
 
     //components gui
-    private  JFrame fin = new JFrame("Recomendation System");
+    private JFrame fin = new JFrame("Recomendation System");
 
 
     //recomendacions
-    private  JComboBox algoritme;
-    private  JButton busca = new JButton("Buscar");
-    private  JButton save = new JButton("Guardar recomendación");
-    private  boolean nova_rec;
+    private JButton busca = new JButton("Buscar");
+    private JButton save = new JButton("Guardar recomendación");
+    private boolean nova_rec;
     private java.util.List<Integer> id;
     private List<Float> val;
-    private  int nitems;
-    private  JCheckBox eval = new JCheckBox("Evaluación");
-    private  boolean checkbox = false;
+    private int nitems;
+    private JCheckBox eval = new JCheckBox("Evaluación");
+    private boolean checkbox = false;
 
     //user
     private  JTextField tUserId = new JTextField();
@@ -70,10 +69,37 @@ public class VistaPrincipal {
     //menuRecomanacio
     private JPanel menR = new JPanel();
     private JLabel titolMR = new JLabel("RECOMENDACIONES");
+    private JButton backRm = new JButton("Volver");
+    private JButton nuevarec = new JButton("Nueva Recomendación");
+    private JButton savedrec = new JButton("Cargar Recomendación");
+
+    //recomanacio
+    private JPanel recomana = new JPanel();
+    private JLabel titolRecomanacio = new JLabel("RECOMENDACIONES");
+    private JButton backR = new JButton("Volver");
+    private JLabel frase1Recomanacio = new JLabel("Buscar Recomendación");
+    private JComboBox CuserID = new JComboBox(/*(Vector) CP.list_user()*/);
+    private JLabel frase2Recomanacio = new JLabel("Para el usuario:");
+    private JLabel frase3Recomanacio = new JLabel("Con el algoritmo:");
+    private JLabel frase4Recomanacio = new JLabel("Numero de items recomendados:");
+    private  JComboBox algoritme = new JComboBox();
+    private JComboBox nit = new JComboBox();
+
+    //carega recomanacio
+    private JPanel cargarR = new JPanel();
+    private JLabel titolCargaR = new JLabel("RECOMENDACIONES");
+    private JButton back_carRm = new JButton("Volver");
+    private JLabel frase1CR = new JLabel("Escoja la recomendacion guardada");
+    private JComboBox combo_rec;
+    private JButton openB = new JButton("Open");
+
+    //items recomanats
+    private JPanel item_rec = new JPanel();
+
 
     //atributs
-    protected  int panelactual = 5;
-    protected  String path_csv;
+    private  int panelactual = 5;
+    private  String path_csv;
 
 
 
@@ -326,12 +352,11 @@ public class VistaPrincipal {
         titolMR.setBounds(310,30,550,40);
         menR.add(titolMR);
 
-        JButton backRm = new JButton("Volver");
+
         backRm.setBounds(20,450,100,30);
         menR.add(backRm);
 
-        JButton nuevarec = new JButton("Nueva Recomendación");
-        JButton savedrec = new JButton("Cargar Recomendación");
+
         nuevarec.setFont(new Font("Arial", Font.BOLD, 20));
         savedrec.setFont(new Font("Arial", Font.BOLD, 20));
         nuevarec.setBounds(300, 160,350,40);
@@ -383,17 +408,17 @@ public class VistaPrincipal {
     }
 
     public  void recomanacio(){
-        JPanel recomana = new JPanel();
+
         fin.add(recomana);
         recomana.setVisible(true);
         recomana.setLayout(null);
 
-        JLabel titolR = new JLabel("RECOMENDACIONES");
-        titolR.setFont(new Font("Arial",Font.BOLD,30));
-        titolR.setBounds(310,30,550,40);
-        recomana.add(titolR);
 
-        JButton backR = new JButton("Volver");
+        titolRecomanacio.setFont(new Font("Arial",Font.BOLD,30));
+        titolRecomanacio.setBounds(310,30,550,40);
+        recomana.add(titolRecomanacio);
+
+
         backR.setBounds(20,450,100,30);
 
         recomana.add(backR);
@@ -410,31 +435,21 @@ public class VistaPrincipal {
         backR.addActionListener(tornarR);
 
 
-        JLabel frase1 = new JLabel("Buscar Recomendación");
-        frase1.setFont(new Font("Arial",Font.PLAIN,22));
-        frase1.setBounds(350,110,400,20);
-        recomana.add(frase1);
+
+        frase1Recomanacio.setFont(new Font("Arial",Font.PLAIN,22));
+        frase1Recomanacio.setBounds(350,110,400,20);
+        recomana.add(frase1Recomanacio);
 
 
-/*
-        File file = new File(path_csv);
-
-        String[] directories = file.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File current, String name) {
-                return new File(current, name).isDirectory();
-            }
-        });
-        System.out.println(Arrays.toString(directories));*/
 
 
-        JLabel frase2 = new JLabel("Para el usuario:");
-        frase2.setFont(new Font("Arial",Font.PLAIN,18));
-        frase2.setBounds(281,180,150,25);
-        recomana.add(frase2);
+
+        frase2Recomanacio.setFont(new Font("Arial",Font.PLAIN,18));
+        frase2Recomanacio.setBounds(281,180,150,25);
+        recomana.add(frase2Recomanacio);
 
 
-        JComboBox CuserID = new JComboBox(/*CP.list_user()/*directories*/);
+
 
         CuserID.setBounds(470,180,250,25);
         CuserID.addItem("2848721");
@@ -442,12 +457,12 @@ public class VistaPrincipal {
 
         recomana.add(CuserID);
 
-        JLabel frase3 = new JLabel("Con el algoritmo:");
-        frase3.setFont(new Font("Arial",Font.PLAIN,18));
-        frase3.setBounds(273,240,150,25);
-        recomana.add(frase3);
 
-        algoritme = new JComboBox();
+        frase3Recomanacio.setFont(new Font("Arial",Font.PLAIN,18));
+        frase3Recomanacio.setBounds(273,240,150,25);
+        recomana.add(frase3Recomanacio);
+
+
 
         algoritme.setBounds(470,240,250,25);
         algoritme.addItem("Collaborative filtering");
@@ -460,12 +475,12 @@ public class VistaPrincipal {
         fin.setSize(960,541);
         fin.setSize(960,540);
 
-        JLabel frase4 = new JLabel("Numero de items recomendados:");
-        frase4.setFont(new Font("Arial",Font.PLAIN,18));
-        frase4.setBounds(145,300,300,25);
-        recomana.add(frase4);
 
-        JComboBox nit = new JComboBox();
+        frase4Recomanacio.setFont(new Font("Arial",Font.PLAIN,18));
+        frase4Recomanacio.setBounds(145,300,300,25);
+        recomana.add(frase4Recomanacio);
+
+
         nit.setBounds(470,300,250,25);
         nit.addItem("1");
         nit.addItem("2");
@@ -519,17 +534,17 @@ public class VistaPrincipal {
     }
 
     public  void cargar_rec(){
-        JPanel cargarR = new JPanel();
+
         fin.add(cargarR);
         cargarR.setVisible(true);
         cargarR.setLayout(null);
 
-        JLabel titolR = new JLabel("RECOMENDACIONES");
-        titolR.setFont(new Font("Arial",Font.BOLD,30));
-        titolR.setBounds(310,30,550,40);
-        cargarR.add(titolR);
 
-        JButton back_carRm = new JButton("Volver");
+        titolCargaR.setFont(new Font("Arial",Font.BOLD,30));
+        titolCargaR.setBounds(310,30,550,40);
+        cargarR.add(titolCargaR);
+
+
         back_carRm.setBounds(20,450,100,30);
         cargarR.add(back_carRm);
 
@@ -545,10 +560,10 @@ public class VistaPrincipal {
         back_carRm.addActionListener(cargar_rec_back);
 
 
-        JLabel frase1 = new JLabel("Escoja la recomendacion guardada");
-        frase1.setFont(new Font("Arial", Font.PLAIN,22));
-        frase1.setBounds(300,130,400,25);
-        cargarR.add(frase1);
+
+        frase1CR.setFont(new Font("Arial", Font.PLAIN,22));
+        frase1CR.setBounds(300,130,400,25);
+        cargarR.add(frase1CR);
 
 
 
@@ -563,7 +578,7 @@ public class VistaPrincipal {
         });
         System.out.println(Arrays.toString(directories));
 
-        JComboBox combo_rec = new JComboBox(directories);
+        combo_rec = new JComboBox(directories);
 
         combo_rec.setBounds(265,190,400,25);
 
@@ -575,10 +590,10 @@ public class VistaPrincipal {
 
 
 
-        JButton startB = new JButton("Open");
-        startB.setBounds(285,380,350,40);
-        startB.setFont(new Font("Arial", Font.BOLD, 20));
-        cargarR.add(startB);
+
+        openB.setBounds(285,380,350,40);
+        openB.setFont(new Font("Arial", Font.BOLD, 20));
+        cargarR.add(openB);
 
         ActionListener comencem = new ActionListener() {
             @Override
@@ -594,19 +609,19 @@ public class VistaPrincipal {
                 panelmain();
             }
         };
-        startB.addActionListener(comencem);
+        openB.addActionListener(comencem);
     }
 
     public  void rec_items(){
-        JPanel item_rec = new JPanel();
+
         fin.add(item_rec);
         item_rec.setVisible(true);
         item_rec.setLayout(null);
 
-        JLabel titolR = new JLabel("RECOMENDACIONES");
-        titolR.setFont(new Font("Arial",Font.BOLD,30));
-        titolR.setBounds(310,30,550,40);
-        item_rec.add(titolR);
+        JLabel titolIR = new JLabel("RECOMENDACIONES");
+        titolIR.setFont(new Font("Arial",Font.BOLD,30));
+        titolIR.setBounds(310,30,550,40);
+        item_rec.add(titolIR);
 
 
         JButton back_carRm = new JButton("Volver");
@@ -966,24 +981,6 @@ public class VistaPrincipal {
 
     }
 
-    private  boolean isNumericI(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
-    }
-
-    private  boolean isNumericF(String str) {
-        try {
-            Float.parseFloat(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
-    }
-
     public  void gestion_item(){
         JPanel gestItem = new JPanel();
         fin.add(gestItem);
@@ -1190,5 +1187,25 @@ public class VistaPrincipal {
         deleteT.addActionListener(eliminaT);
 
     }
+
+
+    private  boolean isNumericI(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+
+    private  boolean isNumericF(String str) {
+        try {
+            Float.parseFloat(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+
 
 }
