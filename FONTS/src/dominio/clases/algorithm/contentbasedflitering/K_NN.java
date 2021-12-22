@@ -94,7 +94,20 @@ public class K_NN {
     }
 
     public void nou_item_taula(int item_id) {
-
+        int n = mapa_items.size();
+        List<Content> content1 = mapa_items.get(id_reals.get(item_id));
+        double[][] new_table = new double[n][n];
+        double normalization = calculate_similarity(content1, content1);
+        double normalization_i;
+        for (int i = 0; i < n-1; ++i) {
+            System.arraycopy(similarityTable[i], 0, new_table[i], 0, n - 1);
+            List<Content> content2 = mapa_items.get(id_reals.get(i));
+            normalization_i = calculate_similarity(content2, content2);
+            double sim = calculate_similarity(content1, content2);
+            new_table[i][item_id] = sim/normalization_i;
+            new_table[item_id][i] = sim/normalization;
+        }
+        similarityTable = new_table;
     }
 
     public void modifica_map_rating() {
