@@ -324,4 +324,10 @@ public class ControladorDominio {
     public List<String> get_dates_rec(){
         return CP.get_dates_rec();
     }
+
+    public void guardarCambios(){
+        if(CP.crear_carpeta()){
+            CP.guardado();
+        }
+    }
 }
