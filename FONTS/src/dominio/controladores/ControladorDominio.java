@@ -13,6 +13,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ *
+ * @author
+ */
+
 public class ControladorDominio {
     private ControladorPersistencia CP;
     private CollaborativeFiltering CFNotEval;
@@ -71,7 +76,7 @@ public class ControladorDominio {
             List<Content> new_tags = new ArrayList<>();
             for (int j = 0; j < how_many_tags; ++j) {
                 Content tag = new Content(types.get(i).get(j),ints.get(i).get(j),doubles.get(i).get(j), categorics.get(i).get(j));
-               // new_tags.add(tag);
+                new_tags.add(tag);
             }
             result.put(IDs.get(i),new_tags);
         }

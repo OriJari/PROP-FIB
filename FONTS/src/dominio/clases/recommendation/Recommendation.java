@@ -5,7 +5,10 @@ import dominio.clases.rating.Rating;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+/**
+ *
+ * @author
+ */
 public class Recommendation {
     List<Rating> conjunt;
     int ID_perfil;

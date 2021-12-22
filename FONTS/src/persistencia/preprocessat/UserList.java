@@ -7,7 +7,10 @@ import java.io.PrintWriter;
 import java.util.*;
 
 import static java.lang.System.out;
-
+/**
+ *
+ * @author Miguel Gutierrez Jariod
+ */
 public class UserList {
     Set<Integer> users;
 

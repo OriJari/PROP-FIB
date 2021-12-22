@@ -8,7 +8,10 @@ import java.util.*;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 import static java.lang.System.out;
-
+/**
+ *
+ * @author Miguel Gutierrez Jariod
+ */
 public class RecommendationSave {
 
     private List<Integer> id_user;

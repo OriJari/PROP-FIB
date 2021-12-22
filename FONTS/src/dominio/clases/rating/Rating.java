@@ -2,6 +2,11 @@ package dominio.clases.rating;
 
 import java.util.Comparator;
 
+/**
+ *
+ * @author
+ */
+
 /** @class rating
  * @brief Rating of a dominio.controladores.clases.atribut.user of the dominio.controladores.clases.atribut.item with id <em>id</em> and rating <em>valor</em>.
  */

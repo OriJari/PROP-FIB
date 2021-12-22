@@ -6,7 +6,10 @@ import persistencia.preprocessat.RecommendationSave;
 import persistencia.preprocessat.UserList;
 
 import java.util.*;
-
+/**
+ *
+ * @author Miguel Gutierrez Jariod
+ */
 public class ControladorPersistencia {
 
     CSVparserItem CSVItem;
