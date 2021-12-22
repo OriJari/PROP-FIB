@@ -351,6 +351,7 @@ public class VistaPrincipal {
         int i = combo_rec.getSelectedIndex();
         id_List = CP.list_itemSavedREC(ids_list.get(i),alg_list.get(i),dat_list.get(i));
         val_List = CP.list_valSavedREC(ids_list.get(i),alg_list.get(i),dat_list.get(i));
+
         System.out.println("boton pulsado: open ");
         nova_rec = false;
         panelactual = 7;
@@ -1390,19 +1391,7 @@ public class VistaPrincipal {
 
         backGT.setBounds(20,450,100,30);
         gestTag.add(backGT);
-/*
-        ActionListener tornarGT = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: tornarGT");
-                panelactual = 3;
-                gestTag.setVisible(false);
-                panelmain();
-            }
-        };
-        backGT.addActionListener(tornarGT);
 
-*/
         frase1GT.setFont(new Font("Arial", Font.PLAIN,18));
         frase1GT.setBounds(330,110,400,20);
         gestTag.add(frase1GT);
@@ -1436,36 +1425,7 @@ public class VistaPrincipal {
         deleteT.setFont(new Font("Arial",Font.BOLD,18));
         deleteT.setBounds(405,350,150,30);
         gestTag.add(deleteT);
-/*
 
-        ActionListener modT = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: modificar");
-
-                if(CP.modifyTag(id_actual, (String) TagsItems.getSelectedItem(), tagmod.getText())){
-                    JOptionPane.showMessageDialog(gestTag,"Modificado correctamente");
-                    System.out.println(tagmod.getText());
-                }
-                else JOptionPane.showMessageDialog(gestTag,"No se ha podido modificar correctamente","Error",0);
-            }
-        };
-        modify.addActionListener(modT);
-
-        ActionListener eliminaT = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: eliminar");
-
-                if(CP.delTag(id_actual, (String) TagsItems.getSelectedItem())){
-                    JOptionPane.showMessageDialog(gestTag,"Eliminado correctamente");
-                    System.out.println("eliminado");
-                }
-                else JOptionPane.showMessageDialog(gestTag,"No se ha podido eliminar correctamente","Error",0);
-            }
-        };
-        deleteT.addActionListener(eliminaT);
-*/
     }
 
     private  boolean isNumericI(String str) {
