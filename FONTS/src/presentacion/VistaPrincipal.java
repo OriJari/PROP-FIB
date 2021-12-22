@@ -84,7 +84,7 @@ public class VistaPrincipal {
     private JLabel titolRecomanacio = new JLabel("RECOMENDACIONES");
     private JButton backR = new JButton("Volver");
     private JLabel frase1Recomanacio = new JLabel("Buscar Recomendación");
-    private JComboBox CuserID;
+    private JComboBox CuserID = new JComboBox();
     private JLabel frase2Recomanacio = new JLabel("Para el usuario:");
     private JLabel frase3Recomanacio = new JLabel("Con el algoritmo:");
     private JLabel frase4Recomanacio = new JLabel("Numero de items recomendados:");
@@ -187,6 +187,7 @@ public class VistaPrincipal {
         algoritme.addItem("Collaborative filtering");
         algoritme.addItem("Content based filtering");
         algoritme.addItem("Hybrid algorithm");
+
 
     }
 
@@ -293,6 +294,8 @@ public class VistaPrincipal {
         System.out.println("boton pulsado: nuevarec");
         panelactual = 5;
         menR.setVisible(false);
+
+
         panelmain();
     }
     public void actionPerformed_savedrec(ActionEvent e) {
@@ -319,6 +322,7 @@ public class VistaPrincipal {
     public void actionPerformed_backR(ActionEvent e) {
         System.out.println("boton pulsado: tornarR");
         panelactual = 4;
+
         recomana.setVisible(false);
         panelmain();
     }
@@ -342,6 +346,7 @@ public class VistaPrincipal {
         val_List = CP.list_valREC();
         System.out.println("boton pulsado: buscar");
         panelactual = 7;
+
         recomana.setVisible(false);
         panelmain();
     }
@@ -1014,28 +1019,24 @@ public class VistaPrincipal {
 
         recomana.add(backR);
 
-
-
-
-
-        frase1Recomanacio.setFont(new Font("Arial",Font.PLAIN,22));
+         frase1Recomanacio.setFont(new Font("Arial",Font.PLAIN,22));
         frase1Recomanacio.setBounds(350,110,400,20);
         recomana.add(frase1Recomanacio);
-
-
-
-
 
         frase2Recomanacio.setFont(new Font("Arial",Font.PLAIN,18));
         frase2Recomanacio.setBounds(281,180,150,25);
         recomana.add(frase2Recomanacio);
 
 
+
         List<Integer> l = CP.list_user_recommana(checkbox);
         Vector<Integer> v = new Vector<>();
         for (int i = 0; i < l.size(); ++i) v.add(l.get(i));
 
-        CuserID = new JComboBox(v);
+
+        CuserID.setModel(new DefaultComboBoxModel(v));
+        CuserID.updateUI();
+
         CuserID.setBounds(470,180,250,25);
 
 
@@ -1071,7 +1072,7 @@ public class VistaPrincipal {
         recomana.add(busca);
 
 
-        recomana.repaint();
+
 
     }
 
@@ -1459,5 +1460,7 @@ public class VistaPrincipal {
             return false;
         }
     }
+
+
 
 }
