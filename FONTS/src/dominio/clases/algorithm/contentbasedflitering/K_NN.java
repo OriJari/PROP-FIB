@@ -171,7 +171,7 @@ public class K_NN {
      */
     public void Del_Item(int ID_item) {
         int id_fals = id_reals.indexOf(ID_item);
-        id_reals.remove(ID_item);
+        id_reals.remove(id_fals);
         mapa_items.remove(ID_item);
         elimina_item_mapa_rating(ID_item);
         esborra_item_taula(id_fals);
@@ -213,13 +213,22 @@ public class K_NN {
     }
 
     public void elimina_item_mapa_rating(int Item_ID) {
+        Map<Integer, Map<Integer, Float>> aux = new TreeMap<>();
+        for(Map.Entry<Integer, Map<Integer, Float>> entry1: mapa_known.entrySet()){
+            Map<Integer, Float> rowMap = new TreeMap<>();
+            for(Map.Entry<Integer, Float> entry2: entry1.getValue().entrySet()){
+                rowMap.put(entry2.getKey(), entry2.getValue());
+            }
+            aux.put(entry1.getKey(), rowMap);
+        }
         for (Map.Entry<Integer,Map<Integer,Float>> entry : mapa_known.entrySet()) {
             int user_id = entry.getKey();
             if (entry.getValue().containsKey(Item_ID)) {
-                if (entry.getValue().size() == 1) mapa_known.remove(user_id);
-                else mapa_known.get(user_id).remove(Item_ID);
+                if (entry.getValue().size() == 1) aux.remove(user_id);
+                else aux.get(user_id).remove(Item_ID);
             }
         }
+        mapa_known = aux;
     }
 
     /**

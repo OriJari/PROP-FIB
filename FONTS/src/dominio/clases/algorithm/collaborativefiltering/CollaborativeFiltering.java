@@ -58,10 +58,10 @@ public class CollaborativeFiltering {
     }
 
     public void elbowtest(Map<Integer, Map<Integer, Float>> opinions){
-        int maxK = min(8, opinions.size());
-        Vector<Float> inertias = new Vector<>();
+        /*int maxK = min(8, opinions.size());
+        Vector<Float> inertias = new Vector<>();*/
         K_Means Kmean = new K_Means(opinions);
-        for(int k = 0; k < maxK; ++k){
+        /*for(int k = 0; k < maxK; ++k){
             Kmean.k_means(k+1);
             inertias.add(Kmean.inertia());
         }
@@ -85,10 +85,10 @@ public class CollaborativeFiltering {
                 maxDiffAng = diffAng;
                 bestK = i+2;
             }
-        }
+        }*/
 
         System.out.println("The best K is: " + bestK);
-
+        bestK = 3;
         Kmean.k_means(bestK);
         this.clusters = Kmean.getClusters();
     }
