@@ -1,6 +1,7 @@
 package dominio.controladores.drivers;
 
 import dominio.clases.algorithm.contentbasedflitering.*;
+import dominio.clases.content.Content;
 import dominio.clases.rating.Rating;
 import dominio.clases.recommendation.Recommendation;
 

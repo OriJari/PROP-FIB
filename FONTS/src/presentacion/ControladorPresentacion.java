@@ -1,10 +1,8 @@
 package presentacion;
 
 import dominio.controladores.*;
-
-import java.io.IOException;
 import java.util.List;
-import java.util.*;
+
 
 public class ControladorPresentacion {
     private ControladorDominio CD;

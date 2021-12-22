@@ -1,4 +1,4 @@
-/*package dominio.controladores.drivers;
+package dominio.controladores.drivers;
 
 import dominio.clases.algorithm.collaborativefiltering.*;
 import dominio.clases.algorithm.slopeone.*;
@@ -21,11 +21,11 @@ import static java.lang.Math.min;
  * @author Oriol Martí Jariod
  */
 
-/*
+
 public class Driverslopeone {
     private static Scanner sc;
 
-/*
+
 
     public static Map<Integer, Map<Integer, Float>> leeropinions(){
         System.out.println("Numero de users: ");
@@ -86,7 +86,7 @@ public class Driverslopeone {
         System.out.println("\t0) salir");
         boolean salir = false;
         sc = new Scanner(System.in);
-        CSVparserRate csv = new CSVparserRate("FONTS/src/persistencia/movie.sample/250/ratings.test.known.csv");
+        CSVparserRate csv = new CSVparserRate("DATA/movies250/ratings.test.known.csv");
         csv.readLoadRate();
         csv.LoadRate(csv.getContent());
 
@@ -153,7 +153,7 @@ public class Driverslopeone {
         System.out.println("\t0) salir");
         boolean salir = false;
         sc = new Scanner(System.in);
-        CSVparserRate csv = new CSVparserRate("FONTS/src/persistencia/movie.sample/750/ratings.test.known.csv");
+        CSVparserRate csv = new CSVparserRate("DATA/movies750/ratings.test.known.csv");
         csv.readLoadRate();
         csv.LoadRate(csv.getContent());
 
@@ -327,4 +327,4 @@ public class Driverslopeone {
             }
         }
     }
-}*/
+}
