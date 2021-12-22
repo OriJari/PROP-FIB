@@ -117,8 +117,8 @@ public class ControladorPresentacion {
         return CD.list_itemSavedREC(IDuser, alg, Date);
     }
 
-    public List<Integer> get_item_rec(){
-        return CD.get_item_rec();
+    public List<Integer> get_IDuser_rec(){
+        return CD.get_IDuser_rec();
     }
 
     public List<Integer> get_alg_rec(){

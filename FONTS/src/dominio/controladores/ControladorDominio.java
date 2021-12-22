@@ -232,8 +232,8 @@ public class ControladorDominio {
         return CP.list_itemSavedREC(IDuser, alg, Date);
     }
 
-    public List<Integer> get_item_rec(){
-        return CP.get_item_rec();
+    public List<Integer> get_IDuser_rec(){
+        return CP.get_IDuser_rec();
     }
 
     public List<Integer> get_alg_rec(){
