@@ -232,4 +232,8 @@ public class ControladorPersistencia {
             iniciar_reload(name_dir);
         }
     }
+
+    public void saveRec(int IDuser, int alg,  List<Integer> IDitems,List<Float> valors){
+
+    }
 }

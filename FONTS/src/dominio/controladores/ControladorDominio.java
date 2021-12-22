@@ -220,6 +220,10 @@ public class ControladorDominio {
         //retorna la llista de valors de la recomanacio
     }
 
+    public void saveRec(){
+        CP.saveRec(rec.getID_perfil(), , rec.getItemIDs(), rec.getItemRates())
+    }
+
     public List<Float> list_valSavedREC(String path_rec) {
         return CP.list_valSavedREC(path_rec);
     }
