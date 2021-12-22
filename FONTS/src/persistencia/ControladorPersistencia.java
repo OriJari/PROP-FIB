@@ -27,6 +27,7 @@ public class ControladorPersistencia {
     CSVparserRate CSVUnknown;
     RecommendationSave Recomm;
     UserList UserList;
+    String directory;
 
     /**
      * @brief Default builder.
@@ -281,111 +282,245 @@ public class ControladorPersistencia {
         else  return CSVUnknown.obtenlistavalues();
     }
 
-
+    /**
+     * @brief Getter of the class, gets the set of id items
+     * \pre needs to have a mapRatedata to obtain the set of id items
+     * \post obtain the set of id items of the csv
+     * @return the array list of ths different items of the csv
+     */
     public List<Integer> getMapItemIDs(){
         return CSVItem.getId_Items();
     }
 
+    /**
+     * @brief obtains the list of the types form each item in the csv
+     * \pre needs a mapRatedata to read.
+     * \post obtain the types form each column of the differents items in the csv
+     * @return list of list of strings corresponding to the type of each element of the item.
+     */
     public List<List<String>> getMapTipusTags(){
         return CSVItem.obtentipus();
     }
 
+    /**
+     * @brief obtains the list of the integers form each item in the csv
+     * \pre needs a mapRatedata to read.
+     * \post obtain the integers form each column of the differents items in the csv
+     * @return list of list of integers corresponding to each element of the item is an integer and it value.
+     */
     public List<List<Integer>> getMapIntsTags(){
         return CSVItem.obtenints();
     }
+
+    /**
+     * @brief obtains the list of the doubles form each item in the csv
+     * \pre needs a mapRatedata to read.
+     * \post obtain the doubles form each column of the differents items in the csv
+     * @return list of list of doubles corresponding to each element of the item is a double and it value.
+     */
     public List<List<Double>> getMapDoublesTags(){
         return CSVItem.obtendoubles();
     }
 
+    /**
+     * @brief obtains the list of the categorics form each element for each item in the csv
+     * \pre needs a mapRatedata to read.
+     * \post obtain the categorics form each column of the differents items in the csv
+     * @return list of list of list of strings corresponding to each element of the item is a categoric and it value(s).
+     */
     public List<List<List<String>>> getMapCategoricsTags(){
         return CSVItem.obtencategorics();
     }
 
+    /**
+     * @brief gets the users rates
+     * \pre the document needs to be read
+     * \post obtain the set of users ratings
+     * @return obtain the list users from the rate
+     */
     public List<Integer> list_user_rating(){
         UserList.initializeUsers(CSVRate.getMapRate());
         return UserList.getUsers();
 
     }
+
+    /**
+     * @brief gets the users known
+     * \pre the document needs to be read
+     * \post obtain the set of users known
+     * @return obtain the list users from the known
+     */
     public List<Integer> list_user_known(){
         UserList.initializeUsers(CSVKnown.getMapRate());
         return UserList.getUsers();
     }
 
+    /**
+     * @brief  gets the id_items
+     * \pre the document needs to be read
+     * \post obtain the list ids items
+     * @return obtain the list ids items
+     */
     public List<Integer> list_item(){
         return CSVItem.getId_Items();
         //retorna una llista amb tots els id items
     }
 
+    /**
+     * @brief show is exists a dtereminate item in the csv
+     * @param idItem to look for in the csv
+     * \pre needs a csv with a list of the items to read.
+     * \post obtain the position of the id dominio.controladores.clases.atribut.item in a list.
+     * @return the position where are located the id in the header, -1 otherwise.
+     */
     public boolean exists(int idItem){
         return CSVItem.exsistitemID(idItem);
     }
 
+
+    /**
+     * @brief Getter of the header
+     * \pre the csv document needs to be created and read.
+     * \post obtain the list of the header in the csv.
+     * @return the header of the csv as a List
+     */
     public List<String> get_header_items() {
         return CSVItem.getHeader();
     }
 
+    /**
+     * @brief obtain the items for an especific recommendation user
+     * \pre needs a RecommendationSave completed
+     * \post obtain the set of items for an especific recommendation
+     * @param IDuser of the user
+     * @param alg integer algorithm type
+     * @param date date in string format
+     * @return list of floats (rates) of the recommendation specified before
+     */
     public List<Float> list_valSavedREC(int IDuser, int alg, String date) {
         return Recomm.valuesrates(IDuser, alg, date);
         //retorna la llista
     }
 
+    /**
+     * @brief obtain the items for an especific recommendation user
+     * \pre needs a RecommendationSave completed
+     * \post obtain the set of items for an especific recommendation
+     * @param IDuser of the user
+     * @param alg integer algorithm type
+     * @param date date in string format
+     * @return list of integers (item ids) of the recommendation specified before
+     */
     public List<Integer> list_itemSavedREC(int IDuser, int alg, String date) {
         return Recomm.valuesitems(IDuser, alg, date);
     }
 
+    /**
+     * @brief Getter of the class, gets the set of id items
+     * \pre needs to have a mapRatedata to obtain the set of id items
+     * \post obtain the set of id items of the csv
+     * @return the array list of ths different items of the csv
+     */
     public List<Integer> get_IDuser_rec(){
         return Recomm.getId_user();
     }
 
+    /**
+     * @brief Getter of the algorithm used for all users recommended
+     * \pre needs a RecommendationSave initialized
+     * \post obtain the set of algorithms
+     * @return the list of integers (algorithms) of all users recommended
+     */
     public List<Integer> get_alg_rec(){
         return Recomm.getAlgorithm();
     }
 
+    /**
+     * @brief Getter of the dates registered for all users recommended
+     * \pre needs a RecommendationSave initialized
+     * \post obtain the set of dates registered
+     * @return the list of strings (dates registered) of all users recommended
+     */
     public List<String> get_dates_rec(){
         return Recomm.getDates();
     }
 
+    /**
+     * @brief Getter of the class, gets the set of the type pf the header
+     * \pre needs to have a mapRatedata to obtain the set of types
+     * \post obtain the set of types of the header from the csv
+     * @return the array list of ths different types that each column is composed of the csv
+     */
     public List<String> list_tipusheader(){
         return CSVItem.getTipus();
     }
 
-    /*public String crear_carpeta(){
+    /**
+     * @brief Create a new folder with csvs documents
+     * \pre true
+     * \post create a new folder with the attempt and the current data
+     * @return create a new folder with the attempt and the current data
+     */
+    public boolean crear_carpeta(){
         Date data = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String dateToStr = dateFormat.format(data);
         dateToStr.trim();
         dateToStr.replace(" ","");
         File directorio = new File("DATA/attempt"+ dateToStr );
+        directory = "attempt"+ dateToStr;
         if(!directorio.exists()){
-            //if(directorio.mkdir()) return true;
-            //else return false;
+            if(directorio.mkdir()) return true;
+            else return false;
         }
-        //else return false;
+        else return false;
     }
 
-    public void guardado(String name_dir){
-        boolean b = crear_carpeta(name_dir);
+    /**
+     * @brief save the docuements csv
+     * \pre the directory exsists
+     * \post add the documents to a determinate folder
+     * @return add the documents to a determinate folder
+     */
+    public void guardado(){
+        boolean b = crear_carpeta();
         if (b){
-            CSVItem.guardar_datos(name_dir);
-            CSVItem.guardar_datos_prepros(name_dir);
-            CSVRate.guardar_datos(name_dir, "ratings.db.csv");
-            CSVRate.guardar_datos_preproces(name_dir, "ratings.db.prepro.csv");
-            CSVKnown.guardar_datos(name_dir, "ratings.test.known.csv");
-            CSVKnown.guardar_datos_preproces(name_dir, "rattings.known.prepro.csv");
-            CSVUnknown.guardar_datos(name_dir, "ratings.test.unknown.csv");
-            CSVKnown.guardar_datos_preproces(name_dir, "ratings.unknown.csv");
-            UserList.saveUsers(name_dir);
-            Recomm.saveRecommendation(name_dir);
-        }
-    }*/
-
-    public void reload(String name_dir){
-        File directory = new File("DATA/" + name_dir);
-        if(directory.isFile()) {
-            iniciar_reload(name_dir);
+            CSVItem.guardar_datos(directory);
+            CSVItem.guardar_datos_prepros(directory);
+            CSVRate.guardar_datos(directory, "ratings.db.csv");
+            CSVRate.guardar_datos_preproces(directory, "ratings.db.prepro.csv");
+            CSVKnown.guardar_datos(directory, "ratings.test.known.csv");
+            CSVKnown.guardar_datos_preproces(directory, "rattings.known.prepro.csv");
+            CSVUnknown.guardar_datos(directory, "ratings.test.unknown.csv");
+            CSVKnown.guardar_datos_preproces(directory, "ratings.unknown.csv");
+            UserList.saveUsers(directory);
+            Recomm.saveRecommendation(directory);
         }
     }
 
+    /**
+     * @brief reload the content from docuements csv
+     * \pre true
+     * \post content reload
+     * @return content reload
+     */
+    public void reload(){
+        File direct = new File("DATA/" + directory);
+        if(direct.isFile()) {
+            iniciar_reload(directory);
+        }
+    }
+
+    /**
+     * @brief add recommedations to the rceommendSave
+     * \pre current recommendation
+     * \post obtain the set of users ratings
+     * @param IDuser user to add
+     * @param alg alghorithem number type to add
+     * @param IDitems list of items recommended
+     * @param valors list of rates recommended
+     * @return add recommedations to the rceommendSave
+     */
     public void saveRec(int IDuser, int alg,  List<Integer> IDitems,List<Float> valors){
         Recomm.carregaAtributs(IDuser, alg, IDitems, valors);
     }

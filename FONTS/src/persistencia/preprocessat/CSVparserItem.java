@@ -105,10 +105,10 @@ public class CSVparserItem {
     }
 
     /**
-     * @brief Getter of the class, gets the set of id items
-     * \pre needs to have a mapRatedata to obtain the set of id items
-     * \post obtain the set of id items of the csv
-     * @return the array list of ths different items of the csv
+     * @brief Getter of the class, gets the id_items
+     * \pre the document needs to be read
+     * \post obtain the list ids items
+     * @return obtain the list ids items
      */
     public List<Integer> getId_Items() {
         return id_Items;
