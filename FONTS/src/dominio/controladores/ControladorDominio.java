@@ -30,27 +30,6 @@ public class ControladorDominio {
         CP = new ControladorPersistencia();
     }
 
-    public Integer computeK(Map<Integer, Map<Integer, Float>> mapRateKnown, Map<Integer, Map<Integer, Float>> mapRateUnknown, int maxItems){
-        CollaborativeFiltering CFAux;
-        int maxK = 3;
-        float maxDCG = 0.0f;
-        E = new Evaluation(mapRateUnknown);
-        CFEval = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, maxK);
-
-        for(int i = maxK; i < 6/*mapRateKnown.size()/10*/; ++i){
-            float DCG = 0.0f;
-            CFEval.setK(i);
-            for(Map.Entry<Integer, Map<Integer, Float>> entry: mapRateKnown.entrySet()){
-                DCG += E.DCG(CFEval.recommend(entry.getKey(), maxItems, true));
-            }
-            if(DCG > maxDCG){
-                maxK = i;
-                maxDCG = DCG;
-            }
-        }
-        CFEval.setK(maxK);
-        return maxK;
-    }
 
     public Map<Integer, Map<Integer, Float>> constructMapRate(List<Integer> mapRateIDusers, List<List<Integer>> mapRateIDitems, List<List<Float>> mapRateVal){
         Map<Integer, Map<Integer, Float>> result = new TreeMap<>();
@@ -105,8 +84,8 @@ public class ControladorDominio {
         Map<Integer, Map<Integer, Float>> mapRateUnknown = constructMapRate(mapRateIDusersUnknown, mapRateIDitemsUnknown, mapRateValUnknown);
         Map<Integer, List<Content>> mapItems = constructMapItem(mapItemIDs, mapItemTagsTipus, mapItemTagsIntegers, mapItemTagsDoubles, mapItemTagsCategorics);
 
-        int maxK = computeK(mapRateKnown, mapRateUnknown, 10);
-        CFNotEval = new CollaborativeFiltering(mapRateRatings, new TreeMap<>(), maxK);
+        CFEval = new CollaborativeFiltering(mapRateKnown, mapRateUnknown);
+        CFNotEval = new CollaborativeFiltering(mapRateRatings, new TreeMap<>());
         KNNEval = new K_NN(mapRateKnown, mapRateUnknown, mapItems, CP.list_item());
         KNNnotEval = new K_NN(mapRateRatings, new TreeMap<>(), mapItems, CP.list_item());
 
