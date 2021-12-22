@@ -174,13 +174,13 @@ public class ControladorPersistencia {
         //retrona llistat de tags per litem donat
     }
 
-    public List<Float> list_valSavedREC(String path_rec) {
+    public List<Float> list_valSavedREC(int IDuser, int alg, String date) {
         List<Float> result = new ArrayList<>();
         return result;
         //retorna la llista
     }
 
-    public List<Integer> list_itemSavedREC(String path_rec) {
+    public List<Integer> list_itemSavedREC(int IDuser, int alg, String date) {
         List<Integer> result = new ArrayList<>();
         return result;
     }
