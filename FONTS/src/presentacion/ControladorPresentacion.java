@@ -3,6 +3,14 @@ package presentacion;
 import dominio.controladores.*;
 import java.util.List;
 
+/**
+ *
+ * @author Oriol Martí Jariod
+ */
+
+/** @class VistaPrincipal
+ * @brief Implements the views of the application
+ */
 
 public class ControladorPresentacion {
     private ControladorDominio CD;
