@@ -50,6 +50,7 @@ public class Hybrid {
             }
         }
         result.setConjunt(comuns);
+        result.setAlg(2);
         return result;
     }
 }

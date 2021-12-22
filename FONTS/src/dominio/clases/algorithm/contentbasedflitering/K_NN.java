@@ -110,8 +110,8 @@ public class K_NN {
         similarityTable = new_table;
     }
 
-    public void modifica_map_rating() {
-
+    public void modifica_map_rating(int id_user, int id_item, float valoracio) {
+        mapa_known.get(id_user).put(id_item,valoracio);
     }
 
     /**
@@ -318,6 +318,7 @@ public class K_NN {
             }
         }
         resultat.sortR();
+        resultat.setAlg(1);
         return resultat;
 
     }
