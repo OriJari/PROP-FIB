@@ -191,14 +191,14 @@ public class K_NN {
         int l = 0;
         for (int i = 0; i < n; ++i) {
                 if (i != id_item) {
-                    ++l;
                     int k = 0;
                     for (int j = 0; j < n; ++j) {
                         if (j != id_item) {
-                            ++k;
                             new_table[l][k] = similarityTable[i][j];
+                            ++k;
                         }
                     }
+                    ++l;
                 }
             }
         similarityTable = new_table;
@@ -471,6 +471,7 @@ public class K_NN {
             }
         }
         resultat.sortR();
+        resultat.setID_perfil(id_usuari);
         resultat.setAlg(1);
         return resultat;
 

@@ -26,7 +26,8 @@ public class ControladorPersistencia {
     CSVparserRate CSVKnown;
     CSVparserRate CSVUnknown;
     RecommendationSave Recomm;
-    UserList UserList;
+    UserList UserListKnown;
+    UserList UserListRating;
     String directory;
 
     /**
@@ -69,8 +70,10 @@ public class ControladorPersistencia {
         CSVUnknown.readLoadRate();
         CSVUnknown.LoadRate(CSVUnknown.getContent());
         //Crea les classes que necessitis
-        UserList = new UserList();
-        UserList.initializeUsers(CSVKnown.getMapRate());
+        UserListKnown = new UserList();
+        UserListKnown.initializeUsers(CSVKnown.getMapRate());
+        UserListRating = new UserList();
+        UserListRating.initializeUsers(CSVRate.getMapRate());
         Recomm = new RecommendationSave();
     }
 
@@ -111,8 +114,10 @@ public class ControladorPersistencia {
         CSVUnknown.readLoadRate();
         CSVUnknown.reload_map_preporcess("DATA/" + dir_name + "ratings.test.unknown.prepro.csv");
         //Crea les classes que necessitis
-        UserList = new UserList();
-        UserList.initializeUsers(CSVKnown.getMapRate());
+        UserListKnown = new UserList();
+        UserListKnown.initializeUsers(CSVKnown.getMapRate());
+        UserListRating = new UserList();
+        UserListRating.initializeUsers(CSVRate.getMapRate());
         Recomm = new RecommendationSave();
         Recomm.reloadRecommendation("DATA/" + dir_name + "/Recommendation.csv");
     }
@@ -139,10 +144,7 @@ public class ControladorPersistencia {
     public  boolean delItem(int ID) {
         CSVRate.deleteitems(ID);
         CSVKnown.deleteitems(ID);
-        CSVRate.deleteuser();
-        CSVKnown.deleteuser();
        return CSVItem.delItemCSV(ID);
-
     }
 
     /**
@@ -178,7 +180,7 @@ public class ControladorPersistencia {
      * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
      */
     public  boolean addUser(int ID) {
-        return UserList.addUserList(ID);
+        return UserListRating.addUserList(ID);
     }
 
     /**
@@ -189,7 +191,7 @@ public class ControladorPersistencia {
      * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
      */
     public  boolean delUser(int ID) {
-        return CSVKnown.delUserCSV(ID);
+        return CSVRate.delUserCSV(ID);
     }
 
     /**
@@ -202,7 +204,7 @@ public class ControladorPersistencia {
      * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
      */
     public  boolean addRating(int IDuser, int IDitem, float valor){
-        return  CSVKnown.addRatingCSV(IDuser, IDitem, valor);
+        return  CSVRate.addRatingCSV(IDuser, IDitem, valor);
     }
 
     /**
@@ -215,7 +217,7 @@ public class ControladorPersistencia {
      * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
      */
     public  boolean modRating(int IDuser, int IDitem, float new_rate) {
-       return CSVKnown.modRatingCSV(IDuser, IDitem, new_rate);
+       return CSVRate.modRatingCSV(IDuser, IDitem, new_rate);
     }
 
     /**
@@ -227,7 +229,7 @@ public class ControladorPersistencia {
      * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
      */
     public  boolean delRating(int IDuser, int IDitem) {
-       return CSVKnown.delRatingCSV(IDuser, IDitem);
+       return CSVRate.delRatingCSV(IDuser, IDitem);
     }
 
 
@@ -339,8 +341,8 @@ public class ControladorPersistencia {
      * @return obtain the list users from the rate
      */
     public List<Integer> list_user_rating(){
-        UserList.initializeUsers(CSVRate.getMapRate());
-        return UserList.getUsers();
+        UserListRating.initializeUsers(CSVRate.getMapRate());
+        return UserListRating.getUsers();
 
     }
 
@@ -351,8 +353,8 @@ public class ControladorPersistencia {
      * @return obtain the list users from the known
      */
     public List<Integer> list_user_known(){
-        UserList.initializeUsers(CSVKnown.getMapRate());
-        return UserList.getUsers();
+        UserListKnown.initializeUsers(CSVKnown.getMapRate());
+        return UserListKnown.getUsers();
     }
 
     /**
@@ -493,7 +495,7 @@ public class ControladorPersistencia {
             CSVKnown.guardar_datos_preproces(directory, "rattings.known.prepro.csv");
             CSVUnknown.guardar_datos(directory, "ratings.test.unknown.csv");
             CSVKnown.guardar_datos_preproces(directory, "ratings.unknown.csv");
-            UserList.saveUsers(directory);
+            //UserList.saveUsers(directory);
             Recomm.saveRecommendation(directory);
         }
     }

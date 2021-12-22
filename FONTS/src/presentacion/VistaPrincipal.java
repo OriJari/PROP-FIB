@@ -1146,7 +1146,7 @@ public class VistaPrincipal {
         }
 
         if(checkbox){
-            dcg = new JLabel("DCG: " + dcg );
+            dcg = new JLabel("DCG: " + DCG );
             dcg.setFont(new Font("Arial",Font.PLAIN, 16));
             dcg.setBounds(770,430,100,20);
             item_rec.add(dcg);

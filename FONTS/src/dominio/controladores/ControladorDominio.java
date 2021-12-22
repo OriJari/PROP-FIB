@@ -101,6 +101,7 @@ public class ControladorDominio {
         KNNEval = new K_NN(mapRateKnown2, mapRateUnknown, mapItems1, l1);
         KNNnotEval = new K_NN(mapRateRatings2, new TreeMap<>(), mapItems2, l2);
         E = new Evaluation(mapRateUnknown);
+        H = new Hybrid();
 
         KNNEval.initSimilarityTable();
         KNNnotEval.initSimilarityTable();
@@ -253,7 +254,6 @@ public class ControladorDominio {
         else{
             rec = CFNotEval.recommend(userID, k, eval);
         }
-
     }
 
     public void recommendCBF(int k, int userID, boolean eval){
@@ -290,12 +290,6 @@ public class ControladorDominio {
         return CP.list_tipusheader();
     }
 
-    public boolean saveRecomendation() {
-        return true;
-    }
-
-    public void evaluateRecomendation(boolean e) {
-    }
 
     public List<Integer> list_itemREC() {
         return rec.getItemIDs();

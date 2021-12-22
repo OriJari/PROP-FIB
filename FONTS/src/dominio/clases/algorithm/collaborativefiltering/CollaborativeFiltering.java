@@ -57,6 +57,13 @@ public class CollaborativeFiltering {
         elbowtest(opinions);
     }
 
+    /** @brief Elbowtest method. It computes the best <em>k</em> using the elbow test.
+     *
+     * @param opinions Map that represents the ratings that users have given about some items that are known.
+     *
+     *  \pre <em>true</em>
+     *  \post The clusters are created with the best k.
+     */
     public void elbowtest(Map<Integer, Map<Integer, Float>> opinions){
         /*int maxK = min(8, opinions.size());
         Vector<Float> inertias = new Vector<>();*/

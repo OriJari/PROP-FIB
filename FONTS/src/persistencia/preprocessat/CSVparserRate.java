@@ -362,14 +362,25 @@ public class CSVparserRate {
     }
 
     public void deleteitems(int id){
-        for (Map.Entry<Integer, Map<Integer, Float>> entry : mapRate.entrySet()) {
-            Integer first = entry.getKey();
-            Map<Integer, Float> m = entry.getValue();
-            for (Map.Entry<Integer, Float> entry1 : m.entrySet()){
-                Integer item = entry1.getKey();
-                if (id == item) m.remove(item);
+        Map<Integer, Map<Integer, Float>> aux = new TreeMap<>();
+        for(Map.Entry<Integer, Map<Integer, Float>> entry1: mapRate.entrySet()){
+            Map<Integer, Float> rowMap = new TreeMap<>();
+            for(Map.Entry<Integer, Float> entry2: entry1.getValue().entrySet()){
+                rowMap.put(entry2.getKey(), entry2.getValue());
+            }
+            aux.put(entry1.getKey(), rowMap);
+        }
+
+        for(Map.Entry<Integer, Map<Integer, Float>> entry: mapRate.entrySet()){
+            int userID = entry.getKey();
+            if(entry.getValue().containsKey(id) && entry.getValue().size() == 1){
+                aux.remove(userID);
+            }
+            else if(entry.getValue().containsKey(id)){
+                aux.get(userID).remove(id);
             }
         }
+        mapRate = aux;
     }
 
     /**
