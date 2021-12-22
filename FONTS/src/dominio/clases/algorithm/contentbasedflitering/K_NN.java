@@ -71,17 +71,6 @@ public class K_NN {
         actualitza_taula(id_fals);
     }
 
-    public void Add_Item(int item_id, List<Content> tags) {
-        id_reals.add(item_id);
-        int id_fals = id_reals.indexOf(item_id);
-        mapa_items.put(item_id,tags);
-        nou_item_taula(id_fals);
-    }
-
-    public void modifica_map_rating() {
-
-    }
-
     public void actualitza_taula(int item_id){
         int mida = similarityTable.length;
         List<Content> content1 = mapa_items.get(id_reals.get(item_id));
@@ -97,7 +86,18 @@ public class K_NN {
         similarityTable[item_id][item_id] = 1.0;
     }
 
+    public void Add_Item(int item_id, List<Content> tags) {
+        id_reals.add(item_id);
+        int id_fals = id_reals.indexOf(item_id);
+        mapa_items.put(item_id,tags);
+        nou_item_taula(id_fals);
+    }
+
     public void nou_item_taula(int item_id) {
+
+    }
+
+    public void modifica_map_rating() {
 
     }
 
