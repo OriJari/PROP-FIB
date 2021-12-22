@@ -162,6 +162,10 @@ public class K_Means {
         }
 
         public void initializeMeans(){
+                means = new Vector<Map<Integer, Float>>(k);
+                for (int i = 0; i < k; ++i) {
+                        means.add(new TreeMap<Integer, Float>());
+                }
                 int i = 0;
                 for (Map.Entry<Integer, Map<Integer, Float>> entry : opinions.entrySet()) {
                         for(Map.Entry<Integer, Float> entry2 : entry.getValue().entrySet()){
