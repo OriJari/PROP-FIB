@@ -30,7 +30,7 @@ public class CSVparserItem {
      * \pre the path of the file needs to be existent and the document csv needs to be from type items.csv
      *
      * \post It creates a <em>CSVparserItem</em> object with its attribute <em>path</em> with the values:
-     * <em>numCols</em>  initialized as 0, <em>numRows</em>  initialized as 0, <em>dominio.controladores.clases.atribut.content</em> empty, <em>header</em> empty,
+     * <em>numCols</em>  initialized as 0, <em>numRows</em>  initialized as 0, <em>content</em> empty, <em>header</em> empty,
      *  <em>mapRatedata</em> empty and <em>id_Items</em>.
      */
     public CSVparserItem(String path){
@@ -47,7 +47,7 @@ public class CSVparserItem {
     /**
      * @brief Getter of the num rows
      * \pre the csv document needs to be created and read.
-     * \post obtain the number of the rows of the dominio.controladores.clases.atribut.content attribute.
+     * \post obtain the number of the rows form the class
      * @return the number of rows of the csv
      */
     public Integer getNumRows() {
@@ -57,7 +57,7 @@ public class CSVparserItem {
     /**
      * @brief Getter of the num columns
      * \pre the csv document needs to be created and read.
-     * \post obtain the number of the columns of the dominio.controladores.clases.atribut.content attribute.
+     * \post obtain the number of the columns form the class
      * @return the number of columns of the csv
      */
     public Integer getNumCols() {
@@ -85,8 +85,8 @@ public class CSVparserItem {
     }
 
     /**
-     * @brief Getter of the class, gets the dominio.controladores.clases.atribut.content
-     * \pre the document needs to be read to obtain the dominio.controladores.clases.atribut.content
+     * @brief Getter of the class, gets the content
+     * \pre the document needs to be read
      * \post obtain the lecture of the csv ready to manipulate
      * @return the lecture of the document csv
      */
@@ -96,7 +96,7 @@ public class CSVparserItem {
 
     /**
      * @brief Getter of the class, gets the mapRatedata
-     * \pre the document needs to be read to obtain the dominio.controladores.clases.atribut.content
+     * \pre the document needs to be read
      * \post obtain the data set manipulated to make easy the operation in algorithms
      * @return set of data structured
      */
@@ -114,6 +114,12 @@ public class CSVparserItem {
         return id_Items;
     }
 
+    /**
+     * @brief Getter of the class, gets the set of the type pf the header
+     * \pre needs to have a mapRatedata to obtain the set of types
+     * \post obtain the set of types of the header from the csv
+     * @return the array list of ths different types that each column is composed of the csv
+     */
     public List<String> getTipus() {
         return tipus;
     }
@@ -161,7 +167,7 @@ public class CSVparserItem {
     /**
      * @brief Setter of the class, gets the dominio.controladores.clases.atribut.content
      * \pre true
-     * \post modify the attribute dominio.controladores.clases.atribut.content, changing the lecture.
+     * \post modify the attribute form the class, changing the lecture.
      * @param content, lecture of the csv document to attribute
      */
     public void setContent(List<List<String>> content) {
@@ -171,7 +177,7 @@ public class CSVparserItem {
     /**
      * @brief Setter of the class, gets the mapRatedata
      * \pre true
-     * \post modify the attribute mapRatedata, changing the dominio.controladores.clases.atribut.content of it.
+     * \post modify the attribute mapRatedata form the class.
      * @param mapRatedata, set of data to redefine a previous one
      */
     public void setMapRatedata(Map<Integer, List<Content>> mapRatedata) {
@@ -181,13 +187,19 @@ public class CSVparserItem {
     /**
      * @brief Setter of the class, set the id of the items
      * \pre true
-     * \post modify the attribute id_Items, changing the dominio.controladores.clases.atribut.content of it.
+     * \post modify the attribute id_Items
      * @param id_Items, set of data to redefine a previous one
      */
     public void setId_Items(List<Integer> id_Items) {
         this.id_Items = id_Items;
     }
 
+    /**
+     * @brief Setter of the class, set the types of the header
+     * \pre true
+     * \post modify the attribute tipus form the class.
+     * @param tipus, set of data to redefine a previous one
+     */
     public void setTipus(List<String> tipus) {
         this.tipus = tipus;
     }
@@ -210,14 +222,22 @@ public class CSVparserItem {
         }
     }
 
+    /**
+     * @brief show is exists a dtereminate item in the csv
+     * @param idItem to look for in the csv
+     * \pre needs a csv with a list of the items to read.
+     * \post obtain the position of the id dominio.controladores.clases.atribut.item in a list.
+     * @return the position where are located the id in the header, -1 otherwise.
+     */
     public boolean exsistitemID(int idItem){
         return id_Items.contains(idItem);
     }
+
     /**
-     * @brief obtains the position where is located the id in csv
+     * @brief obtains the position where is located the id column in csv
      * @param header of the csv
-     * \pre needs a dominio.controladores.clases.atribut.content to read.
-     * \post obtain the position of the id dominio.controladores.clases.atribut.item in a list.
+     * \pre needs a header to read.
+     * \post obtain the position of the id in the header list.
      * @return the position where are located the id in the header, -1 otherwise.
      */
     public Integer obten_id_header(List<String> header){
@@ -228,9 +248,9 @@ public class CSVparserItem {
     }
 
     /**
-     * @brief Read the dominio.controladores.clases.atribut.content of the dominio.controladores.clases.atribut.item csv into memory.
+     * @brief Read the content of the csv into memory.
      * \pre needs a document csv to read
-     * \post obtains the lecture of the document manipulated into dominio.controladores.clases.atribut.content.
+     * \post obtains the lecture of the document manipulated into the content.
      */
     public void readLoadItem(){
         FileInputStream fis;
@@ -298,6 +318,14 @@ public class CSVparserItem {
         return String.valueOf(this.content.get(i));
     }
 
+
+
+    /**
+     * @brief obtains the list of the types form each item in the csv
+     * \pre needs a mapRatedata to read.
+     * \post obtain the types form each column of the differents items in the csv
+     * @return list of list of strings corresponding to the type of each element of the item.
+     */
     public List<List<String>> obtentipus(){
         List<List<String>>  res = new ArrayList<>();
         for (Map.Entry<Integer, List<Content>> entry : mapRatedata.entrySet()) {
@@ -312,6 +340,13 @@ public class CSVparserItem {
         return res;
     }
 
+
+    /**
+     * @brief obtains the list of the integers form each item in the csv
+     * \pre needs a mapRatedata to read.
+     * \post obtain the integers form each column of the differents items in the csv
+     * @return list of list of integers corresponding to each element of the item is an integer and it value.
+     */
     public List<List<Integer>> obtenints(){
         List<List<Integer>>  res = new ArrayList<>();
         for (Map.Entry<Integer, List<Content>> entry : mapRatedata.entrySet()) {
@@ -326,6 +361,12 @@ public class CSVparserItem {
         return res;
     }
 
+    /**
+     * @brief obtains the list of the doubles form each item in the csv
+     * \pre needs a mapRatedata to read.
+     * \post obtain the doubles form each column of the differents items in the csv
+     * @return list of list of doubles corresponding to each element of the item is a double and it value.
+     */
     public List<List<Double>> obtendoubles(){
         List<List<Double>>  res = new ArrayList<>();
         for (Map.Entry<Integer, List<Content>> entry : mapRatedata.entrySet()) {
@@ -340,6 +381,12 @@ public class CSVparserItem {
         return res;
     }
 
+    /**
+     * @brief obtains the list of the categorics form each element for each item in the csv
+     * \pre needs a mapRatedata to read.
+     * \post obtain the categorics form each column of the differents items in the csv
+     * @return list of list of list of strings corresponding to each element of the item is a categoric and it value(s).
+     */
     public List<List<List<String>>> obtencategorics(){
         List<List<List<String>>> res = new ArrayList<>();
         for (Map.Entry<Integer, List<Content>> entry : mapRatedata.entrySet()) {
@@ -355,9 +402,9 @@ public class CSVparserItem {
     }
 
     /**
-     * @brief Obtains the appropriate preprocess of data set for the kk-neight dominio.controladores.clases.atribut.algorithm
-     * \pre needs to have a dominio.controladores.clases.atribut.content of the lecture
-     * \post change the dominio.controladores.clases.atribut.content to a estructure where the data is processed
+     * @brief Obtains the appropriate preprocess of data set for the kk-neight
+     * \pre needs to have a content of the lecture
+     * \post change the content to a estructure where the data is processed
      * @param rate_content data set read from the csv
      */
     public void MapItemData(List<List<String>> rate_content){
@@ -435,6 +482,11 @@ public class CSVparserItem {
         }
     }
 
+    /**
+     * @brief obtains the list of types of the elements in the csv
+     * \pre needs a mapRatedata to read.
+     * \post obtain the types form each column of the differents items in the csv and define the attribute tipus
+     */
     public void listatipos(){
         if (mapRatedata.size() > 2) {
             List<Integer> res = new ArrayList<>();
@@ -478,6 +530,14 @@ public class CSVparserItem {
 
     }
 
+    /**
+     * @brief obtains the list of the data preprocessed form certain row in the csv
+     * \pre needs a mapRatedata to read.
+     * \post obtain the list of data preprocessed a certain row of the csv
+     * @param IDitem item to look for preprocess data
+     * @param tags list of elements to preprocess
+     * @return list of content orresponding to the preprocessed data of the row.
+     */
     public List<Content> linia_procesado(int IDitem, List<String> tags){
         List<Content> res = new ArrayList<>();
         for (String s : tags) {
@@ -545,13 +605,18 @@ public class CSVparserItem {
     }
 
 
-
-    public void guardar_datos(List<List<String>> content, List<String> header) {
+    /**
+     * @brief save the content in a specific directory
+     * \pre needs a directory defined
+     * \post create a document .csv in the specific directory
+     * @param name directory where save the document
+     */
+    public void guardar_datos(String name) {
 
         //Scanner sc = new Scanner(System.in);
         //String nuevoFichero = sc.nextLine();
         //PENDIENTE NOMBRE FICHERO
-        File archivo = new File("FONTS/src/persistencia/" + "items" + ".csv");
+        File archivo = new File("DATA/" + name + "/" + "items" + ".csv");
 
         try {
             FileWriter doc = new FileWriter(archivo);
@@ -582,12 +647,18 @@ public class CSVparserItem {
         }
     }
 
-    public void guardar_datos_prepros(Map<Integer, List<Content>> mapRatedata, List<String> header) {
+    /**
+     * @brief save the preprocessed data in a specific directory
+     * \pre needs a directory defined
+     * \post create a document .csv in the specific directory
+     * @param name directory where save the document
+     */
+    public void guardar_datos_prepros(String name) {
 
         //Scanner sc = new Scanner(System.in);
         //String nuevoFichero = sc.nextLine();
         //PENDIENTE NOMBRE FICHERO
-        File archivo = new File("FONTS/src/persistencia/" + "itemsporcesdata" + ".csv");
+        File archivo = new File("/DATA/"+ name + "/" + "items.prepro" + ".csv");
 
         try {
             FileWriter doc = new FileWriter(archivo);
@@ -626,6 +697,12 @@ public class CSVparserItem {
         }
     }
 
+    /**
+     * @brief reload the preprocessed data from a specific directory
+     * \pre needs a directory defined
+     * \post reload a document .csv from a specific directory
+     * @param path directory where reload the document
+     */
     public void reload_map_preporcess(String path){
         FileInputStream fis;
         try {
@@ -676,9 +753,16 @@ public class CSVparserItem {
         }
     }
 
+    /**
+     * @brief Add a new item into the csv
+     * \pre needs current csv of items
+     * \post added a new item to the csv
+     * @param ID of the item to add
+     * @param tags list of tags that compose the items
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public boolean addItemCSV(int ID, List<String> tags){
         ///ATENCION FORMATO CONTENT !!!!!
-        //List<Integer> iditems = id_Items;
         if (id_Items.contains(ID)) return false;
         else {
             //incremento fila
@@ -718,6 +802,13 @@ public class CSVparserItem {
         return true;
     }
 
+    /**
+     * @brief Complete a restructure of a mapRatedata
+     * \pre needs a mapRatedata defined.
+     * \post restructure the mapRatedate orederd corrctly from a previous remove
+     * @param map of the item to add
+     * @return a boolean, if its true the action has been complited successfully, otherwise not completed the action
+     */
     public Map<Integer, List<Content>> setMapRate(Map<Integer, List<Content>> map){
         int cont = 0;
         Map<Integer, List<Content>> aux = new TreeMap<>();
@@ -729,10 +820,15 @@ public class CSVparserItem {
         return aux;
     }
 
-
+    /**
+     * @brief Delete an item from a current csv
+     * \pre needs current csv of items
+     * \post deleted an item to the csv
+     * @param ID of the item to delete
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public boolean delItemCSV(int ID) {
         ///ATENCION FORMATO CONTENT !!!!!
-        //List<Integer> iditems = id_Items;
         if (!id_Items.contains(ID)) return false;
         else {
             //Posicion de id del item
@@ -761,6 +857,15 @@ public class CSVparserItem {
         return true;
     }
 
+    /**
+     * @brief Modify the tag from an item from the csv
+     * \pre needs current csv of items
+     * \post modify the tag from an item of the csv
+     * @param IDitem of the item to modify
+     * @param atribute column where is located the tag to modify
+     * @param newtag to modify from a previous one
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public boolean modTagCSV(int IDitem, String atribute, String newtag){
         //List<Integer> iditems = id_Items;
         //List<String> head = header;
@@ -788,6 +893,14 @@ public class CSVparserItem {
         return true;
     }
 
+    /**
+     * @brief Delete the tag from an item from the csv
+     * \pre needs current csv of items
+     * \post delete the tag from an item of the csv
+     * @param IDitem of the item to modify
+     * @param atribute column where is located the tag to delete
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public boolean delTagCSV(int IDitem, String atribute){
         //List<Integer> iditems = id_Items;
         //List<String> head = header;
@@ -836,8 +949,8 @@ public class CSVparserItem {
         //boolean b2 = CSVItem.delItemCSV(5114);*/
         boolean b3 = CSVItem.modTagCSV(1408, "genres", "Drama");
         boolean b4 = CSVItem.delTagCSV(1408,"genres");
-        CSVItem.guardar_datos(CSVItem.getContent(), CSVItem.getHeader());
-        CSVItem.guardar_datos_prepros(CSVItem.getMapRatedata(), CSVItem.getHeader());
+        CSVItem.guardar_datos("sim1");
+        CSVItem.guardar_datos_prepros("sim1");
         CSVItem.reload_map_preporcess("FONTS/src/persistencia/itemsporcesdata.csv");
         out.println("hola");
     }

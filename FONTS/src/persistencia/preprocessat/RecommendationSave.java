@@ -103,8 +103,8 @@ public class RecommendationSave {
     }
 
 
-    public  void saveRecommendation(){
-        File archivo = new File("DATA/" + "Recommedation" + ".csv");
+    public  void saveRecommendation(String name){
+        File archivo = new File("DATA/" + name + "/" + "Recommedation" + ".csv");
         try {
             FileWriter doc = new FileWriter(archivo);
             PrintWriter out = new PrintWriter(doc);

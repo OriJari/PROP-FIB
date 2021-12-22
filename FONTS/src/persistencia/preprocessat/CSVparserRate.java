@@ -25,7 +25,7 @@ public class CSVparserRate {
      * \pre the path of the file needs to be existent and the document csv needs to be from type ratings.csv
      *
      * \post It creates a <em>CSVparserRate</em> object with its attribute <em>path</em> with the values:
-     *  <em>numCols</em>  initialized as 0, <em>numRows</em>  initialized as 0, <em>dominio.controladores.clases.atribut.content</em> empty, <em>mapRate</em> empty and
+     *  <em>numCols</em>  initialized as 0, <em>numRows</em>  initialized as 0, <em>content</em> empty, <em>mapRate</em> empty and
      *   <em>header</em> empty.
      */
     public CSVparserRate(String path){
@@ -40,7 +40,7 @@ public class CSVparserRate {
     /**
      * @brief Getter of the num rows
      * \pre the csv document needs to be created and read.
-     * \post obtain the number of the rows of the dominio.controladores.clases.atribut.content attribute.
+     * \post obtain the number of the rows of the content attribute.
      * @return the number of rows of the csv
      */
     public Integer getNumRows() {
@@ -50,7 +50,7 @@ public class CSVparserRate {
     /**
      * @brief Getter of the num columns
      * \pre the csv document needs to be created and read.
-     * \post obtain the number of the columns of the dominio.controladores.clases.atribut.content attribute.
+     * \post obtain the number of the columns of the content attribute.
      * @return the number of columns of the csv
      */
     public Integer getNumCols() {
@@ -79,7 +79,7 @@ public class CSVparserRate {
 
     /**
      * @brief Getter of the class, gets the dominio.controladores.clases.atribut.content
-     * \pre the document needs to be read to obtain the dominio.controladores.clases.atribut.content
+     * \pre the document needs to be read to obtain the content
      * \post obtain the lecture of the csv ready to manipulate
      * @return the dominio.controladores.clases.atribut.content value
      */
@@ -89,9 +89,9 @@ public class CSVparserRate {
 
     /**
      * @brief Getter of the class, gets the mapRate
-     * \pre the document needs to be read to obtain the dominio.controladores.clases.atribut.content
+     * \pre the document needs to be read to obtain the content
      * \post obtain the data set manipulated to make easy the operation in algorithms
-     * @return set of data of the ratings dominio.controladores.clases.atribut.content manipulated
+     * @return set of data of the ratings content manipulated
      */
     public Map<Integer, Map<Integer, Float>> getMapRate() {
         return mapRate;
@@ -138,9 +138,9 @@ public class CSVparserRate {
     }
 
     /**
-     * @brief Setter of the class, gets the dominio.controladores.clases.atribut.content
+     * @brief Setter of the class, gets the content
      * \pre true
-     * \post modify the attribute dominio.controladores.clases.atribut.content, changing the lecture.
+     * \post modify the attribute content, changing the lecture.
      * @param content, lecture of the csv document to attribute
      */
     public void setContent(List<List<String>> content) {
@@ -150,7 +150,7 @@ public class CSVparserRate {
     /**
      * @brief Setter of the class, sets a new mapRate
      * \pre true
-     * \post modify the attribute mapRate, changing the dominio.controladores.clases.atribut.content of it.
+     * \post modify the attribute mapRate, changing the content of it.
      * @param mapRate , map to redefine the new one
      */
     public void setMapRate(Map<Integer, Map<Integer, Float>> mapRate) {
@@ -204,10 +204,10 @@ public class CSVparserRate {
     }
 
     /**
-     * @brief Read the preproces dataset of ratings.
-     * @param path "PENDIENTE A MODIFICAR"
+     * @brief Read preprocessed dataset of ratings.
+     * @param path where is located the dataset
      * \pre needs a document csv to read
-     * \post obtains the preprocess data into the pertinent map.
+     * \post obtain preprocessed data into the pertinent map.
      */
     public void reload_map_preporcess(String path){
         FileInputStream fis;
@@ -241,6 +241,12 @@ public class CSVparserRate {
         }
     }
 
+    /**
+     * @brief obtains the list of the users form the csv
+     * \pre needs a mapRate to read.
+     * \post obtain the user set form the csv
+     * @return list of integers corresponding to the users listed in the csv.
+     */
     public List<Integer> obtenlistausers(){
         List<Integer> l = new ArrayList<>();
         for (Map.Entry<Integer, Map<Integer, Float>> entry : mapRate.entrySet()) {
@@ -251,6 +257,12 @@ public class CSVparserRate {
         return l;
     }
 
+    /**
+     * @brief obtains the set of items related to a user
+     * \pre needs a mapRate to read.
+     * \post obtain the items related for a corresponding user
+     * @return list of list of integers corresponding to the items for each user.
+     */
     public List<List<Integer>> obtenlistaitems(){
         List<List<Integer>> l = new ArrayList<>();
         for (Map.Entry<Integer, Map<Integer, Float>> entry : mapRate.entrySet()) {
@@ -265,6 +277,12 @@ public class CSVparserRate {
         return l;
     }
 
+    /**
+     * @brief obtains the set of values related to a user given to a item
+     * \pre needs a mapRate to read.
+     * \post obtain the values of the items related for a corresponding user
+     * @return list of list of floats corresponding to the values of items for each user.
+     */
     public List<List<Float>> obtenlistavalues(){
         List<List<Float>> l = new ArrayList<>();
         for (Map.Entry<Integer, Map<Integer, Float>> entry : mapRate.entrySet()) {
@@ -303,9 +321,9 @@ public class CSVparserRate {
 
     /**
      * @brief Change List<List<String>> to a Map<Integer, Map<Integer,Float>> structure
-     * \pre needs to have a dominio.controladores.clases.atribut.content of the lecture
-     * \post change the dominio.controladores.clases.atribut.content to a estructure where the data is processed
-     * @param rate_content dominio.controladores.clases.atribut.content of the csv document
+     * \pre needs to have content of the lecture
+     * \post change the content to a estructure where the data is processed
+     * @param rate_content content of the csv document
      */
     public void LoadRate(List<List<String>> rate_content){
         //for each line take UserID, ItemID and Rate and add to the mapRate
@@ -326,18 +344,26 @@ public class CSVparserRate {
 
     /**
      * @brief Lecture of the List<List<String>> rows
-     * \pre needs to have a dominio.controladores.clases.atribut.content of the lecture
-     * \post obtain a row of the dominio.controladores.clases.atribut.content read.
+     * \pre needs to have a content of the lecture
+     * \post obtain a row of the content read.
      * @param i number of the row to obtain
      */
     public String getRow(int i) {
         return String.valueOf(this.content.get(i));
     }
 
-    public void guardar_datos_preproces(Map<Integer, Map<Integer, Float>> mapRate, String namefile){
+
+    /**
+     * @brief save the preprocessed data in a specific directory
+     * \pre needs a directory defined
+     * \post create a document .csv in the specific directory
+     * @param dir_name directory where save the document
+     * @param namefile specific type of csv (known, unknown or rating)
+     */
+    public void guardar_datos_preproces(String dir_name, String namefile){
         //Scanner sc = new Scanner(System.in);
         //String nuevoFichero = sc.nextLine();
-        File archivo = new File("FONTS/src/persistencia/" + namefile + ".csv");
+        File archivo = new File("DATA/" + dir_name + "/" + namefile + ".prepro" + ".csv");
 
         try{
             FileWriter doc = new FileWriter(archivo);
@@ -358,11 +384,19 @@ public class CSVparserRate {
         }
     }
 
-    public void guardar_datos(List<List<String>> content, List<String> header, String namefile) {
+
+    /**
+     * @brief save the content in a specific directory
+     * \pre needs a directory defined
+     * \post create a document .csv in the specific directory
+     * @param dir_name directory where save the document
+     * @param namefile specific type of csv (known, unknown or rating)
+     */
+    public void guardar_datos(String dir_name, String namefile) {
 
         //Scanner sc = new Scanner(System.in);
         //String nuevoFichero = sc.nextLine();
-        File archivo = new File("FONTS/src/persistencia/" + namefile + ".csv");
+        File archivo = new File("DATA/" + dir_name + "/" + namefile + ".csv");
 
         try {
             FileWriter doc = new FileWriter(archivo);
@@ -448,6 +482,14 @@ public class CSVparserRate {
         return true;
     }*/
 
+
+    /**
+     * @brief Delete an user from a current csv
+     * \pre needs current csv of items
+     * \post deleted a user to the csv
+     * @param ID of the user to delete
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public boolean delUserCSV(int ID) {
         //Map<Integer, Map<Integer, Float>> auxK = CSVKnown.getMapRate();
         if(!mapRate.containsKey(ID)) return false;
@@ -471,6 +513,15 @@ public class CSVparserRate {
         return true;
     }
 
+    /**
+     * @brief Add the rate of an item from a user of the csv
+     * \pre needs current csv of items
+     * \post add the rate of the item corresponding to a user
+     * @param IDuser of the user to realize the action
+     * @param IDitem of the item to add the corresponding rate
+     * @param valor rate to add
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public boolean addRatingCSV(int IDuser, int IDitem, float valor){
         //QUE CSVS A AÑADIR RATING?
         //VALOR DENTRO DE LOS PARAMETROS MIN Y MAX
@@ -539,6 +590,15 @@ public class CSVparserRate {
         return true;
     }
 
+    /**
+     * @brief Modify the rate of an item from a user of the csv
+     * \pre needs current csv of items
+     * \post modify the rate of the item corresponding to a user
+     * @param IDuser of the user to realize the action
+     * @param IDitem of the item to modify the corresponding rate
+     * @param new_rate to modify from a previous one
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public boolean modRatingCSV(int IDuser, int IDitem, float new_rate) {
         //QUE CSVS A MODIFICAR RATING?
         //VALOR DENTRO DE LOS PARAMETROS MIN Y MAX
@@ -608,6 +668,14 @@ public class CSVparserRate {
         return false;
     }
 
+    /**
+     * @brief Delete the rate of an item from a user of the csv
+     * \pre needs current csv of items
+     * \post delete the rate of an item from a user of the csv
+     * @param IDuser of the user within interact
+     * @param IDitem of the item to delete the rate
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public boolean delRatingCSV(int IDuser, int IDitem) {
         //QUE CSVS A ELIMINAR RATING?
         Map<Integer, Map<Integer, Float>> auxK = mapRate;
