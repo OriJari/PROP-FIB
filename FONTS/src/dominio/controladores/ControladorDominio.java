@@ -161,9 +161,13 @@ public class ControladorDominio {
         return result;
     }
 
-    public List<Integer> list_user(){
-        return CP.list_user();
+    public List<Integer> list_user_known(){
+        return CP.list_user_known();
         //retorna una llista amb tots els id users
+    }
+
+    public List<Integer> list_user_rating() {
+        return CP.list_user_rating();
     }
 
     public List<Integer> list_item(){
@@ -203,6 +207,7 @@ public class ControladorDominio {
     public boolean addUser(int ID) {
         return CP.addUser(ID);
     }
+
     public boolean delUser(int ID) {
         CFNotEval.delUser(ID);
         KNNnotEval.esborra_user_map_rating(ID);
