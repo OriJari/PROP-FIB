@@ -495,7 +495,8 @@ public class ControladorPersistencia {
             CSVKnown.guardar_datos_preproces(directory, "rattings.known.prepro.csv");
             CSVUnknown.guardar_datos(directory, "ratings.test.unknown.csv");
             CSVKnown.guardar_datos_preproces(directory, "ratings.unknown.csv");
-            //UserList.saveUsers(directory);
+            UserListKnown.saveUsers(directory);
+            UserListRating.saveUsers(directory);
             Recomm.saveRecommendation(directory);
         }
     }
