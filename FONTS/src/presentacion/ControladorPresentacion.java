@@ -83,10 +83,6 @@ public class ControladorPresentacion {
         return CD.delTag(IDitem, atribut);
     }
 
-    public boolean saveRecomendation(){
-        return CD.saveRecomendation();
-    }
-
 
     public void recommendCF(int k, int userID, boolean eval){
         CD.recommendCF(k, userID, eval);
@@ -127,5 +123,9 @@ public class ControladorPresentacion {
 
     public List<String> get_dates_rec(){
         return CD.get_dates_rec();
+    }
+
+    public void saveRec() {
+        CD.saveRec();
     }
 }

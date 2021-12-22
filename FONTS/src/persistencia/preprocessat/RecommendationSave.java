@@ -202,7 +202,7 @@ public class RecommendationSave {
         return values.get(pos);
     }
 
-    public boolean carregaAtributs(int IDuser, int alg,  List<Integer> IDitems,List<Float> valors){
+    public void carregaAtributs(int IDuser, int alg,  List<Integer> IDitems,List<Float> valors){
         id_user.add(IDuser);
         algorithm.add(alg);
         idItems.add(IDitems);
@@ -210,7 +210,6 @@ public class RecommendationSave {
         Date d = new Date();
         String s = datasystem(d);
         dates.add(s);
-        return true;
     }
 
     public  void saveRecommendation(String name){

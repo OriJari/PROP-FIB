@@ -231,7 +231,7 @@ public class ControladorPersistencia {
         }
     }
 
-    public boolean saveRec(int IDuser, int alg,  List<Integer> IDitems,List<Float> valors){
-        return Recomm.carregaAtributs(IDuser, alg, IDitems, valors);
+    public void saveRec(int IDuser, int alg,  List<Integer> IDitems,List<Float> valors){
+        Recomm.carregaAtributs(IDuser, alg, IDitems, valors);
     }
 }

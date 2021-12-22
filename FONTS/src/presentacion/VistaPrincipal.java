@@ -343,9 +343,8 @@ public class VistaPrincipal {
     }
     public void actionPerformed_save(ActionEvent e) {
         System.out.println("boton pulsado: guardar");
-        if(CP.saveRecomendation()){
-            JOptionPane.showMessageDialog(item_rec,"Guardado correctamente");
-        }
+        CP.saveRec();
+        JOptionPane.showMessageDialog(item_rec,"Guardado correctamente");
     }
     public void actionPerformed_backGU(ActionEvent e) {
         System.out.println("boton pulsado: tornarGU");
