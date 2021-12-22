@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -246,7 +247,9 @@ public class VistaPrincipal {
         csvchoosen.setText(path);
     }
     public void actionPerformed_startB(ActionEvent e) {
-        path_csv =  (fc.getSelectedFile().getPath() + "/");
+        String os = System.getProperty("os.name");
+        if(os == "Windows 10") path_csv =  (fc.getSelectedFile().getPath() + "\\");
+        else path_csv =  (fc.getSelectedFile().getPath() + "/");
         System.out.println("CSV selecionado: " + path_csv);
         CP.inicializar(path_csv);
 
