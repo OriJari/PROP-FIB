@@ -8,6 +8,8 @@ import persistencia.preprocessat.UserList;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -262,6 +264,13 @@ public class ControladorPersistencia {
         else  return CSVUnknown.obtenlistaitems();
     }
 
+    /**
+     * @brief obtains the set of values related to a user given to a item
+     * \pre needs a mapRate to read.
+     * \post obtain the values of the items related for a corresponding user
+     * @param a number of csv to choose
+     * @return list of list of floats corresponding to the values of items for each user.
+     */
     public List<List<Float>> getMapRateVal(int a){
         if (a == 0){
             return CSVRate.obtenlistavalues();
@@ -292,9 +301,14 @@ public class ControladorPersistencia {
         return CSVItem.obtencategorics();
     }
 
-    public List<Integer> list_user(){
+    public List<Integer> list_user_rating(){
+        UserList.initializeUsers(CSVRate.getMapRate());
         return UserList.getUsers();
-        //retorna una llista amb tots els id users
+
+    }
+    public List<Integer> list_user_known(){
+        UserList.initializeUsers(CSVKnown.getMapRate());
+        return UserList.getUsers();
     }
 
     public List<Integer> list_item(){
@@ -335,13 +349,18 @@ public class ControladorPersistencia {
         return CSVItem.getTipus();
     }
 
-    public boolean crear_carpeta(String nom_dir){
-        File directorio = new File("DATA/"+ nom_dir );
+    /*public String crear_carpeta(){
+        Date data = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String dateToStr = dateFormat.format(data);
+        dateToStr.trim();
+        dateToStr.replace(" ","");
+        File directorio = new File("DATA/attempt"+ dateToStr );
         if(!directorio.exists()){
-            if(directorio.mkdir()) return true;
-            else return false;
+            //if(directorio.mkdir()) return true;
+            //else return false;
         }
-        else return false;
+        //else return false;
     }
 
     public void guardado(String name_dir){
@@ -358,7 +377,7 @@ public class ControladorPersistencia {
             UserList.saveUsers(name_dir);
             Recomm.saveRecommendation(name_dir);
         }
-    }
+    }*/
 
     public void reload(String name_dir){
         File directory = new File("DATA/" + name_dir);
