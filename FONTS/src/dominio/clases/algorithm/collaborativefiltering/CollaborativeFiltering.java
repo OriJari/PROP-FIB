@@ -58,7 +58,7 @@ public class CollaborativeFiltering {
     }
 
     public void elbowtest(Map<Integer, Map<Integer, Float>> opinions){
-        int maxK = min(10, opinions.size());
+        int maxK = min(8, opinions.size());
         Vector<Float> inertias = new Vector<>();
         K_Means Kmean = new K_Means(opinions);
         for(int k = 0; k < maxK; ++k){
@@ -160,15 +160,14 @@ public class CollaborativeFiltering {
 
     public void delUserCluster(int ID){
          boolean cont = true;
-         int i = 0;
-         while(cont && i < clusters.size()){
-             if(clusters.get(i).contains(ID)){
-                 clusters.get(i).remove(ID);
-                 cont = false;
-             }
-             ++i;
-         }
-     }
+         int mida = clusters.size();
+        for(int i = 0; cont && i < mida; ++i) {
+            if(clusters.get(i).contains(ID)){
+                clusters.get(i).removeElement(ID);
+                cont = false;
+            }
+        }
+    }
 
     public void delItem(int ID) {
          Map<Integer, Map<Integer, Float>> aux = new TreeMap<>();

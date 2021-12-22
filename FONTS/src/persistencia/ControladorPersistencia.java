@@ -245,6 +245,13 @@ public class ControladorPersistencia {
         else  return CSVUnknown.obtenlistausers();
     }
 
+    /**
+     * @brief obtains the set of items related to a user
+     * \pre needs a mapRate to read.
+     * \post obtain the items related for a corresponding user
+     * @param a number of csv to choose
+     * @return list of list of integers corresponding to the items for each user.
+     */
     public List<List<Integer>> getMapRateIDitems(int a){
         if (a == 0){
             return CSVRate.obtenlistaitems();
