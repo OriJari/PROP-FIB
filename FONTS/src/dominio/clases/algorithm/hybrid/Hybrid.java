@@ -11,7 +11,7 @@ public class Hybrid {
     public Hybrid() {}
 
     public Recommendation recommend(Recommendation r1, Recommendation r2, int k) {
-        Recommendation result = new Recommendation();
+        Recommendation result = new Recommendation(r1.getID_perfil(), 2);
         List<Integer> ids_1 = new ArrayList<>();
         List<Integer> ids_2 = new ArrayList<>();
         List<Rating> comuns = new ArrayList<>();
@@ -50,7 +50,6 @@ public class Hybrid {
             }
         }
         result.setConjunt(comuns);
-        result.setID_perfil(r1.getID_perfil());
         return result;
     }
 }

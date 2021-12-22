@@ -109,12 +109,12 @@ public class ControladorPresentacion {
         return CD.list_valREC();
     }
 
-    public List<Float> list_valSavedREC(String path_rec) {
-        return CD.list_valSavedREC(path_rec);
+    public List<Float> list_valSavedREC(int IDuser, int alg, String Date) {
+        return CD.list_valSavedREC(IDuser, alg, Date);
     }
 
-    public List<Integer> list_itemSavedREC(String path_rec) {
-        return CD.list_itemSavedREC(path_rec);
+    public List<Integer> list_itemSavedREC(int IDuser, int alg, String Date) {
+        return CD.list_itemSavedREC(IDuser, alg, Date);
     }
 
     public List<Integer> get_item_rec(){

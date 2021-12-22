@@ -116,7 +116,7 @@ public class CollaborativeFiltering {
             aux = mapRecommendation;
         }
 
-        Recommendation result = new Recommendation(userID);
+        Recommendation result = new Recommendation(userID, 0);
         for(Map.Entry<Integer, Float> entry: aux.entrySet()){
             result.addRating(new Rating(entry.getKey(), entry.getValue()));
         }
