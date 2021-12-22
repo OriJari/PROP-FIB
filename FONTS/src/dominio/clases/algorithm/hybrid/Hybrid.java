@@ -6,10 +6,25 @@ import dominio.clases.recommendation.Recommendation;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.Math;
-
+/**
+ * @brief Class for the implementation of the Hybrid Algorithm for computing recommendations.
+ * @author Marc Delgado Sánchez
+ */
 public class Hybrid {
+    /**
+     * @brief Basic Constructor, with no parameters.
+     */
     public Hybrid() {}
 
+    /**
+     * @brief Application of the Hybrid Algorithm.
+     * @param r1    Recommendation done by the Collaborative Filtering.
+     * @param r2    Recommendation done by the Content-Based Filtering.
+     * @param k     Number of items to recommend.
+     * @return      Returns a recommendation of k items, using the Hybrid Algorithm.
+     * \pre <em>r1</em> and <em>r2</em> are correct recommendations.
+     * \post Returns a recommendation of k items.
+     */
     public Recommendation recommend(Recommendation r1, Recommendation r2, int k) {
         Recommendation result = new Recommendation(r1.getID_perfil(), 2);
         List<Integer> ids_1 = new ArrayList<>();
