@@ -331,8 +331,6 @@ public class ControladorDominio {
     }
 
     public void guardarCambios(){
-        if(CP.crear_carpeta()){
-            CP.guardado();
-        }
+        boolean b = CP.crear_carpeta();
     }
 }

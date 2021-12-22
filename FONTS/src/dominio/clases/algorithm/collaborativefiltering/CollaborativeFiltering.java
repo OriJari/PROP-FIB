@@ -59,16 +59,16 @@ public class CollaborativeFiltering {
 
     /** @brief Elbowtest method. It computes the best <em>k</em> using the elbow test.
      *
-     * @param opinions Map that represents the ratings that users have given about some items that are known.
+     * @param opinions Map that represents the ratings that users have given about some items that are known. It tests Ks betweeen 2 and 8.
      *
      *  \pre <em>true</em>
      *  \post The clusters are created with the best k.
      */
     public void elbowtest(Map<Integer, Map<Integer, Float>> opinions){
-        /*int maxK = min(8, opinions.size());
-        Vector<Float> inertias = new Vector<>();*/
+        int maxK = min(8, opinions.size());
+        Vector<Float> inertias = new Vector<>();
         K_Means Kmean = new K_Means(opinions);
-        /*for(int k = 0; k < maxK; ++k){
+        for(int k = 0; k < maxK; ++k){
             Kmean.k_means(k+1);
             inertias.add(Kmean.inertia());
         }
@@ -92,21 +92,21 @@ public class CollaborativeFiltering {
                 maxDiffAng = diffAng;
                 bestK = i+2;
             }
-        }*/
+        }
 
         System.out.println("The best K is: " + bestK);
-        bestK = 3;
+
         Kmean.k_means(bestK);
         this.clusters = Kmean.getClusters();
     }
 
 
-    /** @brief Function that makes a recommendation of items to a dominio.controladores.clases.atribut.user.
+    /** @brief Function that makes a recommendation of items to auser.
      *
-     * @param userID ID of the dominio.controladores.clases.atribut.user that receives the recommendation.
-     * @return It returns a Map of dominio.controladores.clases.atribut.item ID's together with the expected rating of the dominio.controladores.clases.atribut.user.
+     * @param userID ID of the user that receives the recommendation.
+     * @return It returns a Map of item ID's together with the expected rating of the dominio.controladores.clases.atribut.user.
      *
-     * \pre The dominio.controladores.clases.atribut.user must exist.
+     * \pre The user must exist.
      * \post Returns a Map of expected ratings with maximum size 10.
      */
      public Recommendation recommend(Integer userID, Integer maxItems, boolean valoration){
@@ -165,6 +165,10 @@ public class CollaborativeFiltering {
         return result;
     }
 
+    /**@brief Deletes user from clusters.
+     *
+     * @param ID User ID
+     */
     public void delUserCluster(int ID){
          boolean cont = true;
          int mida = clusters.size();
@@ -176,6 +180,10 @@ public class CollaborativeFiltering {
         }
     }
 
+    /** @brief Deletes item and all its consequences.
+     *
+     * @param ID Item ID.
+     */
     public void delItem(int ID) {
          Map<Integer, Map<Integer, Float>> aux = new TreeMap<>();
         for(Map.Entry<Integer, Map<Integer, Float>> entry1: opinions.entrySet()){
@@ -201,6 +209,7 @@ public class CollaborativeFiltering {
          Kmean.k_means(bestK, clusters, opinions);
         this.clusters = Kmean.getClusters();
     }
+
 
     public void delUser(int ID) {
          if(opinions.containsKey(ID)){
