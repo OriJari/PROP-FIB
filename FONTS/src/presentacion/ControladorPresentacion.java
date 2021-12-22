@@ -148,4 +148,8 @@ public class ControladorPresentacion {
         return CD.types_header();
         //tipus tag
     }
+
+    public void guardarCambios() {
+        CD.guardarCambios();
+    }
 }

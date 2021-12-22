@@ -50,8 +50,8 @@ public class VistaPrincipal {
 
     //item
     private  JButton gesTag = new JButton("Gestionar Tags");
-    private  JComboBox TagsItems = new JComboBox();
-    private  JComboBox citemid = new JComboBox();
+    private  JComboBox TagsItems;
+    private  JComboBox citemid;
     private  JTextField tagmod = new JTextField();
     private  int id_actual;
 
@@ -70,6 +70,7 @@ public class VistaPrincipal {
     private  JButton gestuser = new JButton("Gestión de Usuario");
     private  JButton gestitem = new JButton("Gestión de Item");
     private  JButton recomanacio = new JButton("Recomendaciones");
+    private JButton guardar_cambios = new JButton("Guardar Cambios");
 
     //menuRecomanacio
     private JPanel menR = new JPanel();
@@ -510,15 +511,20 @@ public class VistaPrincipal {
         panelmain();
     }
     public void actionPerformed_deleteT(ActionEvent e) {
-        System.out.println("boton pulsado: eliminar");
+
 
         if(CP.delTag(id_actual, (String) TagsItems.getSelectedItem())){
         JOptionPane.showMessageDialog(gestTag,"Eliminado correctamente");
-        System.out.println("eliminado");
+
         }
         else JOptionPane.showMessageDialog(gestTag,"No se ha podido eliminar correctamente","Error",0);
         gestTag.setVisible(false);
         panelmain();
+    }
+
+    public void actionPerformed_saveall(ActionEvent e) {
+        CP.guardarCambios();
+        JOptionPane.showMessageDialog(menu,"Guardado");
     }
 
     //listeners
@@ -788,6 +794,15 @@ public class VistaPrincipal {
                     }
                 });
 
+        guardar_cambios.addActionListener
+                (new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        String texto = ((JButton) event.getSource()).getText();
+                        System.out.println("Has clickado el boton con texto: " + texto);
+                        actionPerformed_saveall(event);
+                    }
+                });
+
     }
 
     /**
@@ -856,7 +871,7 @@ public class VistaPrincipal {
      * \pre true
      * \post Sets the csv to work with
      */
-    public  void start(){
+    public void start(){
 
         fin.add(start);
         start.setVisible(true);
@@ -931,6 +946,10 @@ public class VistaPrincipal {
         menu.add(gestuser);
         menu.add(gestitem);
         menu.add(recomanacio);
+
+        guardar_cambios.setBounds(300, 390,350,40);
+        guardar_cambios.setFont(new Font("Arial", Font.BOLD, 20));
+        menu.add(guardar_cambios);
 
 
 
@@ -1053,7 +1072,7 @@ public class VistaPrincipal {
         recomana.add(busca);
 
 
-
+        recomana.repaint();
 
     }
 
@@ -1089,9 +1108,6 @@ public class VistaPrincipal {
         List<String> l = rec_sv;
         Vector<String> v = new Vector<>();
         for (int i = 0; i < l.size(); ++i) v.add(l.get(i));
-
-
-
 
         combo_rec = new JComboBox(v);
 
