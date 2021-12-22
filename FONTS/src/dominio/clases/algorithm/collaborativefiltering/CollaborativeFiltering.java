@@ -159,22 +159,30 @@ public class CollaborativeFiltering {
     }
 
     public void delUserCluster(int ID){
-        for(int i = 0; i < clusters.size(); ++i){
-                clusters.get(i).remove(ID);
-        }
-    }
+         boolean cont = true;
+         int i = 0;
+         while(cont && i < clusters.size()){
+             if(clusters.get(i).contains(ID)){
+                 clusters.get(i).remove(ID);
+                 cont = false;
+             }
+             ++i;
+         }
+     }
 
     public void delItem(int ID) {
+         Map<Integer, Map<Integer, Float>> aux = opinions;
          for(Map.Entry<Integer, Map<Integer, Float>> entry: opinions.entrySet()){
              int userID = entry.getKey();
              if(entry.getValue().containsKey(ID) && entry.getValue().size() == 1){
-                 opinions.remove(userID);
+                 aux.remove(userID);
                  delUserCluster(userID);
              }
              else if(entry.getValue().containsKey(ID)){
-                 opinions.get(userID).remove(ID);
+                 aux.get(userID).remove(ID);
              }
          }
+         opinions = aux;
          K_Means Kmean = new K_Means();
          Kmean.k_means(bestK, clusters, opinions);
         this.clusters = Kmean.getClusters();
