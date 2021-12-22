@@ -351,7 +351,6 @@ public class VistaPrincipal {
         int i = combo_rec.getSelectedIndex();
         id_List = CP.list_itemSavedREC(ids_list.get(i),alg_list.get(i),dat_list.get(i));
         val_List = CP.list_valSavedREC(ids_list.get(i),alg_list.get(i),dat_list.get(i));
-        if(checkbox) DCG = CP.saved_DCG();
         System.out.println("boton pulsado: open ");
         nova_rec = false;
         panelactual = 7;

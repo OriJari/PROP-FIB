@@ -100,6 +100,7 @@ public class ControladorDominio {
         CFNotEval = new CollaborativeFiltering(mapRateRatings1, new TreeMap<>());
         KNNEval = new K_NN(mapRateKnown2, mapRateUnknown, mapItems1, l1);
         KNNnotEval = new K_NN(mapRateRatings2, new TreeMap<>(), mapItems2, l2);
+        E = new Evaluation(mapRateUnknown);
 
         KNNEval.initSimilarityTable();
         KNNnotEval.initSimilarityTable();
@@ -276,6 +277,9 @@ public class ControladorDominio {
         }
 
         rec = H.recommend(r1,r2,k);
+    }
+    public Float new_DCG(){
+        return E.DCG(rec);
     }
 
     public List<String> tag_list() {
