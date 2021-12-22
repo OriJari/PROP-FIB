@@ -166,8 +166,10 @@ public class K_NN {
     }
 
     /**
-     * @brief
-     * @param ID_item
+     * @brief Makes the necessary actualizations to maps and <em>similarityTable</em> when an item is deleted from the system.
+     * @param ID_item   ID of the item removed.
+     * \pre   <em>ID_item</em> exists in the system.
+     * \post  <em>similarityTable</em> is updated. <em>mapa_items</em> is updated.
      */
     public void Del_Item(int ID_item) {
         int id_fals = id_reals.indexOf(ID_item);
@@ -177,6 +179,12 @@ public class K_NN {
         esborra_item_taula(id_fals);
     }
 
+    /**
+     * @brief Updates the state of the <em>similarityTable</em> when <em>item_id</em> is deleted from the system.
+     * @param id_item   ID of the item removed.
+     * \pre   <em>id_item</em> exists in the system.
+     * \post  <em>similarityTable</em> is updated.
+     */
     public void esborra_item_taula(int id_item) {
         int n = similarityTable.length;
         double [][] new_table = new double[n-1][n-1];
@@ -195,6 +203,15 @@ public class K_NN {
             }
         similarityTable = new_table;
     }
+
+    /**
+     * @brief Updates <em>mapa_known</em> when the rating given by <em>id_user</em> to <em>id_item</em> is changed.
+     * @param id_user   ID of the user who gives the rating.
+     * @param id_item   ID of the item rated.
+     * @param valoracio Rate given to the item by the rating.
+     * \pre   <em>id_user</em> exists in the system. <em>id_item</em> exists in the system.
+     * \post  <em>mapa_known</em> is updated.
+     */
     public void modifica_map_rating(int id_user, int id_item, float valoracio) {
         if (mapa_known.containsKey(id_user)) mapa_known.get(id_user).put(id_item,valoracio);
         else {
@@ -203,15 +220,34 @@ public class K_NN {
         }
     }
 
+    /**
+     * @brief Updates <em>mapa_known</em> when a user is removed.
+     * @param User_ID   ID of the removed user.
+     * \pre   <em>User_ID</em> exists in the system.
+     * \post  <em>mapa_known</em> is updated and <em>User_ID</em> no longer appears.
+     */
     public void esborra_user_map_rating(int User_ID) {
         mapa_known.remove(User_ID);
     }
 
+    /**
+     * @brief Updates <em>mapa_known</em> when a rating given by <em>User_ID</em> is removed.
+     * @param User_ID   ID of the user whose rating on <em>Item_ID</em> is removed.
+     * @param Item_ID   ID of the item whose rating is removed.
+     *  \pre <em>User_ID</em> and <em>Item_ID</em> exist in the system.
+     *  \post <em>mapa_known</em> is updated.
+     */
     public void esborra_rating_user(int User_ID, int Item_ID) {
-        if (mapa_known.get(User_ID).size() == 1) mapa_known.remove(User_ID);
+        if (mapa_known.get(User_ID).size() == 1 && mapa_known.get(User_ID).containsKey(Item_ID)) mapa_known.remove(User_ID);
         else mapa_known.get(User_ID).remove(Item_ID);
     }
 
+    /**
+     * @brief Updates <em>mapa_known</em> when an item is removed.
+     * @param Item_ID   ID of the item removed.
+     * \pre   <em>Item_ID</em> exists in the system.
+     * \post  <em>mapa_known</em> is updated.
+     */
     public void elimina_item_mapa_rating(int Item_ID) {
         Map<Integer, Map<Integer, Float>> aux = new TreeMap<>();
         for(Map.Entry<Integer, Map<Integer, Float>> entry1: mapa_known.entrySet()){
@@ -457,6 +493,12 @@ public class K_NN {
         }
     }
 
+    /**
+     * @brief Returns similarityTable[i][j]
+     * @param i Row of the matrix.
+     * @param j Column of the matrix.
+     * @return  similarity between items in row i and column j.
+     */
     public double getSimilarity(int i, int j) {
         return similarityTable[i][j];
     }
