@@ -1,7 +1,6 @@
 package presentacion;
 
 import  javax.swing.*;
-import javax.tools.Tool;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -10,6 +9,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
+
+
+/**
+ *
+ * @author Oriol Martí Jariod
+ */
+
+/** @class VistaPrincipal
+ * @brief Implements the views of the application
+ */
 
 public class VistaPrincipal {
 
@@ -134,15 +143,26 @@ public class VistaPrincipal {
 
 
     //atributs
-    protected  int panelactual = 0;
-    protected  String path_csv;
+    private  int panelactual = 0;
+    private  String path_csv;
 
-
+    /** @brief Default builder.
+     *
+     * \pre <em>true</em>
+     * \post It creates a <em>VistaPrincipal</em> object with its attribute <em>ControladorPresentacion</em>.
+     *
+     */
     public VistaPrincipal(ControladorPresentacion cp) {
         CP = cp;
         inicializaComponentes();
     }
 
+    /**
+     * @brief Initialize components
+     *
+     * \pre true
+     * \post Initialize variables and calls other functions
+     */
     private void inicializaComponentes() {
         hacerVisible();
         asignar_listenersComponentes();
@@ -164,7 +184,12 @@ public class VistaPrincipal {
 
     }
 
-
+    /**
+     * @brief Make visible teh frame
+     *
+     * \pre true
+     * \post Sets the frame
+     */
     public void hacerVisible() {
         fin.pack();
         fin.setVisible(true);
@@ -172,6 +197,12 @@ public class VistaPrincipal {
         basic_frame();
     }
 
+    /**
+     * @brief Basic info of the frame
+     *
+     * \pre true
+     * \post Sets basic parameters of the frame
+     */
     public void basic_frame(){
         fin.setTitle("Recomendation System");
         fin.setResizable(false);
@@ -180,6 +211,13 @@ public class VistaPrincipal {
         fin.setLocationRelativeTo(null);
         panelmain();
     }
+
+    /**
+     * @brief Actions performer events
+     *
+     * \pre true
+     * \post Sets the actions of every ActionEvent
+     */
 
     public void actionPerformed_csvs(ActionEvent e) {
         //browser ficheros/dyrectory
@@ -437,6 +475,12 @@ public class VistaPrincipal {
     }
 
     //listeners
+    /**
+     * @brief Assigns the listeners
+     *
+     * \pre true
+     * \post Assigns every action event with his component
+     */
     private void asignar_listenersComponentes() {
         //botones
 
@@ -699,6 +743,12 @@ public class VistaPrincipal {
 
     }
 
+    /**
+     * @brief Main panels
+     *
+     * \pre true
+     * \post Sets the actual panel
+     */
     public  void panelmain(){
         switch (panelactual){
             case 0:
@@ -753,6 +803,12 @@ public class VistaPrincipal {
         }
     }
 
+    /**
+     * @brief First panel
+     *
+     * \pre true
+     * \post Sets the csv to work with
+     */
     public  void start(){
 
         fin.add(start);
@@ -829,6 +885,12 @@ public class VistaPrincipal {
 
     }
 
+    /**
+     * @brief Menu panel
+     *
+     * \pre true
+     * \post true
+     */
     public  void menu(){
 
         fin.add(menu);
@@ -906,6 +968,12 @@ public class VistaPrincipal {
         recomanacio.addActionListener(rec);*/
     }
 
+    /**
+     * @brief Menu recommendation panel
+     *
+     * \pre true
+     * \post true
+     */
     public  void menuRec(){
 
         fin.add(menR);
@@ -972,6 +1040,12 @@ public class VistaPrincipal {
 
     }
 
+    /**
+     * @brief New recommendation panel
+     *
+     * \pre true
+     * \post true
+     */
     public  void recomanacio(){
 
         fin.add(recomana);
@@ -1100,6 +1174,12 @@ public class VistaPrincipal {
 
     }
 
+    /**
+     * @brief Load recommendation panel
+     *
+     * \pre true
+     * \post true
+     */
     public  void cargar_rec(){
 
         fin.add(cargarR);
@@ -1179,6 +1259,12 @@ public class VistaPrincipal {
         openB.addActionListener(comencem);*/
     }
 
+    /**
+     * @brief Items recommended panel
+     *
+     * \pre true
+     * \post true
+     */
     public  void rec_items(){
         item_rec = new JPanel();
         fin.add(item_rec);
@@ -1256,6 +1342,12 @@ public class VistaPrincipal {
 
     }
 
+    /**
+     * @brief Gestion user panel
+     *
+     * \pre true
+     * \post true
+     */
     public  void gestion_user(){
 
         fin.add(gestUser);
@@ -1367,6 +1459,12 @@ public class VistaPrincipal {
 
     }
 
+    /**
+     * @brief Gestion ratings panel
+     *
+     * \pre true
+     * \post true
+     */
     public  void gestion_ratings(){
 
         fin.add(gestRate);
@@ -1458,6 +1556,12 @@ public class VistaPrincipal {
 
     }
 
+    /**
+     * @brief Gestion items panel
+     *
+     * \pre true
+     * \post true
+     */
     public  void gestion_item(){
 
         fin.add(gestItem);
@@ -1575,6 +1679,12 @@ public class VistaPrincipal {
 */
     }
 
+    /**
+     * @brief Gestion tags panel
+     *
+     * \pre true
+     * \post true
+     */
     public  void gestion_tag(){
 
         fin.add(gestTag);
