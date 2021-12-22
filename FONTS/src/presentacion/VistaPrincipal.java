@@ -1427,7 +1427,7 @@ public class VistaPrincipal {
         List<String> l = CP.tag_list();
         Vector<String> v = new Vector<>();
         for (int i = 0; i < l.size(); ++i) v.add(l.get(i));
-        TagsItems.setModel(new DefaultComboBoxModel(v)));
+        TagsItems.setModel(new DefaultComboBoxModel(v));
         TagsItems.setBounds(330,160,300,30);
 
         gestTag.add(TagsItems);

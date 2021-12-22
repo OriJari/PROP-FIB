@@ -1,9 +1,9 @@
 package dominio.clases.algorithm.collaborativefiltering;
 
-import dominio.clases.algorithm.k_means.*;
+import dominio.clases.rating.*;
+import dominio.clases.recommendation.*;
 import dominio.clases.algorithm.slopeone.*;
-import dominio.clases.rating.Rating;
-import dominio.clases.recommendation.Recommendation;
+import dominio.clases.algorithm.k_means.*;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -109,7 +109,7 @@ public class CollaborativeFiltering {
      * \pre The user must exist.
      * \post Returns a Map of expected ratings with maximum size 10.
      */
-     public Recommendation recommend(Integer userID, Integer maxItems, boolean valoration){
+     public dominio.clases.recommendation.Recommendation recommend(Integer userID, Integer maxItems, boolean valoration){
         boolean cont = true;
         Integer clusterUser = 0;
         for(int i = 0; i < clusters.size() && cont; ++i){

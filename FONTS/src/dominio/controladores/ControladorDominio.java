@@ -5,6 +5,7 @@ import dominio.clases.algorithm.contentbasedflitering.*;
 import dominio.clases.algorithm.hybrid.*;
 import dominio.clases.content.*;
 import dominio.clases.evaluation.*;
+import dominio.clases.content.Content;
 import dominio.clases.recommendation.*;
 import persistencia.*;
 

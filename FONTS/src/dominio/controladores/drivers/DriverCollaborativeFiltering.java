@@ -14,7 +14,7 @@ import static java.lang.Math.min;
 
 public class DriverCollaborativeFiltering {
     private static Scanner sc;
-
+/*
     public static Map<Integer, Map<Integer, Float>> leeropinions(){
         System.out.println("Numero de users: ");
         int Nusers = sc.nextInt();
@@ -38,17 +38,17 @@ public class DriverCollaborativeFiltering {
 
     public static void testrecommend(){
         Map<Integer, Map<Integer, Float>> opinions = leeropinions();
-        CollaborativeFiltering CF = new CollaborativeFiltering(opinions, new TreeMap<>(), max(1, opinions.size() / 3));
+        //CollaborativeFiltering CF = new CollaborativeFiltering(opinions, new TreeMap<>(), max(1, opinions.size() / 3));
         System.out.println("UserID del user que queremos la recomendacion:");
         int userID = sc.nextInt();
-        Recommendation recommendation = CF.recommend(userID, 10, false);
-        for (Rating r : recommendation.getConjunt()) {
+       // Recommendation recommendation = CF.recommend(userID, 10, false);
+     /*   //for (Rating r : recommendation.getConjunt()) {
             System.out.println("ID item: " + r.getId() + " with expected rating " + r.getValor());
-        }
+       */ /*}
     }
 
     public static void main(String[] args){
-        System.out.println("Driver collaborativeFiltering");
+        /*System.out.println("Driver collaborativeFiltering");
         boolean salir = false;
         sc = new Scanner(System.in);
 
