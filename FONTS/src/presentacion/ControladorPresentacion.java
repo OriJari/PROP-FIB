@@ -30,8 +30,15 @@ public class ControladorPresentacion {
     }
 
 
-    public List<Integer> list_user(){
-        return CD.list_user();
+    public List<Integer> list_user_recommana(boolean e){
+        if(e)return CD.list_user_known();
+        else return CD.list_user_rating();
+        //retorna una llista amb tots els id users
+    }
+
+    public List<Integer> list_user_gestionuser(){
+
+        return CD.list_user_rating();
         //retorna una llista amb tots els id users
     }
 

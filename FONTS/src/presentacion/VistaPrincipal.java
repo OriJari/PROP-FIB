@@ -4,10 +4,7 @@ import  javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.io.FilenameFilter;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
@@ -323,7 +320,7 @@ public class VistaPrincipal {
         panelmain();
     }
     public void actionPerformed_busca(ActionEvent e) {
-        String userid = (String) CuserID.getSelectedItem();
+        String userid = String.valueOf(CuserID.getSelectedItem());
         int uid = Integer.valueOf(userid);
         System.out.println("user selecionado: " + userid);
         String algorithm = (String) algoritme.getSelectedItem();
@@ -492,7 +489,7 @@ public class VistaPrincipal {
             System.out.println(tagmod.getText());
         }
         else JOptionPane.showMessageDialog(gestTag,"No se ha podido modificar correctamente","Error",0);
-        gesTag.setVisible(false);
+        gestTag.setVisible(false);
         panelmain();
     }
     public void actionPerformed_deleteT(ActionEvent e) {
@@ -669,7 +666,7 @@ public class VistaPrincipal {
                     public void actionPerformed(ActionEvent event) {
                         String texto = ((JButton) event.getSource()).getText();
                         System.out.println("Has clickado el boton con texto: " + texto);
-                        actionPerformed_addBR(event);
+                        actionPerformed_gesTag(event);
                     }
                 });
 
@@ -1133,8 +1130,11 @@ public class VistaPrincipal {
         recomana.add(frase2Recomanacio);
 
 
+        List<Integer> l = CP.list_user_recommana(checkbox);
+        Vector<Integer> v = new Vector<>();
+        for (int i = 0; i < l.size(); ++i) v.add(l.get(i));
 
-        CuserID = new JComboBox((Vector) CP.list_user());
+        CuserID = new JComboBox(v);
         CuserID.setBounds(470,180,250,25);
        // CuserID.addItem("2848721");
        // CuserID.addItem("8466126");
@@ -1259,10 +1259,14 @@ public class VistaPrincipal {
 
 
 
+        List<String> l = rec_sv;
+        Vector<String> v = new Vector<>();
+        for (int i = 0; i < l.size(); ++i) v.add(l.get(i));
 
 
 
-        combo_rec = new JComboBox((Vector) rec_sv);
+
+        combo_rec = new JComboBox(v);
 
         combo_rec.setBounds(230,190,500,25);
 
@@ -1427,7 +1431,7 @@ public class VistaPrincipal {
 
 
 
-        List<Integer> l = CP.list_user();
+        List<Integer> l = CP.list_user_gestionuser();
         Vector<Integer> v = new Vector<>();
         for (int i = 0; i < l.size(); ++i) v.add(l.get(i));
         cUserid = new JComboBox(v);
@@ -1772,7 +1776,7 @@ public class VistaPrincipal {
         modify.setBounds(515,280,150,30);
         gestTag.add(modify);
 
-        List<String > l = CP.tag_list();
+        List<String> l = CP.tag_list();
         Vector<String> v = new Vector<>();
         for (int i = 0; i < l.size(); ++i) v.add(l.get(i));
         TagsItems = new JComboBox(v);
