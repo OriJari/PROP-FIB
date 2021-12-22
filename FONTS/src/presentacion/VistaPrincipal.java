@@ -370,6 +370,8 @@ public class VistaPrincipal {
         }
         else if(isNumericI(tUserId.getText())) JOptionPane.showMessageDialog(gestUser,"Usuario ya registrado","Error",0);
         else JOptionPane.showMessageDialog(gestUser,"No se ha podido añadir correctamente","Error",0);
+        gestUser.setVisible(false);
+        panelmain();
     }
     public void actionPerformed_deleteB(ActionEvent e) {
         System.out.println("boton pulsado: eliminar");
@@ -379,6 +381,8 @@ public class VistaPrincipal {
             System.out.println(tUserId.getText());
         }
         else JOptionPane.showMessageDialog(gestUser,"No se ha podido eliminar correctamente","Error",0);
+        gestUser.setVisible(false);
+        panelmain();
     }
     public void actionPerformed_gRate(ActionEvent e) {
             System.out.println("boton pulsado: gestionar ratings");
@@ -402,6 +406,8 @@ public class VistaPrincipal {
             System.out.println(tRate.getText());
         }
         else JOptionPane.showMessageDialog(gestRate,"No se ha podido añadir/modificar correctamente","Error",0);
+        gestRate.setVisible(false);
+        panelmain();
     }
     public void actionPerformed_deleteBR(ActionEvent e) {
         System.out.println("boton pulsado: eliminar");
@@ -411,6 +417,8 @@ public class VistaPrincipal {
             System.out.println("eliminado");
         }
         else JOptionPane.showMessageDialog(gestRate,"No se ha podido eliminar correctamente","Error",0);
+        gestRate.setVisible(false);
+        panelmain();
     }
     public void actionPerformed_backGI(ActionEvent e) {
         System.out.println("boton pulsado: tornarGI");
@@ -422,12 +430,18 @@ public class VistaPrincipal {
         System.out.println("boton pulsado: añadir");
 
         if(isNumericI(titemId.getText()) && !CP.exists(Integer.valueOf(titemId.getText()))){
-            ArrayList<String> tags = new ArrayList<>();
-            //for(int i = 0; i < 5; ++i) {
-
-            tags.add(JOptionPane.showInputDialog("Introducir Tag"));
-            System.out.println(JOptionPane.showInputDialog("Introducir Tag"));
-            //}
+            List<String> tags = new ArrayList<>();
+            List<String> tags_contingut = CP.tag_list_header();
+            List<String> tags_header = CP.types_header();
+            for(int i = 0; i < tags_header.size(); ++i) {
+                if(tags_header.get(i) == "b") tags.add(i,JOptionPane.showInputDialog("Introducir Tag de tipo boolean para el atributo " + tags_contingut.get(i)+" "));
+                else if(tags_header.get(i) == "i") tags.add(i,JOptionPane.showInputDialog("Introducir Tag de tipo integer para el atributo " + tags_contingut.get(i)+" "));
+                else if(tags_header.get(i) == "d") tags.add(i,JOptionPane.showInputDialog("Introducir Tag de tipo float para el atributo " + tags_contingut.get(i)+" "));
+                else if(tags_header.get(i) == "c") tags.add(i,JOptionPane.showInputDialog("Introducir Tag de tipo categorico para el atributo " + tags_contingut.get(i)
+                        + "\nEscribir cada atributo seguido del otro sin separacion, con ; entre ellos, y al final sin ; \nEjemplo: rojo;azul;verde "));
+                else tags.add(i,JOptionPane.showInputDialog("Introducir Tag de tipo string para el atributo " + tags_contingut.get(i)+" "));
+                //System.out.println(JOptionPane.showInputDialog("Introducir Tag"));
+            }
             CP.addItem(Integer.valueOf(titemId.getText()),tags);
 
 
@@ -435,6 +449,8 @@ public class VistaPrincipal {
         }
 
         else JOptionPane.showMessageDialog(gestItem,"No se ha podido añadir correctamente","Error",0);
+        gestItem.setVisible(false);
+        panelmain();
     }
     public void actionPerformed_deleteI(ActionEvent e) {
         System.out.println("boton pulsado: eliminar");
@@ -445,6 +461,8 @@ public class VistaPrincipal {
         }
         //else if(!CP.valdiItem((Integer)citemid.getSelectedItem())) JOptionPane.showMessageDialog(gestUser,"Item no registrado","Error",0);
         else JOptionPane.showMessageDialog(gestItem,"No se ha podido eliminar correctamente","Error",0);
+        gestItem.setVisible(false);
+        panelmain();
     }
     public void actionPerformed_gesTag(ActionEvent e) {
         System.out.println("boton pulsado: gestionar tags");
@@ -474,6 +492,8 @@ public class VistaPrincipal {
             System.out.println(tagmod.getText());
         }
         else JOptionPane.showMessageDialog(gestTag,"No se ha podido modificar correctamente","Error",0);
+        gesTag.setVisible(false);
+        panelmain();
     }
     public void actionPerformed_deleteT(ActionEvent e) {
         System.out.println("boton pulsado: eliminar");
@@ -483,6 +503,8 @@ public class VistaPrincipal {
         System.out.println("eliminado");
         }
         else JOptionPane.showMessageDialog(gestTag,"No se ha podido eliminar correctamente","Error",0);
+        gestTag.setVisible(false);
+        panelmain();
     }
     public void actionPerformed_openB(ActionEvent e) {
         String path_rec = (String) combo_rec.getSelectedItem();
@@ -1409,7 +1431,7 @@ public class VistaPrincipal {
         Vector<Integer> v = new Vector<>();
         for (int i = 0; i < l.size(); ++i) v.add(l.get(i));
         cUserid = new JComboBox(v);
-
+        cUserid.setEditable(true);
         cUserid.setBounds(285,250,150,30);
 
         gestUser.add(cUserid);

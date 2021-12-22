@@ -128,4 +128,13 @@ public class ControladorPresentacion {
     public void saveRec() {
         CD.saveRec();
     }
+
+    public List<String> tag_list_header() {
+        return CD.tag_list();
+        // contingut tags
+    }
+    public List<String> types_header() {
+        return CD.types_header();
+        //tipus tag
+    }
 }
