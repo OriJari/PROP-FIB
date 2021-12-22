@@ -167,7 +167,7 @@ public class RecommendationSave {
      * @return string format of the date
      */
     public String datasystem(Date data){
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
         String dateToStr = dateFormat.format(data);
         return dateToStr;
     }
@@ -270,7 +270,7 @@ public class RecommendationSave {
             FileWriter doc = new FileWriter(archivo);
             PrintWriter out = new PrintWriter(doc);
             Date data = new Date();
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
             String dateToStr = dateFormat.format(data);
             String dat = datasystem(data);
             for (int i = 0; i < id_user.size(); ++i){

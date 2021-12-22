@@ -8,6 +8,10 @@ import persistencia.preprocessat.UserList;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.FileSystem;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -465,28 +469,17 @@ public class ControladorPersistencia {
      */
     public boolean crear_carpeta(){
         Date data = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
         String dateToStr = dateFormat.format(data);
         dateToStr.trim();
         dateToStr.replace(" ","");
         File directorio = new File("DATA/attempt"+ dateToStr );
-        directory = "attempt"+ dateToStr;
+        String s = "attempt" + dateToStr;
+        s.replace(" ","");
+        directory = s;
+        //directorio.mkdirs();
         if(!directorio.exists()){
-            if(directorio.mkdir()) return true;
-            else return false;
-        }
-        else return false;
-    }
-
-    /**
-     * @brief save the docuements csv
-     * \pre the directory exsists
-     * \post add the documents to a determinate folder
-     * @return add the documents to a determinate folder
-     */
-    public void guardado(){
-        boolean b = crear_carpeta();
-        if (b){
+            directorio.mkdirs();
             CSVItem.guardar_datos(directory);
             CSVItem.guardar_datos_prepros(directory);
             CSVRate.guardar_datos(directory, "ratings.db.csv");
@@ -498,8 +491,11 @@ public class ControladorPersistencia {
             UserListKnown.saveUsers(directory);
             UserListRating.saveUsers(directory);
             Recomm.saveRecommendation(directory);
+            return true;
         }
+        else return false;
     }
+
 
     /**
      * @brief reload the content from docuements csv

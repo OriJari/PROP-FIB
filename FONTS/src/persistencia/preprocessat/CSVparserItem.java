@@ -658,7 +658,7 @@ public class CSVparserItem {
         //Scanner sc = new Scanner(System.in);
         //String nuevoFichero = sc.nextLine();
         //PENDIENTE NOMBRE FICHERO
-        File archivo = new File("/DATA/"+ name + "/" + "items.prepro" + ".csv");
+        File archivo = new File("DATA/"+ name + "/" + "items.prepro" + ".csv");
 
         try {
             FileWriter doc = new FileWriter(archivo);
