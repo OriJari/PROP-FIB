@@ -691,11 +691,9 @@ public class CSVparserRate {
                     content.add(pos, aux);
                     //CSVKnown.setContent(l);
                 }
-                return true;
             }
-            return false;
         }
-        return false;
+        return true;
     }
 
     /**

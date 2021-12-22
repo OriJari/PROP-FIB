@@ -306,11 +306,10 @@ public class VistaPrincipal {
         dat_list = CP.get_dates_rec();
         rec_sv = new ArrayList<>(ids_list.size());
         for(int i = 0; i < ids_list.size(); i++) {
-            rec_sv.set(i,"Id User: " + ids_list.get(i) + " Algoritme: ");
-            if(alg_list.get(i) == 0) rec_sv.set(i,rec_sv.get(i) + "CF " + dat_list.get(i));
-            else if(alg_list.get(i) == 1) rec_sv.set(i,rec_sv.get(i) + "CBF " + dat_list.get(i));
-            else rec_sv.set(i,rec_sv.get(i) + "H " + dat_list.get(i));
-
+            rec_sv.add("Id User: " + ids_list.get(i) + " Algoritme: ");
+            if(alg_list.get(i) == 0) rec_sv.add(rec_sv.get(i) + "CF " + dat_list.get(i));
+            else if(alg_list.get(i) == 1) rec_sv.add(rec_sv.get(i) + "CBF " + dat_list.get(i));
+            else rec_sv.add(rec_sv.get(i) + "H " + dat_list.get(i));
         }
 
 
@@ -421,7 +420,7 @@ public class VistaPrincipal {
     public void actionPerformed_addBR(ActionEvent e) {
         System.out.println("boton pulsado: añadir/modificar");
 
-        if(isNumericF(tRate.getText()) && CP.addRating(id_actual_user,Integer.valueOf((Integer) cUserid.getSelectedItem()),Float.valueOf(tRate.getText()))){
+        if(isNumericF(tRate.getText()) && CP.addRating(id_actual_user,Integer.valueOf((Integer) cItemId.getSelectedItem()),Float.valueOf(tRate.getText()))){
             JOptionPane.showMessageDialog(gestRate,"Añadido/modificado correctamente");
             System.out.println(tRate.getText());
         }
