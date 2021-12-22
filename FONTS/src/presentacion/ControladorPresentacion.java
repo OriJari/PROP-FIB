@@ -64,7 +64,7 @@ public class ControladorPresentacion {
 
 
     public boolean addRating(int ID_User,int IDitem, float valor){
-        return CD.addRating(ID_User, IDitem, valor);
+        return CD.modRating(ID_User, IDitem, valor);
     }
 
     public boolean deleteRating(int ID_actual,int  IDitem){

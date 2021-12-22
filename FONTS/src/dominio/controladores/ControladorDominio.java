@@ -92,6 +92,7 @@ public class ControladorDominio {
         KNNEval.initSimilarityTable();
         KNNnotEval.initSimilarityTable();
     }
+
     List<Content> convertir_tags_content(List<String> tags) {
         List<String> types = CP.list_tipusheader();
         List<Content> new_tags = new ArrayList<>();
@@ -129,6 +130,7 @@ public class ControladorDominio {
         }
         return new_tags;
     }
+
     Content convertir_un_tag_content(String tag, int index) {
         List<String> types = CP.list_tipusheader();
         String tipus = types.get(index);
@@ -179,6 +181,8 @@ public class ControladorDominio {
         return CP.exists(idItem);
     }
     public boolean delItem(int ID) {
+        CFNotEval.delItem(ID);
+        CFEval.delItem(ID);
         KNNnotEval.Del_Item(ID);
         KNNEval.Del_Item(ID);
         return CP.delItem(ID);
@@ -200,18 +204,18 @@ public class ControladorDominio {
         return CP.addUser(ID);
     }
     public boolean delUser(int ID) {
+        CFNotEval.delUser(ID);
         KNNnotEval.esborra_user_map_rating(ID);
         return CP.delUser(ID);
     }
-    public boolean addRating(int IDuser, int IDitem, float valor){
-        KNNnotEval.modifica_map_rating(IDuser,IDitem,valor);
-        return CP.addRating(IDuser, IDitem, valor);
-    }
+
     public boolean modRating(int IDuser, int IDitem, float new_rate) {
+        CFNotEval.modRating(IDuser, IDitem, new_rate);
         KNNnotEval.modifica_map_rating(IDuser,IDitem,new_rate);
         return CP.modRating(IDuser, IDitem, new_rate);
     }
     public boolean delRating(int IDuser, int IDitem) {
+        CFNotEval.delRating(IDuser, IDitem);
         KNNnotEval.esborra_rating_user(IDuser,IDitem);
         return CP.delRating(IDuser, IDitem);
     }

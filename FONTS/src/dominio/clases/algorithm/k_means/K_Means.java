@@ -131,46 +131,72 @@ public class K_Means {
                 return true;
         }
 
-        /** @brief Given a positive non-zero integer k, it groups the users in k different clusters based on their similarities.
-         *
-         * @param k Number of clusters.
-         *
-         * @return It returns a vector with size k of vectors of integers that represents the k different clusters, with the integers being the ID's of the users belonging to that cluster.
-         *
-         * \pre 0 < k <= opinions.size()
-         * \post Returns the users grouped in k clusters.
-         */
-        public void k_means(Integer k){
-                if(!initialized || this.k != k) {//initialize clusters
-                        this.k = k;
-                        clusters = new Vector<>();
-                        for (int i = 0; i < k; ++i) {
-                                clusters.add(new Vector<Integer>(0));
-                        }
-                        means = new Vector<Map<Integer, Float>>(k);
-                        for (int i = 0; i < k; ++i) {
-                                means.add(new TreeMap<Integer, Float>());
-                        }
-                        int i = 0;
-                        for (Map.Entry<Integer, Map<Integer, Float>> entry : opinions.entrySet()) {
-                                clusters.get(i%k).add(entry.getKey());
-                                for(Map.Entry<Integer, Float> entry2 : entry.getValue().entrySet()){
-                                        if(means.get(i%k).containsKey(entry2.getKey())){
-                                                means.get(i%k).put(entry2.getKey(), means.get(i%k).get(entry2.getKey()) + entry2.getValue());
-                                        }
-                                        else{
-                                                means.get(i%k).put(entry2.getKey(), entry2.getValue());
-                                        }
+        public void initializeClustersMeans(Integer k){//initialize clusters
+                clusters = new Vector<>();
+                for (int i = 0; i < k; ++i) {
+                        clusters.add(new Vector<Integer>(0));
+                }
+                means = new Vector<Map<Integer, Float>>(k);
+                for (int i = 0; i < k; ++i) {
+                        means.add(new TreeMap<Integer, Float>());
+                }
+                int i = 0;
+                for (Map.Entry<Integer, Map<Integer, Float>> entry : opinions.entrySet()) {
+                        clusters.get(i%k).add(entry.getKey());
+                        for(Map.Entry<Integer, Float> entry2 : entry.getValue().entrySet()){
+                                if(means.get(i%k).containsKey(entry2.getKey())){
+                                        means.get(i%k).put(entry2.getKey(), means.get(i%k).get(entry2.getKey()) + entry2.getValue());
                                 }
-                                ++i;
-                        }
-                        for(int j = 0; j < means.size(); ++j){
-                                for(Map.Entry<Integer, Float> entry: means.get(j).entrySet()){
-                                        means.get(j).put(entry.getKey(), entry.getValue()/clusters.get(j).size());
+                                else{
+                                        means.get(i%k).put(entry2.getKey(), entry2.getValue());
                                 }
                         }
+                        ++i;
                 }
 
+                for(int j = 0; j < means.size(); ++j){
+                        for(Map.Entry<Integer, Float> entry: means.get(j).entrySet()){
+                                means.get(j).put(entry.getKey(), entry.getValue()/clusters.get(j).size());
+                        }
+                }
+        }
+
+        public void initializeMeans(){
+                int i = 0;
+                for (Map.Entry<Integer, Map<Integer, Float>> entry : opinions.entrySet()) {
+                        for(Map.Entry<Integer, Float> entry2 : entry.getValue().entrySet()){
+                                if(means.get(i%k).containsKey(entry2.getKey())){
+                                        means.get(i%k).put(entry2.getKey(), means.get(i%k).get(entry2.getKey()) + entry2.getValue());
+                                }
+                                else{
+                                        means.get(i%k).put(entry2.getKey(), entry2.getValue());
+                                }
+                        }
+                        ++i;
+                }
+
+                for(int j = 0; j < means.size(); ++j){
+                        for(Map.Entry<Integer, Float> entry: means.get(j).entrySet()){
+                                means.get(j).put(entry.getKey(), entry.getValue()/clusters.get(j).size());
+                        }
+                }
+        }
+
+        public void k_means(Integer k, Vector<Vector<Integer>> newClusters, Map<Integer, Map<Integer, Float>> newopinions){
+                this.k = k;
+                opinions = newopinions;
+                clusters = newClusters;
+                initializeMeans();
+                kAlg();
+        }
+
+        public void k_means(Integer k){
+                this.k = k;
+                initializeClustersMeans(k);
+                kAlg();
+        }
+
+        public void kAlg(){
                 boolean cont = true;
                 while(cont){
                         Vector<Vector<Integer>> newClusters = new Vector<>();
@@ -223,7 +249,16 @@ public class K_Means {
                                 }
                         }
                 }
-                initialized = true;
         }
 
+
+        /** @brief Given a positive non-zero integer k, it groups the users in k different clusters based on their similarities.
+         *
+         * @param k Number of clusters.
+         *
+         * @return It returns a vector with size k of vectors of integers that represents the k different clusters, with the integers being the ID's of the users belonging to that cluster.
+         *
+         * \pre 0 < k <= opinions.size()
+         * \post Returns the users grouped in k clusters.
+         */
 }

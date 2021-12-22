@@ -22,6 +22,7 @@ public class CollaborativeFiltering {
     private Map<Integer, Map<Integer, Float>> opinions;
     private Map<Integer, Map<Integer, Float>> unknown;
     private Vector<Vector<Integer>> clusters;
+    private int bestK;
 
 
     /** @brief <em>opinions</em> represents the ratings, float in the nested Map, that users, the first Integer is their ID, have given about items, their ID is the integer in the nested Map.
@@ -73,7 +74,7 @@ public class CollaborativeFiltering {
         }
 
         float maxDiffAng = 0.0f;
-        int bestK = 1;
+        bestK = 1;
         for(int i = 0; i < maxK-2; ++i){
             float diffAng = angles.get(i)-angles.get(i+1);
             if(maxDiffAng < diffAng){
@@ -153,4 +154,66 @@ public class CollaborativeFiltering {
         return result;
     }
 
+    public void delUserCluster(int ID){
+         boolean cont = true;
+        for(int i = 0; i < clusters.size() && cont; ++i){
+            if(clusters.get(i).contains(ID)){
+                clusters.get(i).remove(ID);
+                cont = false;
+            }
+        }
+    }
+
+    public void delItem(int ID) {
+         for(Map.Entry<Integer, Map<Integer, Float>> entry: opinions.entrySet()){
+             int userID = entry.getKey();
+             if(entry.getValue().containsKey(ID) && entry.getValue().size() == 1){
+                 opinions.remove(userID);
+                 delUserCluster(userID);
+             }
+             else if(entry.getValue().containsKey(ID)){
+                 opinions.get(userID).remove(ID);
+             }
+         }
+         K_Means Kmean = new K_Means();
+         Kmean.k_means(bestK, clusters, opinions);
+        this.clusters = Kmean.getClusters();
+    }
+
+    public void delUser(int ID) {
+         if(opinions.containsKey(ID)){
+             delUserCluster(ID);
+             opinions.remove(ID);
+         }
+        K_Means Kmean = new K_Means();
+        Kmean.k_means(bestK, clusters, opinions);
+        this.clusters = Kmean.getClusters();
+    }
+
+    public void modRating(int IDuser, int IDitem, float valor) {
+         if(opinions.containsKey(IDuser)){
+             opinions.get(IDuser).put(IDitem, valor);
+         }
+         else {
+             opinions.put(IDuser, new TreeMap<>());
+             opinions.get(IDuser).put(IDitem, valor);
+         }
+
+        K_Means Kmean = new K_Means();
+        Kmean.k_means(bestK, clusters, opinions);
+        this.clusters = Kmean.getClusters();
+    }
+
+    public void delRating(int IDuser, int IDitem) {
+         if(opinions.get(IDuser).size() == 1){
+             opinions.remove(IDuser);
+             delUserCluster(IDuser);
+         }
+         else{
+             opinions.get(IDuser).remove(IDitem);
+         }
+        K_Means Kmean = new K_Means();
+        Kmean.k_means(bestK, clusters, opinions);
+        this.clusters = Kmean.getClusters();
+    }
 }
