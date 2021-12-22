@@ -52,7 +52,6 @@ public class K_NN {
     /**
      * @brief Initialize the similarity table between the items present in the map.
      * Similarity table is normalized; similarities range between 0 and 1 (1 if items are identical).
-     * @param map       integer is the ID of the item, ArrayList is a list of its tags
      * \pre <em>True</em>
      * \post Similarity between all items has been calculated and stored in <em>similarityTable</em>
      */
@@ -77,6 +76,14 @@ public class K_NN {
         }
     }
 
+    /**
+     * @brief Makes the necessary actualizations to maps and <em>similarityTable</em> when a tag from an item is modified.
+     * @param item_id   ID of the modified item.
+     * @param index     Index of the attribute changed in the vector of headers of tags.
+     * @param tag       New value of the modified tag.
+     * \pre <em>item_id</em> exists. <em>index</em> is in the range of the vector of headers.
+     * \post <em>similarityTable</em> is updated. <em>mapa_items</em> is updated.
+     */
     public void Mod_Tag(int item_id, int index, Content tag) {
         int id_fals = id_reals.indexOf(item_id);
         List<Content> tags = mapa_items.get(item_id);
@@ -85,6 +92,27 @@ public class K_NN {
         actualitza_taula(id_fals);
     }
 
+    /**
+     * @brief Makes the necessary actualizations to maps and <em>similarityTable</em> when a tag from an item is removed.
+     * @param item_id   ID of the modified item.
+     * @param index     Index of the attribute removed in the vector of headers of tags.
+     * \pre <em>item_id</em> exists. <em>index</em> is in the range of the vector of headers.
+     * \post <em>similarityTable</em> is updated. <em>mapa_items</em> is updated.
+     */
+    public void Del_Tag(int item_id, int index) {
+        int id_fals = id_reals.indexOf(item_id);
+        List<Content> tags = mapa_items.get(item_id);
+        tags.remove(index);
+        mapa_items.put(item_id,tags);
+        actualitza_taula(id_fals);
+    }
+
+    /**
+     * @brief Updates the state of the <em>similarityTable</em> when <em>item_id</em> has been modified.
+     * @param item_id   ID of the modified item.
+     * \pre <em>item_id</em> exists and is within the ranges of <em>similarityTable</em>.
+     * \post <em>similarityTable</em> is updated.
+     */
     public void actualitza_taula(int item_id){
         int mida = similarityTable.length;
         List<Content> content1 = mapa_items.get(id_reals.get(item_id));
@@ -100,14 +128,13 @@ public class K_NN {
         similarityTable[item_id][item_id] = 1.0;
     }
 
-    public void Del_Tag(int item_id, int index) {
-        int id_fals = id_reals.indexOf(item_id);
-        List<Content> tags = mapa_items.get(item_id);
-        tags.remove(index);
-        mapa_items.put(item_id,tags);
-        actualitza_taula(id_fals);
-    }
-
+    /**
+     * @brief Makes the necessary actualizations to maps and <em>similarityTable</em> when a new item is added to the system.
+     * @param item_id   ID of the new item.
+     * @param tags      Tags of the new item.
+     * \pre <em>item_id</em> does not exist in the system.
+     * \post <em>similarityTable</em> is updated. <em>mapa_items</em> is updated. <em>id_reals</em> is updated.
+     */
     public void Add_Item(int item_id, List<Content> tags) {
         id_reals.add(item_id);
         int id_fals = id_reals.indexOf(item_id);
@@ -115,6 +142,12 @@ public class K_NN {
         nou_item_taula(id_fals);
     }
 
+    /**
+     * @brief Updates the state of the <em>similarityTable</em> when <em>item_id</em> has been added to the system.
+     * @param item_id   ID of the new item.
+     * \pre <em>item_id</em> does not exist in the system.
+     * \post <em>similarityTable</em> is updated.
+     */
     public void nou_item_taula(int item_id) {
         int n = mapa_items.size();
         List<Content> content1 = mapa_items.get(id_reals.get(item_id));
@@ -132,6 +165,10 @@ public class K_NN {
         similarityTable = new_table;
     }
 
+    /**
+     * @brief
+     * @param ID_item
+     */
     public void Del_Item(int ID_item) {
         int id_fals = id_reals.indexOf(ID_item);
         id_reals.remove(ID_item);
@@ -159,7 +196,11 @@ public class K_NN {
         similarityTable = new_table;
     }
     public void modifica_map_rating(int id_user, int id_item, float valoracio) {
-        mapa_known.get(id_user).put(id_item,valoracio);
+        if (mapa_known.containsKey(id_user)) mapa_known.get(id_user).put(id_item,valoracio);
+        else {
+            mapa_known.put(id_user,new TreeMap<>());
+            mapa_known.get(id_user).put(id_item,valoracio);
+        }
     }
 
     public void esborra_user_map_rating(int User_ID) {
@@ -167,15 +208,19 @@ public class K_NN {
     }
 
     public void esborra_rating_user(int User_ID, int Item_ID) {
-        mapa_known.get(User_ID).remove(Item_ID);
+        if (mapa_known.get(User_ID).size() == 1) mapa_known.remove(User_ID);
+        else mapa_known.get(User_ID).remove(Item_ID);
     }
 
     public void elimina_item_mapa_rating(int Item_ID) {
         for (Map.Entry<Integer,Map<Integer,Float>> entry : mapa_known.entrySet()) {
             int user_id = entry.getKey();
-            if (entry.getValue().containsKey(Item_ID)) mapa_known.get(user_id).remove(Item_ID);
+            if (entry.getValue().containsKey(Item_ID)) {
+                if (entry.getValue().size() == 1) mapa_known.remove(user_id);
+                else mapa_known.get(user_id).remove(Item_ID);
             }
         }
+    }
 
     /**
      * @brief Calculates the similarity between two items, given their respective tags.
