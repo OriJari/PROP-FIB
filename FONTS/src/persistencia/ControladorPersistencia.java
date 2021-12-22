@@ -185,7 +185,7 @@ public class ControladorPersistencia {
         return result;
     }
 
-    public List<Integer> get_item_rec(){
+    public List<Integer> get_IDuser_rec(){
         return Recomm.getId_user();
     }
 
