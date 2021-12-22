@@ -8,10 +8,7 @@ import dominio.clases.evaluation.*;
 import dominio.clases.recommendation.*;
 import persistencia.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  *
@@ -116,6 +113,72 @@ public class ControladorDominio {
         KNNEval.initSimilarityTable();
         KNNnotEval.initSimilarityTable();
     }
+    List<Content> convertir_tags_content(List<String> tags) {
+        List<String> types = CP.list_tipusheader();
+        List<Content> new_tags = new ArrayList<>();
+        int mida = tags.size();
+        Content aux;
+        for (int i = 0; i < mida; ++i) {
+            switch (types.get(i)) {
+                case "b": {
+                    aux = new Content("b", Integer.parseInt(tags.get(i)), null, null);
+                    new_tags.add(aux);
+                    break;
+                }
+                case "i": {
+                    aux = new Content("i", Integer.parseInt(tags.get(i)), null, null);
+                    new_tags.add(aux);
+                    break;
+                }
+                case "d": {
+                    aux = new Content("d", null, Double.parseDouble(tags.get(i)), null);
+                    new_tags.add(aux);
+                    break;
+                }
+                case "c": {
+                    List<String> resultat = Arrays.asList(tags.get(i).split(";"));
+                    aux = new Content("c", null, null, resultat);
+                    new_tags.add(aux);
+                    break;
+                }
+                default: {
+                    aux = new Content(tags.get(i), null, null, null);
+                    new_tags.add(aux);
+                    break;
+                }
+            }
+        }
+        return new_tags;
+    }
+    Content convertir_un_tag_content(String tag, int index) {
+        List<String> types = CP.list_tipusheader();
+        String tipus = types.get(index);
+        Content result;
+        switch (tipus) {
+            case "b": {
+                result = new Content("b", Integer.parseInt(tag), null, null);
+                break;
+            }
+            case "i": {
+                result = new Content("i", Integer.parseInt(tag), null, null);
+                break;
+            }
+            case "d": {
+                result = new Content("d", null, Double.parseDouble(tag), null);
+                break;
+            }
+            case "c": {
+                List<String> resultat = Arrays.asList(tag.split(";"));
+                result = new Content("c", null, null, resultat);
+                break;
+            }
+            default: {
+                result = new Content(tag, null, null, null);
+                break;
+            }
+        }
+        return result;
+    }
 
     public List<Integer> list_user(){
         return CP.list_user();
@@ -128,33 +191,49 @@ public class ControladorDominio {
     }
 
     public boolean addItem(int ID, List<String> tags){
+        List<Content> new_tags = convertir_tags_content(tags);
+        KNNEval.Add_Item(ID, new_tags);
+        KNNnotEval.Add_Item(ID,new_tags);
         return CP.addItem(ID, tags);
     }
     public boolean exists(int idItem){
         return CP.exists(idItem);
     }
     public boolean delItem(int ID) {
+        KNNnotEval.Del_Item(ID);
+        KNNEval.Del_Item(ID);
         return CP.delItem(ID);
     }
     public boolean modTag(int IDitem, String atribute, String newtag){
+        int index_of_atribute = CP.get_header_items().indexOf(atribute);
+        Content tag_convertida = convertir_un_tag_content(newtag,index_of_atribute);
+        KNNEval.Mod_Tag(IDitem,index_of_atribute,tag_convertida);
+        KNNnotEval.Mod_Tag(IDitem,index_of_atribute,tag_convertida);
         return CP.modTag(IDitem, atribute, newtag);
     }
     public boolean delTag(int IDitem, String atribute){
+        int index_of_atribute = CP.get_header_items().indexOf(atribute);
+        KNNEval.Del_Tag(IDitem,index_of_atribute);
+        KNNnotEval.Del_Tag(IDitem,index_of_atribute);
         return CP.delTag(IDitem, atribute);
     }
     public boolean addUser(int ID) {
         return CP.addUser(ID);
     }
     public boolean delUser(int ID) {
+        KNNnotEval.esborra_user_map_rating(ID);
         return CP.delUser(ID);
     }
     public boolean addRating(int IDuser, int IDitem, float valor){
+        KNNnotEval.modifica_map_rating(IDuser,IDitem,valor);
         return CP.addRating(IDuser, IDitem, valor);
     }
     public boolean modRating(int IDuser, int IDitem, float new_rate) {
+        KNNnotEval.modifica_map_rating(IDuser,IDitem,new_rate);
         return CP.modRating(IDuser, IDitem, new_rate);
     }
     public boolean delRating(int IDuser, int IDitem) {
+        KNNnotEval.esborra_rating_user(IDuser,IDitem);
         return CP.delRating(IDuser, IDitem);
     }
 
@@ -200,7 +279,7 @@ public class ControladorDominio {
     }
 
     public List<String> tag_list() {
-        return CP.tag_list();
+        return CP.get_header_items();
     }
 
     public boolean saveRecomendation() {

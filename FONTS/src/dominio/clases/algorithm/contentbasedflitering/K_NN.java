@@ -65,8 +65,10 @@ public class K_NN {
         }
     }
 
-    public void Mod_Item(int item_id, List<Content> tags) {
+    public void Mod_Tag(int item_id, int index, Content tag) {
         int id_fals = id_reals.indexOf(item_id);
+        List<Content> tags = mapa_items.get(item_id);
+        tags.set(index,tag);
         mapa_items.put(item_id,tags);
         actualitza_taula(id_fals);
     }
@@ -84,6 +86,14 @@ public class K_NN {
             similarityTable[item_id][i] = sim/normalization;
         }
         similarityTable[item_id][item_id] = 1.0;
+    }
+
+    public void Del_Tag(int item_id, int index) {
+        int id_fals = id_reals.indexOf(item_id);
+        List<Content> tags = mapa_items.get(item_id);
+        tags.remove(index);
+        mapa_items.put(item_id,tags);
+        actualitza_taula(id_fals);
     }
 
     public void Add_Item(int item_id, List<Content> tags) {
@@ -110,8 +120,41 @@ public class K_NN {
         similarityTable = new_table;
     }
 
+    public void Del_Item(int ID_item) {
+        int id_fals = id_reals.indexOf(ID_item);
+        id_reals.remove(ID_item);
+        mapa_items.remove(ID_item);
+        esborra_item_taula(id_fals);
+    }
+
+    public void esborra_item_taula(int id_item) {
+        int n = similarityTable.length;
+        double [][] new_table = new double[n-1][n-1];
+        int l = 0;
+        for (int i = 0; i < n; ++i) {
+                if (i != id_item) {
+                    ++l;
+                    int k = 0;
+                    for (int j = 0; j < n; ++j) {
+                        if (j != id_item) {
+                            ++k;
+                            new_table[l][k] = similarityTable[i][j];
+                        }
+                    }
+                }
+            }
+        similarityTable = new_table;
+    }
     public void modifica_map_rating(int id_user, int id_item, float valoracio) {
         mapa_known.get(id_user).put(id_item,valoracio);
+    }
+
+    public void esborra_user_map_rating(int User_ID) {
+        mapa_known.remove(User_ID);
+    }
+
+    public void esborra_rating_user(int User_ID, int Item_ID) {
+        mapa_known.get(User_ID).remove(Item_ID);
     }
 
     /**

@@ -169,9 +169,8 @@ public class ControladorPersistencia {
         return CSVItem.exsistitemID(idItem);
     }
 
-    public List<String> tag_list() {
+    public List<String> get_header_items() {
         return CSVItem.getHeader();
-        //retrona llistat de tags per litem donat
     }
 
     public List<Float> list_valSavedREC(int IDuser, int alg, String date) {
