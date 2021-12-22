@@ -8,10 +8,14 @@ import java.util.*;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 import static java.lang.System.out;
+
 /**
- *
- * @author Miguel Gutierrez Jariod
+ * @class RecommendationSave
+ * @brief Implements structures to save the recommendations of the users
+ * @author Miguel
  */
+
+
 public class RecommendationSave {
 
     private List<Integer> id_user;
@@ -20,6 +24,13 @@ public class RecommendationSave {
     private List<Integer> algorithm;
     private List<String> dates;
 
+    /**
+     * @brief Default builder.
+     * \pre true
+     * \post It creates a <em>RecommendationSave</em> object with its values:
+     * <em>id_user</em>  empty, <em>idItems</em>  empty, <em>values</em> empty, <em>algorithm</em> empty,
+     * <em>dates</em> empty
+     */
     public RecommendationSave(){
         this.id_user = new ArrayList<>();
         this.idItems = new ArrayList<>();
@@ -28,47 +39,107 @@ public class RecommendationSave {
         this.dates = new ArrayList<>();
     }
 
+    /**
+     * @brief Getter of the ids of the users recommended
+     * \pre needs a RecommendationSave initialized
+     * \post obtain the set of users
+     * @return the list of integers of the id users recommended
+     */
     public List<Integer> getId_user() {
         return id_user;
     }
 
+    /**
+     * @brief Getter of the items for all user recommended
+     * \pre needs a RecommendationSave initialized
+     * \post obtain the set of items
+     * @return the list of list of integers (items) of all user recommended
+     */
     public List<List<Integer>> getIdItems() {
         return idItems;
     }
 
+    /**
+     * @brief Getter of the rates for all users recommended
+     * \pre needs a RecommendationSave initialized
+     * \post obtain the set of rates
+     * @return the list of list of float (rates) of all user recommended
+     */
     public List<List<Float>> getValues() {
         return values;
     }
 
+    /**
+     * @brief Getter of the algorithm used for all users recommended
+     * \pre needs a RecommendationSave initialized
+     * \post obtain the set of algorithms
+     * @return the list of integers (algorithms) of all users recommended
+     */
     public List<Integer> getAlgorithm() {
         return algorithm;
     }
 
+    /**
+     * @brief Getter of the dates registered for all users recommended
+     * \pre needs a RecommendationSave initialized
+     * \post obtain the set of dates registered
+     * @return the list of strings (dates registered) of all users recommended
+     */
     public List<String> getDates() {
         return dates;
     }
 
+    /**
+     * @brief Setter of the class, modified the set of ids users
+     * \pre true
+     * \post modify the attribute id_user of the class
+     * @param id_user, new set to introduce
+     */
     public void setId_user(List<Integer> id_user) {
         this.id_user = id_user;
     }
 
+    /**
+     * @brief Setter of the class, modified the set of ids items
+     * \pre true
+     * \post modify the attribute idItems of the class
+     * @param idItems, new set to introduce
+     */
     public void setIdItems(List<List<Integer>> idItems) {
         this.idItems = idItems;
     }
 
+    /**
+     * @brief Setter of the class, modified the set of values
+     * \pre true
+     * \post modify the attribute values of the class
+     * @param values, new set to introduce
+     */
     public void setValues(List<List<Float>> values) {
         this.values = values;
     }
 
+    /**
+     * @brief Setter of the class, modified the set of algorithm
+     * \pre true
+     * \post modify the attribute id_user of the class
+     * @param algorithm, new set to introduce
+     */
     public void setAlgorithm(List<Integer> algorithm) {
         this.algorithm = algorithm;
     }
 
+    /**
+     * @brief Setter of the class, modified the set of dates
+     * \pre true
+     * \post modify the attribute dates of the class
+     * @param dates, new set to introduce
+     */
     public void setDates(List<String> dates) {
         this.dates = dates;
     }
 
-    public void addUserL (Integer user){
+    /*public void addUserL (Integer user){
         this.id_user.add(user);
     }
 
@@ -85,14 +156,13 @@ public class RecommendationSave {
     }
 
     public void adddatalist(String data){
-        dates.add(data);
-    }
+        this.dates.add(data);
+    }*/
 
 
     public String datasystem(Date data){
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        String dateToStr = dateFormat.format(date);
+        String dateToStr = dateFormat.format(data);
         return dateToStr;
     }
 
@@ -102,6 +172,45 @@ public class RecommendationSave {
         else return "Hybrid";
     }
 
+    public Integer selectalgorithmS(String s){
+        if (s.equals("KNN")) return 0;
+        else if (s.equals("CollaborativeF")) return 1;
+        else return 2;
+    }
+
+    public List<Integer> valuesitems(int ID, int alg, String data){
+        int pos = 0;
+        for (int i = 0; i < id_user.size(); ++i){
+            if(id_user.get(i) == ID){
+                if(algorithm.get(i) == alg){
+                    if (dates.get(i).equals(data)) pos = i;
+                }
+            }
+        }
+        return idItems.get(pos);
+    }
+
+    public List<Float> valuesrates(int ID, int alg, String data){
+        int pos = 0;
+        for (int i = 0; i < id_user.size(); ++i){
+            if(id_user.get(i) == ID){
+                if(algorithm.get(i) == alg){
+                    if (dates.get(i).equals(data)) pos = i;
+                }
+            }
+        }
+        return values.get(pos);
+    }
+
+    public void carregaAtributs(int IDuser, int alg,  List<Integer> IDitems,List<Float> valors){
+        id_user.add(IDuser);
+        algorithm.add(alg);
+        idItems.add(IDitems);
+        values.add(valors);
+        Date d = new Date();
+        String s = datasystem(d);
+        dates.add(s);
+    }
 
     public  void saveRecommendation(String name){
         File archivo = new File("DATA/" + name + "/" + "Recommedation" + ".csv");
