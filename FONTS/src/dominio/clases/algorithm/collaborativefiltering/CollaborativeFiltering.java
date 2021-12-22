@@ -171,7 +171,15 @@ public class CollaborativeFiltering {
      }
 
     public void delItem(int ID) {
-         Map<Integer, Map<Integer, Float>> aux = opinions;
+         Map<Integer, Map<Integer, Float>> aux = new TreeMap<>();
+        for(Map.Entry<Integer, Map<Integer, Float>> entry1: opinions.entrySet()){
+            Map<Integer, Float> rowMap = new TreeMap<>();
+            for(Map.Entry<Integer, Float> entry2: entry1.getValue().entrySet()){
+                rowMap.put(entry2.getKey(), entry2.getValue());
+            }
+            aux.put(entry1.getKey(), rowMap);
+        }
+
          for(Map.Entry<Integer, Map<Integer, Float>> entry: opinions.entrySet()){
              int userID = entry.getKey();
              if(entry.getValue().containsKey(ID) && entry.getValue().size() == 1){
