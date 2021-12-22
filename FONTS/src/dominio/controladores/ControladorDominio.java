@@ -40,7 +40,7 @@ public class ControladorDominio {
         E = new Evaluation(mapRateUnknown);
         CFEval = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, maxK);
 
-        for(int i = maxK; i < mapRateKnown.size()/10; ++i){
+        /*for(int i = maxK; i < mapRateKnown.size()/10; ++i){
             float DCG = 0.0f;
             CFEval.setK(i);
             for(Map.Entry<Integer, Map<Integer, Float>> entry: mapRateKnown.entrySet()){
@@ -50,7 +50,8 @@ public class ControladorDominio {
                 maxK = i;
                 maxDCG = DCG;
             }
-        }
+        }*/
+
         CFEval.setK(maxK);
         return maxK;
     }
