@@ -7,7 +7,8 @@ import java.util.Collections;
 import java.util.List;
 /**
  *
- * @author
+ * @author Manel Piera Garrigosa
+ * @author Marc Delgado Sánchez
  * @brief  This class represents a recommendation, a result of applying either of the algorithms.
  */
 public class Recommendation {
@@ -146,7 +147,12 @@ public class Recommendation {
         }
         return -1;
     }
-
+    /**
+     * @brief Removes a given item from the recommendation.
+     * @param id  ID of the item.
+     * \pre <em>True</em>
+     * \post Removes the given item from the recommendation.
+     */
     public void removeRating(int id) {
         for (Rating r : conjunt) {
             if (r.getId() == id) {
@@ -155,7 +161,11 @@ public class Recommendation {
             }
         }
     }
-
+    /**
+     * @brief Sorts the recommendation by the items' expected ratings.
+     * \pre <em>True</em>
+     * \post <em>conjunt</em> is now sorted decreasingly by expected rating.
+     */
     public void sortR(){
         Collections.sort(this.conjunt, new Rating.SortByVal());
     }
