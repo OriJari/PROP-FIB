@@ -1329,11 +1329,11 @@ public class VistaPrincipal {
                 icon.add(new JLabel(new ImageIcon("FONTS/src/presentacion/item.png")));
                 icon.get(5*i+j).setBounds(150 +150*j,150+150*i,48,48);
                 item_rec.add(icon.get(5*i+j));
-                itemid.add(new JLabel("ItemId: "));
-                itemid.get(5*i+j).setBounds(150 +150*j,200+150*i,48,20);
+                itemid.add(new JLabel("ItemId: " + id.get(5*i+j)));
+                itemid.get(5*i+j).setBounds(150 +150*j,200+150*i,60,20);
                 item_rec.add(itemid.get(5*i+j));
-                val.add(new JLabel("Val: "));
-                val.get(5*i+j).setBounds(150 +150*j,220+150*i,48,20);
+                val.add(new JLabel("Val: " + val.get(5*i+j)));
+                val.get(5*i+j).setBounds(150 +150*j,220+150*i,60,20);
                 item_rec.add(val.get(5*i+j));
 
 
