@@ -15,15 +15,15 @@ import static java.lang.System.out;
  */
 
 public class UserList {
-    private Set<Integer> users;
+    private List<Integer> users;
 
     /**
      * @brief Default builder.
      * \pre true
-     * \post It creates a <em>UserList</em> object with the value <em>users</em> initialized empty
+     * \post It creates a <em>UserList</em> object with the value <em>users</em>  empty
      */
     public UserList(){
-        this.users = new TreeSet<>();
+        this.users = new ArrayList<>();
     }
 
     /**
@@ -32,7 +32,7 @@ public class UserList {
      * \post obtain the set of users
      * @return a set of integers with the ids of the users
      */
-    public Set<Integer> getUsers() {
+    public List<Integer> getUsers() {
         return users;
     }
 
@@ -42,7 +42,7 @@ public class UserList {
      * \post modify the attribute users of the class
      * @param users, new set of users to introduce
      */
-    public void setUsers(Set<Integer> users) {
+    public void setUsers(List<Integer> users) {
         this.users = users;
     }
 
@@ -119,9 +119,8 @@ public class UserList {
             FileWriter doc = new FileWriter(archivo);
             PrintWriter out = new PrintWriter(doc);
             out.write("List of Users" + "\n");
-            while (!users.isEmpty()){
-                Iterator<Integer> it = users.iterator();
-                String salida = String.valueOf(it.next());
+            for (int i = 0; i < users.size(); ++i){
+                String salida = String.valueOf(users.get(i));
                 out.write(salida + "\n");
             }
             out.flush();

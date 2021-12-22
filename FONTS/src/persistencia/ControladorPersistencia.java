@@ -9,10 +9,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
+
 /**
- *
- * @author Miguel Gutierrez Jariod
+ * @class ControladorPersistencia
+ * @brief Controller of the persistence
+ * @author Manel
+ * @author Miguel
  */
+
 public class ControladorPersistencia {
 
     CSVparserItem CSVItem;
@@ -22,8 +26,31 @@ public class ControladorPersistencia {
     RecommendationSave Recomm;
     UserList UserList;
 
+    /**
+     * @brief Default builder.
+     */
     public ControladorPersistencia(){}
 
+
+    /**
+     * @brief initialize the lecture and preprocess of the documents
+     * @param path where are located the csvs documents
+     * \pre the path of the file needs to be existent and the document csv needs to be from type items.csv
+     *
+     * \post It creates a <em>CSVparserItem</em> object with its attribute <em>path</em> with the values:
+     * <em>numCols</em>  initialized , <em>numRows</em>  initialized, <em>content</em> initialized, <em>header</em> initialized,
+     * <em>mapRatedata</em> initialized, <em>id_Items</em> initialized and <em>tipus</em> initialized.
+     *
+     * It creates 3  <em>CSVparserRate</em> objects with their attributes <em>path</em> with their values:
+     * <em>numCols</em>  initialized , <em>numRows</em>  initialized, <em>content</em> initialized, <em>mapRate</em> initialized and
+     * <em>header</em> initialized.
+     *
+     * It creates a <em>RecommendationSave</em> object with its values:
+     * <em>id_user</em>  initialized, <em>idItems</em>  initialized, <em>values</em> initialized, <em>algorithm</em> initialized,
+     * <em>dates</em> initialized.
+     *
+     * It creates a <em>UserList</em> object with the value <em>users</em>  empty
+     */
     public void inicializar(String path){
         CSVItem = new CSVparserItem(path + "items.csv");
         CSVItem.readLoadItem();
@@ -44,6 +71,25 @@ public class ControladorPersistencia {
         Recomm = new RecommendationSave();
     }
 
+    /**
+     * @brief reload the content of the documents
+     * @param dir_name where are located the csvs documents
+     * \pre the path of the file needs to be existent and the document csv needs to be from type items.csv
+     *
+     * \post It creates a <em>CSVparserItem</em> object with its attribute <em>path</em> with the values:
+     * <em>numCols</em>  initialized , <em>numRows</em>  initialized, <em>content</em> initialized, <em>header</em> initialized,
+     * <em>mapRatedata</em> initialized, <em>id_Items</em> initialized and <em>tipus</em> initialized.
+     *
+     * It creates 3  <em>CSVparserRate</em> objects with their attributes <em>path</em> with their values:
+     * <em>numCols</em>  initialized , <em>numRows</em>  initialized, <em>content</em> initialized, <em>mapRate</em> initialized and
+     * <em>header</em> initialized.
+     *
+     * It creates a <em>RecommendationSave</em> object with its values:
+     * <em>id_user</em>  initialized, <em>idItems</em>  initialized, <em>values</em> initialized, <em>algorithm</em> initialized,
+     * <em>dates</em> initialized.
+     *
+     * It creates a <em>UserList</em> object with the value <em>users</em>  empty
+     */
     public void iniciar_reload(String dir_name){
         CSVItem = new CSVparserItem("DATA/" + dir_name + "/items.csv");
         CSVItem.readLoadItem();
@@ -68,42 +114,127 @@ public class ControladorPersistencia {
         Recomm.reloadRecommendation("DATA/" + dir_name + "/Recommendation.csv");
     }
 
+    /**
+     * @brief Add a new item into the csv
+     * \pre needs current csv of items
+     * \post added a new item to the csv
+     * @param ID of the item to add
+     * @param tags list of tags that compose the items
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public  boolean addItem(int ID, List<String> tags){
        return CSVItem.addItemCSV(ID, tags);
     }
 
+    /**
+     * @brief Delete an item from a current csv and from the others
+     * \pre needs current csv of items
+     * \post deleted an item to all csv
+     * @param ID of the item to delete
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public  boolean delItem(int ID) {
+        CSVRate.deleteitems(ID);
+        CSVKnown.deleteitems(ID);
+        CSVRate.deleteuser();
+        CSVKnown.deleteuser();
        return CSVItem.delItemCSV(ID);
+
     }
 
+    /**
+     * @brief Modify the tag from an item from the csv
+     * \pre needs current csv of items
+     * \post modify the tag from an item of the csv
+     * @param IDitem of the item to modify
+     * @param atribute column where is located the tag to modify
+     * @param newtag to modify from a previous one
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public  boolean modTag(int IDitem, String atribute, String newtag){
         return CSVItem.modTagCSV(IDitem, atribute, newtag);
     }
 
+    /**
+     * @brief Delete the tag from an item from the csv
+     * \pre needs current csv of items
+     * \post delete the tag from an item of the csv
+     * @param IDitem of the item to modify
+     * @param atribute column where is located the tag to delete
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public  boolean delTag(int IDitem, String atribute){
         return CSVItem.delTagCSV(IDitem, atribute);
     }
 
+    /**
+     * @brief Add a user to the set of users
+     * \pre needs Userlist initialized
+     * \post the set user is actualized with the new id of the user
+     * @param ID of the user to add
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public  boolean addUser(int ID) {
         return UserList.addUserList(ID);
     }
 
+    /**
+     * @brief Delete a user from a current csv
+     * \pre needs current csv of items
+     * \post deleted a user to the csv
+     * @param ID of the user to delete
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public  boolean delUser(int ID) {
         return CSVKnown.delUserCSV(ID);
     }
 
+    /**
+     * @brief Add the rate of an item from a user of the csv
+     * \pre needs current csv of items
+     * \post add the rate of the item corresponding to a user
+     * @param IDuser of the user to realize the action
+     * @param IDitem of the item to add the corresponding rate
+     * @param valor rate to add
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public  boolean addRating(int IDuser, int IDitem, float valor){
         return  CSVKnown.addRatingCSV(IDuser, IDitem, valor);
     }
 
+    /**
+     * @brief Modify the rate of an item from a user of the csv
+     * \pre needs current csv of items
+     * \post modify the rate of the item corresponding to a user
+     * @param IDuser of the user to realize the action
+     * @param IDitem of the item to modify the corresponding rate
+     * @param new_rate to modify from a previous one
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public  boolean modRating(int IDuser, int IDitem, float new_rate) {
        return CSVKnown.modRatingCSV(IDuser, IDitem, new_rate);
     }
 
+    /**
+     * @brief Delete the rate of an item from a user of the csv
+     * \pre needs current csv of items
+     * \post delete the rate of an item from a user of the csv
+     * @param IDuser of the user within interact
+     * @param IDitem of the item to delete the rate
+     * @return a boolean, if its true the action has been completed successfully, otherwise not completed the action
+     */
     public  boolean delRating(int IDuser, int IDitem) {
        return CSVKnown.delRatingCSV(IDuser, IDitem);
     }
 
+
+    /**
+     * @brief obtains the list of the users form the csv chosen
+     * \pre needs csvs initialized
+     * \post obtain the user set form the csv
+     * @param a number of csv to choose
+     * @return list of integers corresponding to the users listed in the corresponding csv .
+     */
     public List<Integer> getMapRateIDusers(int a){
         if (a == 0){
             return CSVRate.obtenlistausers();
@@ -155,8 +286,7 @@ public class ControladorPersistencia {
     }
 
     public List<Integer> list_user(){
-        List result = (List) UserList.getUsers();
-        return result;
+        return UserList.getUsers();
         //retorna una llista amb tots els id users
     }
 

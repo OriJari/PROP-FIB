@@ -353,6 +353,25 @@ public class CSVparserRate {
     }
 
 
+    public void deleteuser(){
+        for (Map.Entry<Integer, Map<Integer, Float>> entry : mapRate.entrySet()) {
+            Integer first = entry.getKey();
+            Map<Integer, Float> m = entry.getValue();
+            if(m.isEmpty()) mapRate.remove(first);
+        }
+    }
+
+    public void deleteitems(int id){
+        for (Map.Entry<Integer, Map<Integer, Float>> entry : mapRate.entrySet()) {
+            Integer first = entry.getKey();
+            Map<Integer, Float> m = entry.getValue();
+            for (Map.Entry<Integer, Float> entry1 : m.entrySet()){
+                Integer item = entry1.getKey();
+                if (id == item) m.remove(item);
+            }
+        }
+    }
+
     /**
      * @brief save the preprocessed data in a specific directory
      * \pre needs a directory defined
@@ -484,7 +503,7 @@ public class CSVparserRate {
 
 
     /**
-     * @brief Delete an user from a current csv
+     * @brief Delete a user from a current csv
      * \pre needs current csv of items
      * \post deleted a user to the csv
      * @param ID of the user to delete
@@ -708,14 +727,16 @@ public class CSVparserRate {
         return false;
     }
 
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         CSVparserRate CSVKnown = new CSVparserRate("DATA/ratings.test.known.csv");
         CSVKnown.readLoadRate();
         CSVKnown.LoadRate(CSVKnown.getContent());
         //boolean b5 = addUserCSV(id);
         boolean b7 = CSVKnown.addRatingCSV(14, 2, 3.0F);
         boolean b8 = CSVKnown.modRatingCSV(3, 80, 25.0F);
-        boolean b9 = CSVKnown.delRatingCSV(3, 80);
+        boolean b9 = CSVKnown.delRatingCSV(14, 2);
+        CSVKnown.deleteitems(80);
+        CSVKnown.deleteuser();
         boolean b6 = CSVKnown.delUserCSV(2);
 
         /*String s = "rating";
@@ -723,6 +744,6 @@ public class CSVparserRate {
         CSVRate.guardar_datos(CSVRate.getContent(), CSVRate.getHeader(), s);
         CSVRate.guardar_datos_preproces(CSVRate.getMapRate(), s1);
         CSVRate.reload_map_preporcess("FONTS/src/persistencia/rating_prepo.csv");
-        out.println("Hola");
-    }*/
+        out.println("Hola");*/
+    }
 }

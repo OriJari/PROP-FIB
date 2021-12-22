@@ -31,7 +31,7 @@ public class CSVparserItem {
      *
      * \post It creates a <em>CSVparserItem</em> object with its attribute <em>path</em> with the values:
      * <em>numCols</em>  initialized as 0, <em>numRows</em>  initialized as 0, <em>content</em> empty, <em>header</em> empty,
-     *  <em>mapRatedata</em> empty and <em>id_Items</em>.
+     *  <em>mapRatedata</em> empty, <em>id_Items</em> and <em>tipus</em> empty.
      */
     public CSVparserItem(String path){
         this.path = path;
