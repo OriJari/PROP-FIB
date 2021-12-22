@@ -143,7 +143,7 @@ public class VistaPrincipal {
 
 
     //atributs
-    private  int panelactual = 6;
+    private  int panelactual = 0;
     private  String path_csv;
     private List<String> rec_sv;
 
