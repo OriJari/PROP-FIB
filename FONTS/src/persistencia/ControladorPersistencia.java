@@ -175,14 +175,12 @@ public class ControladorPersistencia {
     }
 
     public List<Float> list_valSavedREC(int IDuser, int alg, String date) {
-        List<Float> result = new ArrayList<>();
-        return result;
+        return Recomm.valuesrates(IDuser, alg, date);
         //retorna la llista
     }
 
     public List<Integer> list_itemSavedREC(int IDuser, int alg, String date) {
-        List<Integer> result = new ArrayList<>();
-        return result;
+        return Recomm.valuesitems(IDuser, alg, date);
     }
 
     public List<Integer> get_IDuser_rec(){
@@ -234,6 +232,6 @@ public class ControladorPersistencia {
     }
 
     public void saveRec(int IDuser, int alg,  List<Integer> IDitems,List<Float> valors){
-
+        Recomm.carregaAtributs(IDuser, alg, IDitems, valors);
     }
 }

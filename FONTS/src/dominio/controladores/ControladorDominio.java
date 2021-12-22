@@ -35,12 +35,12 @@ public class ControladorDominio {
 
     public Integer computeK(Map<Integer, Map<Integer, Float>> mapRateKnown, Map<Integer, Map<Integer, Float>> mapRateUnknown, int maxItems){
         CollaborativeFiltering CFAux;
-        int maxK = 2;
+        int maxK = 3;
         float maxDCG = 0.0f;
         E = new Evaluation(mapRateUnknown);
         CFEval = new CollaborativeFiltering(mapRateKnown, mapRateUnknown, maxK);
 
-        for(int i = maxK; i < mapRateKnown.size()/10; ++i){
+        for(int i = maxK; i < 6/*mapRateKnown.size()/10*/; ++i){
             float DCG = 0.0f;
             CFEval.setK(i);
             for(Map.Entry<Integer, Map<Integer, Float>> entry: mapRateKnown.entrySet()){

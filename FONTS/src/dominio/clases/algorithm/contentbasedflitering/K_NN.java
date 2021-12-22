@@ -50,9 +50,9 @@ public class K_NN {
         double similarity;
         List<Content> list1, list2;
         for (int i = 0; i < n; ++i) {
-            list1 = mapa_items.get(i);
+            list1 = mapa_items.get(id_reals.get(i));
             for (int j = i; j < n; ++j) {
-                list2 = mapa_items.get(j);
+                list2 = mapa_items.get(id_reals.get(j));
                 similarity = calculate_similarity(list1, list2);
                 similarityTable[i][j] = similarity;
                 if (j != i) similarityTable[j][i] = similarity;
@@ -110,8 +110,8 @@ public class K_NN {
         similarityTable = new_table;
     }
 
-    public void modifica_map_rating() {
-
+    public void modifica_map_rating(int id_user, int id_item, float valoracio) {
+        mapa_known.get(id_user).put(id_item,valoracio);
     }
 
     /**
@@ -318,6 +318,7 @@ public class K_NN {
             }
         }
         resultat.sortR();
+        resultat.setAlg(1);
         return resultat;
 
     }

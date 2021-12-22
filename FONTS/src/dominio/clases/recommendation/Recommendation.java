@@ -62,6 +62,10 @@ public class Recommendation {
         this.conjunt = conj;
     }
 
+    public void setAlg(int algoritme) {
+        this.alg = algoritme;
+    }
+
     public void addRating(Rating new_rating) {
         this.conjunt.add(new_rating);
     }

@@ -19,8 +19,8 @@ public class UserList {
 
     /**
      * @brief Default builder.
-     * \pre the path of the file needs to be existent and the document csv needs to be from type items.csv
-     * \post It creates a <em>UserList</em> object with the value <em>users</em> initialized to null
+     * \pre true
+     * \post It creates a <em>UserList</em> object with the value <em>users</em> initialized empty
      */
     public UserList(){
         this.users = new TreeSet<>();
