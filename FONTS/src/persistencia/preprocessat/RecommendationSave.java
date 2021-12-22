@@ -159,25 +159,54 @@ public class RecommendationSave {
         this.dates.add(data);
     }*/
 
-
+    /**
+     * @brief Set a date type to string
+     * \pre needs a correct format date
+     * \post obtain the date converted to string
+     * @param data, date to convert
+     * @return string format of the date
+     */
     public String datasystem(Date data){
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String dateToStr = dateFormat.format(data);
         return dateToStr;
     }
 
+    /**
+     * @brief Set an integer algorithm to string type
+     * \pre needs an algorithm integer (0-2);
+     * \post obtain the algorithm integer converted to string
+     * @param i algorithm integer type
+     * @return string format of the algorithm
+     */
     public String selectalgorithm(Integer i){
         if (i.equals(0)) return "KNN";
         else if (i.equals(1)) return "CollaborativeF";
         else return "Hybrid";
     }
 
+    /**
+     * @brief Set an algorithm to integer type
+     * \pre needs an algorithm name;
+     * \post obtain the algorithm integer
+     * @param s algorithm
+     * @return integer format of the algorithm
+     */
     public Integer selectalgorithmS(String s){
         if (s.equals("KNN")) return 0;
         else if (s.equals("CollaborativeF")) return 1;
         else return 2;
     }
 
+    /**
+     * @brief obtain the items for an especific recommendation user
+     * \pre needs a RecommendationSave completed
+     * \post obtain the set of items for an especific recommendation
+     * @param ID of the user
+     * @param alg integer algorithm type
+     * @param data date in string format
+     * @return list of integers (item ids) of the recommendation specified before
+     */
     public List<Integer> valuesitems(int ID, int alg, String data){
         int pos = 0;
         for (int i = 0; i < id_user.size(); ++i){
@@ -190,6 +219,15 @@ public class RecommendationSave {
         return idItems.get(pos);
     }
 
+    /**
+     * @brief obtain the items for an especific recommendation user
+     * \pre needs a RecommendationSave completed
+     * \post obtain the set of items for an especific recommendation
+     * @param ID of the user
+     * @param alg integer algorithm type
+     * @param data date in string format
+     * @return list of floats (rates) of the recommendation specified before
+     */
     public List<Float> valuesrates(int ID, int alg, String data){
         int pos = 0;
         for (int i = 0; i < id_user.size(); ++i){
@@ -202,6 +240,14 @@ public class RecommendationSave {
         return values.get(pos);
     }
 
+    /**
+     * @brief Add a recommendation to the Recommendation save
+     * \pre true
+     * \post obtain the set of the recommendation and add them to the RecommendSave attributes
+     * @param IDuser of the user
+     * @param alg integer algorithm type
+     * @param valors date in string format
+     */
     public void carregaAtributs(int IDuser, int alg,  List<Integer> IDitems,List<Float> valors){
         id_user.add(IDuser);
         algorithm.add(alg);
@@ -212,6 +258,12 @@ public class RecommendationSave {
         dates.add(s);
     }
 
+    /**
+     * @brief save the recommendation in a specific diretory
+     * \pre needs a directory defined
+     * \post create a document .csv in the specific directory
+     * @param name of the directory where save the document
+     */
     public  void saveRecommendation(String name){
         File archivo = new File("DATA/" + name + "/" + "Recommedation" + ".csv");
         try {
@@ -239,6 +291,12 @@ public class RecommendationSave {
         }
     }
 
+    /**
+     * @brief Read preprocessed dataset of recommendation.
+     * @param path where is located the dataset
+     * \pre needs a document csv to read
+     * \post obtain preprocessed data into the pertinent map.
+     */
     public void reloadRecommendation(String path){
         FileInputStream fis;
         try {
