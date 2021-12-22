@@ -143,8 +143,9 @@ public class VistaPrincipal {
 
 
     //atributs
-    private  int panelactual = 0;
+    private  int panelactual = 6;
     private  String path_csv;
+    private List<String> rec_sv;
 
     /** @brief Default builder.
      *
@@ -289,6 +290,19 @@ public class VistaPrincipal {
     }
     public void actionPerformed_savedrec(ActionEvent e) {
         System.out.println("boton pulsado: cargar");
+
+        List<Integer> ids = CP.get_IDuser_rec();
+        List<Integer> alg = CP.get_alg_rec();
+        List<String> dat = CP.get_dates_rec();
+        rec_sv = new ArrayList<>(ids.size());
+        for(int i = 0; i < ids.size(); i++) {
+            rec_sv.set(i,"Id User: " + ids.get(i) + " Algoritme: ");
+            if(alg.get(i) == 0) rec_sv.set(i,rec_sv.get(i) + "CF " + dat.get(i));
+            else if(alg.get(i) == 1) rec_sv.set(i,rec_sv.get(i) + "CBF " + dat.get(i));
+            else rec_sv.set(i,rec_sv.get(i) + "H " + dat.get(i));
+
+        }
+
         panelactual = 6;
         menR.setVisible(false);
         panelmain();
@@ -465,8 +479,8 @@ public class VistaPrincipal {
     public void actionPerformed_openB(ActionEvent e) {
         String path_rec = (String) combo_rec.getSelectedItem();
         System.out.println("recomendacion guardada selecionado: " + path_rec);
-        id = CP.list_itemSavedREC(path_rec);
-        val = CP.list_valSavedREC(path_rec);
+        //id = CP.list_itemSavedREC(path_rec);
+        //val = CP.list_valSavedREC(path_rec);
         System.out.println("boton pulsado: open");
         nova_rec = false;
         panelactual = 7;
@@ -1215,19 +1229,11 @@ public class VistaPrincipal {
 
 
 
-        File file = new File(path_csv);
 
-        String[] directories = file.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File current, String name) {
-                return new File(current, name).isFile();
-            }
-        });
-        System.out.println(Arrays.toString(directories));
 
-        combo_rec = new JComboBox(directories);
+        combo_rec = new JComboBox((Vector) rec_sv);
 
-        combo_rec.setBounds(265,190,400,25);
+        combo_rec.setBounds(230,190,500,25);
 
         cargarR.add(combo_rec);
 

@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-import static dominio.clases.algorithm.slopeone.SlopeOne.prediccio;
+import dominio.clases.algorithm.slopeone.*;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
@@ -136,14 +136,14 @@ public class Driverslopeone {
         Recommendation recommendation;
 
         System.out.println("\n Resultado:");
-        CollaborativeFiltering CF = new CollaborativeFiltering(SlopeOne.getMap_data(), new TreeMap<>(), max(1, SlopeOne.getMap_data().size() / 3));
-        recommendation = CF.recommend(userID, 10, false);
-        for (Rating r : recommendation.getConjunt()) {
+        //CollaborativeFiltering CF = new CollaborativeFiltering(SlopeOne.getMap_data(), new TreeMap<>(), max(1, SlopeOne.getMap_data().size() / 3));
+      //  recommendation = CF.recommend(userID, 10, false);
+       /* for (Rating r : recommendation.getConjunt()) {
             System.out.println("ID item: " + r.getId() + " con esta predicción " + r.getValor());
         }
 
         System.out.println("Terminado");
-
+*/
     }
 
     public static void testSlopeOne_csv() {
@@ -203,14 +203,14 @@ public class Driverslopeone {
         Recommendation recommendation;
 
         System.out.println("\n Resultado:");
-        CollaborativeFiltering CF = new CollaborativeFiltering(SlopeOne.getMap_data(), new TreeMap<>(), max(1, SlopeOne.getMap_data().size() / 3));
-        recommendation = CF.recommend(userID, 10, false);
+        //CollaborativeFiltering CF = new CollaborativeFiltering(SlopeOne.getMap_data(), new TreeMap<>(), max(1, SlopeOne.getMap_data().size() / 3));
+        /*recommendation = CF.recommend(userID, 10, false);
         for (Rating r : recommendation.getConjunt()) {
             System.out.println("ID item: " + r.getId() + " con esta predicción " + r.getValor());
         }
 
 
-        System.out.println("Terminado");
+        System.out.println("Terminado");*/
 
     }
 
@@ -239,7 +239,7 @@ public class Driverslopeone {
         System.out.println("\n\t esta fequencia");
         print_map_freq(SlopeOne.getMap_freq());
         Map<Integer,Float> user = leerusuariopredi();
-        prediccio(user);
+        //prediccio(user);
 
         System.out.println("\n Resultado:");
         System.out.println("\n\t esta prediccio");

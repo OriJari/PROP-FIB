@@ -187,13 +187,7 @@ public class SlopeOne {
     }
 
 
-    /**
-     * @brief Calculates the prediction for the items non-rated.
-     *
-     * @param u_data Map with the items from the dominio.controladores.clases.atribut.user we want to predict his rate of the items non-rated.
-     * \pre true
-     * \post Fill map_pred with the data form u_data and the items not rated by the dominio.controladores.clases.atribut.user but that we predicted.
-     */
+
 //prediccio bona no weighted
     /*
     public static void prediccio(Map<Integer, Float> u_data) {
@@ -230,6 +224,14 @@ public class SlopeOne {
 //*/
 
 // weighted original
+
+    /**
+     * @brief Calculates the prediction for the items non-rated.
+     *
+     * @param u_data Map with the items from the dominio.controladores.clases.atribut.user we want to predict his rate of the items non-rated.
+     * \pre true
+     * \post Fill map_pred with the data form u_data and the items not rated by the dominio.controladores.clases.atribut.user but that we predicted.
+     */
  public static void prediccio(Map<Integer, Float> u_data) {
 
         Map<Integer,Float> pred = new TreeMap<Integer,Float>();
