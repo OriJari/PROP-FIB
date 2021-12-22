@@ -224,12 +224,12 @@ public class ControladorDominio {
         CP.saveRec(rec.getID_perfil(), rec.getAlg(), rec.getItemIDs(), rec.getItemRates())
     }
 
-    public List<Float> list_valSavedREC(String path_rec) {
-        return CP.list_valSavedREC(path_rec);
+    public List<Float> list_valSavedREC(int IDuser, int alg, String Date) {
+        return CP.list_valSavedREC(IDuser, alg, Date);
     }
 
-    public List<Integer> list_itemSavedREC(String path_rec) {
-        return CP.list_itemSavedREC(path_rec);
+    public List<Integer> list_itemSavedREC(int IDuser, int alg, String Date) {
+        return CP.list_itemSavedREC(IDuser, alg, Date);
     }
 
     public List<Integer> get_item_rec(){

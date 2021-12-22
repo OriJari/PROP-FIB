@@ -20,8 +20,9 @@ public class Recommendation {
         conjunt = new ArrayList<Rating>();
     }
 
-    public Recommendation(int userID) {
+    public Recommendation(int userID, int alg) {
         ID_perfil = userID;
+        this.alg = alg;
         conjunt = new ArrayList<Rating>();
     }
 
