@@ -261,6 +261,10 @@ public class ControladorDominio {
         return CP.get_header_items();
     }
 
+    public List<String> types_header() {
+        return CP.list_tipusheader();
+    }
+
     public boolean saveRecomendation() {
         return true;
     }
