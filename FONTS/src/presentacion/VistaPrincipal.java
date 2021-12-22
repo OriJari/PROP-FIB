@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,8 +34,6 @@ public class VistaPrincipal {
     private  JButton busca = new JButton("Buscar");
     private  JButton save = new JButton("Guardar recomendación");
     private  boolean nova_rec;
-    private List<Integer> id;
-    private List<Float> val;
     private  int nitems;
     private  JCheckBox eval = new JCheckBox("Evaluación");
     private  boolean checkbox = false;
@@ -146,6 +145,13 @@ public class VistaPrincipal {
     private  int panelactual = 0;
     private  String path_csv;
     private List<String> rec_sv;
+    private List<Integer> id_List;
+    private List<Float> val_List;
+
+    private List<Integer> ids_list;
+    private List<Integer> alg_list;
+    private List<String> dat_list;
+
 
     /** @brief Default builder.
      *
@@ -241,7 +247,9 @@ public class VistaPrincipal {
         csvchoosen.setText(path);
     }
     public void actionPerformed_startB(ActionEvent e) {
-        path_csv =  (fc.getSelectedFile().getPath() + "\\");
+        String os = System.getProperty("os.name");
+        if(os == "Windows 10") path_csv =  (fc.getSelectedFile().getPath() + "\\");
+        else path_csv =  (fc.getSelectedFile().getPath() + "/");
         System.out.println("CSV selecionado: " + path_csv);
         CP.inicializar(path_csv);
 
@@ -291,17 +299,18 @@ public class VistaPrincipal {
     public void actionPerformed_savedrec(ActionEvent e) {
         System.out.println("boton pulsado: cargar");
 
-        List<Integer> ids = CP.get_IDuser_rec();
-        List<Integer> alg = CP.get_alg_rec();
-        List<String> dat = CP.get_dates_rec();
-        rec_sv = new ArrayList<>(ids.size());
-        for(int i = 0; i < ids.size(); i++) {
-            rec_sv.set(i,"Id User: " + ids.get(i) + " Algoritme: ");
-            if(alg.get(i) == 0) rec_sv.set(i,rec_sv.get(i) + "CF " + dat.get(i));
-            else if(alg.get(i) == 1) rec_sv.set(i,rec_sv.get(i) + "CBF " + dat.get(i));
-            else rec_sv.set(i,rec_sv.get(i) + "H " + dat.get(i));
+        ids_list = CP.get_IDuser_rec();
+        alg_list = CP.get_alg_rec();
+        dat_list = CP.get_dates_rec();
+        rec_sv = new ArrayList<>(ids_list.size());
+        for(int i = 0; i < ids_list.size(); i++) {
+            rec_sv.set(i,"Id User: " + ids_list.get(i) + " Algoritme: ");
+            if(alg_list.get(i) == 0) rec_sv.set(i,rec_sv.get(i) + "CF " + dat_list.get(i));
+            else if(alg_list.get(i) == 1) rec_sv.set(i,rec_sv.get(i) + "CBF " + dat_list.get(i));
+            else rec_sv.set(i,rec_sv.get(i) + "H " + dat_list.get(i));
 
         }
+
 
         panelactual = 6;
         menR.setVisible(false);
@@ -326,10 +335,10 @@ public class VistaPrincipal {
         System.out.println(nitems);
 
         if(algorithm == "Collaborative filtering") CP.recommendCF(nitems,uid,checkbox);
-        //else if(algorithm == "Content based filtering") CP.recommendCBF(nitems,uid,checkbox);
-        //else CP.recommendH(nitems,uid,checkbox);
-        //id = CP.list_itemREC();
-        //val = CP.list_valREC();
+        else if(algorithm == "Content based filtering") CP.recommendCBF(nitems,uid,checkbox);
+        else CP.recommendH(nitems,uid,checkbox);
+        id_List = CP.list_itemREC();
+        val_List = CP.list_valREC();
         System.out.println("boton pulsado: buscar");
         panelactual = 7;
         recomana.setVisible(false);
@@ -477,10 +486,11 @@ public class VistaPrincipal {
     }
     public void actionPerformed_openB(ActionEvent e) {
         String path_rec = (String) combo_rec.getSelectedItem();
-        System.out.println("recomendacion guardada selecionado: " + path_rec);
-        //id = CP.list_itemSavedREC(path_rec);
-        //val = CP.list_valSavedREC(path_rec);
-        System.out.println("boton pulsado: open");
+
+        int i = combo_rec.getSelectedIndex();
+        id_List = CP.list_itemSavedREC(ids_list.get(i),alg_list.get(i),dat_list.get(i));
+        val_List = CP.list_valSavedREC(ids_list.get(i),alg_list.get(i),dat_list.get(i));
+        System.out.println("boton pulsado: open ");
         nova_rec = false;
         panelactual = 7;
         cargarR.setVisible(false);
@@ -1334,10 +1344,10 @@ public class VistaPrincipal {
                 icon.add(new JLabel(new ImageIcon("FONTS/src/presentacion/item.png")));
                 icon.get(5*i+j).setBounds(150 +150*j,150+150*i,48,48);
                 item_rec.add(icon.get(5*i+j));
-                itemid.add(new JLabel("ItemId: " + id.get(5*i+j)));
+                itemid.add(new JLabel("ItemId: " + id_List.get(5*i+j)));
                 itemid.get(5*i+j).setBounds(150 +150*j,200+150*i,60,20);
                 item_rec.add(itemid.get(5*i+j));
-                val.add(new JLabel("Val: " + val.get(5*i+j)));
+                val.add(new JLabel("Val: " + val_List.get(5*i+j)));
                 val.get(5*i+j).setBounds(150 +150*j,220+150*i,60,20);
                 item_rec.add(val.get(5*i+j));
 
