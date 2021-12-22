@@ -103,6 +103,7 @@ public class VistaPrincipal {
     private JLabel titolIR = new JLabel("RECOMENDACIONES");
     private JButton back_IR = new JButton("Volver");
     private JLabel frase1IR = new JLabel("Lo que te puede gustar...");
+    private JLabel dcg;
 
     //gestion user
     private JPanel gestUser = new JPanel();
@@ -144,7 +145,7 @@ public class VistaPrincipal {
     private List<String> rec_sv;
     private List<Integer> id_List;
     private List<Float> val_List;
-
+    private float DCG;
     private List<Integer> ids_list;
     private List<Integer> alg_list;
     private List<String> dat_list;
@@ -309,6 +310,8 @@ public class VistaPrincipal {
         }
 
 
+
+
         panelactual = 6;
         menR.setVisible(false);
         panelmain();
@@ -334,11 +337,25 @@ public class VistaPrincipal {
         if(algorithm == "Collaborative filtering") CP.recommendCF(nitems,uid,checkbox);
         else if(algorithm == "Content based filtering") CP.recommendCBF(nitems,uid,checkbox);
         else CP.recommendH(nitems,uid,checkbox);
+        if(checkbox) DCG = CP.new_DCG();
         id_List = CP.list_itemREC();
         val_List = CP.list_valREC();
         System.out.println("boton pulsado: buscar");
         panelactual = 7;
         recomana.setVisible(false);
+        panelmain();
+    }
+    public void actionPerformed_openB(ActionEvent e) {
+        String path_rec = (String) combo_rec.getSelectedItem();
+
+        int i = combo_rec.getSelectedIndex();
+        id_List = CP.list_itemSavedREC(ids_list.get(i),alg_list.get(i),dat_list.get(i));
+        val_List = CP.list_valSavedREC(ids_list.get(i),alg_list.get(i),dat_list.get(i));
+        if(checkbox) DCG = CP.saved_DCG();
+        System.out.println("boton pulsado: open ");
+        nova_rec = false;
+        panelactual = 7;
+        cargarR.setVisible(false);
         panelmain();
     }
     public void actionPerformed_back_carRm(ActionEvent e) {
@@ -501,18 +518,6 @@ public class VistaPrincipal {
         }
         else JOptionPane.showMessageDialog(gestTag,"No se ha podido eliminar correctamente","Error",0);
         gestTag.setVisible(false);
-        panelmain();
-    }
-    public void actionPerformed_openB(ActionEvent e) {
-        String path_rec = (String) combo_rec.getSelectedItem();
-
-        int i = combo_rec.getSelectedIndex();
-        id_List = CP.list_itemSavedREC(ids_list.get(i),alg_list.get(i),dat_list.get(i));
-        val_List = CP.list_valSavedREC(ids_list.get(i),alg_list.get(i),dat_list.get(i));
-        System.out.println("boton pulsado: open ");
-        nova_rec = false;
-        panelactual = 7;
-        cargarR.setVisible(false);
         panelmain();
     }
 
@@ -877,29 +882,6 @@ public class VistaPrincipal {
         File file = new File("DATA");
         fc = new JFileChooser(file);
 
-        /*ActionListener selecciona = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //browser ficheros/dyrectory
-
-                fc.setDialogTitle("Escojer CSV");
-                fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                if(fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
-                    //
-                }
-                File file1 = new File(fc.getSelectedFile().getPath());
-                File file2 = new File(file.getAbsolutePath());
-
-                String absolutePath1 = file1.toString();
-                String absolutePath2 = file2.toString();
-                String path = absolutePath1.substring(absolutePath2.length());
-
-                System.out.println(path);
-                csvchoosen.setFont(new Font("Arial", Font.BOLD,14));
-                csvchoosen.setText(path);
-            }
-        };
-        csvs.addActionListener(selecciona);*/
 
 
 
@@ -909,20 +891,6 @@ public class VistaPrincipal {
         startB.setFont(new Font("Arial", Font.BOLD, 20));
         start.add(startB);
 
-        /*ActionListener comencem = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                path_csv =  fc.getSelectedFile().getPath();
-                System.out.println("CSV selecionado: " + path_csv);
-                CP.inicializar(path_csv);
-
-                System.out.println("boton pulsado: start");
-                panelactual = 1;
-                start.setVisible(false);
-                panelmain();
-            }
-        };
-        startB.addActionListener(comencem);*/
 
 
     }
@@ -965,49 +933,7 @@ public class VistaPrincipal {
         menu.add(recomanacio);
 
 
-        /*ActionListener tornarM = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: volver");
-                panelactual = 0;
-                menu.setVisible(false);
-                panelmain();
-            }
-        };
-        backM.addActionListener(tornarM);*/
 
-        /*ActionListener gestionar_user = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: gestion user");
-                panelactual = 2;
-                menu.setVisible(false);
-                panelmain();
-            }
-        };
-        gestuser.addActionListener(gestionar_user);
-
-        ActionListener gestionar_item = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: gestion item");
-                panelactual = 3;
-                menu.setVisible(false);
-                panelmain();
-            }
-        };
-        gestitem.addActionListener(gestionar_item);
-
-        ActionListener rec = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: recomanacio");
-                panelactual = 4;
-                menu.setVisible(false);
-                panelmain();
-            }
-        };
-        recomanacio.addActionListener(rec);*/
     }
 
     /**
@@ -1044,40 +970,6 @@ public class VistaPrincipal {
         eval.setSelected(checkbox);
         menR.add(eval);
 
-        /*ActionListener tornarRm = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: tornarR");
-                panelactual = 1;
-                menR.setVisible(false);
-                panelmain();
-            }
-        };
-        backRm.addActionListener(tornarRm);
-
-        ActionListener nova = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(eval.isSelected()) checkbox = true;
-                else checkbox = false;
-                System.out.println("boton pulsado: nuevarec");
-                panelactual = 5;
-                menR.setVisible(false);
-                panelmain();
-            }
-        };
-        nuevarec.addActionListener(nova);
-
-        ActionListener cargar = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: cargar");
-                panelactual = 6;
-                menR.setVisible(false);
-                panelmain();
-            }
-        };
-        savedrec.addActionListener(cargar);*/
 
 
     }
@@ -1104,16 +996,7 @@ public class VistaPrincipal {
 
         recomana.add(backR);
 
-        /*ActionListener tornarR = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: tornarR");
-                panelactual = 4;
-                recomana.setVisible(false);
-                panelmain();
-            }
-        };
-        backR.addActionListener(tornarR);*/
+
 
 
 
@@ -1136,8 +1019,7 @@ public class VistaPrincipal {
 
         CuserID = new JComboBox(v);
         CuserID.setBounds(470,180,250,25);
-       // CuserID.addItem("2848721");
-       // CuserID.addItem("8466126");
+
 
         recomana.add(CuserID);
 
@@ -1149,10 +1031,6 @@ public class VistaPrincipal {
 
 
         algoritme.setBounds(470,240,250,25);
-        /*
-        algoritme.addItem("Collaborative filtering");
-        algoritme.addItem("Content based filtering");
-        algoritme.addItem("Hybrid algorithm");*/
 
         recomana.add(algoritme);
 
@@ -1167,53 +1045,13 @@ public class VistaPrincipal {
 
 
         nit.setBounds(470,300,250,25);
-        /*
-        nit.addItem("1");
-        nit.addItem("2");
-        nit.addItem("3");
-        nit.addItem("4");
-        nit.addItem("5");
-        nit.addItem("6");
-        nit.addItem("7");
-        nit.addItem("8");
-        nit.addItem("9");
-        nit.addItem("10");*/
+
         recomana.add(nit);
 
         busca.setFont(new Font("Arial",Font.BOLD,20));
         busca.setBounds(310,380,300,40);
         recomana.add(busca);
 
-
-        /*ActionListener search = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String userid = (String) CuserID.getSelectedItem();
-                int uid = Integer.valueOf(userid);
-                System.out.println("user selecionado: " + userid);
-                String algorithm = (String) algoritme.getSelectedItem();
-                System.out.println("algoritmo selecionado: " + algorithm);
-
-                nova_rec = true;
-                nitems = Integer.valueOf((String) nit.getSelectedItem());
-
-                System.out.println(nitems);
-
-                if(algorithm == "Collaborative filtering") CP.recommendCF(nitems,uid,checkbox);
-                //else if(algorithm == "Content based filtering") CP.recommendCBF(nitems,uid,checkbox);
-                //else CP.recommendH(nitems,uid,checkbox);
-                //id = CP.list_itemREC();
-                //val = CP.list_valREC();
-                System.out.println("boton pulsado: buscar");
-                panelactual = 7;
-                recomana.setVisible(false);
-                panelmain();
-
-
-
-            }
-        };
-        busca.addActionListener(search);*/
 
 
 
@@ -1239,17 +1077,6 @@ public class VistaPrincipal {
 
         back_carRm.setBounds(20,450,100,30);
         cargarR.add(back_carRm);
-
-        /*ActionListener cargar_rec_back = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: tornar");
-                panelactual = 4;
-                cargarR.setVisible(false);
-                panelmain();
-            }
-        };
-        back_carRm.addActionListener(cargar_rec_back);*/
 
 
 
@@ -1283,21 +1110,7 @@ public class VistaPrincipal {
         openB.setFont(new Font("Arial", Font.BOLD, 20));
         cargarR.add(openB);
 
-        /*ActionListener comencem = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String path_rec = (String) combo_rec.getSelectedItem();
-                System.out.println("recomendacion guardada selecionado: " + path_rec);
-                id = CP.list_itemSavedREC(path_rec);
-                val = CP.list_valSavedREC(path_rec);
-                System.out.println("boton pulsado: open");
-                nova_rec = false;
-                panelactual = 7;
-                cargarR.setVisible(false);
-                panelmain();
-            }
-        };
-        openB.addActionListener(comencem);*/
+
     }
 
     /**
@@ -1322,37 +1135,22 @@ public class VistaPrincipal {
         back_IR.setBounds(20,450,100,30);
         item_rec.add(back_IR);
 
-        /*ActionListener cargar_rec_back = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: tornar");
-                if(nova_rec) panelactual = 5;
-                else panelactual = 6;
-                item_rec.setVisible(false);
-                panelmain();
-            }
-        };
 
-        back_IR.addActionListener(cargar_rec_back);*/
 
         if (nova_rec) {
             save.setBounds(350,430,220,35);
             save.setFont(new Font("Arial",Font.BOLD,16));
             item_rec.add(save);
 
-            /*ActionListener guardar = new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    System.out.println("boton pulsado: guardar");
-                    if(CP.saveRecomendation()){
-                        JOptionPane.showMessageDialog(item_rec,"Guardado correctamente");
-                    }
 
-                }
-            };
-            save.addActionListener(guardar);*/
         }
 
+        if(checkbox){
+            dcg = new JLabel("DCG: " + dcg );
+            dcg.setFont(new Font("Arial",Font.PLAIN, 16));
+            dcg.setBounds(770,430,100,20);
+            item_rec.add(dcg);
+        }
 
 
         frase1IR.setFont(new Font("Arial",Font.PLAIN,22));
@@ -1371,10 +1169,10 @@ public class VistaPrincipal {
                 icon.get(5*i+j).setBounds(150 +150*j,150+150*i,48,48);
                 item_rec.add(icon.get(5*i+j));
                 itemid.add(new JLabel("ItemId: " + id_List.get(5*i+j)));
-                itemid.get(5*i+j).setBounds(150 +150*j,200+150*i,60,20);
+                itemid.get(5*i+j).setBounds(120 +150*j,200+150*i,100,20);
                 item_rec.add(itemid.get(5*i+j));
                 val.add(new JLabel("Val: " + val_List.get(5*i+j)));
-                val.get(5*i+j).setBounds(150 +150*j,220+150*i,60,20);
+                val.get(5*i+j).setBounds(120 +150*j,220+150*i,100,20);
                 item_rec.add(val.get(5*i+j));
 
 
@@ -1405,16 +1203,7 @@ public class VistaPrincipal {
 
         gestUser.add(backGU);
 
-        /*ActionListener tornarGU = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: tornarGU");
-                panelactual = 1;
-                gestUser.setVisible(false);
-                panelmain();
-            }
-        };
-        backGU.addActionListener(tornarGU);*/
+      
 
 
         frase1GU.setFont(new Font("Arial", Font.PLAIN,18));
@@ -1457,47 +1246,7 @@ public class VistaPrincipal {
         gRate.setBounds(360,325,220,40);
         gestUser.add(gRate);
 
-        /*ActionListener afegirU = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: añadir");
 
-                if(isNumericI(tUserId.getText()) && CP.addUser(Integer.valueOf(tUserId.getText()))){
-                    JOptionPane.showMessageDialog(gestUser,"Añadido correctamente");
-                    System.out.println(tUserId.getText());
-                }
-                else if(isNumericI(tUserId.getText())) JOptionPane.showMessageDialog(gestUser,"Usuario ya registrado","Error",0);
-                else JOptionPane.showMessageDialog(gestUser,"No se ha podido añadir correctamente","Error",0);
-            }
-        };
-        addB.addActionListener(afegirU);
-
-        ActionListener eliminarU = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: eliminar");
-
-                if(CP.deleteUser((Integer)cUserid.getSelectedItem())){
-                    JOptionPane.showMessageDialog(gestUser,"Eliminado correctamente");
-                    System.out.println(tUserId.getText());
-                }
-                else JOptionPane.showMessageDialog(gestUser,"No se ha podido eliminar correctamente","Error",0);
-            }
-        };
-        deleteB.addActionListener(eliminarU);
-
-        ActionListener ratings = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: gestionar ratings");
-                id_actual_user = (Integer)cUserid.getSelectedItem();
-                panelactual = 8;
-                gestUser.setVisible(false);
-                panelmain();
-
-            }
-        };
-        gRate.addActionListener(ratings);*/
 
 
     }
@@ -1522,18 +1271,6 @@ public class VistaPrincipal {
 
         backGR.setBounds(20,450,100,30);
         gestRate.add(backGR);
-/*
-        ActionListener tornarGR = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: tornarGR");
-                panelactual = 2;
-                gestRate.setVisible(false);
-                panelmain();
-            }
-        };
-        backGR.addActionListener(tornarGR);
-*/
 
         frase1GR.setFont(new Font("Arial", Font.PLAIN,18));
         frase1GR.setBounds(300,110,400,20);
@@ -1569,35 +1306,6 @@ public class VistaPrincipal {
         deleteBR.setBounds(405,350,150,30);
         gestRate.add(deleteBR);
 
-/*
-        ActionListener mod = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: añadir/modificar");
-
-                if(isNumericF(tRate.getText()) && CP.addRating(id_actual_user,Integer.valueOf((Integer) cUserid.getSelectedItem()),Float.valueOf(tRate.getText()))){
-                    JOptionPane.showMessageDialog(gestRate,"Añadido/modificado correctamente");
-                    System.out.println(tRate.getText());
-                }
-                else JOptionPane.showMessageDialog(gestRate,"No se ha podido añadir/modificar correctamente","Error",0);
-            }
-        };
-        addBR.addActionListener(mod);
-
-        ActionListener eli = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: eliminar");
-
-                if(CP.deleteRating(id_actual_user,(Integer)cItemId.getSelectedItem())){
-                    JOptionPane.showMessageDialog(gestRate,"Eliminado correctamente");
-                    System.out.println("eliminado");
-                }
-                else JOptionPane.showMessageDialog(gestRate,"No se ha podido eliminar correctamente","Error",0);
-            }
-        };
-        deleteBR.addActionListener(eli);
-*/
 
     }
 
@@ -1622,19 +1330,6 @@ public class VistaPrincipal {
         backGI.setBounds(20,450,100,30);
 
         gestItem.add(backGI);
-/*
-        ActionListener tornarGI = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: tornarGI");
-                panelactual = 1;
-                gestItem.setVisible(false);
-                panelmain();
-            }
-        };
-        backGI.addActionListener(tornarGI);
-
-*/
         frase1GI.setFont(new Font("Arial", Font.PLAIN,18));
         frase1GI.setBounds(310,110,400,20);
         gestItem.add(frase1GI);
@@ -1673,57 +1368,7 @@ public class VistaPrincipal {
         gesTag.setBounds(360,325,220,40);
         gestItem.add(gesTag);
 
-      /*  ActionListener addIt = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: añadir");
 
-                if(isNumericI(titemId.getText()) && !CP.exists(Integer.valueOf(titemId.getText()))){
-                    ArrayList<String> tags = new ArrayList<>();
-                    //for(int i = 0; i < 5; ++i) {
-
-                    tags.add(JOptionPane.showInputDialog("Introducir Tag"));
-                    System.out.println(JOptionPane.showInputDialog("Introducir Tag"));
-                    //}
-                    CP.addItem(Integer.valueOf(titemId.getText()),tags);
-
-
-                    System.out.println(titemId.getText());
-                }
-
-                else JOptionPane.showMessageDialog(gestItem,"No se ha podido añadir correctamente","Error",0);
-            }
-        };
-        addI.addActionListener(addIt);
-
-        ActionListener elimI = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: eliminar");
-
-                if(CP.deleteItem((Integer)citemid.getSelectedItem())){
-                    JOptionPane.showMessageDialog(gestItem,"Eliminado correctamente");
-                    System.out.println(citemid.getSelectedItem());
-                }
-                //else if(!CP.valdiItem((Integer)citemid.getSelectedItem())) JOptionPane.showMessageDialog(gestUser,"Item no registrado","Error",0);
-                else JOptionPane.showMessageDialog(gestItem,"No se ha podido eliminar correctamente","Error",0);
-            }
-        };
-        deleteI.addActionListener(elimI);
-
-        ActionListener gt = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("boton pulsado: gestionar tags");
-                id_actual = (Integer)citemid.getSelectedItem();
-                panelactual = 9;
-                gestItem.setVisible(false);
-                panelmain();
-            }
-        };
-        gesTag.addActionListener(gt);
-
-*/
     }
 
     /**
