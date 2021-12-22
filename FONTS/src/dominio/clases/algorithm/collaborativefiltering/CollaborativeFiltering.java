@@ -22,7 +22,6 @@ public class CollaborativeFiltering {
     private Map<Integer, Map<Integer, Float>> opinions;
     private Map<Integer, Map<Integer, Float>> unknown;
     private Vector<Vector<Integer>> clusters;
-    private Integer k;
 
 
     /** @brief <em>opinions</em> represents the ratings, float in the nested Map, that users, the first Integer is their ID, have given about items, their ID is the integer in the nested Map.
@@ -42,24 +41,53 @@ public class CollaborativeFiltering {
     /** @brief Builder with defined <em>opinions</em> and <em>k</em>.
      *
      * @param opinions Map that represents the ratings that users have given about some items.
-     * @param k Desired number of clusters. Integer larger than 0.
+     *
      *
      * \pre <em>k</em> must be larger than 0 but smaller or equal than opinions.size().
      * \post Creates <em>collaborativeFiltering</em> object with <em>opinions</em> set to opinions and computes the k clusters of users.
      */
-    public CollaborativeFiltering(Map<Integer, Map<Integer, Float>> opinions, Map<Integer, Map<Integer, Float>> unknown, Integer k){
+    public CollaborativeFiltering(Map<Integer, Map<Integer, Float>> opinions, Map<Integer, Map<Integer, Float>> unknown){
         this.unknown = unknown;
         this.opinions = opinions;
-        K_Means Kmean = new K_Means(opinions);
-        this.k = k;
-        this.clusters = Kmean.k_means(k);
+        elbowtest(opinions);
     }
 
-    public void setK(int k){
+    public void elbowtest(Map<Integer, Map<Integer, Float>> opinions){
+        int maxK = 10;
+        Vector<Float> inertias = new Vector<>();
         K_Means Kmean = new K_Means(opinions);
-        this.k = k;
-        this.clusters = Kmean.k_means(k);
+        for(int k = 0; k < maxK; ++k){
+            Kmean.k_means(k+1);
+            inertias.add(Kmean.inertia());
+        }
+
+        Vector<Float> angles = new Vector<>();
+        for(int i = 0; i < maxK-1; ++i){
+            float diff = inertias.get(i)-inertias.get(i+1);
+            if(diff == 0){
+                angles.add(3.14f);
+            }
+            else{
+                angles.add((float) Math.atan(1/diff));
+            }
+        }
+
+        float maxDiffAng = 0.0f;
+        int bestK = 1;
+        for(int i = 0; i < maxK-2; ++i){
+            float diffAng = angles.get(i)-angles.get(i+1);
+            if(maxDiffAng < diffAng){
+                maxDiffAng = diffAng;
+                bestK = i+2;
+            }
+        }
+
+        System.out.println("The best K is: " + bestK);
+
+        Kmean.k_means(bestK);
+        this.clusters = Kmean.getClusters();
     }
+
 
     /** @brief Function that makes a recommendation of items to a dominio.controladores.clases.atribut.user.
      *

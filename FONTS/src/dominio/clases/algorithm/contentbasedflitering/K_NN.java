@@ -20,13 +20,25 @@ public class K_NN {
      * @brief Table used to store similarities between all items
      */
     private double[][] similarityTable;
+    /**
+     * @brief Map that stores the known ratings of our users to the items.
+     */
     private Map<Integer,Map<Integer,Float>> mapa_known;
+    /**
+     * @brief Map that stores the unknown ratings of our users to the items. Used when we want to rate our recommendation.
+     */
     private Map<Integer,Map<Integer,Float>> mapa_unknown;
+    /**
+     * @brief Map that stores all items and their tags.
+     */
     private Map<Integer,List<Content>> mapa_items;
+    /**
+     * @brief List with the real ID's of the items. Used to know the relation between the position of the item in the <em>similarityTable</em> and their actual ID.
+     */
     List<Integer> id_reals;
 
     /**
-     * @brief Default builder
+     * @brief Default builder with all maps and id_list as parameters.
      * \pre <em>True</em>
      * \post An object of the K_NN class is created with mapa_usuarios and id_reals equal to the given parameters
      */
@@ -124,6 +136,7 @@ public class K_NN {
         int id_fals = id_reals.indexOf(ID_item);
         id_reals.remove(ID_item);
         mapa_items.remove(ID_item);
+        elimina_item_mapa_rating(ID_item);
         esborra_item_taula(id_fals);
     }
 
@@ -156,6 +169,13 @@ public class K_NN {
     public void esborra_rating_user(int User_ID, int Item_ID) {
         mapa_known.get(User_ID).remove(Item_ID);
     }
+
+    public void elimina_item_mapa_rating(int Item_ID) {
+        for (Map.Entry<Integer,Map<Integer,Float>> entry : mapa_known.entrySet()) {
+            int user_id = entry.getKey();
+            if (entry.getValue().containsKey(Item_ID)) mapa_known.get(user_id).remove(Item_ID);
+            }
+        }
 
     /**
      * @brief Calculates the similarity between two items, given their respective tags.

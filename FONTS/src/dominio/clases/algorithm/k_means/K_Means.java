@@ -11,6 +11,10 @@ import java.util.*;
 public class K_Means {
 
         private static Map<Integer, Map<Integer, Float>> opinions;
+        private int k;
+        private boolean initialized;
+        private Vector<Vector<Integer>> clusters;
+        private Vector<Map<Integer, Float>> means;
         /** @brief opinions represents the ratings, float in the nested Map, that users, the first Integer is their ID, have given about items, their ID is the integer in the nested Map.
          */
 
@@ -33,6 +37,42 @@ public class K_Means {
          */
         public K_Means(Map<Integer, Map<Integer, Float>> opinions){
                 this.opinions = opinions;
+        }
+
+        public Vector<Vector<Integer>> getClusters(){
+                return clusters;
+        }
+
+        public float inertia(){
+                float result = 0.0f;
+                for(int i = 0; i < k; ++i){
+                        for(int j = 0; j < clusters.get(i).size(); ++j){
+                                result += inertia_ind(opinions.get(clusters.get(i).get(j)), means.get(i));
+                        }
+                }
+                return result;
+        }
+
+        public float inertia_ind(Map<Integer, Float> u1, Map<Integer, Float> u2){
+                Map<Integer, Float> comp_in = new TreeMap<>();
+                for(Map.Entry<Integer, Float> entry : u1.entrySet()){
+                        if(u2.containsKey(entry.getKey())){
+                                comp_in.put(entry.getKey(), (float) Math.pow((entry.getValue()-u2.get(entry.getKey())), 2));
+                        }
+                        else {
+                                comp_in.put(entry.getKey(), (float) Math.pow(entry.getValue(), 2));
+                        }
+                }
+                for(Map.Entry<Integer, Float> entry : u2.entrySet()){
+                        if(!comp_in.containsKey(entry.getKey())){
+                                comp_in.put(entry.getKey(), (float) Math.pow(entry.getValue(), 2));
+                        }
+                }
+                float result = 0.0f;
+                for(Map.Entry<Integer, Float> entry : comp_in.entrySet()){
+                        result += entry.getValue();
+                }
+                return result;
         }
 
 
@@ -100,18 +140,17 @@ public class K_Means {
          * \pre 0 < k <= opinions.size()
          * \post Returns the users grouped in k clusters.
          */
-        public Vector<Vector<Integer>> k_means(Integer k){
-                Vector<Vector<Integer>> clusters = new Vector<>();
-                for(int i = 0; i < k; ++i){
-                        clusters.add(new Vector<Integer>(0));
-                }
-                Vector<Map<Integer, Float>> means = new Vector<Map<Integer, Float>>(k);
-                for(int i = 0; i < k; ++i){
-                        means.add(new TreeMap<Integer, Float>());
-                }
-
-                //initialize clusters
-                {
+        public void k_means(Integer k){
+                if(!initialized || this.k != k) {//initialize clusters
+                        this.k = k;
+                        clusters = new Vector<>();
+                        for (int i = 0; i < k; ++i) {
+                                clusters.add(new Vector<Integer>(0));
+                        }
+                        means = new Vector<Map<Integer, Float>>(k);
+                        for (int i = 0; i < k; ++i) {
+                                means.add(new TreeMap<Integer, Float>());
+                        }
                         int i = 0;
                         for (Map.Entry<Integer, Map<Integer, Float>> entry : opinions.entrySet()) {
                                 clusters.get(i%k).add(entry.getKey());
@@ -133,7 +172,6 @@ public class K_Means {
                 }
 
                 boolean cont = true;
-
                 while(cont){
                         Vector<Vector<Integer>> newClusters = new Vector<>();
                         for(int i = 0; i < k; ++i){
@@ -185,6 +223,7 @@ public class K_Means {
                                 }
                         }
                 }
-                return clusters;
+                initialized = true;
         }
+
 }
