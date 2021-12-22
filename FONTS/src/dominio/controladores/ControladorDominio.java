@@ -221,7 +221,7 @@ public class ControladorDominio {
     }
 
     public void saveRec(){
-        CP.saveRec(rec.getID_perfil(), , rec.getItemIDs(), rec.getItemRates())
+        CP.saveRec(rec.getID_perfil(), rec.getAlg(), rec.getItemIDs(), rec.getItemRates())
     }
 
     public List<Float> list_valSavedREC(String path_rec) {

@@ -10,8 +10,9 @@ import java.util.List;
  * @author
  */
 public class Recommendation {
-    List<Rating> conjunt;
-    int ID_perfil;
+    private List<Rating> conjunt;
+    private int ID_perfil;
+    private int alg;
 
     //Constructoras
     public Recommendation() {
@@ -28,6 +29,8 @@ public class Recommendation {
     public int getID_perfil() {
         return ID_perfil;
     }
+
+    public int getAlg(){ return alg;}
 
     public List<Rating> getConjunt() {
         return conjunt;
