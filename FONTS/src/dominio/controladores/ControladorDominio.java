@@ -12,10 +12,15 @@ import java.util.*;
 
 /**
  *
- * @author
+ * @author Marc Delgado Sánchez
+ * @author Manel Piera Garrigosa
+ * @brief  Class used to implement the Domain Controller.
  */
 
 public class ControladorDominio {
+    /**
+     * @brief Instance of the Persistance Controller
+     */
     private ControladorPersistencia CP;
     private CollaborativeFiltering CFNotEval;
     private CollaborativeFiltering CFEval;
