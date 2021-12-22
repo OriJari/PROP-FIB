@@ -12,6 +12,9 @@ import dominio.clases.recommendation.Recommendation;
  * @brief Evaluates the quality of a recommendation.
  */
 public class Evaluation {
+    /**
+     * @brief represents the map of unknown ratings given by the users. Used to evaluate the recommendation.
+     */
     private Map<Integer, Map<Integer, Float>> unknown;
 
     /** @brief <em>recommendation</em> represents the recommendation to a dominio.controladores.clases.atribut.user ordered decreasingly by the expected rating.
@@ -22,7 +25,6 @@ public class Evaluation {
     /** @brief Builder.
      *
      * @param unknown Sets <em>unknown</em> to unknown.
-     * @param recommendation Sets <em>recomanacio</em> to recomanacio but sorted decreasingly.
      *
      * \pre <em>true</em>
      * \post Creates an Evaluation.

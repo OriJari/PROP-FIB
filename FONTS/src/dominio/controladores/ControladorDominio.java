@@ -79,15 +79,28 @@ public class ControladorDominio {
         List<List<Double>> mapItemTagsDoubles = CP.getMapDoublesTags();
         List<List<List<String>>> mapItemTagsCategorics = CP.getMapCategoricsTags();
 
-        Map<Integer, Map<Integer, Float>> mapRateRatings = constructMapRate(mapRateIDusersRatings, mapRateIDitemsRatings, mapRateValRatings);
-        Map<Integer, Map<Integer, Float>> mapRateKnown = constructMapRate(mapRateIDusersKnown, mapRateIDitemsKnown, mapRateValKnown);
+        Map<Integer, Map<Integer, Float>> mapRateRatings1 = constructMapRate(mapRateIDusersRatings, mapRateIDitemsRatings, mapRateValRatings);
+        Map<Integer, Map<Integer, Float>> mapRateRatings2 = constructMapRate(mapRateIDusersRatings, mapRateIDitemsRatings, mapRateValRatings);
+        Map<Integer, Map<Integer, Float>> mapRateKnown1 = constructMapRate(mapRateIDusersKnown, mapRateIDitemsKnown, mapRateValKnown);
+        Map<Integer, Map<Integer, Float>> mapRateKnown2 = constructMapRate(mapRateIDusersKnown, mapRateIDitemsKnown, mapRateValKnown);
         Map<Integer, Map<Integer, Float>> mapRateUnknown = constructMapRate(mapRateIDusersUnknown, mapRateIDitemsUnknown, mapRateValUnknown);
-        Map<Integer, List<Content>> mapItems = constructMapItem(mapItemIDs, mapItemTagsTipus, mapItemTagsIntegers, mapItemTagsDoubles, mapItemTagsCategorics);
+        Map<Integer, List<Content>> mapItems1 = constructMapItem(mapItemIDs, mapItemTagsTipus, mapItemTagsIntegers, mapItemTagsDoubles, mapItemTagsCategorics);
+        Map<Integer, List<Content>> mapItems2 = constructMapItem(mapItemIDs, mapItemTagsTipus, mapItemTagsIntegers, mapItemTagsDoubles, mapItemTagsCategorics);
 
-        CFEval = new CollaborativeFiltering(mapRateKnown, mapRateUnknown);
-        CFNotEval = new CollaborativeFiltering(mapRateRatings, new TreeMap<>());
-        KNNEval = new K_NN(mapRateKnown, mapRateUnknown, mapItems, CP.list_item());
-        KNNnotEval = new K_NN(mapRateRatings, new TreeMap<>(), mapItems, CP.list_item());
+        List<Integer> l1 = new ArrayList<>();
+        List<Integer> l2 = new ArrayList<>();
+        List<Integer> item_list = CP.list_item();
+        int mida = item_list.size();
+        for (int i = 0; i < mida; ++i) {
+            l1.add(item_list.get(i));
+            l2.add(item_list.get(i));
+        }
+
+        CFEval = new CollaborativeFiltering(mapRateKnown1, mapRateUnknown);
+        CFNotEval = new CollaborativeFiltering(mapRateRatings1, new TreeMap<>());
+        KNNEval = new K_NN(mapRateKnown2, mapRateUnknown, mapItems1, l1);
+        KNNnotEval = new K_NN(mapRateRatings2, new TreeMap<>(), mapItems2, l2);
+        E = new Evaluation(mapRateUnknown);
 
         KNNEval.initSimilarityTable();
         KNNnotEval.initSimilarityTable();
@@ -264,6 +277,9 @@ public class ControladorDominio {
         }
 
         rec = H.recommend(r1,r2,k);
+    }
+    public Float new_DCG(){
+        return E.DCG(rec);
     }
 
     public List<String> tag_list() {

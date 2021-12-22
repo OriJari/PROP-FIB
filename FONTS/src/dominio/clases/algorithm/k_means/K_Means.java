@@ -39,10 +39,20 @@ public class K_Means {
                 this.opinions = opinions;
         }
 
+        /**
+         * @brief       Getter of the vector of clusters.
+         * @return      Returns the vector of clusters.
+         */
         public Vector<Vector<Integer>> getClusters(){
                 return clusters;
         }
 
+        /**
+         * @brief
+         * @return
+         * \pre
+         * \post
+         */
         public float inertia(){
                 float result = 0.0f;
                 for(int i = 0; i < k; ++i){
@@ -53,6 +63,14 @@ public class K_Means {
                 return result;
         }
 
+        /**
+         * @brief
+         * @param u1
+         * @param u2
+         * @return
+         * \pre
+         * \post
+         */
         public float inertia_ind(Map<Integer, Float> u1, Map<Integer, Float> u2){
                 Map<Integer, Float> comp_in = new TreeMap<>();
                 for(Map.Entry<Integer, Float> entry : u1.entrySet()){
@@ -131,6 +149,12 @@ public class K_Means {
                 return true;
         }
 
+        /**
+         * @brief
+         * @param k
+         * \pre
+         * \post
+         */
         public void initializeClustersMeans(Integer k){//initialize clusters
                 clusters = new Vector<>();
                 for (int i = 0; i < k; ++i) {
@@ -161,6 +185,11 @@ public class K_Means {
                 }
         }
 
+        /**
+         * @brief
+         * \pre
+         * \post
+         */
         public void initializeMeans(){
                 means = new Vector<Map<Integer, Float>>(k);
                 for (int i = 0; i < k; ++i) {
@@ -186,6 +215,14 @@ public class K_Means {
                 }
         }
 
+        /**
+         * @brief
+         * @param k
+         * @param newClusters
+         * @param newopinions
+         * \pre
+         * \post
+         */
         public void k_means(Integer k, Vector<Vector<Integer>> newClusters, Map<Integer, Map<Integer, Float>> newopinions){
                 this.k = k;
                 opinions = newopinions;
@@ -194,12 +231,23 @@ public class K_Means {
                 kAlg();
         }
 
+        /**
+         * @brief
+         * @param k
+         * \pre
+         * \post
+         */
         public void k_means(Integer k){
                 this.k = k;
                 initializeClustersMeans(k);
                 kAlg();
         }
 
+        /**
+         * @brief
+         * \pre
+         * \post
+         */
         public void kAlg(){
                 boolean cont = true;
                 while(cont){

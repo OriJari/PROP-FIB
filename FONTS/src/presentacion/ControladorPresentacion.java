@@ -112,6 +112,10 @@ public class ControladorPresentacion {
         return CD.list_valREC();
     }
 
+    public Float new_DCG(){
+        return CD.new_DCG();
+    }
+
     public List<Float> list_valSavedREC(int IDuser, int alg, String Date) {
         return CD.list_valSavedREC(IDuser, alg, Date);
     }
