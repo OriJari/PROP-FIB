@@ -10,6 +10,9 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.Vector;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 /**
  * @author Manel Piera Garrigosa
  */
@@ -32,19 +35,20 @@ public class CollaborativeFiltering {
     /** @brief Default builder.
      *
      * \pre <em>true</em>
-     * \post Creates a <em>collaborativeFiltering</em> object with <em>opinions</em> and <em>clusters</em> empty.
+     * \post Creates a <em>collaborativeFiltering</em> object with <em>opinions</em> ,  <em>unknown</em> and <em>clusters</em> empty and <em>bestK</em> = 0.
      */
     public CollaborativeFiltering(){
         opinions = new TreeMap<>();
         unknown = new TreeMap<>();
         clusters = new Vector<>();
+        bestK = 0;
     }
-    /** @brief Builder with defined <em>opinions</em> and <em>k</em>.
+    /** @brief Builder with defined <em>opinions</em>, <em>unknown</em>. It also sets the best <em>k</em> for the clusters.
      *
-     * @param opinions Map that represents the ratings that users have given about some items.
+     * @param opinions Map that represents the ratings that users have given about some items that are known.
+     * @param unknown Map that represents the ratings that users have given about some items that are unknown.
      *
-     *
-     * \pre <em>k</em> must be larger than 0 but smaller or equal than opinions.size().
+     * \pre opinions.size() > 10
      * \post Creates <em>collaborativeFiltering</em> object with <em>opinions</em> set to opinions and computes the k clusters of users.
      */
     public CollaborativeFiltering(Map<Integer, Map<Integer, Float>> opinions, Map<Integer, Map<Integer, Float>> unknown){
@@ -54,7 +58,7 @@ public class CollaborativeFiltering {
     }
 
     public void elbowtest(Map<Integer, Map<Integer, Float>> opinions){
-        int maxK = 10;
+        int maxK = min(10, opinions.size());
         Vector<Float> inertias = new Vector<>();
         K_Means Kmean = new K_Means(opinions);
         for(int k = 0; k < maxK; ++k){
@@ -155,12 +159,8 @@ public class CollaborativeFiltering {
     }
 
     public void delUserCluster(int ID){
-         boolean cont = true;
-        for(int i = 0; i < clusters.size() && cont; ++i){
-            if(clusters.get(i).contains(ID)){
+        for(int i = 0; i < clusters.size(); ++i){
                 clusters.get(i).remove(ID);
-                cont = false;
-            }
         }
     }
 
