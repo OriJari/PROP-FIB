@@ -1224,7 +1224,6 @@ public class VistaPrincipal {
         Vector<Integer> v = new Vector<>();
         for (int i = 0; i < l.size(); ++i) v.add(l.get(i));
         cUserid = new JComboBox(v);
-        cUserid.setEditable(true);
         cUserid.setBounds(285,250,150,30);
 
         gestUser.add(cUserid);
