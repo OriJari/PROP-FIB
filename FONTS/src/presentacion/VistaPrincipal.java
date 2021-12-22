@@ -42,16 +42,16 @@ public class VistaPrincipal {
     private  JButton deleteB = new JButton("Eliminar") ;
     private  JButton deleteBR = new JButton("Eliminar") ;
     private  JButton gRate = new JButton("Gestionar Ratings");
-    private  JComboBox cItemId;
-    private  JComboBox cUserid;
+    private  JComboBox cItemId = new JComboBox();
+    private  JComboBox cUserid = new JComboBox();
     private  JTextField tRate = new JTextField();
     private  int id_actual_user;
 
 
     //item
     private  JButton gesTag = new JButton("Gestionar Tags");
-    private  JComboBox TagsItems;
-    private  JComboBox citemid;
+    private  JComboBox TagsItems = new JComboBox();
+    private  JComboBox citemid = new JComboBox();
     private  JTextField tagmod = new JTextField();
     private  int id_actual;
 
@@ -96,7 +96,7 @@ public class VistaPrincipal {
     private JLabel titolCargaR = new JLabel("RECOMENDACIONES");
     private JButton back_carRm = new JButton("Volver");
     private JLabel frase1CR = new JLabel("Escoja la recomendacion guardada");
-    private JComboBox combo_rec;
+    private JComboBox combo_rec = new JComboBox();
     private JButton openB = new JButton("Open");
 
     //items recomanats
@@ -1110,7 +1110,7 @@ public class VistaPrincipal {
         Vector<String> v = new Vector<>();
         for (int i = 0; i < l.size(); ++i) v.add(l.get(i));
 
-        combo_rec = new JComboBox(v);
+        combo_rec.setModel(new DefaultComboBoxModel(v));
 
         combo_rec.setBounds(230,190,500,25);
 
@@ -1240,7 +1240,7 @@ public class VistaPrincipal {
         List<Integer> l = CP.list_user_gestionuser();
         Vector<Integer> v = new Vector<>();
         for (int i = 0; i < l.size(); ++i) v.add(l.get(i));
-        cUserid = new JComboBox(v);
+        cUserid.setModel(new DefaultComboBoxModel(v));
         cUserid.setBounds(285,250,150,30);
 
         gestUser.add(cUserid);
@@ -1309,7 +1309,7 @@ public class VistaPrincipal {
         List<Integer> l = CP.list_item();
         Vector<Integer> v = new Vector<>();
         for (int i = 0; i < l.size(); ++i) v.add(l.get(i));
-        cItemId = new JComboBox(v);
+        cItemId.setModel(new DefaultComboBoxModel(v));
         cItemId.setBounds(330,160,300,30);
 
         gestRate.add(cItemId);
@@ -1362,7 +1362,7 @@ public class VistaPrincipal {
         List<Integer> l = CP.list_item();
         Vector<Integer> v = new Vector<>();
         for (int i = 0; i < l.size(); ++i) v.add(l.get(i));
-        citemid = new JComboBox(v);
+        citemid.setModel(new DefaultComboBoxModel(v));
         citemid.setBounds(285,250,150,30);
         gestItem.add(citemid);
 
@@ -1428,7 +1428,7 @@ public class VistaPrincipal {
         List<String> l = CP.tag_list();
         Vector<String> v = new Vector<>();
         for (int i = 0; i < l.size(); ++i) v.add(l.get(i));
-        TagsItems = new JComboBox(v);
+        TagsItems.setModel(new DefaultComboBoxModel(v)));
         TagsItems.setBounds(330,160,300,30);
 
         gestTag.add(TagsItems);
