@@ -12,7 +12,7 @@ $(DESTI_CLASSES):
 class:
 	javac -d ${DESTI_CLASSES} ./FONTS/src/presentacion/*.java -d ${DESTI_CLASSES} ./FONTS/src/persistencia/ControladorPersistencia.java -d ${DESTI_CLASSES} ./FONTS/src/persistencia/preprocessat/*.java -d ${DESTI_CLASSES} ./FONTS/src/dominio/clases/algorithm/collaborativefiltering/*.java -d ${DESTI_CLASSES} ./FONTS/src/dominio/clases/algorithm/contentbasedflitering/*.java -d ${DESTI_CLASSES} ./FONTS/src/dominio/clases/recommendation/*.java -d ${DESTI_CLASSES} ./FONTS/src/dominio/clases/algorithm/k_means/*.java -d ${DESTI_CLASSES} ./FONTS/src/dominio/clases/algorithm/slopeone/*.java	-d ${DESTI_CLASSES} ./FONTS/src/dominio/clases/algorithm/hybrid/*.java -d ${DESTI_CLASSES} ./FONTS/src/dominio/clases/content/*.java  -d ${DESTI_CLASSES} ./FONTS/src/dominio/clases/evaluation/*.java -d ${DESTI_CLASSES} ./FONTS/src/dominio/clases/rating/*.java -d ${DESTI_CLASSES}  ./FONTS/src/dominio/controladores/ControladorDominio.java
 run: 
-	java -classpath ${DESTI_CLASSES} ./FONTS/src/presentacion/Main.java
+	java -cp ${DESTI_CLASSES} FONTS/src/presentacion/Main.java
 
 .PHONY: help
 help:
