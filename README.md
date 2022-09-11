@@ -1,12 +1,12 @@
+Treball de l'assignatura PROP de la FIB
+Q1 21-22
 
-##Integrants del grup
-- Miguel
-- Uri
-- Marc
-- Manel
+Professor: Borja Valles
 
-FONTS -> src 
-
-DOCS -> documentació de la entrega, diagrama uml, documentació drivers i testos 
-
-DATA -> CSVs
+Integrants del Grup:
+  -Marc Delgado
+  -Manel Piera
+  -Miguel Gutiérrez
+  -Oriol Martí
+  
+ Nota: 8.50
