@@ -3,10 +3,6 @@ Q1 21-22
 
 Professor: Borja Valles
 
-Integrants del Grup:
--Marc Delgado
--Manel Piera
--Miguel Gutiérrez
--Oriol Martí
+Integrants del Grup: Marc Delgado, Manel Piera, Miguel Gutiérrez i Oriol Martí
   
  Nota: 8.50
